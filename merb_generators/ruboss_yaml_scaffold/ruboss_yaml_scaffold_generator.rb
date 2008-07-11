@@ -14,7 +14,7 @@ class RubossYamlScaffoldGenerator < Merb::GeneratorBase
   def manifest
     record do |m|
       # Ensure appropriate folder(s) exists
-      m.directory 'some_folder'
+      #m.directory 'some_folder'
 
       # Create stubs
       # m.template "template.rb",  "some_file_after_erb.rb"
