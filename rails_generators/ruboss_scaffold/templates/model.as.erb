@@ -1,0 +1,45 @@
+package <%= base_package %>.models {
+<% if has_manies.length > 0 -%>
+  import org.ruboss.models.ModelsCollection;
+<% end -%>
+  import org.ruboss.models.RubossModel;
+  
+  [Resource(controller="<%= resource_controller_name %>")]
+  [Bindable]
+  public class <%= class_name %> extends RubossModel {
+    public static const LABEL:String = "<%= attributes[0].flex_name %>";
+    
+<% for attribute in attributes -%>
+<% if attribute.type == :datetime -%>
+    [DateTime]
+<% end -%>
+    public var <%= attribute.flex_name %>:<%= attribute.flex_type %>;
+
+<% end -%>
+<% for model in belongs_tos -%>
+    [BelongsTo]
+    public var <%= model.camelcase(:lower) %>:<%= model.camelcase %>;
+
+<% end -%>
+<% for model in has_ones -%>
+    [HasOne]
+    public var <%= model.camelcase(:lower) %>:<%= model.camelcase %>;
+    
+<% end -%>
+<% for model in has_manies -%>
+    [HasMany]
+    public var <%= model.camelcase(:lower) %>:ModelsCollection;
+    
+<% end -%>
+    public function <%= class_name %>(
+<% for arg in constructor_args -%>
+      <%= arg[:name] %>:<%= arg[:type] %> = <%= arg[:default] %><% if !(constructor_args.last == arg) %>,<% end -%> 
+<% end -%>
+    ) {
+      super(LABEL);
+<% for arg in constructor_args -%>
+      this.<%= arg[:name] %> = <%= arg[:name] %>;
+<% end -%>
+    }
+  }
+}
