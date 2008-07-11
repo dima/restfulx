@@ -1,5 +1,11 @@
 Description:
-  
-  
-Usage:
-  
+    Generates/updates the main Flex application controller, typically
+    app/flex/<yourappname>/controllers/<YourAppName>Controller.as, e.g.
+    app/flex/pomodo/controllers/PomodoController.as
+    
+    It pulls out all available models and commands from respective
+    folders and makes sure they'll be pulled into the Flex application
+    at runtime. Doesn't require any arguments or options.
+
+Examples:
+    `merb-gen ruboss_controller`

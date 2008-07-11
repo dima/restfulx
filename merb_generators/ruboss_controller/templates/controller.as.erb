@@ -1,0 +1,35 @@
+package <%= base_package %>.controllers {
+  import <%= base_package %>.models.*;
+  import <%= base_package %>.commands.*;
+	
+  import org.ruboss.Ruboss;
+  import org.ruboss.controllers.RubossCommandController;
+  import org.ruboss.utils.RubossUtils;
+
+  public class <%= command_controller_name %> extends RubossCommandController {
+    private static var controller:<%= command_controller_name %>;
+    
+    public static var models:Array = [<%= model_names %>]; /* Models */
+    
+    public function <%= command_controller_name %>(enforcer:SingletonEnforcer, extraServices:Array,
+      defaultServiceId:int = -1) {
+      super([<%= command_names %>] /* Commands */, 
+        models, extraServices, defaultServiceId);
+    }
+    
+    public static function get instance():<%= command_controller_name %> {
+      if (controller == null) initialize();
+      return controller;
+    }
+    
+    public static function initialize(extraServices:Array = null, defaultServiceId:int = -1,
+      airDatabaseName:String = null):void {
+      if (!RubossUtils.isEmpty(airDatabaseName)) Ruboss.airDatabaseName = airDatabaseName;
+      controller = new <%= command_controller_name %>(new SingletonEnforcer, extraServices,
+        defaultServiceId);
+      Ruboss.commands = controller;
+    }
+  }
+}
+
+class SingletonEnforcer {}

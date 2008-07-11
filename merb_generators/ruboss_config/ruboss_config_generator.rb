@@ -1,53 +1,135 @@
+################################################################################
+# Copyright 2008, Ruboss Technology Corporation.
+#
+# This software is dual-licensed under both the terms of the Ruboss Commercial
+# License v1 (RCL v1) as published by Ruboss Technology Corporation and under
+# the terms of the GNU General Public License v3 (GPL v3) as published by the
+# Free Software Foundation.
+#
+# Both the RCL v1 (rcl-1.0.txt) and the GPL v3 (gpl-3.0.txt) are included in
+# the source code. If you have purchased a commercial license then only the
+# RCL v1 applies; otherwise, only the GPL v3 applies. To learn more or to buy a
+# commercial license, please go to http://ruboss.com.
+################################################################################
+require 'open-uri'
+require 'fileutils'
+require 'ruboss_on_ruby/version'
+require 'ruboss_on_ruby/configuration'
+
 class RubossConfigGenerator < Merb::GeneratorBase
+  include RubossOnRuby::Configuration
 
-  default_options :author => nil
-
-  attr_reader :name
+  default_options :author => nil, :app_only => false, :air_config => false, :skip_framework => false
+    
+  attr_reader :project_name, 
+              :flex_project_name, 
+              :base_package, 
+              :base_folder, 
+              :command_controller_name, 
+              :component_names, 
+              :application_tag,
+              :use_air
 
   def initialize(runtime_args, runtime_options = {})
+    runtime_args.push ""
     super
-    usage if args.empty?
-    @name = args.shift
-    extract_options
+    @name = 'ruboss_config'
+    
+    @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder = extract_names
+    
+    # if we updating main file only we probably want to maintain the type of project it is
+    if options[:app_only]
+      project_file_name = APP_ROOT + '/.project'
+      if File.exist?(project_file_name)
+        puts "Cannot combine -m (--main-app) and -a (--air) flags at the same time for an existing application.\n" << 
+          'If you want to convert to AIR, remove -m flag.' if options[:air_config]
+        @use_air = true if File.read(project_file_name) =~/com.adobe.flexbuilder.apollo.apollobuilder/m
+      else
+        puts "Flex Builder project file doesn't exist. You should run 'rconfig' with -a (--air) or no arguments " <<
+          "first to generate primary project structure."
+        exit 0;
+      end
+    else
+      @use_air = options[:air_config]
+    end
+                
+    if @use_air
+      @application_tag = 'WindowedApplication'
+    else
+      @application_tag = 'Application'
+    end
+        
+    @component_names = []
+    if File.exists?("app/flex/#{base_folder}/components/generated")
+      @component_names = list_mxml_files("app/flex/#{base_folder}/components/generated")
+    end
   end
 
   def manifest
     record do |m|
-      # Ensure appropriate folder(s) exists
-      m.directory 'some_folder'
-
-      # Create stubs
-      # m.template "template.rb",  "some_file_after_erb.rb"
-      # m.template_copy_each ["template.rb", "template2.rb"]
-      # m.file     "file",         "some_file_copied"
-      # m.file_copy_each ["path/to/file", "path/to/file2"]
+      if !options[:app_only]
+        m.directory 'public/bin'
+        m.directory 'public/javascripts'
+        
+        m.file 'flex.properties', '.flexProperties'
+        if @use_air
+          m.template 'actionscriptair.properties', '.actionScriptProperties'
+          m.template 'projectair.properties', '.project'
+        else
+          m.template 'actionscript.properties', '.actionScriptProperties'
+          m.template 'project.properties', '.project'
+        end
+  
+        m.directory 'html-template/history'      
+        %w(index.template.html AC_OETags.js playerProductInstall.swf).each do |file|
+          m.file "html-template/#{file}", "html-template/#{file}"
+        end
+        
+        %w(history.css history.js historyFrame.html).each do |file|
+          m.file "html-template/history/#{file}", "html-template/history/#{file}"
+        end
+        
+        %w(components controllers commands models events).each do |dir|
+          m.directory "app/flex/#{base_folder}/#{dir}"
+        end
+        
+        m.directory "app/flex/#{base_folder}/components/generated"
+                
+        framework_release = RubossOnRuby::RUBOSS_FRAMEWORK_VERSION
+        framework_distribution_url = "http://ruboss.com/releases/ruboss-#{framework_release}.swc"
+        framework_destination_file = "lib/ruboss-#{framework_release}.swc"
+        
+        if !options[:skip_framework] && !File.exist?(framework_destination_file)
+          FileUtils.mkdir('lib') unless File.directory?('lib')
+          puts "fetching #{framework_release} framework binary from: #{framework_distribution_url} ..."
+          open(framework_destination_file, "wb").write(open(framework_distribution_url).read)
+          puts "done. saved to #{framework_destination_file}"
+        end
+  
+        m.file 'swfobject.js', 'public/javascripts/swfobject.js'
+        m.file 'expressInstall.swf', 'public/expressInstall.swf'
+        m.template 'index.html.erb', 'app/views/layout/application.html.erb'
+        
+        m.dependency 'ruboss_controller', @args
+      end
+      m.template 'mainapp.mxml', File.join('app/flex', "#{project_name}.mxml")
+      m.template 'mainair-app.xml', File.join('app/flex', "#{project_name}-app.xml") if @use_air
     end
   end
 
   protected
+    def add_options!(opt)
+      opt.separator ''
+      opt.separator 'Options:'
+      opt.on("-m", "--app-only", "Only generate the main Flex/AIR application file.", 
+        "Default: false") { |v| options[:app_only] = v }
+      opt.on("-a", "--air", "Configure AIR project instead of Flex. Flex is default.", 
+        "Default: false") { |v| options[:air_config] = v }
+      opt.on("-s", "--skip-framework", "Don't fetch the latest framework binary. You'll have to link/build the framework yourself.", 
+        "Default: false") { |v| options[:skip_framework] = v }
+    end
+
     def banner
-      <<-EOS
-Creates a ...
-
-USAGE: #{$0} #{spec.name} name
-EOS
-    end
-
-    def add_options!(opts)
-      # opts.separator ''
-      # opts.separator 'Options:'
-      # For each option below, place the default
-      # at the top of the file next to "default_options"
-      # opts.on("-a", "--author=\"Your Name\"", String,
-      #         "Some comment about this option",
-      #         "Default: none") { |options[:author]| }
-      # opts.on("-v", "--version", "Show the #{File.basename($0)} version number and quit.")
-    end
-
-    def extract_options
-      # for each option, extract it into a local variable (and create an "attr_reader :author" at the top)
-      # Templates can access these value via the attr_reader-generated methods, but not the
-      # raw instance variable value.
-      # @author = options[:author]
+      "Usage: #{$0} #{spec.name}" 
     end
 end
