@@ -34,7 +34,8 @@ else
       # so that we can have handling for :fxml option and write code like
       # format.fxml  { render :fxml => @projects }
       def render(options = nil, extra_options = {}, &block)
-        if xml = options[:fxml]
+        if options and options[:fxml]
+          xml = options[:fxml]
           response.content_type ||= Mime::XML
           render_for_text(xml.respond_to?(:to_fxml) ? xml.to_fxml : xml, options[:status])
         else
