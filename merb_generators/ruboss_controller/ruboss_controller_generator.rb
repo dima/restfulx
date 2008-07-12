@@ -1,7 +1,5 @@
 class RubossControllerGenerator < Merb::GeneratorBase
   include RubossOnRuby::Configuration
-
-  default_options :author => nil
   
   attr_reader :project_name, 
               :flex_project_name, 
@@ -14,7 +12,6 @@ class RubossControllerGenerator < Merb::GeneratorBase
   def initialize(runtime_args, runtime_options = {})
     runtime_args.push ""
     super
-    @name = 'ruboss_controller'
     @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder = extract_names
     
     @model_names = list_as_files("app/flex/#{base_folder}/models")

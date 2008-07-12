@@ -32,8 +32,17 @@ merb_generators/ruboss_config/templates/swfobject.js
 merb_generators/ruboss_controller/USAGE
 merb_generators/ruboss_controller/ruboss_controller_generator.rb
 merb_generators/ruboss_controller/templates/controller.as.erb
+merb_generators/ruboss_resource_controller/USAGE
+merb_generators/ruboss_resource_controller/ruboss_resource_controller_generator.rb
+merb_generators/ruboss_resource_controller/templates/app/controllers/%controller_file_name%.rb
+merb_generators/ruboss_resource_controller/templates/app/helpers/%controller_file_name%_helper.rb
 merb_generators/ruboss_scaffold/USAGE
 merb_generators/ruboss_scaffold/ruboss_scaffold_generator.rb
+merb_generators/ruboss_scaffold/templates/component.mxml.erb
+merb_generators/ruboss_scaffold/templates/fixtures.yml.erb
+merb_generators/ruboss_scaffold/templates/migration.rb.erb
+merb_generators/ruboss_scaffold/templates/model.as.erb
+merb_generators/ruboss_scaffold/templates/model.rb.erb
 merb_generators/ruboss_yaml_scaffold/USAGE
 merb_generators/ruboss_yaml_scaffold/ruboss_yaml_scaffold_generator.rb
 rails_generators/ruboss_config/USAGE

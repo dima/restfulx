@@ -171,6 +171,7 @@ class RubossScaffoldGenerator < Rails::Generator::NamedBase
       end
       
       unless options[:skip_migration]
+        m.directory 'schema/migration'
         m.migration_template 'migration.rb.erb', 'db/migrate', :assigns => {
           :migration_name => "Create#{class_name.pluralize.gsub(/::/, '')}"
         }, :migration_file_name => "create_#{file_path.gsub(/\//, '_').pluralize}" unless options[:flex_only]

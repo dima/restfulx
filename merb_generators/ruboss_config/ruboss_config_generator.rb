@@ -19,7 +19,7 @@ require 'ruboss_on_ruby/configuration'
 class RubossConfigGenerator < Merb::GeneratorBase
   include RubossOnRuby::Configuration
 
-  default_options :author => nil, :app_only => false, :air_config => false, :skip_framework => false
+  default_options :app_only => false, :air_config => false, :skip_framework => false
     
   attr_reader :project_name, 
               :flex_project_name, 
@@ -33,7 +33,6 @@ class RubossConfigGenerator < Merb::GeneratorBase
   def initialize(runtime_args, runtime_options = {})
     runtime_args.push ""
     super
-    @name = 'ruboss_config'
     
     @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder = extract_names
     
@@ -70,6 +69,7 @@ class RubossConfigGenerator < Merb::GeneratorBase
       if !options[:app_only]
         m.directory 'public/bin'
         m.directory 'public/javascripts'
+        m.directory 'schema'
         
         m.file 'flex.properties', '.flexProperties'
         if @use_air
