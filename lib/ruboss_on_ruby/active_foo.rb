@@ -96,7 +96,7 @@ module ActiveRecord
               options[:builder].error("message" => msg)
             else
               fullmsg = @base.class.human_attribute_name(attr) + ' ' + msg
-              options[:builder].error("field" => attr, "message" => fullmsg)
+              options[:builder].error("field" => attr.camelcase(:lower), "message" => fullmsg)
             end
           end
         end
