@@ -21,11 +21,14 @@
       }
     ]]>
   </mx:Script>
-  <mx:TabNavigator width="100%" height="100%">
+  <mx:ApplicationControlBar dock="true" width="100%">
+    <mx:LinkBar dataProvider="{mainViewStack}"/>
+  </mx:ApplicationControlBar>
+  <mx:ViewStack id="mainViewStack" width="100%" height="100%">
     <!-- For a simple demo, put all the components here. -->
 <% for component in component_names -%>
     <generated:<%= component %>/>
 <% end -%>
-  </mx:TabNavigator>
+  </mx:ViewStack>
 </mx:<%= application_tag %>>
 
