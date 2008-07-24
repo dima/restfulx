@@ -4,7 +4,6 @@ require 'action_controller'
 require 'active_support'
 require 'active_record'
 require File.join(File.dirname(__FILE__), '..', 'lib', 'ruboss_on_ruby', 'active_foo')
-# require File.join(File.dirname(__FILE__), '..', 'init')
 
 class ActiveFooTest < Test::Unit::TestCase
 
