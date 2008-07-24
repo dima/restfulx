@@ -7,8 +7,12 @@ package <%= base_package %>.models {
   [Resource(controller="<%= resource_controller_name %>")]
   [Bindable]
   public class <%= class_name %> extends RubossModel {
+<% if attributes && !attributes.empty? && attributes[0].flex_type != "Boolean" -%>
     public static const LABEL:String = "<%= attributes[0].flex_name %>";
-    
+<% else -%>
+    public static const LABEL:String = "id";
+<% end -%>
+
 <% for attribute in attributes -%>
 <% if attribute.type == :datetime -%>
     [DateTime]

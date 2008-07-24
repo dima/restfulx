@@ -1,4 +1,6 @@
-<% unless attributes.empty? -%>
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+<% unless attributes.empty? && belongs_tos.empty? -%>
 <%= class_name.underscore -%>_one:
 <% for attribute in attributes -%>
   <%= attribute.name %>: <%= attribute.default("#{class_name}1") %>
