@@ -11,7 +11,7 @@ class ClassyEmptyArray < Array
   def initialize(class_name)
     @class_name = class_name
   end
-  def to_fxml
+  def to_fxml(*args) # You need the *args so that it doesn't fail if there are :include or :methods params
     empty? ? "<#{@class_name} type=\"array\"/>" : super.to_fxml
   end
 end
