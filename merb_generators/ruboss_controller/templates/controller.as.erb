@@ -3,10 +3,10 @@ package <%= base_package %>.controllers {
   import <%= base_package %>.commands.*;
 	
   import org.ruboss.Ruboss;
-  import org.ruboss.controllers.RubossCommandController;
+  import org.ruboss.controllers.RubossCommandsController;
   import org.ruboss.utils.RubossUtils;
 
-  public class <%= command_controller_name %> extends RubossCommandController {
+  public class <%= command_controller_name %> extends RubossCommandsController {
     private static var controller:<%= command_controller_name %>;
     
     public static var models:Array = [<%= model_names %>]; /* Models */
