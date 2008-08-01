@@ -12,7 +12,7 @@ module RubossOnRuby
     APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : Merb.root
 
     def extract_names
-      project_name = APP_ROOT.split("/").last.capitalize
+      project_name = APP_ROOT.split("/").last.camelcase
       project_name_downcase = project_name.downcase
 
       begin      
