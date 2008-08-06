@@ -4,7 +4,7 @@ package <%= base_package %>.models {
 <% end -%>
   import org.ruboss.models.RubossModel;
   
-  [Resource(controller="<%= resource_controller_name %>")]
+  [Resource(name="<%= resource_controller_name %>")]
   [Bindable]
   public class <%= class_name %> extends RubossModel {
 <% if attributes && !attributes.empty? && attributes[0].flex_type != "Boolean" -%>
