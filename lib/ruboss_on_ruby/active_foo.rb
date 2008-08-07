@@ -50,6 +50,15 @@ module ActiveRecord
         end
         result
       end
+      
+      def default_fxml_includes(*args)
+        includes = *args.dup
+        module_eval <<-END
+          def self.default_fxml_include_param
+            return [#{includes.inspect}].flatten
+          end
+        END
+      end
     end
   end
 
@@ -58,6 +67,7 @@ module ActiveRecord
       options.merge!(:dasherize => false)
       default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at]
       options[:except] = (options[:except] ? options[:except] + default_except : default_except)
+      options[:include] = [options[:include] || []].flatten + self.class.default_fxml_include_param if self.class.respond_to?(:default_fxml_include_param)
       to_xml(options)
     end
   end
