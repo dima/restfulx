@@ -1,11 +1,11 @@
 #ActiveRecord+ActiveSupport specific patches
 
 # Flex friendly date, datetime formats
-ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(:flex => "%Y/%m/%d")
-ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:flex => "%Y/%m/%d %H:%M:%S")
+ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(:flex_date => "%Y/%m/%d")
+ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:flex_datetime => "%Y/%m/%d %H:%M:%S")
 
-Hash::XML_FORMATTING['date'] = Proc.new { |date| date.to_s(:flex) }
-Hash::XML_FORMATTING['datetime'] = Proc.new { |datetime| datetime.to_s(:flex) }
+Hash::XML_FORMATTING['date'] = Proc.new { |date| date.to_s(:flex_date) }
+Hash::XML_FORMATTING['datetime'] = Proc.new { |datetime| datetime.to_s(:flex_datetime) }
 
 class ClassyEmptyArray < Array
   def initialize(class_name)
@@ -50,11 +50,20 @@ module ActiveRecord
         end
         result
       end
+
+      def default_fxml_methods(*args)
+        methods = *args.dup
+        module_eval <<-END 
+            def self.default_fxml_methods_array
+              return [#{methods.inspect}].flatten
+            end
+          END
+      end
       
       def default_fxml_includes(*args)
         includes = *args.dup
         module_eval <<-END
-          def self.default_fxml_include_param
+          def self.default_fxml_include_params
             return [#{includes.inspect}].flatten
           end
         END
@@ -67,7 +76,8 @@ module ActiveRecord
       options.merge!(:dasherize => false)
       default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at]
       options[:except] = (options[:except] ? options[:except] + default_except : default_except)
-      options[:include] = [options[:include] || []].flatten + self.class.default_fxml_include_param if self.class.respond_to?(:default_fxml_include_param)
+      options[:methods] = [options[:methods] || []].flatten + self.class.default_fxml_methods_array if self.class.respond_to?(:default_fxml_methods_array)      
+      options[:include] = [options[:include] || []].flatten + self.class.default_fxml_include_params if self.class.respond_to?(:default_fxml_include_params)
       to_xml(options)
     end
   end
