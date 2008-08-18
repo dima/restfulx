@@ -11,13 +11,7 @@ class RubossYamlScaffoldGenerator < Merb::GeneratorBase
 
   def extract_attrs(line, attrs)
     attrs.each do |key,value|
-      if key =~ /\*$/
-        #If the key ends in *, it's the label field, so remove
-        #the * from the key name and make this the first argument
-        #on the line, since that's the convention used by the
-        #rscaffold_generator.
-        line = "#{key[0..-2]}:#{value}" + line
-      elsif value.class == Array
+      if value.class == Array
         line << " #{key}:#{value.join(',')}"
       else
         line << " #{key}:#{value}"
@@ -46,7 +40,7 @@ class RubossYamlScaffoldGenerator < Merb::GeneratorBase
         puts 'done ...'
         sleep 1
       end
-      config_args = ['--app-only']
+      config_args = ['--main-only']
       config_args << '--skip-framework' if ARGV.include?('skipframework')
       Merb::ComponentGenerator.run "ruboss_config", config_args, "ruboss_config", "generate"
     end

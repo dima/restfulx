@@ -31,16 +31,16 @@ class RubossConfigGenerator < Rails::Generator::Base
     super
     @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder = extract_names
     
-    # if we updating main file only we probably want to maintain the type of project it is
-    if options[:app_only]
+    # if we are updating main file only we probably want to maintain the type of project it is
+    if options[:main_only]
       project_file_name = APP_ROOT + '/.project'
       if File.exist?(project_file_name)
         puts "Cannot combine -m (--main-app) and -a (--air) flags at the same time for an existing application.\n" << 
           'If you want to convert to AIR, remove -m flag.' if options[:air_config]
         @use_air = true if File.read(project_file_name) =~/com.adobe.flexbuilder.apollo.apollobuilder/m
       else
-        puts "Flex Builder project file doesn't exist. You should run 'rconfig' with -a (--air) or no arguments " <<
-          "first to generate primary project structure."
+        puts "Flex Builder project file doesn't exist. You should run 'ruboss_config' with -a (--air) option " <<
+         "or no arguments first to generate primary project structure."
         exit 0;
       end
     else
@@ -61,7 +61,7 @@ class RubossConfigGenerator < Rails::Generator::Base
 
   def manifest
     record do |m|
-      if !options[:app_only]
+      if !options[:main_only]
         m.file 'ruboss_tasks.rake', 'lib/tasks/ruboss_tasks.rake'
         m.file 'flex.properties', '.flexProperties'
         if @use_air
@@ -112,8 +112,8 @@ class RubossConfigGenerator < Rails::Generator::Base
     def add_options!(opt)
       opt.separator ''
       opt.separator 'Options:'
-      opt.on("-m", "--app-only", "Only generate the main Flex/AIR application file.", 
-        "Default: false") { |v| options[:app_only] = v }
+      opt.on("-m", "--main-only", "Only generate the main Flex/AIR application file.", 
+        "Default: false") { |v| options[:main_only] = v }
       opt.on("-a", "--air", "Configure AIR project instead of Flex. Flex is default.", 
         "Default: false") { |v| options[:air_config] = v }
       opt.on("-s", "--skip-framework", "Don't fetch the latest framework binary. You'll have to link/build the framework yourself.", 

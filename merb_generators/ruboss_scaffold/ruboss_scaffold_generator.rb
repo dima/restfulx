@@ -177,18 +177,6 @@ class RubossScaffoldGenerator < Merb::GeneratorBase
       end
     end
 
-    def constructor_args
-      @constructor_args = @attributes.map do |attribute|
-        { :name => attribute.flex_name, :type => attribute.flex_type, :default => attribute.flex_default }
-      end
-      [@belongs_tos, @has_ones].each do |set|
-        @constructor_args.concat(set.map do |elm|
-          { :name => elm.camelcase(:lower), :type => elm.camelcase, :default => 'null' }
-        end)
-      end      
-      @constructor_args
-    end
-
     def add_options!(opt)
       opt.separator ''
       opt.separator 'Options:'

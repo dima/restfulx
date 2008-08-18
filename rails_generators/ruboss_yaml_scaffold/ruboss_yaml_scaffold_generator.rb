@@ -4,13 +4,7 @@ require 'ruboss_on_ruby/configuration'
 class RubossYamlScaffoldGenerator < Rails::Generator::Base
   def extract_attrs(line, attrs)
     attrs.each do |key,value|
-      if key =~ /\*$/
-        #If the key ends in *, it's the label field, so remove
-        #the * from the key name and make this the first argument
-        #on the line, since that's the convention used by the
-        #rscaffold_generator.
-        line = "#{key[0..-2]}:#{value}" + line
-      elsif value.class == Array
+      if value.class == Array
         line << " #{key}:#{value.join(',')}"
       else
         line << " #{key}:#{value}"
@@ -34,11 +28,13 @@ class RubossYamlScaffoldGenerator < Rails::Generator::Base
         end
         line = model[0].camelcase + " " + line
         puts 'running: ruboss_scaffold ' + line
-        Rails::Generator::Scripts::Generate.new.run(["ruboss_scaffold"] + line.split, :flex_only => ARGV.include?('flexonly'))
+        Rails::Generator::Scripts::Generate.new.run(["ruboss_scaffold"] + line.split, 
+          :flex_only => ARGV.include?('flexonly'))
         puts 'done ...'
         sleep 1
       end
-      Rails::Generator::Scripts::Generate.new.run(["ruboss_config"], :app_only => true, :skip_framework => ARGV.include?('skipframework'))
+      Rails::Generator::Scripts::Generate.new.run(["ruboss_config"], :main_only => true, 
+        :skip_framework => ARGV.include?('skipframework'))
     end
   end
 

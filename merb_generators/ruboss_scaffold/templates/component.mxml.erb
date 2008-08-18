@@ -18,7 +18,7 @@
   }
 
   private function save<%= class_name %>():void {
-    if (isNaN(_<%= class_name.downcase_first_letter %>.id) || _<%= class_name.downcase_first_letter %>.id == 0) {
+    if (!_<%= class_name.downcase_first_letter %>.id) {
       create<%= class_name %>();
     } else {
       update<%= class_name %>();
@@ -34,7 +34,7 @@
     <%= class_name.downcase_first_letter %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>TextInput.text;
 <% elsif attribute.type == :text -%>
     <%= class_name.downcase_first_letter %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>TextArea.text;
-<% elsif attribute.type == :datetime -%>
+<% elsif attribute.type == :datetime || attribute.type == :time -%>
     <%= class_name.downcase_first_letter %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>DateTimeTextInput.date;
 <% elsif attribute.type == :date -%>
     <%= class_name.downcase_first_letter %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>DateField.selectedDate;
@@ -57,7 +57,7 @@
     _<%= class_name.downcase_first_letter %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>TextInput.text;
 <% elsif attribute.type == :text -%>
     _<%= class_name.downcase_first_letter %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>TextArea.text;
-<% elsif attribute.type == :datetime -%>
+<% elsif attribute.type == :datetime || attribute.type == :time -%>
     _<%= class_name.downcase_first_letter %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>DateTimeTextInput.date;
 <% elsif attribute.type == :date -%>
     _<%= class_name.downcase_first_letter %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>DateField.selectedDate;
@@ -119,7 +119,7 @@
         <mx:TextInput id="<%= attribute.flex_name %>TextInput" width="100%" text="{_<%= class_name.downcase_first_letter %>.<%= attribute.flex_name %>}"/>
 <% elsif attribute.type == :text -%>
         <mx:TextArea id="<%= attribute.flex_name %>TextArea" width="100%" height="200" text="{_<%= class_name.downcase_first_letter %>.<%= attribute.flex_name %>}"/>
-<% elsif attribute.type == :datetime -%>
+<% elsif attribute.type == :datetime || attribute.type == :time -%>
         <rcomponents:DateTimeTextInput id="<%= attribute.flex_name %>DateTimeTextInput" width="200" date="{_<%= class_name.downcase_first_letter %>.<%= attribute.flex_name %>}"/>
 <% elsif attribute.type == :date -%>
         <mx:DateField id="<%= attribute.flex_name %>DateField" selectedDate="{_<%= class_name.downcase_first_letter %>.<%= attribute.flex_name %>}"/>

@@ -14,7 +14,7 @@ package <%= base_package %>.models {
 <% end -%>
 
 <% for attribute in attributes -%>
-<% if attribute.type == :datetime -%>
+<% if attribute.type == :datetime || attribute.type == :time -%>
     [DateTime]
 <% end -%>
     public var <%= attribute.flex_name %>:<%= attribute.flex_type %>;
@@ -35,15 +35,8 @@ package <%= base_package %>.models {
     public var <%= model.camelcase(:lower) %>:ModelsCollection;
     
 <% end -%>
-    public function <%= class_name %>(
-<% for arg in constructor_args -%>
-      <%= arg[:name] %>:<%= arg[:type] %> = <%= arg[:default] %><% if !(constructor_args.last == arg) %>,<% end -%> 
-<% end -%>
-    ) {
+    public function <%= class_name %>() {
       super(LABEL);
-<% for arg in constructor_args -%>
-      this.<%= arg[:name] %> = <%= arg[:name] %>;
-<% end -%>
     }
   }
 }

@@ -51,6 +51,7 @@ module ActiveRecord
         result
       end
 
+      # TODO: this doesn't work with hash based to_fxml(:include) options, only array based
       def default_fxml_methods(*args)
         methods = *args.dup
         module_eval <<-END 

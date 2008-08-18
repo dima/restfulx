@@ -4,11 +4,6 @@
 # Merb specific handling
 # make sure we're running inside Merb
 if defined?(Merb::Plugins)
-  # Merb gives you a Merb::Plugins.config hash...feel free to put your stuff in your piece of it
-  Merb::Plugins.config[:ruboss_merb_integration] = {
-    #:chickens => false
-  }
-
   Merb::BootLoader.before_app_loads do
     Merb.add_mime_type(:fxml,  :to_fxml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
 
