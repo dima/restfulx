@@ -18,10 +18,10 @@
   }
 
   private function save<%= class_name %>():void {
-    if (!_<%= class_name.downcase_first_letter %>.id) {
-      create<%= class_name %>();
-    } else {
+    if (_<%= class_name.downcase_first_letter %>.id) {
       update<%= class_name %>();
+    } else {
+      create<%= class_name %>();
     }
   }
   
