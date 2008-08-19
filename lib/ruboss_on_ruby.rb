@@ -14,7 +14,7 @@ if defined?(Merb::Plugins)
   
   # TODO: can we find out if use_orm :activerecord is on and only then load active record specific tasks?
   Merb::Plugins.add_rakefiles "ruboss_on_ruby/tasks", "ruboss_on_ruby/active_record_tasks"  
-else  
+elsif defined?(ActionController::Base)
   # if we are not running in Merb, we've got to be running in Rails
   Mime::Type.register_alias "application/xml", :fxml
 
