@@ -78,7 +78,6 @@ rails_generators/ruboss_scaffold/templates/model.rb.erb
 rails_generators/ruboss_yaml_scaffold/USAGE
 rails_generators/ruboss_yaml_scaffold/ruboss_yaml_scaffold_generator.rb
 rcl-1.0.txt
-ruboss_on_ruby.gemspec
 script/console
 script/destroy
 script/generate
@@ -87,6 +86,7 @@ setup.rb
 tasks/deployment.rake
 tasks/environment.rake
 tasks/website.rake
+test/active_foo_test.rb
 test/test_generator_helper.rb
 test/test_helper.rb
 test/test_ruboss_config_generator.rb

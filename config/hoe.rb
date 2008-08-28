@@ -4,16 +4,16 @@ AUTHOR = 'Dima Berastau'  # can also be an array of Authors
 EMAIL = "dima@ruboss.com"
 DESCRIPTION = "Ruboss Framework Integration Support for Rails 2.+ and Merb 0.9.3+"
 GEM_NAME = 'ruboss_on_ruby' # what ppl will type to install your gem
-RUBYFORGE_PROJECT = 'ruboss_on_ruby' # The unix name for your project
+RUBYFORGE_PROJECT = 'rubossonruby' # The unix name for your project
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 DOWNLOAD_PATH = "http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}"
 EXTRA_DEPENDENCIES = [
-#  ['activesupport', '>= 1.3.1']
+#  ['activesupport', '>= 2.0.0']
 ]    # An array of rubygem dependencies [name, version]
 
 @config_file = "~/.rubyforge/user-config.yml"
 @config = nil
-RUBYFORGE_USERNAME = "unknown"
+RUBYFORGE_USERNAME = "dberastau"
 def rubyforge_username
   unless @config
     begin
@@ -66,7 +66,8 @@ $hoe = Hoe.new(GEM_NAME, VERS) do |p|
     #p.spec_extras = {}    # A hash of extra values to set in the gemspec.
   end
 
-#CHANGES = $hoe.paragraphs_of('History.txt', 0..1).join("\\n\\n")
-PATH    = (RUBYFORGE_PROJECT == GEM_NAME) ? RUBYFORGE_PROJECT : "#{RUBYFORGE_PROJECT}/#{GEM_NAME}"
+CHANGES = $hoe.paragraphs_of('History.txt', 0..1).join("\\n\\n")
+#PATH    = (RUBYFORGE_PROJECT == GEM_NAME) ? RUBYFORGE_PROJECT : "#{RUBYFORGE_PROJECT}/#{GEM_NAME}"
+PATH = RUBYFORGE_PROJECT
 $hoe.remote_rdoc_dir = File.join(PATH.gsub(/^#{RUBYFORGE_PROJECT}\/?/,''), 'rdoc')
 $hoe.rsync_args = '-av --delete --ignore-errors'

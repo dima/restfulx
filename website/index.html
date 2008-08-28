@@ -1,11 +1,69 @@
-<html>
-	<head>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>ruboss_on_ruby</title>
-		
-	</head>
-	<body id="body">
-		<p>This page has not yet been created for RubyGem <code>ruboss_on_ruby</code></p>
-		<p>To the developer: To generate it, update website/index.txt and run the rake task <code>website</code> to generate this <code>index.html</code> file.</p>
-	</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <link rel="stylesheet" href="stylesheets/screen.css" type="text/css" media="screen" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>
+      ruboss_on_ruby
+  </title>
+  <script src="javascripts/rounded_corners_lite.inc.js" type="text/javascript"></script>
+<style>
+
+</style>
+  <script type="text/javascript">
+    window.onload = function() {
+      settings = {
+          tl: { radius: 10 },
+          tr: { radius: 10 },
+          bl: { radius: 10 },
+          br: { radius: 10 },
+          antiAlias: true,
+          autoPad: true,
+          validTags: ["div"]
+      }
+      var versionBox = new curvyCorners(settings, document.getElementById("version"));
+      versionBox.applyCornersToAll();
+    }
+  </script>
+</head>
+<body>
+<div id="main">
+
+    <h1>ruboss_on_ruby</h1>
+    <div id="version" class="clickable" onclick='document.location = "http://rubyforge.org/projects/ruboss_on_ruby"; return false'>
+      <p>Get Version</p>
+      <a href="http://rubyforge.org/projects/ruboss_on_ruby" class="numbers">1.0.1</a>
+    </div>
+    <h2>What</h2>
+<h2>Installing</h2>
+<p><pre class='syntax'><span class="ident">sudo</span> <span class="ident">gem</span> <span class="ident">install</span> <span class="ident">ruboss_on_ruby</span></pre></p>
+<h2>The basics</h2>
+<h2>Demonstration of usage</h2>
+<h2>Forum</h2>
+<p><a href="http://groups.google.com/group/ruboss-framework">http://groups.google.com/group/ruboss-framework</a></p>
+<h2>How to submit patches</h2>
+<p>Read the <a href="http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/">8 steps for fixing other people&#8217;s code</a> and for section <a href="http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8b-google-groups">8b: Submit patch to Google Groups</a>, use the Google Group above.</p>
+<p>You can fetch the source from either:</p>
+<ul>
+	<li>github: <a href="http://github.com/dima/ruboss_on_ruby/tree/master">http://github.com/dima/ruboss_on_ruby/tree/master</a></li>
+</ul>
+<pre>git clone git://github.com/GITHUB_USERNAME/ruboss_on_ruby.git</pre>
+<h3>Build and test instructions</h3>
+<pre>cd ruboss_on_ruby
+rake test
+rake install_gem</pre>
+<h2>License</h2>
+<p>This code is free to use under the terms of the GPLv3 license.</p>
+<h2>Contact</h2>
+<p>Comments are welcome. Send an email to <a href="mailto:dima@ruboss.com">Dima Berastau</a> or via the <a href="http://groups.google.com/group/ruboss-framework">forum</a></p>
+    <p class="coda">
+      <a href="FIXME email">FIXME full name</a>, 27th August 2008<br>
+      Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
+    </p>
+</div>
+
+<!-- insert site tracking codes here, like Google Urchin -->
+
+</body>
 </html>

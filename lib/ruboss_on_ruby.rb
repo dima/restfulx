@@ -24,12 +24,12 @@ elsif defined?(ActionController::Base)
 
   module ActionController
     class Base
-      alias_method :old_render, :render
+      alias_method :old_render, :render unless method_defined?(:old_render)
 
       # so that we can have handling for :fxml option and write code like
       # format.fxml  { render :fxml => @projects }
       def render(options = nil, extra_options = {}, &block)
-        if options and options[:fxml]
+        if options && options[:fxml]
           xml = options[:fxml]
           response.content_type ||= Mime::XML
           render_for_text(xml.respond_to?(:to_fxml) ? xml.to_fxml : xml, options[:status])
