@@ -64,6 +64,7 @@ class RubossConfigGenerator < Rails::Generator::Base
       if !options[:main_only]
         m.file 'ruboss_tasks.rake', 'lib/tasks/ruboss_tasks.rake'
         m.file 'flex.properties', '.flexProperties'
+        m.file 'ruboss.yml', 'config/ruboss.yml'
         if @use_air
           m.template 'actionscriptair.properties', '.actionScriptProperties'
           m.template 'projectair.properties', '.project'

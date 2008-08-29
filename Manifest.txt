@@ -62,6 +62,7 @@ rails_generators/ruboss_config/templates/mainair-app.xml
 rails_generators/ruboss_config/templates/mainapp.mxml
 rails_generators/ruboss_config/templates/project.properties
 rails_generators/ruboss_config/templates/projectair.properties
+rails_generators/ruboss_config/templates/ruboss.yml
 rails_generators/ruboss_config/templates/ruboss_tasks.rake
 rails_generators/ruboss_config/templates/swfobject.js
 rails_generators/ruboss_controller/USAGE
