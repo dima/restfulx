@@ -52,21 +52,33 @@ namespace :ruboss do
   namespace :flex do
     desc "Build project swf file and move it into public/bin folder"
     task :build do
-      compile_app('mxmlc', 'public/bin')
+      executable = 'mxmlc'
+      if RUBY_PLATFORM =~ /mswin32/
+        executable << '.exe'
+      end
+      compile_app(executable, 'public/bin')
     end
   end
   
   namespace :air do
     desc "Build project swf file as an AIR application and move it into bin-debug folder"
     task :build do
-      compile_app('amxmlc', 'bin-debug')
+      executable = 'amxmlc'
+      if RUBY_PLATFORM =~ /mswin32/
+        executable << '.exe'
+      end     
+      compile_app(executable, 'bin-debug')
     end
     
     desc "Run the AIR application (if this project is configured as an AIR project)"
     task :run do
       target = get_main_application.gsub(/.mxml$/, '-app.xml')
       puts "Running AIR application with descriptor: #{target}"
-      if !system("adl bin-debug/#{target}")
+      executable = 'adl'
+      if RUBY_PLATFORM =~ /mswin32/
+        executable << '.exe'
+      end
+      if !system("#{executable} bin-debug/#{target}")
         puts "Could not run the application with descriptor: #{target}. Check console for errors."
       end
     end
