@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-GEM_NAME = 'ruboss_on_ruby' # what ppl will type to install your gem
-RUBYFORGE_PROJECT = 'ruboss_on_ruby'
+GEM_NAME = 'ruboss4ruby' # what ppl will type to install your gem
+RUBYFORGE_PROJECT = 'ruboss4ruby'
 
 require 'rubygems'
 begin
@@ -17,7 +17,7 @@ require 'syntax/convertors/html'
 require 'erb'
 require File.dirname(__FILE__) + "/../lib/#{GEM_NAME}/version.rb"
 
-version  = RubossOnRuby::VERSION::STRING
+version  = Ruboss::VERSION::STRING
 download = "http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}"
 
 def rubyforge_project_id

@@ -1,5 +1,5 @@
 class RubossControllerGenerator < Merb::GeneratorBase
-  include RubossOnRuby::Configuration
+  include Ruboss::Configuration
   
   attr_reader :project_name, 
               :flex_project_name, 

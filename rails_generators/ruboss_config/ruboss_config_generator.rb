@@ -12,11 +12,11 @@
 # commercial license, please go to http://ruboss.com.
 ################################################################################
 require 'open-uri'
-require 'ruboss_on_ruby/version'
-require 'ruboss_on_ruby/configuration'
+require 'ruboss4ruby/version'
+require 'ruboss4ruby/configuration'
 
 class RubossConfigGenerator < Rails::Generator::Base
-  include RubossOnRuby::Configuration
+  include Ruboss::Configuration
     
   attr_reader :project_name, 
               :flex_project_name, 
@@ -87,7 +87,7 @@ class RubossConfigGenerator < Rails::Generator::Base
         
         m.directory "app/flex/#{base_folder}/components/generated"
         
-        framework_release = RubossOnRuby::RUBOSS_FRAMEWORK_VERSION
+        framework_release = Ruboss::RUBOSS_FRAMEWORK_VERSION
         framework_distribution_url = "http://ruboss.com/releases/ruboss-#{framework_release}.swc"
         framework_destination_file = "lib/ruboss-#{framework_release}.swc"
         

@@ -1,7 +1,7 @@
-module RubossOnRuby #:nodoc:
+module Ruboss
   RUBOSS_FRAMEWORK_VERSION = 'latest-dima'
 
-  module VERSION #:nodoc:
+  module VERSION
     MAJOR = 1
     MINOR = 0
     TINY  = 1

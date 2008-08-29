@@ -1,6 +1,6 @@
-require 'ruboss_on_ruby/configuration'
+require 'ruboss4ruby/configuration'
 
-module RubossOnRuby
+module Ruboss
   module Generator
     class GeneratedAttribute
       attr_accessor :name, :type, :flex_name
@@ -41,12 +41,11 @@ module RubossOnRuby
       def flex_type
         @flex_type = case type
           when :integer                     then 'int'
-          when :string, :text               then 'String'
           when :date, :datetime, :time      then 'Date'
           when :boolean                     then 'Boolean'
           when :float, :decimal             then 'Number'
           else
-            '*'
+            'String'
         end
       end
       
@@ -64,7 +63,7 @@ module RubossOnRuby
 end
 
 class RubossScaffoldGenerator < Merb::GeneratorBase
-  include RubossOnRuby::Configuration 
+  include Ruboss::Configuration 
 
   attr_reader   :class_name,
                 :file_name,
@@ -173,7 +172,7 @@ class RubossScaffoldGenerator < Merb::GeneratorBase
   protected
     def attributes
       @attributes ||= @args.collect do |attribute|
-        RubossOnRuby::Generator::GeneratedAttribute.new(*attribute.split(":"))
+        Ruboss::Generator::GeneratedAttribute.new(*attribute.split(":"))
       end
     end
 

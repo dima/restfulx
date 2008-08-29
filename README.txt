@@ -1,4 +1,4 @@
-= ruboss_on_ruby
+= ruboss4ruby
 
 * FIX (url)
 

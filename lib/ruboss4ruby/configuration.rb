@@ -7,7 +7,7 @@ class String
   end
 end
 
-module RubossOnRuby
+module Ruboss
   module Configuration
     APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : Merb.root
 

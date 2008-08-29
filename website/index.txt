@@ -1,43 +1,34 @@
-h1. ruboss_on_ruby
+h1. ruboss4ruby
 
 h2. What
 
+Ruboss Framework Integration Support for Rails 2.+ and Merb 0.9.3+
 
 h2. Installing
 
-<pre syntax="ruby">sudo gem install ruboss_on_ruby</pre>
-
-h2. The basics
-
-
-h2. Demonstration of usage
-
+<pre syntax="ruby">sudo gem install ruboss4ruby</pre>
 
 h2. Forum
 
 "http://groups.google.com/group/ruboss-framework":http://groups.google.com/group/ruboss-framework
 
-h2. How to submit patches
+h2. Source
 
-Read the "8 steps for fixing other people's code":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/ and for section "8b: Submit patch to Google Groups":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8b-google-groups, use the Google Group above.
+You can fetch the source from:
 
-You can fetch the source from either:
-
-* github: "http://github.com/dima/ruboss_on_ruby/tree/master":http://github.com/dima/ruboss_on_ruby/tree/master
-
-<pre>git clone git://github.com/GITHUB_USERNAME/ruboss_on_ruby.git</pre>
+<pre>git clone git://github.com/dima/ruboss4ruby.git</pre>
 
 h3. Build and test instructions
 
-<pre>cd ruboss_on_ruby
+<pre>cd ruboss4ruby
 rake test
 rake install_gem</pre>
 
 h2. License
 
-This code is free to use under the terms of the GPLv3 license. 
+This code is distributed under the terms of the GPLv3 license. 
 
 h2. Contact
 
-Comments are welcome. Send an email to "Dima Berastau":mailto:dima@ruboss.com or via the "forum":http://groups.google.com/group/ruboss-framework
+Comments are welcome. Send an email to "Dima Berastau":mailto:dima@ruboss.com or use the public "forum":http://groups.google.com/group/ruboss-framework
 

@@ -11,5 +11,5 @@
 # RCL v1 applies; otherwise, only the GPL v3 applies. To learn more or to buy a
 # commercial license, please go to http://ruboss.com.
 ################################################################################
-require 'ruboss_on_ruby/active_record_tasks'
+require 'ruboss4ruby/active_record_tasks'
 

@@ -1,4 +1,4 @@
-require 'ruboss_on_ruby/tasks'
+require 'ruboss4ruby/tasks'
 
 # these tasks are active record specific
 

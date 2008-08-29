@@ -1,14 +1,14 @@
-require 'ruboss_on_ruby/version'
+require 'ruboss4ruby/version'
 
-AUTHOR = 'Dima Berastau'  # can also be an array of Authors
+AUTHOR = 'Dima Berastau'
 EMAIL = "dima@ruboss.com"
 DESCRIPTION = "Ruboss Framework Integration Support for Rails 2.+ and Merb 0.9.3+"
-GEM_NAME = 'ruboss_on_ruby' # what ppl will type to install your gem
-RUBYFORGE_PROJECT = 'rubossonruby' # The unix name for your project
+GEM_NAME = 'ruboss4ruby' # what ppl will type to install your gem
+RUBYFORGE_PROJECT = 'ruboss4ruby' # The unix name for your project
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 DOWNLOAD_PATH = "http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}"
 EXTRA_DEPENDENCIES = [
-#  ['activesupport', '>= 2.0.0']
+  ['activerecord', '>= 2.0.0']
 ]    # An array of rubygem dependencies [name, version]
 
 @config_file = "~/.rubyforge/user-config.yml"
@@ -34,8 +34,8 @@ end
 REV = nil
 # UNCOMMENT IF REQUIRED:
 # REV = YAML.load(`svn info`)['Revision']
-VERS = RubossOnRuby::VERSION::STRING + (REV ? ".#{REV}" : "")
-RDOC_OPTS = ['--quiet', '--title', 'ruboss_on_ruby documentation',
+VERS = Ruboss::VERSION::STRING + (REV ? ".#{REV}" : "")
+RDOC_OPTS = ['--quiet', '--title', 'ruboss4ruby documentation',
     "--opname", "index.html",
     "--line-numbers",
     "--main", "README",
@@ -63,11 +63,10 @@ $hoe = Hoe.new(GEM_NAME, VERS) do |p|
   #p.changes = p.paragraphs_of("History.txt", 0..1).join("\n\n")
   #p.extra_deps = EXTRA_DEPENDENCIES
 
-    #p.spec_extras = {}    # A hash of extra values to set in the gemspec.
-  end
+  #p.spec_extras = {}    # A hash of extra values to set in the gemspec.
+end
 
 CHANGES = $hoe.paragraphs_of('History.txt', 0..1).join("\\n\\n")
-#PATH    = (RUBYFORGE_PROJECT == GEM_NAME) ? RUBYFORGE_PROJECT : "#{RUBYFORGE_PROJECT}/#{GEM_NAME}"
-PATH = RUBYFORGE_PROJECT
+PATH    = (RUBYFORGE_PROJECT == GEM_NAME) ? RUBYFORGE_PROJECT : "#{RUBYFORGE_PROJECT}/#{GEM_NAME}"
 $hoe.remote_rdoc_dir = File.join(PATH.gsub(/^#{RUBYFORGE_PROJECT}\/?/,''), 'rdoc')
 $hoe.rsync_args = '-av --delete --ignore-errors'

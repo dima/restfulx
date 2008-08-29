@@ -1,8 +1,8 @@
 require 'yaml'
-require 'ruboss_on_ruby/configuration'
+require 'ruboss4ruby/configuration'
 
 class RubossYamlScaffoldGenerator < Merb::GeneratorBase
-  include RubossOnRuby::Configuration
+  include Ruboss::Configuration
 
   def initialize(runtime_args, runtime_options = {})
     runtime_args.push ""

@@ -11,10 +11,10 @@
 # RCL v1 applies; otherwise, only the GPL v3 applies. To learn more or to buy a
 # commercial license, please go to http://ruboss.com.
 ################################################################################
-require 'ruboss_on_ruby/configuration'
+require 'ruboss4ruby/configuration'
 
 class RubossControllerGenerator < Rails::Generator::Base
-  include RubossOnRuby::Configuration
+  include Ruboss::Configuration
   
   attr_reader :project_name, 
               :flex_project_name, 

@@ -11,7 +11,7 @@
 # RCL v1 applies; otherwise, only the GPL v3 applies. To learn more or to buy a
 # commercial license, please go to http://ruboss.com.
 ################################################################################
-require 'ruboss_on_ruby/configuration'
+require 'ruboss4ruby/configuration'
 
 module Rails
   module Generator
@@ -55,12 +55,11 @@ module Rails
       def flex_type
         @flex_type = case type
           when :integer                     then 'int'
-          when :string, :text               then 'String'
           when :date, :datetime, :time      then 'Date'
           when :boolean                     then 'Boolean'
           when :float, :decimal             then 'Number'
           else
-            '*'
+            'String'
         end
       end
       
@@ -78,7 +77,7 @@ module Rails
 end
 
 class RubossScaffoldGenerator < Rails::Generator::NamedBase
-  include RubossOnRuby::Configuration 
+  include Ruboss::Configuration 
   
   attr_reader   :project_name, 
                 :flex_project_name, 

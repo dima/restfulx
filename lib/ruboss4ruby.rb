@@ -1,26 +1,23 @@
-#$:.unshift(File.dirname(__FILE__)) unless
-#  $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
-
 # Merb specific handling
 # make sure we're running inside Merb
 if defined?(Merb::Plugins)
   Merb::BootLoader.before_app_loads do
     Merb.add_mime_type(:fxml,  :to_fxml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
 
-    require 'ruboss_on_ruby/version'
-    require 'ruboss_on_ruby/configuration'
-    require 'ruboss_on_ruby/active_foo' if defined?(ActiveRecord::Base)
+    require 'ruboss4ruby/version'
+    require 'ruboss4ruby/configuration'
+    require 'ruboss4ruby/active_foo' if defined?(ActiveRecord::Base)
   end
   
   # TODO: can we find out if use_orm :activerecord is on and only then load active record specific tasks?
-  Merb::Plugins.add_rakefiles "ruboss_on_ruby/tasks", "ruboss_on_ruby/active_record_tasks"  
+  Merb::Plugins.add_rakefiles "ruboss4ruby/tasks", "ruboss4ruby/active_record_tasks"  
 elsif defined?(ActionController::Base)
   # if we are not running in Merb, we've got to be running in Rails
   Mime::Type.register_alias "application/xml", :fxml
 
-  require 'ruboss_on_ruby/version'
-  require 'ruboss_on_ruby/configuration'
-  require 'ruboss_on_ruby/active_foo'
+  require 'ruboss4ruby/version'
+  require 'ruboss4ruby/configuration'
+  require 'ruboss4ruby/active_foo'
 
   module ActionController
     class Base
@@ -40,7 +37,7 @@ elsif defined?(ActionController::Base)
     end
   end
 
-  module RubossOnRubyController
+  module RubossController
     private
 
     # Extract any keys named _metadata from the models in the params hash
@@ -59,6 +56,6 @@ elsif defined?(ActionController::Base)
   # temporarily disable forgery protection site-wise
   ActionController::Base.allow_forgery_protection = false
 
-  ActionController::Base.send :include, RubossOnRubyController
+  ActionController::Base.send :include, RubossController
   ActionController::Base.send :prepend_before_filter, :extract_metadata_from_params
 end

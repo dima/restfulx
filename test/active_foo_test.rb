@@ -3,7 +3,7 @@ require 'rubygems'
 require 'action_controller'
 require 'active_support'
 require 'active_record'
-require File.join(File.dirname(__FILE__), '..', 'lib', 'ruboss_on_ruby', 'active_foo')
+require File.join(File.dirname(__FILE__), '..', 'lib', 'ruboss4ruby', 'active_foo')
 
 class ActiveFooTest < Test::Unit::TestCase
 

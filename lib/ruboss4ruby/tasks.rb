@@ -1,10 +1,10 @@
 require 'rake'
 require 'ftools'
 require 'rexml/document'
-require 'ruboss_on_ruby/version'
-require 'ruboss_on_ruby/configuration'
+require 'ruboss4ruby/version'
+require 'ruboss4ruby/configuration'
 
-APP_ROOT = RubossOnRuby::Configuration::APP_ROOT
+APP_ROOT = Ruboss::Configuration::APP_ROOT
 
 namespace :ruboss do
   def compile_app(executable, destination)
@@ -49,36 +49,31 @@ namespace :ruboss do
     app_properties.root.attributes['mainApplicationPath'].split("/").last
   end
   
+  def get_executable(executable)
+    if RUBY_PLATFORM =~ /mswin32/
+      executable << '.exe'
+    end
+    executable
+  end
+  
   namespace :flex do
     desc "Build project swf file and move it into public/bin folder"
     task :build do
-      executable = 'mxmlc'
-      if RUBY_PLATFORM =~ /mswin32/
-        executable << '.exe'
-      end
-      compile_app(executable, 'public/bin')
+      compile_app(get_executable('mxmlc'), 'public/bin')
     end
   end
   
   namespace :air do
     desc "Build project swf file as an AIR application and move it into bin-debug folder"
-    task :build do
-      executable = 'amxmlc'
-      if RUBY_PLATFORM =~ /mswin32/
-        executable << '.exe'
-      end     
-      compile_app(executable, 'bin-debug')
+    task :build do   
+      compile_app(get_executable('amxmlc'), 'bin-debug')
     end
     
     desc "Run the AIR application (if this project is configured as an AIR project)"
     task :run do
       target = get_main_application.gsub(/.mxml$/, '-app.xml')
       puts "Running AIR application with descriptor: #{target}"
-      executable = 'adl'
-      if RUBY_PLATFORM =~ /mswin32/
-        executable << '.exe'
-      end
-      if !system("#{executable} bin-debug/#{target}")
+      if !system("#{get_executable('adl')} bin-debug/#{target}")
         puts "Could not run the application with descriptor: #{target}. Check console for errors."
       end
     end
