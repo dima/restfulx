@@ -2,7 +2,7 @@
 <mx:<%= application_tag %> xmlns:mx="http://www.adobe.com/2006/mxml"
   xmlns:generated="<%= base_package %>.components.generated.*"
   paddingBottom="8" paddingLeft="8" paddingRight="8" paddingTop="8"
-  layout="vertical" styleName="plain" initialize="init()">
+  layout="horizontal" styleName="plain" initialize="init()">
   <mx:Script>
     <![CDATA[
 <% if use_air -%>
