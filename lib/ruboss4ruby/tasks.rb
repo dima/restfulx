@@ -7,7 +7,7 @@ require 'ruboss4ruby/configuration'
 APP_ROOT = Ruboss::Configuration::APP_ROOT
 
 namespace :ruboss do
-  def compile_app(executable, destination)
+  def compile_app(executable, destination, opts = '')
     app_properties = REXML::Document.new(File.open(File.join(APP_ROOT, ".actionScriptProperties")))
     app_properties.elements.each("*/applications/application") do |elm|
       app_path = elm.attributes['path']
@@ -17,7 +17,7 @@ namespace :ruboss do
       
       libs = Dir.glob(File.join(APP_ROOT, 'lib', '*.swc'))
       
-      cmd = "#{executable} -library-path+=#{libs.join(',')} " << 
+      cmd = "#{executable} #{opts} -library-path+=#{libs.join(',')} " << 
         "-keep-as3-metadata+=Resource,HasOne,HasMany,BelongsTo,DateTime,Lazy,Ignored #{project_path}"
       puts "Compiling #{project_path}"
       if system(cmd)
@@ -66,7 +66,7 @@ namespace :ruboss do
   namespace :air do
     desc "Build project swf file as an AIR application and move it into bin-debug folder"
     task :build do   
-      compile_app(get_executable('amxmlc'), 'bin-debug')
+      compile_app(get_executable('mxmlc'), 'bin-debug', '+configname=air')
     end
     
     desc "Run the AIR application (if this project is configured as an AIR project)"
