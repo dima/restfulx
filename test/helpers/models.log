@@ -1,0 +1,994 @@
+# Logfile created on Tue Aug 26 21:35:18 -0700 2008 by /
+  [4;36;1mSQL (0.000185)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000705)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.003587)[0m   [0;1mDROP TABLE "locations"[0m
+  [4;35;1mSQL (0.002686)[0m   [0mCREATE TABLE "locations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000691)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.002542)[0m   [0mDROP TABLE "notes"[0m
+  [4;36;1mSQL (0.003023)[0m   [0;1mCREATE TABLE "notes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.001142)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002503)[0m   [0;1mDROP TABLE "projects"[0m
+  [4;35;1mSQL (0.003315)[0m   [0mCREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_date" date DEFAULT NULL NULL, "end_date" date DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000686)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.002582)[0m   [0mDROP TABLE "tasks"[0m
+  [4;36;1mSQL (0.002615)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_time" datetime DEFAULT NULL NULL, "end_time" datetime DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "next_action" boolean DEFAULT NULL NULL, "project_id" integer DEFAULT NULL NULL, "location_id" integer DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000780)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002616)[0m   [0;1mDROP TABLE "users"[0m
+  [4;35;1mSQL (0.003600)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(255) DEFAULT NULL NULL, "first_name" varchar(255) DEFAULT NULL NULL, "last_name" varchar(255) DEFAULT NULL NULL, "email" varchar(255) DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.003274)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000273)[0m   [0mSELECT version FROM "schema_migrations"[0m
+Unable to load location, underlying cause no such file to load -- location.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load note, underlying cause no such file to load -- note.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load project, underlying cause no such file to load -- project.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load task, underlying cause no such file to load -- task.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load user, underlying cause no such file to load -- user.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+  [4;36;1mSQL (0.000195)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000667)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002079)[0m   [0;1mDROP TABLE "locations"[0m
+  [4;35;1mSQL (0.001696)[0m   [0mCREATE TABLE "locations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000395)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.001563)[0m   [0mDROP TABLE "notes"[0m
+  [4;36;1mSQL (0.001931)[0m   [0;1mCREATE TABLE "notes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000377)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002393)[0m   [0;1mDROP TABLE "projects"[0m
+  [4;35;1mSQL (0.003547)[0m   [0mCREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_date" date DEFAULT NULL NULL, "end_date" date DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000687)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.002173)[0m   [0mDROP TABLE "tasks"[0m
+  [4;36;1mSQL (0.002733)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_time" datetime DEFAULT NULL NULL, "end_time" datetime DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "next_action" boolean DEFAULT NULL NULL, "project_id" integer DEFAULT NULL NULL, "location_id" integer DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000858)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002924)[0m   [0;1mDROP TABLE "users"[0m
+  [4;35;1mSQL (0.003228)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(255) DEFAULT NULL NULL, "first_name" varchar(255) DEFAULT NULL NULL, "last_name" varchar(255) DEFAULT NULL NULL, "email" varchar(255) DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000992)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000325)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.000241)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000660)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002597)[0m   [0;1mDROP TABLE "locations"[0m
+  [4;35;1mSQL (0.002955)[0m   [0mCREATE TABLE "locations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000676)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.001809)[0m   [0mDROP TABLE "notes"[0m
+  [4;36;1mSQL (0.001986)[0m   [0;1mCREATE TABLE "notes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000554)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002261)[0m   [0;1mDROP TABLE "projects"[0m
+  [4;35;1mSQL (0.002288)[0m   [0mCREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_date" date DEFAULT NULL NULL, "end_date" date DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000405)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.001545)[0m   [0mDROP TABLE "tasks"[0m
+  [4;36;1mSQL (0.001952)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_time" datetime DEFAULT NULL NULL, "end_time" datetime DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "next_action" boolean DEFAULT NULL NULL, "project_id" integer DEFAULT NULL NULL, "location_id" integer DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000435)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.003545)[0m   [0;1mDROP TABLE "users"[0m
+  [4;35;1mSQL (0.002861)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(255) DEFAULT NULL NULL, "first_name" varchar(255) DEFAULT NULL NULL, "last_name" varchar(255) DEFAULT NULL NULL, "email" varchar(255) DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000871)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000317)[0m   [0mSELECT version FROM "schema_migrations"[0m
+Unable to load location, underlying cause no such file to load -- location.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load note, underlying cause no such file to load -- note.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load project, underlying cause no such file to load -- project.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load task, underlying cause no such file to load -- task.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load user, underlying cause no such file to load -- user.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+  [4;36;1mUser Load (0.000198)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000309)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;36;1mUser Load (0.000195)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000265)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) LIMIT 1[0m
+  [4;36;1mTask Load (0.000257)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."id" = 417751139) [0m
+  [4;35;1mUser Load (0.000199)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;36;1mTask Load (0.000273)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;35;1mUser Load (0.000202)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;36;1mTask Load (0.000309)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;35;1mUser Load (0.000198)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;36;1mTask Load (0.000303)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;35;1mLocation Load (0.000216)[0m   [0mSELECT * FROM "locations" WHERE ("locations"."id" = 593654276) [0m
+  [4;36;1mUser Load (0.000204)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000271)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;36;1mUser Load (0.000247)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000308)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;36;1mUser Load (0.000207)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000286)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;36;1mSQL (0.000195)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.001457)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002744)[0m   [0;1mDROP TABLE "locations"[0m
+  [4;35;1mSQL (0.002846)[0m   [0mCREATE TABLE "locations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000926)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.003565)[0m   [0mDROP TABLE "notes"[0m
+  [4;36;1mSQL (0.002400)[0m   [0;1mCREATE TABLE "notes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000788)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002539)[0m   [0;1mDROP TABLE "projects"[0m
+  [4;35;1mSQL (0.003045)[0m   [0mCREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_date" date DEFAULT NULL NULL, "end_date" date DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000722)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.002466)[0m   [0mDROP TABLE "tasks"[0m
+  [4;36;1mSQL (0.002323)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_time" datetime DEFAULT NULL NULL, "end_time" datetime DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "next_action" boolean DEFAULT NULL NULL, "project_id" integer DEFAULT NULL NULL, "location_id" integer DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000856)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002391)[0m   [0;1mDROP TABLE "users"[0m
+  [4;35;1mSQL (0.002775)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(255) DEFAULT NULL NULL, "first_name" varchar(255) DEFAULT NULL NULL, "last_name" varchar(255) DEFAULT NULL NULL, "email" varchar(255) DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.001028)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000267)[0m   [0mSELECT version FROM "schema_migrations"[0m
+Unable to load location, underlying cause no such file to load -- location.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load note, underlying cause no such file to load -- note.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load project, underlying cause no such file to load -- project.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load task, underlying cause no such file to load -- task.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load user, underlying cause no such file to load -- user.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+  [4;36;1mSQL (0.000200)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000749)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002239)[0m   [0;1mDROP TABLE "locations"[0m
+  [4;35;1mSQL (0.002519)[0m   [0mCREATE TABLE "locations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000788)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.002109)[0m   [0mDROP TABLE "notes"[0m
+  [4;36;1mSQL (0.002312)[0m   [0;1mCREATE TABLE "notes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000677)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002202)[0m   [0;1mDROP TABLE "projects"[0m
+  [4;35;1mSQL (0.002668)[0m   [0mCREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_date" date DEFAULT NULL NULL, "end_date" date DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000762)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.002794)[0m   [0mDROP TABLE "tasks"[0m
+  [4;36;1mSQL (0.002527)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_time" datetime DEFAULT NULL NULL, "end_time" datetime DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "next_action" boolean DEFAULT NULL NULL, "project_id" integer DEFAULT NULL NULL, "location_id" integer DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000684)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002527)[0m   [0;1mDROP TABLE "users"[0m
+  [4;35;1mSQL (0.003065)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(255) DEFAULT NULL NULL, "first_name" varchar(255) DEFAULT NULL NULL, "last_name" varchar(255) DEFAULT NULL NULL, "email" varchar(255) DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.001030)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000309)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.000194)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000709)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.001808)[0m   [0;1mDROP TABLE "locations"[0m
+  [4;35;1mSQL (0.001941)[0m   [0mCREATE TABLE "locations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000393)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.001558)[0m   [0mDROP TABLE "notes"[0m
+  [4;36;1mSQL (0.005117)[0m   [0;1mCREATE TABLE "notes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000470)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002131)[0m   [0;1mDROP TABLE "projects"[0m
+  [4;35;1mSQL (0.001831)[0m   [0mCREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_date" date DEFAULT NULL NULL, "end_date" date DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000401)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.001565)[0m   [0mDROP TABLE "tasks"[0m
+  [4;36;1mSQL (0.002091)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_time" datetime DEFAULT NULL NULL, "end_time" datetime DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "next_action" boolean DEFAULT NULL NULL, "project_id" integer DEFAULT NULL NULL, "location_id" integer DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000596)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.003405)[0m   [0;1mDROP TABLE "users"[0m
+  [4;35;1mSQL (0.001862)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(255) DEFAULT NULL NULL, "first_name" varchar(255) DEFAULT NULL NULL, "last_name" varchar(255) DEFAULT NULL NULL, "email" varchar(255) DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000423)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000154)[0m   [0mSELECT version FROM "schema_migrations"[0m
+Unable to load location, underlying cause no such file to load -- location.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load note, underlying cause no such file to load -- note.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load project, underlying cause no such file to load -- project.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load task, underlying cause no such file to load -- task.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load user, underlying cause no such file to load -- user.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+  [4;36;1mUser Load (0.000235)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000325)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;36;1mUser Load (0.000205)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000272)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) LIMIT 1[0m
+  [4;36;1mTask Load (0.000262)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."id" = 417751139) [0m
+  [4;35;1mUser Load (0.000233)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;36;1mTask Load (0.000306)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;35;1mUser Load (0.000261)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;36;1mTask Load (0.000268)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;35;1mUser Load (0.000199)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;36;1mTask Load (0.000273)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;35;1mLocation Load (0.000190)[0m   [0mSELECT * FROM "locations" WHERE ("locations"."id" = 593654276) [0m
+  [4;36;1mUser Load (0.000403)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000363)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;36;1mUser Load (0.000205)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000318)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;36;1mUser Load (0.000208)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000271)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;36;1mSQL (0.000197)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000692)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.003494)[0m   [0;1mDROP TABLE "locations"[0m
+  [4;35;1mSQL (0.001662)[0m   [0mCREATE TABLE "locations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000414)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.001637)[0m   [0mDROP TABLE "notes"[0m
+  [4;36;1mSQL (0.003960)[0m   [0;1mCREATE TABLE "notes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000928)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002600)[0m   [0;1mDROP TABLE "projects"[0m
+  [4;35;1mSQL (0.002650)[0m   [0mCREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_date" date DEFAULT NULL NULL, "end_date" date DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000634)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.002496)[0m   [0mDROP TABLE "tasks"[0m
+  [4;36;1mSQL (0.003040)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_time" datetime DEFAULT NULL NULL, "end_time" datetime DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "next_action" boolean DEFAULT NULL NULL, "project_id" integer DEFAULT NULL NULL, "location_id" integer DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000890)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002795)[0m   [0;1mDROP TABLE "users"[0m
+  [4;35;1mSQL (0.002462)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(255) DEFAULT NULL NULL, "first_name" varchar(255) DEFAULT NULL NULL, "last_name" varchar(255) DEFAULT NULL NULL, "email" varchar(255) DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000471)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000157)[0m   [0mSELECT version FROM "schema_migrations"[0m
+Unable to load location, underlying cause no such file to load -- location.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load note, underlying cause no such file to load -- note.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load project, underlying cause no such file to load -- project.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load task, underlying cause no such file to load -- task.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load user, underlying cause no such file to load -- user.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/ruboss_rails_integration_functional_test.rb:14
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+  [4;36;1mSQL (0.000175)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000749)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.001489)[0m   [0;1mDROP TABLE "locations"[0m
+  [4;35;1mSQL (0.001789)[0m   [0mCREATE TABLE "locations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000408)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.001588)[0m   [0mDROP TABLE "notes"[0m
+  [4;36;1mSQL (0.001884)[0m   [0;1mCREATE TABLE "notes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.001169)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.001859)[0m   [0;1mDROP TABLE "projects"[0m
+  [4;35;1mSQL (0.003085)[0m   [0mCREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_date" date DEFAULT NULL NULL, "end_date" date DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000833)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.002740)[0m   [0mDROP TABLE "tasks"[0m
+  [4;36;1mSQL (0.004738)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_time" datetime DEFAULT NULL NULL, "end_time" datetime DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "next_action" boolean DEFAULT NULL NULL, "project_id" integer DEFAULT NULL NULL, "location_id" integer DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000781)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002955)[0m   [0;1mDROP TABLE "users"[0m
+  [4;35;1mSQL (0.002901)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(255) DEFAULT NULL NULL, "first_name" varchar(255) DEFAULT NULL NULL, "last_name" varchar(255) DEFAULT NULL NULL, "email" varchar(255) DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.001026)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000335)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.000208)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.001861)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002512)[0m   [0;1mDROP TABLE "locations"[0m
+  [4;35;1mSQL (0.001647)[0m   [0mCREATE TABLE "locations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.002175)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.002564)[0m   [0mDROP TABLE "notes"[0m
+  [4;36;1mSQL (0.001815)[0m   [0;1mCREATE TABLE "notes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000416)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.001480)[0m   [0;1mDROP TABLE "projects"[0m
+  [4;35;1mSQL (0.001850)[0m   [0mCREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_date" date DEFAULT NULL NULL, "end_date" date DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.000394)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.002446)[0m   [0mDROP TABLE "tasks"[0m
+  [4;36;1mSQL (0.003527)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL NULL, "notes" text DEFAULT NULL NULL, "start_time" datetime DEFAULT NULL NULL, "end_time" datetime DEFAULT NULL NULL, "completed" boolean DEFAULT NULL NULL, "next_action" boolean DEFAULT NULL NULL, "project_id" integer DEFAULT NULL NULL, "location_id" integer DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;35;1mSQL (0.000601)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002164)[0m   [0;1mDROP TABLE "users"[0m
+  [4;35;1mSQL (0.003093)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(255) DEFAULT NULL NULL, "first_name" varchar(255) DEFAULT NULL NULL, "last_name" varchar(255) DEFAULT NULL NULL, "email" varchar(255) DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL) [0m
+  [4;36;1mSQL (0.001084)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000468)[0m   [0mSELECT version FROM "schema_migrations"[0m
+Unable to load location, underlying cause no such file to load -- location.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load note, underlying cause no such file to load -- note.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load project, underlying cause no such file to load -- project.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load task, underlying cause no such file to load -- task.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+Unable to load user, underlying cause no such file to load -- user.rb 
+
+ /Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_without_new_constant_marking'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:215:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:214:in `load_file'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:95:in `require_or_load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:60:in `depend_on'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:456:in `require_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `each'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.1.0/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/helpers/../../test/helpers/../../test/to_fxml_test.rb:12
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:354:in `new_constants_in'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.1.0/lib/active_support/dependencies.rb:502:in `load'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5:in `each'
+/Library/Ruby/Gems/1.8/gems/rake-0.8.1/lib/rake/rake_test_loader.rb:5
+  [4;36;1mUser Load (0.000203)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000348)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;36;1mUser Load (0.000200)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000274)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) LIMIT 1[0m
+  [4;36;1mTask Load (0.000263)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."id" = 417751139) [0m
+  [4;35;1mUser Load (0.000213)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;36;1mTask Load (0.000287)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;35;1mUser Load (0.000210)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;36;1mTask Load (0.000353)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;35;1mUser Load (0.000199)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;36;1mTask Load (0.000357)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;35;1mLocation Load (0.000186)[0m   [0mSELECT * FROM "locations" WHERE ("locations"."id" = 593654276) [0m
+  [4;36;1mUser Load (0.000211)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000358)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;36;1mUser Load (0.000233)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000349)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m
+  [4;36;1mUser Load (0.000230)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 875057608) [0m
+  [4;35;1mTask Load (0.000272)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 875057608) [0m

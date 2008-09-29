@@ -1,0 +1,33 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+project_one:
+  name: Project1NameString
+  notes: Project1NotesText
+  start_date: 2008-07-28
+  end_date: 2008-07-28
+  completed: false
+  user: user_one
+
+project_two:
+  name: Project2NameString
+  notes: Project2NotesText
+  start_date: 2008-07-28
+  end_date: 2008-07-28
+  completed: false
+  user: user_two
+
+project_three:
+  name: Project3NameString
+  notes: Project3NotesText
+  start_date: 2008-07-28
+  end_date: 2008-07-28
+  completed: false
+  user: user_three
+
+project_four:
+  name: Project4NameString
+  notes: Project4NotesText
+  start_date: 2008-07-28
+  end_date: 2008-07-28
+  completed: false
+  user: user_four
