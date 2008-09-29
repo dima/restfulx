@@ -1,0 +1,16 @@
+# Ruboss code generation configuration options
+
+# By default flex models, commands, controllers and components are genearated into
+# app/flex/<your rails project name> folder. If you'd like to customize the target folder 
+# (to say append a "com" package before your rails project name) uncomment the line below
+# base-package must follow the usual flex package notation (a string separated by ".")
+
+#base-package: com.pomodo
+
+# Main ruboss controller is typically named after your rails project name (camel-cased with a word
+# Controller appended at the end, e.g. if your application is called "pomodo" the flex application
+# controller will be called "PomodoController"). This controller is created in 
+# <base-package>.controllers folder. You can customize the name by uncommenting the following line 
+# and changing the controller name.
+
+#controller-name: PomodoController

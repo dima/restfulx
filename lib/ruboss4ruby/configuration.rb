@@ -2,8 +2,32 @@ class String
   def capitalize_without_downcasing
     self[0,1].capitalize + self[1..-1]
   end
+  
   def downcase_first_letter
     self[0,1].downcase + self[1..-1]
+  end
+  
+  def camelcase(first_letter = :upper)
+    case first_letter
+      when :upper then self.camelize(true)
+      when :lower then self.camelize(false)
+    end
+  end
+
+  def camelize(first_letter_in_uppercase = true)
+    if first_letter_in_uppercase
+      self.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+    else
+      self[0,1].downcase + self.camelize[1..-1]
+    end
+  end
+
+  def underscore
+    self.gsub(/::/, '/').
+      gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+      gsub(/([a-z\d])([A-Z])/,'\1_\2').
+      tr("-", "_").
+      downcase
   end
 end
 
