@@ -1,9 +1,6 @@
 require 'test/unit'
 require 'rubygems'
-require 'active_support'
-require 'action_controller'
-
-require File.join(File.dirname(__FILE__), '..', 'lib', 'ruboss4ruby', 'ruboss_helper')
+require File.dirname(__FILE__) + '/test_helper.rb'
 
 class RubossHelperTest < Test::Unit::TestCase
   
@@ -18,7 +15,7 @@ class RubossHelperTest < Test::Unit::TestCase
   include ActionView::Helpers::TagHelper  
   include ActionView::Helpers::CaptureHelper
   include ActionView::Helpers::TextHelper
-  include ActionController
+  # include ActionController
   
   # Mock out the form authenticity token method
   def form_authenticity_token

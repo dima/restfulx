@@ -1,9 +1,6 @@
 require 'test/unit'
 require 'rubygems'
-require 'action_controller'
-require 'active_support'
-require 'active_record'
-require File.join(File.dirname(__FILE__), '..', 'lib', 'ruboss4ruby', 'active_foo')
+require File.dirname(__FILE__) + '/test_helper.rb'
 
 class ActiveFooTest < Test::Unit::TestCase
 
@@ -11,6 +8,11 @@ class ActiveFooTest < Test::Unit::TestCase
     a = ClassyEmptyArray.new(Object)
     assert_nothing_raised {a.to_fxml}
     assert_nothing_raised {a.to_fxml(:include => :test)}
+  end
+  
+  def test_to_fxml_on_empty_classy_array_gives_class
+    a = ClassyEmptyArray.new(Object)
+    assert_match 'Object', a.to_fxml
   end
 
 end
