@@ -1,1 +1,5 @@
 pkg/*
+test/helpers/controllers.log
+test/helpers/models.log
+test/test.sqlite3
+
