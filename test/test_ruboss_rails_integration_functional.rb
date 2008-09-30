@@ -1,10 +1,14 @@
 require 'test/unit'
 require 'rubygems'
+
 require File.join(File.dirname(__FILE__), 'test_helper')
 require File.join(File.dirname(__FILE__), 'helpers', 'functional_test_helper')
 require File.join(File.dirname(__FILE__),  'models', 'note')
+require File.join(File.dirname(__FILE__), 'models', 'user')
+require File.join(File.dirname(__FILE__), 'models', 'project')
+require File.join(File.dirname(__FILE__), 'models', 'location')
+require File.join(File.dirname(__FILE__), 'models', 'task')
 
-# require File.join(File.dirname(__FILE__), '..', 'init')
 
 ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'

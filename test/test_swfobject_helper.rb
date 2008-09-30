@@ -3,7 +3,7 @@ require 'rubygems'
 require 'active_support'
 require 'action_controller'
 
-require File.join(File.dirname(__FILE__), '..', 'lib', 'ruboss_helper')
+require File.join(File.dirname(__FILE__), '..', 'lib', 'ruboss4ruby', 'ruboss_helper')
 
 class RubossHelperTest < Test::Unit::TestCase
   
@@ -31,22 +31,22 @@ class RubossHelperTest < Test::Unit::TestCase
   
   def test_div_is_created_if_asked_for
     swf = swfobject('test.swf', :create_div => true)
-    assert_match /<div id=\"flashContent\"/, swf #"
+    assert_match(/<div id=\"flashContent\"/, swf) #"
   end
   
   def test_div_name_is_set_properly
     swf = swfobject('test.swf', :create_div => true, :id => 'my_id')
-    assert_match /<div id=\"my_id\"/, swf #"    
+    assert_match(/<div id=\"my_id\"/, swf) #"    
   end
   
   def test_div_is_not_created_if_not_asked_for
     swf = swfobject('test.swf')
-    assert_no_match /<div/, swf
+    assert_no_match(/<div/, swf)
   end
   
   def test_flash_vars_can_be_set_with_a_string
     swf = swfobject('test.swf', :flash_vars => 'myVars' )
-    assert_match /,myVars[ )]/, swf
+    assert_match(/,myVars[ )]/, swf)
   end
   
   def test_flash_vars_can_be_set_with_a_hash

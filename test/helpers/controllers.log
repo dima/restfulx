@@ -20,3 +20,108 @@ Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-02 21:27:
   Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
 Rendering notes/empty_params_action
 Completed in 0.00268 (372 reqs/sec) | Rendering: 0.00061 (22%) | DB: 0.03666 (1365%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 09:17:40) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.02436 (41 reqs/sec) | Rendering: 0.02064 (84%) | DB: 0.03701 (151%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 09:44:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00293 (341 reqs/sec) | Rendering: 0.00062 (21%) | DB: 0.03813 (1301%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 09:46:07) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00254 (394 reqs/sec) | Rendering: 0.00055 (21%) | DB: 0.03159 (1245%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 09:47:50) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00253 (395 reqs/sec) | Rendering: 0.00060 (23%) | DB: 0.02824 (1116%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 10:11:04) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00307 (325 reqs/sec) | Rendering: 0.00094 (30%) | DB: 0.03389 (1103%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 10:12:12) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00254 (393 reqs/sec) | Rendering: 0.00067 (26%) | DB: 0.08733 (3435%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 10:12:55) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00321 (311 reqs/sec) | Rendering: 0.00070 (21%) | DB: 0.03003 (934%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 10:14:19) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00274 (364 reqs/sec) | Rendering: 0.00060 (21%) | DB: 0.02819 (1027%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 10:14:45) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00271 (368 reqs/sec) | Rendering: 0.00065 (24%) | DB: 0.02844 (1048%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 10:17:14) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00244 (409 reqs/sec) | Rendering: 0.00060 (24%) | DB: 0.03039 (1242%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 10:17:30) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00251 (399 reqs/sec) | Rendering: 0.00060 (24%) | DB: 0.02991 (1193%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 10:18:15) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00246 (406 reqs/sec) | Rendering: 0.00058 (23%) | DB: 0.02830 (1149%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 10:18:53) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00252 (396 reqs/sec) | Rendering: 0.00055 (21%) | DB: 0.02978 (1179%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 10:19:03) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00270 (370 reqs/sec) | Rendering: 0.00060 (22%) | DB: 0.03115 (1152%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-09-30 10:19:23) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00451 (221 reqs/sec) | Rendering: 0.00107 (23%) | DB: 0.02816 (624%) | 200 OK [http://test.host/notes/empty_params_action]

@@ -41,7 +41,7 @@ module ActiveRecord
   # Flex friendly XML serialization patches
   class Base
     class << self
-      alias_method :old_find, :find
+      alias_method :old_find, :find unless method_defined?(:old_find)
 
       def find(*args)
         result = old_find(*args)

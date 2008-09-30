@@ -25,6 +25,10 @@ elsif defined?(ActionController::Base)
   require 'ruboss4ruby/version'
   require 'ruboss4ruby/configuration'
   require 'ruboss4ruby/active_foo'
+  require File.join(File.dirname(__FILE__), 'ruboss4ruby/ruboss_helper')
+  ActionView::Base.send :include, RubossHelper
+  require File.join(File.dirname(__FILE__), 'ruboss4ruby/ruboss_test_helpers')  
+  Test::Unit::TestCase.send :include, RubossTestHelpers
 
   module ActionController
     class Base
@@ -59,10 +63,10 @@ elsif defined?(ActionController::Base)
       params.merge!(metadata) unless metadata.empty?
     end  
   end
+end
+
+  ActionController::Base.send :include, RubossController  
+  ActionController::Base.send :prepend_before_filter, :extract_metadata_from_params  
 
   # temporarily disable forgery protection site-wise
   ActionController::Base.allow_forgery_protection = false
-
-  ActionController::Base.send :include, RubossController
-  ActionController::Base.send :prepend_before_filter, :extract_metadata_from_params
-end
