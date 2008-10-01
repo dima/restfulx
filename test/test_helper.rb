@@ -14,6 +14,12 @@ require 'action_controller/test_process'
 require 'action_controller/integration'
 require 'sqlite3'
 require File.join(File.dirname(__FILE__), '..', 'lib', 'ruboss4ruby')
+require File.join(File.dirname(__FILE__),  'models', 'note')
+require File.join(File.dirname(__FILE__), 'models', 'user')
+require File.join(File.dirname(__FILE__), 'models', 'project')
+require File.join(File.dirname(__FILE__), 'models', 'location')
+require File.join(File.dirname(__FILE__), 'models', 'task')
+
 
 
 
