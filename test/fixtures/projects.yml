@@ -1,33 +1,25 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-project_one:
-  name: Project1NameString
-  notes: Project1NotesText
-  start_date: 2008-07-28
-  end_date: 2008-07-28
+health:
+  name: Health
+  start_date: <%= 20.days.ago %>
   completed: false
-  user: user_one
+  user: ludwig
 
-project_two:
-  name: Project2NameString
-  notes: Project2NotesText
-  start_date: 2008-07-28
-  end_date: 2008-07-28
+music:
+  name: Music
+  start_date: <%= 20.days.ago %>
   completed: false
-  user: user_two
+  user: ludwig
 
-project_three:
-  name: Project3NameString
-  notes: Project3NotesText
-  start_date: 2008-07-28
-  end_date: 2008-07-28
+hamlet:
+  name: Hamlet
+  start_date: <%= 2.years.ago %>
   completed: false
-  user: user_three
+  user: shakespeare
 
-project_four:
-  name: Project4NameString
-  notes: Project4NotesText
-  start_date: 2008-07-28
-  end_date: 2008-07-28
+othello:
+  name: Othello
+  start_date: <%= 20.days.ago %>
   completed: false
-  user: user_four
+  user: shakespeare

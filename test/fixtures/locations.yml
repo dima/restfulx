@@ -2,3 +2,7 @@
 vienna:
   name: Vienna
   user: ludwig
+  
+stratford:
+  name: Stratford Upon Avon
+  user: shakespeare

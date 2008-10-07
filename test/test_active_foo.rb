@@ -36,5 +36,9 @@ class ActiveFooTest < Test::Unit::TestCase
   def test_projects_fxml_includes_tasks
     
   end
+  
+  def test_projects_with_user_included_as_symbol
+    
+  end
 
 end
