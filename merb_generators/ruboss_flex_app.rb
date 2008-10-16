@@ -59,9 +59,9 @@ module Merb::Generators
       Generates main flex application file.
     DESC
     
-    template :main_app do
-      source('mainapp.mxml')
-      destination(File.join('app', 'flex', "#{project_name}.mxml"))
+    template :main_app do |t|
+      t.source = 'mainapp.mxml'
+      t.destination = File.join('app', 'flex', "#{project_name}.mxml")
     end
   end
   

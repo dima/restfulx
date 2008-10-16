@@ -1,0 +1,5 @@
+scope 'merb-gen' do
+  dir = File.join(File.dirname(__FILE__), 'merb_generators/')
+  Merb.add_generators dir + 'ruboss_config', dir + 'ruboss_flex_app', dir + 'ruboss_controller', dir + 'ruboss_scaffold',
+    dir + 'ruboss_resource_controller'
+end

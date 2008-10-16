@@ -41,9 +41,9 @@ module Merb::Generators
       File.join(File.dirname(__FILE__), 'templates', 'ruboss_controller')
     end
     
-    template :controller do
-      source('controller.as.erb')
-      destination(File.join('app', 'flex', base_folder, 'controllers', "#{command_controller_name}.as"))
+    template :controller do |t|
+      t.source = 'controller.as.erb'
+      t.destination = File.join('app', 'flex', base_folder, 'controllers', "#{command_controller_name}.as")
     end
 
     desc <<-DESC

@@ -4,12 +4,12 @@ if defined?(Merb::Plugins)
   Merb::BootLoader.before_app_loads do
     Merb.add_mime_type(:fxml,  :to_fxml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
 
-    generators = File.join(File.dirname(__FILE__), '..', 'merb_generators')
-    Merb.add_generators generators / :ruboss_config
-    Merb.add_generators generators / :ruboss_flex_app
-    Merb.add_generators generators / :ruboss_controller
-    Merb.add_generators generators / :ruboss_scaffold
-    Merb.add_generators generators / :ruboss_resource_controller
+    # generators = File.join(File.dirname(__FILE__), '..', 'merb_generators')
+    # Merb.add_generators generators / :ruboss_config
+    # Merb.add_generators generators / :ruboss_flex_app
+    # Merb.add_generators generators / :ruboss_controller
+    # Merb.add_generators generators / :ruboss_scaffold
+    # Merb.add_generators generators / :ruboss_resource_controller
     
     require 'ruboss4ruby/version'
     require 'ruboss4ruby/configuration'
