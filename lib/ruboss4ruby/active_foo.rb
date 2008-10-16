@@ -98,10 +98,7 @@ module ActiveRecord
           includes      
         when includes.nil?
          {}  
-        when includes.is_a?(Symbol)
-          {includes => {}} 
         else #Deal with arrays and symbols
-          puts "creating the hash"
           res = [includes].flatten.inject({}) {|include_hash, included| include_hash[included] = {} ; include_hash}
       end
       res

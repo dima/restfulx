@@ -39,8 +39,6 @@ class ActiveFooTest < Test::Unit::TestCase
   
   def test_user_fxml_includes_default_method_from_task
     set_response_to users(:ludwig).to_fxml
-    puts "here's the XML that should have included user tasks task is_active:\n#{users(:ludwig).to_fxml}"
-    puts "default fxml option for user:#{User.default_fxml_hash.inspect}"
     assert_xml_select 'user tasks task is_active'
   end
   
@@ -51,7 +49,6 @@ class ActiveFooTest < Test::Unit::TestCase
   
   def test_projects_with_user_included_as_symbol
     set_response_to projects(:music).to_fxml(:include => :user)
-    puts "here's the XML that should have included project user:\n#{projects(:music).to_fxml(:include => :user)}"
     assert_xml_select 'project user'
   end
   
