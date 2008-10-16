@@ -49,36 +49,30 @@ module Merb::Generators
       File.join(File.dirname(__FILE__), 'templates', 'ruboss_config')
     end
 
-    desc <<-DESC
-      Generates the primary Ruboss directory structure. 
-      Sets up Flex Builder specific descriptor files and options fetches 
-      the latest published Ruboss Framework SWC file.
-    DESC
-
     empty_directory :bin, File.join('public', 'bin')
     empty_directory :javascripts, File.join('public', 'javascripts')
     empty_directory :schema, 'schema'
     
     file :flex_properties, 'flex.properties', '.flexProperties'
     
-    template :actionscript_properties do
-      source("#{extract_config('actionscript')}.properties")
-      destination('.actionScriptProperties')
+    template :actionscript_properties do |t|
+      t.source = "#{extract_config('actionscript')}.properties"
+      t.destination = '.actionScriptProperties'
     end
     
-    template :project_properties do
-      source("#{extract_config('project')}.properties")
-      destination('.project')
+    template :project_properties do |t|
+      t.source = "#{extract_config('project')}.properties"
+      t.destination = '.project'
     end
     
     %w(components controllers commands models events).each do |dir|
-      empty_directory dir.to_sym do
-        destination(File.join('app', 'flex', base_folder, dir))
+      empty_directory dir.to_sym do |t|
+        t.destination = File.join('app', 'flex', base_folder, dir)
       end
     end
     
-    empty_directory :generated do
-       File.join('app', 'flex', base_folder, 'components', 'generated')
+    empty_directory :generated do |t|
+       t.destination = File.join('app', 'flex', base_folder, 'components', 'generated')
     end
     
     glob!('html-template')
@@ -93,10 +87,16 @@ module Merb::Generators
     
     invoke :ruboss_flex_app
 
-    template :air_descriptor, :air => true do
-      source('mainair-app.xml')
-      destination(File.join('app', 'flex', "#{project_name}-app.xml"))
+    template :air_descriptor, :air => true do |t|
+      t.source = 'mainair-app.xml'
+      t.destination = File.join('app', 'flex', "#{project_name}-app.xml")
     end
+
+    desc <<-DESC
+      Generates the primary Ruboss directory structure. 
+      Sets up Flex Builder specific descriptor files and options fetches 
+      the latest published Ruboss Framework SWC file.
+    DESC
     
     invoke :ruboss_controller
   end
