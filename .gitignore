@@ -1,4 +1,5 @@
 pkg/*
 test/helpers/*.log
 test/test.sqlite3
+test/helpers/test.sqlite3
 
