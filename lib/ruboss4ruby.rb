@@ -63,10 +63,10 @@ elsif defined?(ActionController::Base)
       params.merge!(metadata) unless metadata.empty?
     end  
   end
-end
 
   ActionController::Base.send :include, RubossController  
   ActionController::Base.send :prepend_before_filter, :extract_metadata_from_params  
 
   # temporarily disable forgery protection site-wise
   ActionController::Base.allow_forgery_protection = false
+end
