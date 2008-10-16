@@ -1,6 +1,6 @@
 require 'test/unit'
 require 'rubygems'
-require File.dirname(__FILE__) + '/test_helper.rb'
+require File.join(File.dirname(__FILE__), 'helpers', 'test_helper.rb')
 
 class RubossHelperTest < Test::Unit::TestCase
   

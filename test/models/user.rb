@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   default_fxml_methods :full_name, :has_nothing_to_do
   default_fxml_includes :tasks, :projects
   
+  validates_length_of :login, :maximum => 10
+  
   def full_name
     "#{first_name} #{last_name}"
   end

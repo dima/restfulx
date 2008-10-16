@@ -22,13 +22,13 @@ elsif defined?(ActionController::Base)
   # if we are not running in Merb, we've got to be running in Rails
   Mime::Type.register_alias "application/xml", :fxml
 
-  require 'ruboss4ruby/version'
-  require 'ruboss4ruby/configuration'
-  require 'ruboss4ruby/active_foo'
+  require File.join(File.dirname(__FILE__),'ruboss4ruby', 'version')
+  require File.join(File.dirname(__FILE__),'ruboss4ruby', 'configuration')
+  require File.join(File.dirname(__FILE__),'ruboss4ruby', 'active_foo')
   require File.join(File.dirname(__FILE__), 'ruboss4ruby/ruboss_helper')
-  ActionView::Base.send :include, RubossHelper
+  ActionView::Base.send :include, RubossHelper unless ActionView::Base.included_modules.include?(RubossHelper)
   require File.join(File.dirname(__FILE__), 'ruboss4ruby/ruboss_test_helpers')  
-  Test::Unit::TestCase.send :include, RubossTestHelpers
+  Test::Unit::TestCase.send :include, RubossTestHelpers unless Test::Unit::TestCase.included_modules.include?(RubossTestHelpers)
 
   module ActionController
     class Base

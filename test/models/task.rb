@@ -6,6 +6,15 @@ class Task < ActiveRecord::Base
   default_fxml_methods :is_active
   
   def is_active
-    (start_time .. end_time) === Time.now
+    case
+    when start_time && end_time 
+      (start_time .. end_time) === Time.now
+    when start_time && end_time.nil?
+      start_time <= Time.now
+    when start_time.nil && end_time
+      end_time >= Time.now
+    else
+      true
+    end
   end
 end
