@@ -104,7 +104,9 @@ class RubossConfigGenerator < Rails::Generator::Base
         
         m.dependency 'ruboss_controller', @args
       end
+      m.template 'project-textmate.erb', "#{project_name.underscore}.tmproj"
       m.template 'mainapp.mxml', File.join('app/flex', "#{project_name}.mxml")
+      m.template 'mainapp-config.xml', File.join('app/flex', "#{project_name}-config.xml")
       m.template 'mainair-app.xml', File.join('app/flex', "#{project_name}-app.xml") if @use_air
     end
   end

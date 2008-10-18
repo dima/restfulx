@@ -54,7 +54,9 @@ rails_generators/ruboss_config/templates/html-template/index.template.html
 rails_generators/ruboss_config/templates/html-template/playerProductInstall.swf
 rails_generators/ruboss_config/templates/index.html.erb
 rails_generators/ruboss_config/templates/mainair-app.xml
+rails_generators/ruboss_config/templates/mainapp-config.xml
 rails_generators/ruboss_config/templates/mainapp.mxml
+rails_generators/ruboss_config/templates/project-textmate.erb
 rails_generators/ruboss_config/templates/project.properties
 rails_generators/ruboss_config/templates/projectair.properties
 rails_generators/ruboss_config/templates/ruboss.yml
@@ -94,7 +96,9 @@ test/fixtures/notes.yml
 test/fixtures/projects.yml
 test/fixtures/tasks.yml
 test/fixtures/users.yml
+test/helpers/controllers.log
 test/helpers/functional_test_helper.rb
+test/helpers/models.log
 test/helpers/test_helper.rb
 test/helpers/unit_test_helper.rb
 test/model.yml
@@ -105,6 +109,7 @@ test/models/task.rb
 test/models/user.rb
 test/playing_around_in_a_console.txt
 test/schema.rb
+test/test.sqlite3
 test/test.swf
 test/test_active_foo.rb
 test/test_ruboss_rails_integration_functional.rb
