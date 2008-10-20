@@ -12,8 +12,6 @@
 # commercial license, please go to http://ruboss.com.
 ################################################################################
 require 'open-uri'
-require 'ruboss4ruby/version'
-require 'ruboss4ruby/configuration'
 
 class RubossConfigGenerator < Rails::Generator::Base
   include Ruboss::Configuration

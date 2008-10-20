@@ -1,5 +1,4 @@
 require 'yaml'
-require 'ruboss4ruby/configuration'
 
 class RubossYamlScaffoldGenerator < Rails::Generator::Base
   def extract_attrs(line, attrs)

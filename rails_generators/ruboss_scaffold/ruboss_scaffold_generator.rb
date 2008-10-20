@@ -11,8 +11,6 @@
 # RCL v1 applies; otherwise, only the GPL v3 applies. To learn more or to buy a
 # commercial license, please go to http://ruboss.com.
 ################################################################################
-require 'ruboss4ruby/configuration'
-
 module Rails
   module Generator
     class GeneratedAttribute

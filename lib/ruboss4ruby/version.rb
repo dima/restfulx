@@ -1,5 +1,5 @@
 module Ruboss
-  RUBOSS_FRAMEWORK_VERSION = '1.0.2'
+  RUBOSS_FRAMEWORK_VERSION = '1.0.3'
 
   module VERSION
     MAJOR = 1

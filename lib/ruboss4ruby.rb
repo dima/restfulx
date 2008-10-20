@@ -25,9 +25,9 @@ elsif defined?(ActionController::Base)
   require File.join(File.dirname(__FILE__),'ruboss4ruby', 'version')
   require File.join(File.dirname(__FILE__),'ruboss4ruby', 'configuration')
   require File.join(File.dirname(__FILE__),'ruboss4ruby', 'active_foo')
-  require File.join(File.dirname(__FILE__), 'ruboss4ruby/ruboss_helper')
+  require File.join(File.dirname(__FILE__), 'ruboss4ruby', 'ruboss_helper')
   ActionView::Base.send :include, RubossHelper unless ActionView::Base.included_modules.include?(RubossHelper)
-  require File.join(File.dirname(__FILE__), 'ruboss4ruby/ruboss_test_helpers')  
+  require File.join(File.dirname(__FILE__), 'ruboss4ruby', 'ruboss_test_helpers')  
   Test::Unit::TestCase.send :include, RubossTestHelpers unless Test::Unit::TestCase.included_modules.include?(RubossTestHelpers)
 
   module ActionController
