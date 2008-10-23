@@ -28,7 +28,7 @@ Capistrano::Configuration.instance(:must_exist).load do
       task :via_dumb_copy, :roles => :app do
         # the -p flag on mkdir makes intermediate directories (i.e. both /bin and /bin/history), 
         # and doesn't raise an error if any of the directories already exist.
-        rails_root = File.join(File.dirname(__FILE__), '..', '..', '..', '..')
+        rails_root = Dir.pwd # You have to run cap tasks from RAILS_ROOT anyways
         base_dir = File.join(rails_root, 'public', 'bin')
         ec2_base_dir = File.join(shared_path, 'flex_files')
     
@@ -46,7 +46,7 @@ Capistrano::Configuration.instance(:must_exist).load do
       desc "synchronizes the local and remote public/bin directories using rsync"
       task :via_rsync, :roles => :app do      
         username = user || ENV['USER']
-        rails_root = File.join(File.dirname(__FILE__), '..', '..', '..', '..')
+        rails_root = Dir.pwd # You have to run cap tasks from RAILS_ROOT anyways
         execute_on_servers do |server|
           `rsync -r -p -v -e \"ssh -i #{ssh_options[:keys]}\" #{File.join(rails_root, 'public', 'bin')}/ #{username}@#{server}:#{File.join(shared_path, 'flex_files')}/`
         end
