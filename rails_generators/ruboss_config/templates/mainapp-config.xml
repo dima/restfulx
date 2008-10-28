@@ -2,7 +2,7 @@
   <benchmark>false</benchmark>
   <default-background-color>#FFFFFF</default-background-color>
   <compiler>
-    <incremental>true</incremental>
+    <incremental>false</incremental>
     <keep-as3-metadata append="true">
        <name>Resource</name>
        <name>HasOne</name>

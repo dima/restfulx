@@ -1,4 +1,4 @@
-require 'ruboss4ruby/tasks'
+require File.join(File.dirname(__FILE__), 'tasks')
 
 # these tasks are active record specific
 

@@ -1,7 +1,7 @@
 require 'rake'
 require 'ftools'
 require 'rexml/document'
-require 'ruboss4ruby/configuration'
+require File.join(File.dirname(__FILE__), 'configuration')
 
 APP_ROOT = Ruboss::Configuration::APP_ROOT
 

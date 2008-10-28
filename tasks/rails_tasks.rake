@@ -11,9 +11,4 @@
 # RCL v1 applies; otherwise, only the GPL v3 applies. To learn more or to buy a
 # commercial license, please go to http://ruboss.com.
 ################################################################################
-
-# if the gem is not installed system wide, we'll just skip the tasks
-begin
-  require 'ruboss4ruby/active_record_tasks'
-rescue LoadError
-end
+require File.join(File.dirname(__FILE__), '..', 'lib', 'ruboss4ruby', 'active_record_tasks')

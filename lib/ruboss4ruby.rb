@@ -2,18 +2,15 @@
 # make sure we're running inside Merb
 if defined?(Merb::Plugins)
   Merb::BootLoader.before_app_loads do
-    Merb.add_mime_type(:fxml,  :to_fxml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
-
-    # generators = File.join(File.dirname(__FILE__), '..', 'merb_generators')
-    # Merb.add_generators generators / :ruboss_config
-    # Merb.add_generators generators / :ruboss_flex_app
-    # Merb.add_generators generators / :ruboss_controller
-    # Merb.add_generators generators / :ruboss_scaffold
-    # Merb.add_generators generators / :ruboss_resource_controller
-    
-    require 'ruboss4ruby/version'
-    require 'ruboss4ruby/configuration'
-    require 'ruboss4ruby/active_foo' if defined?(ActiveRecord::Base)
+    if defined?(ActiveRecord::Base)
+      Merb.add_mime_type(:fxml,  :to_fxml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
+      require File.join(File.dirname(__FILE__),'ruboss4ruby', 'active_foo')
+    else
+      Merb.add_mime_type(:fxml,  :to_xml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
+      if defined?(Merb::Orms::DataMapper)
+        require File.join(File.dirname(__FILE__), 'ruboss4ruby', 'datamapper_foo')
+      end
+    end
   end
   
   # TODO: can we find out if use_orm :activerecord is on and only then load active record specific tasks?
