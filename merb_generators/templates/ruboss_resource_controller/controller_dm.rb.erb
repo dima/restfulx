@@ -1,0 +1,46 @@
+<% with_modules(modules) do -%>
+class <%= class_name %> < Application
+  provides :xml, :fxml
+
+  def index
+    @<%= plural_model %> = <%= model_class_name %>.all
+    display @<%= plural_model %>
+  end
+
+  def show
+    @<%= singular_model %> = <%= model_class_name %>.get(<%= params_for_get %>)
+    raise NotFound unless @<%= singular_model %>
+    display @<%= singular_model %>
+  end
+
+  def create
+    @<%= singular_model %> = <%= model_class_name %>.new(params[:<%= singular_model %>])
+    if @<%= singular_model %>.save
+      display @<%= singular_model %>
+    else
+      display @<%= singular_model %>.errors
+    end
+  end
+
+  def update
+    @<%= singular_model %> = <%= model_class_name %>.get(<%= params_for_get %>)
+    raise NotFound unless @<%= singular_model %>
+    if @<%= singular_model %>.update_attributes(params[:<%= singular_model %>]) || !@<%= singular_model %>.dirty?
+      display @<%= singular_model %>
+    else
+      display @<%= singular_model %>.errors
+    end
+  end
+
+  def destroy
+    @<%= singular_model %> = <%= model_class_name %>.get(<%= params_for_get %>)
+    raise NotFound unless @<%= singular_model %>
+    if @<%= singular_model %>.destroy
+      display @<%= singular_model %>
+    else
+      display @<%= singular_model %>.errors
+    end
+  end
+
+end # <%= class_name %>
+<% end -%>
