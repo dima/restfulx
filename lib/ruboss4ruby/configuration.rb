@@ -43,10 +43,10 @@ module Ruboss
         config = YAML.load(File.open("#{APP_ROOT}/config/ruboss.yml"))
         base_package = config['base-package'] || project_name_downcase
         base_folder = base_package.gsub('.', '/')
-        controller_name = config['controller-name'] || "#{project_name}Controller"
+        controller_name = config['controller-name'] || "ApplicationController"
       rescue
         base_folder = base_package = project_name_downcase
-        controller_name = "#{project_name}Controller"
+        controller_name = "ApplicationController"
       end
       [project_name, project_name_downcase, controller_name, base_package, base_folder]
     end

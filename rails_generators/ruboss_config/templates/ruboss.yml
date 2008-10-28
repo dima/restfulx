@@ -7,10 +7,8 @@
 
 #base-package: com.pomodo
 
-# Main ruboss controller is typically named after your rails project name (camel-cased with a word
-# Controller appended at the end, e.g. if your application is called "pomodo" the flex application
-# controller will be called "PomodoController"). This controller is created in 
+# Main ruboss controller is typically named AppicationController. This controller is created in 
 # <base-package>.controllers folder. You can customize the name by uncommenting the following line 
 # and changing the controller name.
 
-#controller-name: PomodoController
+#controller-name: ApplicationController
