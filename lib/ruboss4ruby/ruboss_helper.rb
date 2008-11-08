@@ -20,29 +20,26 @@ module RubossHelper
     js_params = ["'#{swf_url}?#{rails_asset_id(swf_url)}'"]
     js_params += arg_order.collect {|arg| "'#{params[arg]}'" }
     
-    # Add authenticity_token to flashVars.  This will only work if flashVars is a Hash or nil
-    # If it's a string representing the name of a Javascript variable, then you need to add it yourself 
+    # Add authenticity_token and the session key to flashVars.  This will only work if flashVars is a Hash or nil
+    # If it's a string representing the name of a Javascript variable, then you need to add them yourself 
     # like this:
     # <script>
     #   ... other code that defines flashVars and sets some of its parameters
     #   flashVars['authenticity_token'] = <%= form_authenticity_token -%>
+    #   flashVars['session_token'] = <%= session.session_id -%>
     # </script>
     # If you include an authenticity_token parameter in flashVars, 
     # then the Flex app will add it to Ruboss.defaultMetadata, so that it will be sent
     # back up to your Rails app with every request.
-    if params[:include_authenticity_token] && ActionController::Base.allow_forgery_protection
-      params[:flash_vars] = {} if params[:flash_vars].nil?
-      if params[:flash_vars].is_a?(Hash)
+    params[:flash_vars] ||= {}
+    if params[:flash_vars].is_a?(Hash)
+      if params[:include_authenticity_token] && ActionController::Base.allow_forgery_protection
         params[:flash_vars].reverse_merge!(:authenticity_token => form_authenticity_token)
       end
-    end    
-    if params[:include_session_token]
-      params[:flash_vars] = {} if params[:flash_vars].nil?
-      if params[:flash_vars].is_a?(Hash)
+      if params[:include_session_token]
         params[:flash_vars].reverse_merge!(:session_token => session.session_id)
-      end  
-    end
-          
+      end        
+    end          
     
     js_params += [params[:flash_vars], params[:params], params[:attributes]].collect do |hash_or_string|
       if hash_or_string.is_a?(Hash)
