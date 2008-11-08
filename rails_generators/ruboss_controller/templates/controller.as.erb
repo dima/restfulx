@@ -1,7 +1,8 @@
 package <%= base_package %>.controllers {
   import <%= base_package %>.models.*;
   import <%= base_package %>.commands.*;
-	
+
+	import mx.core.Application;		
   import org.ruboss.Ruboss;
   import org.ruboss.controllers.RubossCommandsController;
   import org.ruboss.utils.RubossUtils;
@@ -28,6 +29,8 @@ package <%= base_package %>.controllers {
       controller = new <%= command_controller_name %>(new SingletonEnforcer, extraServices,
         defaultServiceId);
       Ruboss.commands = controller;
+			Ruboss.sessionToken = Application.application.parameters.session_token;
+			Ruboss.defaultMetadata = {'authenticity_token': Application.application.parameters.authenticity_token};            
     }
   }
 }
