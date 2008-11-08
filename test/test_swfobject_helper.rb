@@ -2,6 +2,14 @@ require 'test/unit'
 require 'rubygems'
 require File.join(File.dirname(__FILE__), 'helpers', 'test_helper.rb')
 
+class MockSession
+  
+  def session_id
+    'mock_session'
+  end
+
+end
+
 class RubossHelperTest < Test::Unit::TestCase
   
   ActionView::Helpers::AssetTagHelper::ASSETS_DIR = File.dirname(__FILE__) # Make rails_asset_id work
@@ -17,11 +25,15 @@ class RubossHelperTest < Test::Unit::TestCase
   include ActionView::Helpers::TextHelper
   # include ActionController
   
+  def session
+    MockSession.new
+  end
+  
   # Mock out the form authenticity token method
   def form_authenticity_token
     "123456"
   end
-  
+    
   def test_sanity
     assert_nothing_raised {swfobject('test.swf')}
   end
@@ -58,6 +70,11 @@ class RubossHelperTest < Test::Unit::TestCase
     swf = swfobject('test.swf')
     swf =~ /test.swf\?([^\']*)/
     assert !$1.empty?
+  end
+  
+  def test_session_token_is_included_by_default
+    swf = swfobject('test.swf')
+    assert_match /session_token/, swf
   end
 
 end
