@@ -13,7 +13,8 @@ module RubossHelper
                            :params => nil,
                            :attributes => nil,
                            :create_div => false, 
-                           :include_authenticity_token => true
+                           :include_authenticity_token => true,
+                           :include_session_token => true
                           })                       
     arg_order = [:id, :width, :height, :version, :express_install_swf]
     js_params = ["'#{swf_url}?#{rails_asset_id(swf_url)}'"]
@@ -34,7 +35,14 @@ module RubossHelper
       if params[:flash_vars].is_a?(Hash)
         params[:flash_vars].reverse_merge!(:authenticity_token => form_authenticity_token)
       end
+    end    
+    if params[:include_session_token]
+      params[:flash_vars] = {} if params[:flash_vars].nil?
+      if params[:flash_vars].is_a?(Hash)
+        params[:flash_vars].reverse_merge!(:session_token => session.session_id)
+      end  
     end
+          
     
     js_params += [params[:flash_vars], params[:params], params[:attributes]].collect do |hash_or_string|
       if hash_or_string.is_a?(Hash)

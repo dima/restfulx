@@ -75,5 +75,10 @@ class ActiveFooTest < Test::Unit::TestCase
       @shakespeare.to_fxml
     end
   end
+  
+  def test_array_of_users_includes_default_fxml_includes
+    set_response_to User.find(:all).to_fxml
+    assert_xml_select 'users user tasks task'
+  end
 
 end
