@@ -80,5 +80,10 @@ class ActiveFooTest < Test::Unit::TestCase
     set_response_to User.find(:all).to_fxml
     assert_xml_select 'users user tasks task'
   end
+  
+  def test_to_fxml_should_take_a_block
+    set_response_to users(:ludwig).to_fxml {|xml| xml.test 42}
+    assert_xml_select 'test', '42'
+  end
 
 end

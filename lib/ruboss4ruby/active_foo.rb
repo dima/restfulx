@@ -108,13 +108,13 @@ module ActiveRecord
   end
 
   module Serialization
-    def to_fxml(options = {})
+    def to_fxml(options = {}, &block)
       options.merge!(:dasherize => false)
       default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at]
       options[:except] = (options[:except] ? options[:except] + default_except : default_except)
       options[:methods] = [options[:methods] || []].flatten + (self.class.default_fxml_hash[:methods] || [])
       options[:include] = self.class.default_fxml_hash[:include].merge(self.class.includes_as_hash(options[:include]))
-      to_xml(options)
+      to_xml(options, &block)
     end
     
   end
