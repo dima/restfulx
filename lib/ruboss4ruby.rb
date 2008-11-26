@@ -34,7 +34,7 @@ elsif defined?(ActionController::Base)
       # so that we can have handling for :fxml option and write code like
       # format.fxml  { render :fxml => @projects }
       def render(options = nil, extra_options = {}, &block)
-        if options && options[:fxml]
+        if options.is_a?(Hash) && options[:fxml]
           xml = options[:fxml]
           response.content_type ||= Mime::XML
           render_for_text(xml.respond_to?(:to_fxml) ? xml.to_fxml : xml, options[:status])
