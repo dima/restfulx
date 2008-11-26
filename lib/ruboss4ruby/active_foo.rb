@@ -7,20 +7,14 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:flex_date
 Hash::XML_FORMATTING['date'] = Proc.new { |date| date.to_s(:flex_date) }
 Hash::XML_FORMATTING['datetime'] = Proc.new { |datetime| datetime.to_s(:flex_datetime) }
 
-class ClassyEmptyArray < Array
-  def initialize(class_name)
-    @class_name = class_name
-  end
-  def to_fxml(*args) # You need the *args so that it doesn't fail if there are :include or :methods params
-    empty? ? "<#{@class_name} type=\"array\"/>" : super.to_fxml
-  end
-end
-
 module ActiveSupport
   module CoreExtensions
     module Hash
       module Conversions
         def to_fxml(options = {})
+          if self.empty? && !options[:root]
+            raise "empty hash being converted to FXML must specify :root option"
+          end
           options.merge!(:dasherize => false)
           to_xml(options)
         end
@@ -29,6 +23,9 @@ module ActiveSupport
     module Array
       module Conversions
         def to_fxml(options = {})
+          if self.empty? && !options[:root]
+            raise "empty hash being converted to FXML must specify :root option"
+          end
           options.merge!(:dasherize => false)
           to_xml(options)
         end
@@ -41,16 +38,6 @@ module ActiveRecord
   # Flex friendly XML serialization patches
   class Base
     class << self
-      alias_method :old_find, :find unless method_defined?(:old_find)
-
-      def find(*args)
-        result = old_find(*args)
-        if result.class == Array and result.empty?
-          result = ClassyEmptyArray.new(self.class_name.tableize)
-        end
-        result
-      end
-
       # TODO: this doesn't work with hash based to_fxml(:include) options, only array based
       def default_fxml_methods(*args)
         methods = *args.dup
