@@ -1,4 +1,3 @@
-require 'ruboss4ruby/configuration'
 require 'ruboss4ruby/generated_attribute'
 
 #NOTE: this is currently (merb 0.9.9 broken and needs to be rethought anyway. This line of thinking was based

@@ -1,7 +1,7 @@
 Generators
 History.txt
 Manifest.txt
-README.txt
+README.rdoc
 gpl-3.0.txt
 lib/ruboss4ruby.rb
 lib/ruboss4ruby/active_foo.rb
@@ -13,7 +13,6 @@ lib/ruboss4ruby/recipes.rb
 lib/ruboss4ruby/ruboss_helper.rb
 lib/ruboss4ruby/ruboss_test_helpers.rb
 lib/ruboss4ruby/tasks.rb
-lib/ruboss4ruby/version.rb
 merb_generators/ruboss_config.rb
 merb_generators/ruboss_controller.rb
 merb_generators/ruboss_flex_app.rb
@@ -79,7 +78,6 @@ rails_generators/ruboss_scaffold/templates/model.rb.erb
 rails_generators/ruboss_yaml_scaffold/USAGE
 rails_generators/ruboss_yaml_scaffold/ruboss_yaml_scaffold_generator.rb
 rcl-1.0.txt
-tasks/rails_tasks.rake
 test/controllers/application.rb
 test/controllers/locations_controller.rb
 test/controllers/notes_controller.rb
@@ -94,6 +92,7 @@ test/fixtures/tasks.yml
 test/fixtures/users.yml
 test/helpers/controllers.log
 test/helpers/functional_test_helper.rb
+test/helpers/models.log
 test/helpers/test_helper.rb
 test/helpers/unit_test_helper.rb
 test/model.yml
@@ -107,6 +106,8 @@ test/schema.rb
 test/test.sqlite3
 test/test.swf
 test/test_active_foo.rb
+test/test_helper.rb
+test/test_ruboss4ruby.rb
 test/test_ruboss_rails_integration_functional.rb
 test/test_swfobject_helper.rb
 test/to_fxml_test.rb

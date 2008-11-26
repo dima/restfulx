@@ -1,7 +1,5 @@
 require 'open-uri'
 require 'fileutils'
-require 'ruboss4ruby/version'
-require 'ruboss4ruby/configuration'
 
 module Merb::Generators
   class RubossConfigGenerator < Generator

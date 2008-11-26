@@ -1,5 +1,3 @@
-require 'ruboss4ruby/configuration'
-
 module Merb::Generators
   class RubossControllerGenerator < Generator
     include Ruboss::Configuration

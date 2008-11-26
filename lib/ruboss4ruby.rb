@@ -1,10 +1,17 @@
+module Ruboss
+  VERSION = '1.0.5'
+  RUBOSS_FRAMEWORK_VERSION = '1.0.5'
+end
+
 # Merb specific handling
 # make sure we're running inside Merb
 if defined?(Merb::Plugins)
   Merb::BootLoader.before_app_loads do
+    require File.join(File.dirname(__FILE__), 'ruboss4ruby', 'configuration')
+    
     if defined?(ActiveRecord::Base)
       Merb.add_mime_type(:fxml,  :to_fxml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
-      require File.join(File.dirname(__FILE__),'ruboss4ruby', 'active_foo')
+      require File.join(File.dirname(__FILE__), 'ruboss4ruby', 'active_foo')
     else
       Merb.add_mime_type(:fxml,  :to_xml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
       if defined?(Merb::Orms::DataMapper)
@@ -19,11 +26,12 @@ elsif defined?(ActionController::Base)
   # if we are not running in Merb, we've got to be running in Rails
   Mime::Type.register_alias "application/xml", :fxml
 
-  require File.join(File.dirname(__FILE__),'ruboss4ruby', 'version')
   require File.join(File.dirname(__FILE__),'ruboss4ruby', 'configuration')
   require File.join(File.dirname(__FILE__),'ruboss4ruby', 'active_foo')
+  
   require File.join(File.dirname(__FILE__), 'ruboss4ruby', 'ruboss_helper')
   ActionView::Base.send :include, RubossHelper unless ActionView::Base.included_modules.include?(RubossHelper)
+  
   require File.join(File.dirname(__FILE__), 'ruboss4ruby', 'ruboss_test_helpers')  
   Test::Unit::TestCase.send :include, RubossTestHelpers unless Test::Unit::TestCase.included_modules.include?(RubossTestHelpers)
 
