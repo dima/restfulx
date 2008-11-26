@@ -4,7 +4,6 @@ require 'find'
 # require 'ruboss4ruby/recipes'
 
 Capistrano::Configuration.instance(:must_exist).load do
-
   after "deploy:setup", "deploy:flex:setup"
 
   namespace :db do
@@ -15,7 +14,6 @@ Capistrano::Configuration.instance(:must_exist).load do
   end
 
   namespace :deploy do
-  
     namespace :flex do
     
       desc "Creates the flex_files directory in the shared directory"
@@ -55,8 +53,6 @@ Capistrano::Configuration.instance(:must_exist).load do
       task :make_symlink, :roles => :app do
         run "ln -s #{shared_path}/flex_files #{release_path}/public/bin"
       end
-  
     end
   end
-  
 end

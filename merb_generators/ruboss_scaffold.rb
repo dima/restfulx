@@ -1,4 +1,4 @@
-require 'ruboss4ruby/generated_attribute'
+require Ruboss::LIB_DIR + 'generated_attribute'
 
 #NOTE: this is currently (merb 0.9.9 broken and needs to be rethought anyway. This line of thinking was based
 # on the kind of code generation you could do with rails, it's a different code generation paradigm with Merb anyway)

@@ -13,7 +13,7 @@ module ActiveSupport
       module Conversions
         def to_fxml(options = {})
           if self.empty? && !options[:root]
-            raise "empty hash being converted to FXML must specify :root option"
+            raise "empty hash being converted to FXML must specify :root option, e.g. <class_name>.to_s.underscore.pluralize"
           end
           options.merge!(:dasherize => false)
           to_xml(options)
@@ -24,7 +24,7 @@ module ActiveSupport
       module Conversions
         def to_fxml(options = {})
           if self.empty? && !options[:root]
-            raise "empty hash being converted to FXML must specify :root option"
+            raise "empty array being converted to FXML must specify :root option, e.g. <class_name>.to_s.underscore.pluralize"
           end
           options.merge!(:dasherize => false)
           to_xml(options)

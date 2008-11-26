@@ -1,5 +1,5 @@
 require 'builder'
-require File.join(File.dirname(__FILE__), 'configuration')
+require Ruboss::LIB_DIR + 'configuration'
 
 module DataMapper
   module Validate
