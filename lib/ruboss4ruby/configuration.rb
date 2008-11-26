@@ -36,13 +36,13 @@ module Ruboss
     APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : Merb.root
 
     def extract_names
-      project_name = APP_ROOT.split("/").last.camelcase
+      project_name = APP_ROOT.split("/").last.camelcase.gsub(/\s/, '')
       project_name_downcase = project_name.downcase
 
       begin      
         config = YAML.load(File.open("#{APP_ROOT}/config/ruboss.yml"))
         base_package = config['base-package'] || project_name_downcase
-        base_folder = base_package.gsub('.', '/')
+        base_folder = base_package.gsub('.', '/').gsub(/\s/, '')
         controller_name = config['controller-name'] || "ApplicationController"
       rescue
         base_folder = base_package = project_name_downcase

@@ -10,14 +10,14 @@ namespace :ruboss do
     app_properties = REXML::Document.new(File.open(File.join(APP_ROOT, ".actionScriptProperties")))
     app_properties.elements.each("*/applications/application") do |elm|
       app_path = elm.attributes['path']
-      project_path = File.join(APP_ROOT, "app/flex", app_path).gsub(' ', '\ ')
+      project_path = File.join(APP_ROOT, "app/flex", app_path)
       target_project_path = project_path.sub(/.mxml$/, '.swf')
       target_project_air_descriptor = project_path.sub(/.mxml$/, '-app.xml')
       
-      libs = Dir.glob(File.join(APP_ROOT, 'lib', '*.swc')).map({|lib| lib.gsub(' ', '\ ')})
+      libs = Dir.glob(File.join(APP_ROOT, 'lib', '*.swc')).map {|lib| lib.gsub(' ', '\ ')}
       
       cmd = "#{executable} #{opts} -library-path+=#{libs.join(',')} " << 
-        "-keep-as3-metadata+=Resource,HasOne,HasMany,BelongsTo,DateTime,Lazy,Ignored #{project_path}"
+        "-keep-as3-metadata+=Resource,HasOne,HasMany,BelongsTo,DateTime,Lazy,Ignored #{project_path.gsub(' ', '\ ')}"
       puts "Compiling #{project_path}"
       if system(cmd)
         FileUtils.makedirs File.join(APP_ROOT, destination)
