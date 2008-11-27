@@ -16,7 +16,55 @@ module ActiveSupport
             raise "empty hash being converted to FXML must specify :root option, e.g. <class_name>.to_s.underscore.pluralize"
           end
           options.merge!(:dasherize => false)
-          to_xml(options)
+          options[:indent] ||= 2
+          options.reverse_merge!({ :builder => Builder::XmlMarkup.new(:indent => options[:indent]),
+                                   :root => "hash" })
+          options[:builder].instruct! unless options.delete(:skip_instruct)
+          dasherize = !options.has_key?(:dasherize) || options[:dasherize]
+          root = dasherize ? options[:root].to_s.dasherize : options[:root].to_s
+
+          options[:builder].__send__(:method_missing, root) do
+            each do |key, value|
+              case value
+                when ::Hash
+                  value.to_fxml(options.merge({ :root => key, :skip_instruct => true }))
+                when ::Array
+                  value.to_fxml(options.merge({ :root => key, :children => key.to_s.singularize, :skip_instruct => true}))
+                when ::Method, ::Proc
+                  # If the Method or Proc takes two arguments, then
+                  # pass the suggested child element name.  This is
+                  # used if the Method or Proc will be operating over
+                  # multiple records and needs to create an containing
+                  # element that will contain the objects being
+                  # serialized.
+                  if 1 == value.arity
+                    value.call(options.merge({ :root => key, :skip_instruct => true }))
+                  else
+                    value.call(options.merge({ :root => key, :skip_instruct => true }), key.to_s.singularize)
+                  end
+                else
+                  if value.respond_to?(:to_fxml)
+                    value.to_fxml(options.merge({ :root => key, :skip_instruct => true }))
+                  else
+                    type_name = XML_TYPE_NAMES[value.class.name]
+
+                    key = dasherize ? key.to_s.dasherize : key.to_s
+
+                    attributes = options[:skip_types] || value.nil? || type_name.nil? ? { } : { :type => type_name }
+                    if value.nil?
+                      attributes[:nil] = true
+                    end
+
+                    options[:builder].tag!(key,
+                      XML_FORMATTING[type_name] ? XML_FORMATTING[type_name].call(value) : value,
+                      attributes
+                    )
+                end
+              end
+            end
+    
+            yield options[:builder] if block_given?
+          end
         end
       end
     end
@@ -26,8 +74,34 @@ module ActiveSupport
           if self.empty? && !options[:root]
             raise "empty array being converted to FXML must specify :root option, e.g. <class_name>.to_s.underscore.pluralize"
           end
+          raise "Not all elements respond to to_fxml" unless all? { |e| e.respond_to? :to_fxml }
+
+          options[:root]     ||= all? { |e| e.is_a?(first.class) && first.class.to_s != "Hash" } ? first.class.to_s.underscore.pluralize : "records"
+          options[:children] ||= options[:root].singularize
+          options[:indent]   ||= 2
+          options[:builder]  ||= Builder::XmlMarkup.new(:indent => options[:indent])
           options.merge!(:dasherize => false)
-          to_xml(options)
+
+          root     = options.delete(:root).to_s
+          children = options.delete(:children)
+
+          if !options.has_key?(:dasherize) || options[:dasherize]
+            root = root.dasherize
+          end
+
+          options[:builder].instruct! unless options.delete(:skip_instruct)
+
+          opts = options.merge({ :root => children })
+
+          xml = options[:builder]
+          if empty?
+            xml.tag!(root, options[:skip_types] ? {} : {:type => "array"})
+          else
+            xml.tag!(root, options[:skip_types] ? {} : {:type => "array"}) {
+              yield xml if block_given?
+              each { |e| e.to_fxml(opts.merge!({ :skip_instruct => true })) }
+            }
+          end
         end
       end
     end
@@ -35,77 +109,15 @@ module ActiveSupport
 end
 
 module ActiveRecord
-  # Flex friendly XML serialization patches
-  class Base
-    class << self
-      # TODO: this doesn't work with hash based to_fxml(:include) options, only array based
-      def default_fxml_methods(*args)
-        methods = *args.dup
-        module_eval <<-END 
-            def self.default_fxml_methods_array
-              return [#{methods.inspect}].flatten
-            end
-          END
-      end
-      
-      def default_fxml_includes(*args)
-        includes = *args.dup
-        module_eval <<-END
-          def self.default_fxml_include_params
-            return [#{includes.inspect}].flatten
-          end
-        END
-      end
-            
-      def default_fxml_hash(already_included = [])
-        # return {} unless self.class.respond_to?(:default_fxml_include_params) || self.class.respond_to?(:default_fxml_methods_array)
-        default_hash = {:include => {}}
-        default_hash[:methods] = self.default_fxml_methods_array if self.respond_to?(:default_fxml_methods_array)
-        if self.respond_to?(:default_fxml_include_params)
-          default_includes = self.default_fxml_include_params
-          default_hash[:include] = default_includes.inject({}) do |include_hash, included|
-            next if already_included.include?(included) # We only want to include things once, to avoid infinite loops
-            included_class = included.to_s.singularize.camelize.constantize
-            include_hash[included] = included_class.default_fxml_hash(already_included + default_includes) 
-            include_hash
-          end
-        end
-        default_hash
-      end 
-      
-    # options[:include] can be a Hash, Array, Symbol or nil.
-    # We always want it as a Hash.  This translates includes to a Hash like this:
-    # If it's a nil, return an empty Hash ({})
-    # If it's a Hash, then it is just returned
-    # If it's an array, then it returns a Hash with each array element as a key, and values of empty Hashes.
-    # If it's a symbol, then it returns a Hash with a single key/value pair, with the symbol as the key and an empty Hash as the value.
-    def includes_as_hash(includes = nil)      
-      res = case
-        when includes.is_a?(Hash)
-          includes      
-        when includes.nil?
-         {}  
-        else #Deal with arrays and symbols
-          res = [includes].flatten.inject({}) {|include_hash, included| include_hash[included] = {} ; include_hash}
-      end
-      res
-    end           
-      
-    end
-  end
-
   module Serialization
     def to_fxml(options = {}, &block)
       options.merge!(:dasherize => false)
       default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at]
       options[:except] = (options[:except] ? options[:except] + default_except : default_except)
-      options[:methods] = [options[:methods] || []].flatten + (self.class.default_fxml_hash[:methods] || [])
-      options[:include] = self.class.default_fxml_hash[:include].merge(self.class.includes_as_hash(options[:include]))
       to_xml(options, &block)
     end
-    
   end
-
+  
   # Change the xml serializer so that '?'s are stripped from attribute names.
   # This makes it possible to serialize methods that end in a question mark, like 'valid?' or 'is_true?'
   class XmlSerializer

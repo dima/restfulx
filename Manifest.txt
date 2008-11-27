@@ -78,6 +78,7 @@ rails_generators/ruboss_scaffold/templates/model.rb.erb
 rails_generators/ruboss_yaml_scaffold/USAGE
 rails_generators/ruboss_yaml_scaffold/ruboss_yaml_scaffold_generator.rb
 rcl-1.0.txt
+ruboss4ruby.gemspec
 test/controllers/application.rb
 test/controllers/locations_controller.rb
 test/controllers/notes_controller.rb
