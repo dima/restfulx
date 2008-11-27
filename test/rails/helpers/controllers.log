@@ -1,0 +1,40 @@
+# Logfile created on Thu Oct 16 14:02:21 -0700 2008 by /
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-10-16 14:02:22) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00249 (401 reqs/sec) | Rendering: 0.00061 (24%) | DB: 0.08283 (3327%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-11-14 19:33:20) [GET]
+  Session ID: 
+  Parameters: {"action"=>"empty_params_action", "controller"=>"notes"}
+Rendering notes/empty_params_action
+Completed in 0.00351 (284 reqs/sec) | Rendering: 0.00128 (36%) | DB: 0.09174 (2612%) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-11-27 19:47:47) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 1, DB: 90) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-11-27 19:49:05) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 1, DB: 87) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-11-27 19:50:30) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 1, DB: 81) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-11-27 19:54:39) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 1, DB: 83) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-11-27 19:57:08) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 1, DB: 90) | 200 OK [http://test.host/notes/empty_params_action]

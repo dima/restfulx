@@ -28,8 +28,8 @@ elsif defined?(ActionController::Base)
   # if we are not running in Merb, we've got to be running in Rails
   Mime::Type.register_alias "application/xml", :fxml
   
-  ['configuration', 'active_foo', 'ruboss_helper', 
-    'ruboss_test_helpers'].each { |lib| require Ruboss::LIB_DIR + lib }
+  ['configuration', 'active_foo', 'rails/ruboss_helper', 
+    'rails/ruboss_test_helpers'].each { |lib| require Ruboss::LIB_DIR + lib }
 
   ActionView::Base.send :include, RubossHelper unless ActionView::Base.included_modules.include?(RubossHelper)  
   Test::Unit::TestCase.send :include, RubossTestHelpers unless Test::Unit::TestCase.included_modules.include?(RubossTestHelpers)

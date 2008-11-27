@@ -18,7 +18,7 @@ class RubossHelperTest < Test::Unit::TestCase
   include ActionView::Helpers
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::ActiveRecordHelper
-  include ActionView::Helpers::JavascriptHelper
+  include ActionView::Helpers::JavaScriptHelper
   include ActionView::Helpers::AssetTagHelper
   include ActionView::Helpers::TagHelper  
   include ActionView::Helpers::CaptureHelper
