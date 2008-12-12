@@ -19,6 +19,8 @@ require File.join(File.dirname(__FILE__), '..', 'models', 'user')
 require File.join(File.dirname(__FILE__), '..', 'models', 'project')
 require File.join(File.dirname(__FILE__), '..', 'models', 'location')
 require File.join(File.dirname(__FILE__), '..', 'models', 'task')
+require File.join(File.dirname(__FILE__), '..', 'models', 'simple_property')
+
 
 
 

@@ -46,7 +46,7 @@
 <% for model in belongs_tos -%>
     <%= class_name.downcase_first_letter %>.<%= model.camelcase(:lower) %> = <%= model.camelcase %>(<%= model.camelcase(:lower) %>ComboBox.selectedItem);
 <% end -%>
-    <%= class_name.downcase_first_letter %>.create({afterCallback: on<%= class_name %>Create});
+    <%= class_name.downcase_first_letter %>.create({onSuccess: on<%= class_name %>Create});
   }
 
   private function update<%= class_name %>():void {
@@ -69,11 +69,11 @@
 <% for model in belongs_tos -%>
     _<%= class_name.downcase_first_letter %>.<%= model.camelcase(:lower) %> = <%= model.camelcase %>(<%= model.camelcase(:lower) %>ComboBox.selectedItem);
 <% end -%>
-    _<%= class_name.downcase_first_letter %>.update({afterCallback: on<%= class_name %>Update});
+    _<%= class_name.downcase_first_letter %>.update({onSuccess: on<%= class_name %>Update});
   }
 
   private function destroy<%= class_name %>():void {
-    _<%= class_name.downcase_first_letter %>.destroy({afterCallback: on<%= class_name %>Destroy});
+    _<%= class_name.downcase_first_letter %>.destroy({onSuccess: on<%= class_name %>Destroy});
   }
   
   private function on<%= class_name %>Select():void {

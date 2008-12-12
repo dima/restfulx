@@ -11,6 +11,7 @@
 
 ActiveRecord::Schema.define(:version => 20080729045550) do
 
+  # standard pomodo models
   create_table "locations", :force => true do |t|
     t.string   "name"
     t.text     "notes"
@@ -58,6 +59,19 @@ ActiveRecord::Schema.define(:version => 20080729045550) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  # all simple properties test model
+  create_table "simple_properties", :force => true do |t|
+    t.string  "name"
+    t.integer "amount"
+    t.float   "price"
+    t.decimal "quantity"
+    t.boolean "available"
+    t.date    "delivered_on"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.time    "sold_on"
   end
 
 end

@@ -46,8 +46,8 @@ module Merb::Generators
 
     desc <<-DESC
       Generates the main Ruboss Flex application controller.
-      Typically app/flex/<yourappname>/controllers/<YourAppName>Controller.as, 
-      e.g. app/flex/pomodo/controllers/PomodoController.as
+      Typically app/flex/<yourappname>/controllers/ApplicationController.as, 
+      e.g. app/flex/pomodo/controllers/ApplicationController.as
     
       It pulls out all available models and commands from respective
       folders and makes sure they'll be pulled into the Flex application

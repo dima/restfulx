@@ -6,10 +6,11 @@ require 'models/note'
 require 'models/project'
 require 'models/task'
 require 'models/user'
+require 'models/simple_property'
 
 
 class ToFxmlTest < Test::Unit::TestCase
-  fixtures :locations, :notes, :projects, :tasks, :users
+  fixtures :locations, :notes, :projects, :tasks, :users, :simple_properties
   
   def test_to_fxml_sanity
     assert_nothing_raised {users(:ludwig).to_fxml}
@@ -68,6 +69,10 @@ class ToFxmlTest < Test::Unit::TestCase
   def test_model_with_default_xml_includes
     set_response_to users(:ludwig).to_fxml
     assert_xml_select 'user tasks task'
+  end
+  
+  def test_simple_properies
+    puts simple_properties
   end
   
   # Test type=.... stuff for has_many, booleans, integers, dates, date-times

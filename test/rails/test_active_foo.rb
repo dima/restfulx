@@ -10,17 +10,6 @@ class ActiveFooTest < Test::Unit::TestCase
   def setup
     @shakespeare = users(:shakespeare)
   end
-
-  def test_to_fxml_with_args_on_empty_array_should_not_blow_up
-    a = ClassyEmptyArray.new(Object)
-    assert_nothing_raised {a.to_fxml}
-    assert_nothing_raised {a.to_fxml(:include => :test)}
-  end
-  
-  def test_to_fxml_on_empty_classy_array_gives_class
-    a = ClassyEmptyArray.new(Object)
-    assert_match 'Object', a.to_fxml
-  end
   
   def test_task_fxml_includes_default_method
     set_response_to tasks(:haydn).to_fxml

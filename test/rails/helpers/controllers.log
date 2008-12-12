@@ -38,3 +38,48 @@ Completed in 3ms (View: 1, DB: 83) | 200 OK [http://test.host/notes/empty_params
 Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-11-27 19:57:08) [GET]
 Rendering notes/empty_params_action
 Completed in 3ms (View: 1, DB: 90) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-08 13:42:14) [GET]
+Rendering notes/empty_params_action
+Completed in 5ms (View: 2, DB: 104) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-08 13:44:59) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 1, DB: 97) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-08 13:47:25) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 1, DB: 103) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-08 13:48:00) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 1, DB: 100) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-08 13:48:45) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 1, DB: 99) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-08 13:49:00) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 1, DB: 100) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-08 13:49:44) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 2, DB: 100) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-08 13:50:21) [GET]
+Rendering notes/empty_params_action
+Completed in 5ms (View: 4, DB: 97) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-08 13:51:56) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 1, DB: 93) | 200 OK [http://test.host/notes/empty_params_action]
