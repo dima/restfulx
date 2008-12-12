@@ -94,7 +94,7 @@
   }
 
   private function canDelete<%= class_name %>(<%= class_name.downcase_first_letter %>:<%= class_name %>):Boolean {
-    return <%= class_name.downcase_first_letter %> != null && <%= class_name.downcase_first_letter %>.id != 0;
+    return <%= class_name.downcase_first_letter %> != null && !RubossUtils.isEmpty(<%= class_name.downcase_first_letter %>.id);
   }
 ]]></mx:Script>
   <mx:Panel id="<%= class_name.downcase_first_letter.pluralize %>Panel"

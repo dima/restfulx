@@ -1,6 +1,6 @@
 module Ruboss
-  VERSION = '1.0.5'
-  RUBOSS_FRAMEWORK_VERSION = '1.0.5'
+  VERSION = '1.1.0'
+  RUBOSS_FRAMEWORK_VERSION = '1.1.0'
   
   LIB_DIR = File.join(File.dirname(__FILE__), 'ruboss4ruby/')
 end

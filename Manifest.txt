@@ -89,6 +89,7 @@ test/rails/database.yml
 test/rails/fixtures/locations.yml
 test/rails/fixtures/notes.yml
 test/rails/fixtures/projects.yml
+test/rails/fixtures/simple_properties.yml
 test/rails/fixtures/tasks.yml
 test/rails/fixtures/users.yml
 test/rails/helpers/controllers.log
@@ -100,6 +101,7 @@ test/rails/model.yml
 test/rails/models/location.rb
 test/rails/models/note.rb
 test/rails/models/project.rb
+test/rails/models/simple_property.rb
 test/rails/models/task.rb
 test/rails/models/user.rb
 test/rails/playing_around_in_a_console.txt
@@ -110,7 +112,6 @@ test/rails/test_active_foo.rb
 test/rails/test_helper.rb
 test/rails/test_ruboss4ruby.rb
 test/rails/test_ruboss_rails_integration_functional.rb
-test/rails/test_swfobject_helper.rb
 test/rails/to_fxml_test.rb
 test/rails/views/notes/empty_params_action.html.erb
 test/rails/views/notes/index.html.erb
