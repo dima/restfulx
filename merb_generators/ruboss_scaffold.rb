@@ -4,7 +4,7 @@ require Ruboss::LIB_DIR + 'generated_attribute'
 # on the kind of code generation you could do with rails, it's a different code generation paradigm with Merb anyway)
 module Merb::Generators
   class RubossScaffoldGenerator < NamespacedGenerator
-    include Ruboss::Configuration
+    include Ruboss4Ruby::Configuration
     
     option :flex_only, :as => :boolean, :default => false, :desc => 'Scaffold Flex code only.'
     option :skip_migration, :as => :boolean, :default => false, :desc => 'Skip migration for this model.'

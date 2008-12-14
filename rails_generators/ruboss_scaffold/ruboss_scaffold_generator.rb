@@ -62,7 +62,7 @@ module Rails
 end
 
 class RubossScaffoldGenerator < Rails::Generator::NamedBase
-  include Ruboss::Configuration 
+  include Ruboss4Ruby::Configuration 
   
   attr_reader   :project_name, 
                 :flex_project_name, 

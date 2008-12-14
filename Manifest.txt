@@ -1,7 +1,8 @@
 Generators
 History.txt
 Manifest.txt
-README.rdoc
+README.txt
+Rakefile
 gpl-3.0.txt
 lib/ruboss4ruby.rb
 lib/ruboss4ruby/active_foo.rb
@@ -79,6 +80,8 @@ rails_generators/ruboss_yaml_scaffold/USAGE
 rails_generators/ruboss_yaml_scaffold/ruboss_yaml_scaffold_generator.rb
 rcl-1.0.txt
 ruboss4ruby.gemspec
+spec/ruboss4ruby_spec.rb
+spec/spec_helper.rb
 test/rails/controllers/application.rb
 test/rails/controllers/locations_controller.rb
 test/rails/controllers/notes_controller.rb

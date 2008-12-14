@@ -1,27 +1,27 @@
-%w[rubygems rake rake/clean fileutils newgem rubigen].each { |f| require f }
-require File.dirname(__FILE__) + '/lib/ruboss4ruby'
+# Look in the tasks/setup.rb file for the various options that can be
+# configured in this Rakefile. The .rake files in the tasks directory
+# are where the options are used.
 
-# Generate all the Rake tasks
-# Run 'rake -T' to see list of generated tasks (from gem root directory)
-$hoe = Hoe.new('ruboss4ruby', Ruboss::VERSION) do |p|
-  p.developer('Dima Berastau', 'dima@ruboss.com')
-  p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
-  p.rubyforge_name       = p.name # TODO this is default value
-  # p.extra_deps         = [
-  #   ['activesupport','>= 2.0.2'],
-  # ]
-  p.extra_dev_deps = [
-    ['newgem', ">= #{::Newgem::VERSION}"]
-  ]
-  
-  p.clean_globs |= %w[**/.DS_Store tmp *.log]
-  path = (p.rubyforge_name == p.name) ? p.rubyforge_name : "\#{p.rubyforge_name}/\#{p.name}"
-  p.remote_rdoc_dir = File.join(path.gsub(/^#{p.rubyforge_name}\/?/,''), 'rdoc')
-  p.rsync_args = '-av --delete --ignore-errors'
+begin
+  require 'bones'
+  Bones.setup
+rescue LoadError
+  load 'tasks/setup.rb'
 end
 
-require 'newgem/tasks' # load /tasks/*.rake
-Dir['tasks/**/*.rake'].each { |t| load t }
+ensure_in_path 'lib'
+require 'ruboss4ruby'
 
-# TODO - want other tests/tasks run by default? Add them to the list
-# task :default => [:spec, :features]
+task :default => 'spec:run'
+
+PROJ.name = 'ruboss4ruby'
+PROJ.summary = 'Ruboss Framework Rails 2.1+ and Merb 1.0 Integration Support (RubyGem)'
+PROJ.authors = 'Dima Berastau'
+PROJ.email = 'dima@ruboss.com'
+PROJ.url = 'http://github.com/dima/ruboss4ruby/wikis'
+PROJ.version = Ruboss4Ruby::VERSION
+PROJ.rubyforge.name = 'ruboss4ruby'
+
+PROJ.spec.opts << '--color'
+
+# EOF

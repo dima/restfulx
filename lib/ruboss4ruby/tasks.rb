@@ -3,7 +3,7 @@ require 'ftools'
 require 'rexml/document'
 require File.join(File.dirname(__FILE__), 'configuration')
 
-APP_ROOT = Ruboss::Configuration::APP_ROOT
+APP_ROOT = Ruboss4Ruby::Configuration::APP_ROOT
 
 namespace :ruboss do
   def compile_app(executable, destination, opts = '')

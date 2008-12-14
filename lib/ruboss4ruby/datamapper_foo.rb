@@ -1,5 +1,5 @@
 require 'builder'
-require Ruboss::LIB_DIR + 'configuration'
+require Ruboss4Ruby::LIB_DIR + 'configuration'
 
 module DataMapper
   module Validate

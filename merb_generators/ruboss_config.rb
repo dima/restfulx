@@ -3,7 +3,7 @@ require 'fileutils'
 
 module Merb::Generators
   class RubossConfigGenerator < Generator
-    include Ruboss::Configuration
+    include Ruboss4Ruby::Configuration
 
     option :air, :as => :boolean, :default => false, :desc => 'Configure AIR project instead of Flex. Flex is default.'
     option :skip_framework, :as => :boolean, :default => false, :desc => "Don't fetch the latest framework binary. You'll have to link/build the framework yourself."
@@ -12,7 +12,7 @@ module Merb::Generators
       super
       @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder = extract_names
     
-      framework_release = Ruboss::RUBOSS_FRAMEWORK_VERSION
+      framework_release = Ruboss4Ruby::RUBOSS_FRAMEWORK_VERSION
       framework_distribution_url = "http://ruboss.com/releases/ruboss-#{framework_release}.swc"
       framework_destination_file = "lib/ruboss-#{framework_release}.swc"
       

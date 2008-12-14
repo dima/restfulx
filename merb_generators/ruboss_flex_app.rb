@@ -3,7 +3,7 @@ require 'fileutils'
 
 module Merb::Generators
   class RubossFlexAppGenerator < Generator
-    include Ruboss::Configuration
+    include Ruboss4Ruby::Configuration
 
     option :air, :as => :boolean, :default => false, :desc => 'Configure AIR project instead of Flex. Flex is default.'
     

@@ -83,3 +83,18 @@ Completed in 5ms (View: 4, DB: 97) | 200 OK [http://test.host/notes/empty_params
 Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-08 13:51:56) [GET]
 Rendering notes/empty_params_action
 Completed in 3ms (View: 1, DB: 93) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-13 19:09:10) [GET]
+Rendering notes/empty_params_action
+Completed in 3ms (View: 1, DB: 93) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-13 19:12:32) [GET]
+Rendering notes/empty_params_action
+Completed in 5ms (View: 4, DB: 97) | 200 OK [http://test.host/notes/empty_params_action]
+
+
+Processing NotesController#empty_params_action (for 0.0.0.0 at 2008-12-13 19:12:40) [GET]
+Rendering notes/empty_params_action
+Completed in 2ms (View: 1, DB: 95) | 200 OK [http://test.host/notes/empty_params_action]

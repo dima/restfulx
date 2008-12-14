@@ -1,6 +1,6 @@
 module Merb::Generators
   class RubossControllerGenerator < Generator
-    include Ruboss::Configuration
+    include Ruboss4Ruby::Configuration
     
     def initialize(*args)
       super
