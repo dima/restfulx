@@ -1,7 +1,7 @@
 require 'find'
 
 # To use these recipes, add the following to your Capfile:
-# require 'ruboss4ruby/recipes'
+# require 'ruboss4ruby/rails/recipes'
 
 Capistrano::Configuration.instance(:must_exist).load do
   after "deploy:setup", "deploy:flex:setup"

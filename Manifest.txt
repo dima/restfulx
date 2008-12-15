@@ -1,7 +1,8 @@
+.gitignore
 Generators
 History.txt
 Manifest.txt
-README.txt
+README.rdoc
 Rakefile
 gpl-3.0.txt
 lib/ruboss4ruby.rb
@@ -12,7 +13,6 @@ lib/ruboss4ruby/datamapper_foo.rb
 lib/ruboss4ruby/generated_attribute.rb
 lib/ruboss4ruby/rails/recipes.rb
 lib/ruboss4ruby/rails/ruboss_helper.rb
-lib/ruboss4ruby/rails/ruboss_test_helpers.rb
 lib/ruboss4ruby/tasks.rb
 merb_generators/ruboss_config.rb
 merb_generators/ruboss_controller.rb
@@ -95,6 +95,7 @@ test/rails/fixtures/projects.yml
 test/rails/fixtures/simple_properties.yml
 test/rails/fixtures/tasks.yml
 test/rails/fixtures/users.yml
+test/rails/helpers/.gitignore
 test/rails/helpers/controllers.log
 test/rails/helpers/functional_test_helper.rb
 test/rails/helpers/models.log
@@ -112,8 +113,6 @@ test/rails/schema.rb
 test/rails/test.sqlite3
 test/rails/test.swf
 test/rails/test_active_foo.rb
-test/rails/test_helper.rb
-test/rails/test_ruboss4ruby.rb
 test/rails/test_ruboss_rails_integration_functional.rb
 test/rails/to_fxml_test.rb
 test/rails/views/notes/empty_params_action.html.erb

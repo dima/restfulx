@@ -20,6 +20,7 @@ PROJ.authors = 'Dima Berastau'
 PROJ.email = 'dima@ruboss.com'
 PROJ.url = 'http://github.com/dima/ruboss4ruby/wikis'
 PROJ.version = Ruboss4Ruby::VERSION
+PROJ.readme_file = 'README.rdoc'
 PROJ.rubyforge.name = 'ruboss4ruby'
 
 PROJ.spec.opts << '--color'
