@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>camelcase (String)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/ruboss4ruby/configuration.rb, line 10</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">camelcase</span>(<span class="ruby-identifier">first_letter</span> = <span class="ruby-identifier">:upper</span>)
+    <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">first_letter</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:upper</span> <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">camelize</span>(<span class="ruby-keyword kw">true</span>)
+      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:lower</span> <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">camelize</span>(<span class="ruby-keyword kw">false</span>)
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
