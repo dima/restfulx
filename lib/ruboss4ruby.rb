@@ -60,7 +60,7 @@ if defined?(Merb::Plugins)
     else
       Merb.add_mime_type(:fxml,  :to_xml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
       if defined?(Merb::Orms::DataMapper)
-        require Ruboss::LIB_DIR + 'datamapper_foo'
+        require Ruboss4Ruby::LIB_DIR + 'datamapper_foo'
       end
     end
   end    

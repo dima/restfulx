@@ -84,10 +84,10 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000014">libpath</a>&nbsp;&nbsp;
-      <a href="#M000015">path</a>&nbsp;&nbsp;
-      <a href="#M000016">require_all_libs_relative_to</a>&nbsp;&nbsp;
-      <a href="#M000013">version</a>&nbsp;&nbsp;
+      <a href="#M000013">libpath</a>&nbsp;&nbsp;
+      <a href="#M000014">path</a>&nbsp;&nbsp;
+      <a href="#M000015">require_all_libs_relative_to</a>&nbsp;&nbsp;
+      <a href="#M000012">version</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -115,21 +115,40 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000014" class="method-detail">
-        <a name="M000014"></a>
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
 
         <div class="method-heading">
-          <a href="Ruboss4Ruby.src/M000014.html" target="Code" class="method-signature"
-            onclick="popupCode('Ruboss4Ruby.src/M000014.html');return false;">
+          <a href="Ruboss4Ruby.src/M000013.html" target="Code" class="method-signature"
+            onclick="popupCode('Ruboss4Ruby.src/M000013.html');return false;">
           <span class="method-name">libpath</span><span class="method-args">( *args )</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Returns the library <a href="Ruboss4Ruby.html#M000015">path</a> for the
+Returns the library <a href="Ruboss4Ruby.html#M000014">path</a> for the
 module. If any arguments are given, they will be joined to the end of the
-libray <a href="Ruboss4Ruby.html#M000015">path</a> using
+libray <a href="Ruboss4Ruby.html#M000014">path</a> using
+<tt>File.join</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <a href="Ruboss4Ruby.src/M000014.html" target="Code" class="method-signature"
+            onclick="popupCode('Ruboss4Ruby.src/M000014.html');return false;">
+          <span class="method-name">path</span><span class="method-args">( *args )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the lpath for the module. If any arguments are given, they will be
+joined to the end of the <a href="Ruboss4Ruby.html#M000014">path</a> using
 <tt>File.join</tt>.
 </p>
         </div>
@@ -141,32 +160,13 @@ libray <a href="Ruboss4Ruby.html#M000015">path</a> using
         <div class="method-heading">
           <a href="Ruboss4Ruby.src/M000015.html" target="Code" class="method-signature"
             onclick="popupCode('Ruboss4Ruby.src/M000015.html');return false;">
-          <span class="method-name">path</span><span class="method-args">( *args )</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-Returns the lpath for the module. If any arguments are given, they will be
-joined to the end of the <a href="Ruboss4Ruby.html#M000015">path</a> using
-<tt>File.join</tt>.
-</p>
-        </div>
-      </div>
-
-      <div id="method-M000016" class="method-detail">
-        <a name="M000016"></a>
-
-        <div class="method-heading">
-          <a href="Ruboss4Ruby.src/M000016.html" target="Code" class="method-signature"
-            onclick="popupCode('Ruboss4Ruby.src/M000016.html');return false;">
           <span class="method-name">require_all_libs_relative_to</span><span class="method-args">( fname, dir = nil )</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Utility method used to rquire all files ending in .rb that lie in the
+Utility method used to require all files ending in .rb that lie in the
 directory below this file that has the same name as the filename passed in.
 Optionally, a specific <em>directory</em> name can be passed in such that
 the <em>filename</em> does not have to be equivalent to the directory.
@@ -174,19 +174,19 @@ the <em>filename</em> does not have to be equivalent to the directory.
         </div>
       </div>
 
-      <div id="method-M000013" class="method-detail">
-        <a name="M000013"></a>
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
 
         <div class="method-heading">
-          <a href="Ruboss4Ruby.src/M000013.html" target="Code" class="method-signature"
-            onclick="popupCode('Ruboss4Ruby.src/M000013.html');return false;">
+          <a href="Ruboss4Ruby.src/M000012.html" target="Code" class="method-signature"
+            onclick="popupCode('Ruboss4Ruby.src/M000012.html');return false;">
           <span class="method-name">version</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Returns the <a href="Ruboss4Ruby.html#M000013">version</a> string for the
+Returns the <a href="Ruboss4Ruby.html#M000012">version</a> string for the
 library.
 </p>
         </div>

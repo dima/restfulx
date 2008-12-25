@@ -80,9 +80,7 @@ module Merb::Generators
     file :express_install, 'expressInstall.swf', File.join('public', 'expressInstall.swf')
     
     file :ruboss_yml, 'ruboss.yml', File.join('config', 'ruboss.yml')
-    
-    template :index, 'index.html.erb', File.join('app', 'views', 'layout', 'application.html.erb')
-    
+        
     invoke :ruboss_flex_app
 
     template :air_descriptor, :air => true do |t|

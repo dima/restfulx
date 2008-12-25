@@ -5,14 +5,14 @@
 
 <html>
 <head>
-  <title>libpath (Ruboss4Ruby)</title>
+  <title>path (Ruboss4Ruby)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/ruboss4ruby.rb, line 21</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">libpath</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">args</span> )
-    <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-value">? </span><span class="ruby-constant">LIBPATH</span> <span class="ruby-operator">:</span> <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">LIBPATH</span>, <span class="ruby-identifier">args</span>.<span class="ruby-identifier">flatten</span>)
+  <pre><span class="ruby-comment cmt"># File lib/ruboss4ruby.rb, line 29</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">path</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">args</span> )
+    <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-value">? </span><span class="ruby-constant">PATH</span> <span class="ruby-operator">:</span> <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">PATH</span>, <span class="ruby-identifier">args</span>.<span class="ruby-identifier">flatten</span>)
   <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>
