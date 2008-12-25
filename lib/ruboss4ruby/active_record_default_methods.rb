@@ -19,25 +19,7 @@ module ActiveRecord
         end
         defaults_hash
       end 
-      
-      # options[:include] can be a Hash, Array, Symbol or nil.
-      # We always want it as a Hash.  This translates includes to a Hash like this:
-      # If it's a nil, return an empty Hash ({})
-      # If it's a Hash, then it is just returned
-      # If it's an array, then it returns a Hash with each array element as a key, and values of empty Hashes.
-      # If it's a symbol, then it returns a Hash with a single key/value pair, with the symbol as the key and an empty Hash as the value.
-      def includes_as_hash(includes = nil)      
-        res = case
-          when includes.is_a?(Hash)
-            includes      
-          when includes.nil?
-           {}  
-          else #Deal with arrays and symbols
-            res = [includes].flatten.inject({}) {|include_hash, included| include_hash[included] = {} ; include_hash}
-        end
-        res
-      end  
- 
+
     end
   
   end    
