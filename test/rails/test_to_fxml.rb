@@ -8,7 +8,6 @@ require 'models/task'
 require 'models/user'
 require 'models/simple_property'
 
-
 class ToFxmlTest < Test::Unit::TestCase
   fixtures :locations, :notes, :projects, :tasks, :users, :simple_properties
   

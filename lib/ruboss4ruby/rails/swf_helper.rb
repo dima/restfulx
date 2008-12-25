@@ -1,4 +1,4 @@
-module RubossHelper
+module SWFHelper
   
   # Creates a swfObject Javascript call.  You must include swfobject.js to use this.
   # See http://code.google.com/p/swfobject/wiki/documentation for full details and documentation

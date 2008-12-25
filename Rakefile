@@ -24,5 +24,6 @@ PROJ.readme_file = 'README.rdoc'
 PROJ.rubyforge.name = 'ruboss4ruby'
 
 PROJ.spec.opts << '--color'
+PROJ.test.opts << '-W1'
 
 # EOF

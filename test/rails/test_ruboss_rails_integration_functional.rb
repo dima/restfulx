@@ -1,6 +1,3 @@
-require 'test/unit'
-require 'rubygems'
-
 require File.join(File.dirname(__FILE__), 'helpers', 'test_helper')
 require File.join(File.dirname(__FILE__), 'helpers', 'functional_test_helper')
 

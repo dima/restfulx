@@ -1,5 +1,3 @@
-require 'rubygems'
-require 'test/unit'
 RAILS_ROOT = File.dirname(__FILE__) unless defined? RAILS_ROOT
 require File.join(File.dirname(__FILE__), 'helpers', 'test_helper')
 require File.join(File.dirname(__FILE__), 'helpers', 'unit_test_helper')

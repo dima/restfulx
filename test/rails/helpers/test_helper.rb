@@ -1,8 +1,8 @@
-require 'test/unit'
 RAILS_ROOT = File.join(File.dirname(__FILE__), '..') unless defined? RAILS_ROOT
-require 'rubygems'
 
+require 'rubygems'
 require 'test/unit'
+
 require 'active_support'
 require 'active_support/test_case'
 require 'active_record'
@@ -32,6 +32,14 @@ class MockResponse
 end
 
 class Test::Unit::TestCase #:nodoc:
+  # Turn off transactional fixtures if you're working with MyISAM tables in MySQL
+  self.use_transactional_fixtures = true
+
+  # Instantiated fixtures are slow, but give you @david where you otherwise would need people(:david)
+  self.use_instantiated_fixtures  = true
+
+  # Add more helper methods to be used by all tests here...
+
   # Use this to test xml or fxml responses in unit tests.  For example,
   # set_response_to user.to_fxml
   # assert_xml_select 'user name', 'quentin'
@@ -51,8 +59,3 @@ class Test::Unit::TestCase #:nodoc:
   end
   
 end
-
-
-
-
-

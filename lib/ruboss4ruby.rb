@@ -30,7 +30,7 @@ module Ruboss4Ruby
     args.empty? ? PATH : ::File.join(PATH, args.flatten)
   end
 
-  # Utility method used to rquire all files ending in .rb that lie in the
+  # Utility method used to require all files ending in .rb that lie in the
   # directory below this file that has the same name as the filename passed
   # in. Optionally, a specific _directory_ name can be passed in such that
   # the _filename_ does not have to be equivalent to the directory.
@@ -68,9 +68,9 @@ elsif defined?(ActionController::Base)
   # if we are not running in Merb, we've got to be running in Rails
   Mime::Type.register_alias "application/xml", :fxml
   
-  ['configuration', 'active_foo', 'rails/ruboss_helper'].each { |lib| require Ruboss4Ruby::LIB_DIR + lib }
+  ['configuration', 'active_foo', 'rails/swf_helper'].each { |lib| require Ruboss4Ruby::LIB_DIR + lib }
 
-  ActionView::Base.send :include, RubossHelper unless ActionView::Base.included_modules.include?(RubossHelper)  
+  ActionView::Base.send :include, SWFHelper unless ActionView::Base.included_modules.include?(SWFHelper)  
 
   module ActionController
     class Base
@@ -90,7 +90,7 @@ elsif defined?(ActionController::Base)
     end
   end
 
-  module RubossController
+  module Ruboss4RubyController
     private
 
     # Extract any keys named _metadata from the models in the params hash
@@ -114,7 +114,7 @@ elsif defined?(ActionController::Base)
     end
   end
 
-  ActionController::Base.send :include, RubossController  
+  ActionController::Base.send :include, Ruboss4RubyController  
   ActionController::Base.send :prepend_before_filter, :extract_metadata_from_params  
 
   # temporarily disable forgery protection site-wise
