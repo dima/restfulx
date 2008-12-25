@@ -3,7 +3,7 @@ class Task < ActiveRecord::Base
   belongs_to :location
   belongs_to :user
   
-  default_fxml_methods :is_active
+  default_methods :is_active
   
   def is_active
     case

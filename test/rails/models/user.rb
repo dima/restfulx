@@ -4,8 +4,7 @@ class User < ActiveRecord::Base
   has_many :projects
   has_many :locations
   
-  default_fxml_methods :full_name, :has_nothing_to_do
-  default_fxml_includes :tasks, :projects
+  default_methods :full_name, :has_nothing_to_do
   
   validates_length_of :login, :maximum => 10
   

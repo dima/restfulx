@@ -55,7 +55,7 @@ if defined?(Merb::Plugins)
     
     if defined?(ActiveRecord::Base)
       Merb.add_mime_type(:fxml,  :to_fxml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
-      require Ruboss4Ruby::LIB_DIR + 'active_foo'
+      ['active_foo', 'active_record_default_methods'].each { |lib| require Ruboss4Ruby::LIB_DIR + lib }
       Merb::Plugins.add_rakefiles 'ruboss4ruby/active_record_tasks'
     else
       Merb.add_mime_type(:fxml,  :to_xml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
@@ -68,7 +68,7 @@ elsif defined?(ActionController::Base)
   # if we are not running in Merb, we've got to be running in Rails
   Mime::Type.register_alias "application/xml", :fxml
   
-  ['configuration', 'active_foo', 'rails/swf_helper'].each { |lib| require Ruboss4Ruby::LIB_DIR + lib }
+  ['configuration', 'active_foo', 'active_record_default_methods', 'rails/swf_helper'].each { |lib| require Ruboss4Ruby::LIB_DIR + lib }
 
   ActionView::Base.send :include, SWFHelper unless ActionView::Base.included_modules.include?(SWFHelper)  
 
