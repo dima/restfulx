@@ -12,9 +12,6 @@ module ActiveSupport
     module Hash
       module Conversions
         def to_fxml(options = {})
-          if self.empty? && !options[:root]
-            raise "empty hash being converted to FXML must specify :root option, e.g. <class_name>.to_s.underscore.pluralize"
-          end
           options.merge!(:dasherize => false)
           options[:indent] ||= 2
           options.reverse_merge!({ :builder => Builder::XmlMarkup.new(:indent => options[:indent]),
@@ -71,9 +68,6 @@ module ActiveSupport
     module Array
       module Conversions
         def to_fxml(options = {})
-          if self.empty? && !options[:root]
-            raise "empty array being converted to FXML must specify :root option, e.g. <class_name>.to_s.underscore.pluralize"
-          end
           raise "Not all elements respond to to_fxml" unless all? { |e| e.respond_to? :to_fxml }
 
           options[:root]     ||= all? { |e| e.is_a?(first.class) && first.class.to_s != "Hash" } ? first.class.to_s.underscore.pluralize : "records"
