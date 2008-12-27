@@ -1,4 +1,5 @@
 = ruboss4ruby
+
     http://github.com/dima/ruboss4ruby/wikis
 
 == DESCRIPTION:
@@ -20,4 +21,4 @@ If you are running a server the following configurations are known to work:
 
 == INSTALL:
 
-* sudo gem install dima-ruboss4ruby -s http://gems.github.com
+    sudo gem install dima-ruboss4ruby -s http://gems.github.com
