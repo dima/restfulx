@@ -30,6 +30,7 @@ generators/ruboss_config/ruboss_config_generator.rb
 generators/ruboss_controller/USAGE
 generators/ruboss_controller/ruboss_controller_generator.rb
 generators/ruboss_controller/templates/controller.as.erb
+generators/ruboss_main_app/USAGE
 generators/ruboss_main_app/ruboss_main_app_generator.rb
 generators/ruboss_main_app/templates/mainapp.mxml
 generators/ruboss_scaffold/USAGE

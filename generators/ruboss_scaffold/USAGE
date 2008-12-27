@@ -1,14 +1,11 @@
 Description:
-    Scaffolds an entire resource, from model and migration to controller and
-    views, along with a full test suite. The resource is ready to use as a
+    Scaffolds an entire Ruboss resources. The resource is ready to use as a
     starting point for your restful, resource-oriented application.
     
-    ruboss_scaffold delegates the underlying rails code generation to "scaffold"
-    and extends it in a number of ways:
+    ruboss_scaffold :
       1. Generates all required Flex code.
       2. You can pass special belongs_to, has_one and has_many attributes
-         to generate *all* appropriate relationships. No more manual code
-         editing.
+         to generate appropriate relationships.
 
     Pass the name of the model, either CamelCased or under_scored, as the first
     argument, and an optional list of attribute pairs.
@@ -24,11 +21,8 @@ Description:
     You don't have to think up every attribute up front, but it helps to
     sketch out a few so you can start working with the resource immediately.
 
-    For example, `scaffold post title:string body:text published:boolean`
-    gives you a model with those three attributes, a controller that handles
-    the create/show/update/destroy, forms to create and edit your posts, and
-    an index that lists them all, as well as a map.resources :posts
-    declaration in config/routes.rb.
+    For example, `ruboss_scaffold post title:string body:text published:boolean`
+    gives you a model with those three attributes.
 
 Examples:
     `./script/generate ruboss_scaffold project name:string has_many:tasks`

@@ -80,9 +80,9 @@ class RubossAppGenerator < RubiGen::Base
 
     def banner
           <<-EOS
-    Creates the skeleton for a new Ruboss AIR app
+    Creates the skeleton for a new Ruboss app
 
-    USAGE: #{spec.name} app_name
+    USAGE: #{spec.name} (-a) app_name
     EOS
     end
 end

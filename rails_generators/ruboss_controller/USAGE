@@ -1,7 +1,6 @@
 Description:
     Generates/updates the main Flex application controller, typically
-    app/flex/<yourappname>/controllers/<YourAppName>Controller.as, e.g.
-    app/flex/pomodo/controllers/PomodoController.as
+    app/flex/<yourappname>/controllers/ApplicationController.as
     
     It pulls out all available models and commands from respective
     folders and makes sure they'll be pulled into the Flex application
