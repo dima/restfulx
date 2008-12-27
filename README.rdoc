@@ -7,7 +7,7 @@ Ruboss Framework Code Generation Engine / Rails 2.1+ and Merb 1.0 Integration Su
 
 == REQUIREMENTS:
 
-The following gems are required to make run Ruboss code generators
+The following gems are required to run Ruboss code generators
 
 * RubiGen
 * ActiveSupport
