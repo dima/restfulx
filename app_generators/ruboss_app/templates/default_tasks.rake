@@ -4,14 +4,15 @@ require 'ruboss4ruby/tasks'
 TEST_APP_NAME = 'TestApp.mxml'
 
 namespace :air do
+  desc "Build and run the AIR application"
   task :run => ["ruboss:air:build", "ruboss:air:run"]
 end
 
 namespace :flex do
-  desc "Test the flex application"
+  desc "Test the Flex application"
   task :test => ["ruboss:test:build", "ruboss:test:run"]
   
-  desc "Build flex applications"
+  desc "Build Flex applications"
   task :build do
     extra_lib = '/Users/Dima/Projects/ruboss/ruboss_framework/framework/bin/ruboss.swc'
     compile_app(get_executable('mxmlc'), 'public/bin', "-library-path+=#{extra_lib}")  
