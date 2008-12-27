@@ -1,4 +1,4 @@
-ruboss4ruby
+= ruboss4ruby
     http://github.com/dima/ruboss4ruby/wikis
 
 == DESCRIPTION:
