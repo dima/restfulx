@@ -43,15 +43,22 @@ module Ruboss4Ruby
     Dir.glob(search_me).sort.each {|rb| require rb}
   end
 
-end  # module Ruboss4Ruby
+end
 
-# Merb specific handling
+require Ruboss4Ruby::LIB_DIR + 'configuration'
+
+if defined?(Merb)
+  scope 'merb-gen' do
+    dir = File.join(File.dirname(__FILE__), '..', 'merb_generators/')
+    Merb.add_generators dir + 'ruboss_config', dir + 'ruboss_flex_app', dir + 'ruboss_controller'
+  end
+end
+
 # make sure we're running inside Merb
 if defined?(Merb::Plugins)
   Merb::Plugins.add_rakefiles 'ruboss4ruby/tasks'
 
   Merb::BootLoader.before_app_loads do
-    require Ruboss4Ruby::LIB_DIR + 'configuration'
     
     if defined?(ActiveRecord::Base)
       Merb.add_mime_type(:fxml,  :to_fxml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
@@ -68,7 +75,7 @@ elsif defined?(ActionController::Base)
   # if we are not running in Merb, we've got to be running in Rails
   Mime::Type.register_alias "application/xml", :fxml
   
-  ['configuration', 'active_foo', 'active_record_default_methods', 'rails/swf_helper'].each { |lib| require Ruboss4Ruby::LIB_DIR + lib }
+  ['active_foo', 'active_record_default_methods', 'rails/swf_helper'].each { |lib| require Ruboss4Ruby::LIB_DIR + lib }
 
   ActionView::Base.send :include, SWFHelper unless ActionView::Base.included_modules.include?(SWFHelper)  
 

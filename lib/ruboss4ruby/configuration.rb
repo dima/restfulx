@@ -1,9 +1,9 @@
 class String
-  def capitalize_without_downcasing
+  def ucfirst
     self[0,1].capitalize + self[1..-1]
   end
   
-  def downcase_first_letter
+  def dcfirst
     self[0,1].downcase + self[1..-1]
   end
   
@@ -30,12 +30,17 @@ end
 
 module Ruboss4Ruby
   module Configuration
-    APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : Merb.root
+    APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : defined?(Merb) ? Merb.root : File.expand_path(".")
 
-    def extract_names
-      project_name = APP_ROOT.split("/").last.camelcase.gsub(/\s/, '')
-      project_name_downcase = project_name.downcase
-
+    def extract_names(project = nil)
+      if project
+        project_name = project.camelcase.gsub(/\s/, '')
+        project_name_downcase = project_name.downcase
+      else
+        project_name = APP_ROOT.split("/").last.camelcase.gsub(/\s/, '')
+        project_name_downcase = project_name.downcase
+      end
+      
       begin      
         config = YAML.load(File.open("#{APP_ROOT}/config/ruboss.yml"))
         base_package = config['base-package'] || project_name_downcase

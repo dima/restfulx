@@ -12,6 +12,9 @@ end
 ensure_in_path 'lib'
 require 'ruboss4ruby'
 
+depend_on 'rubigen'
+depend_on 'activesupport'
+
 task :default => 'spec:run'
 
 PROJ.name = 'ruboss4ruby'
@@ -20,8 +23,13 @@ PROJ.authors = 'Dima Berastau'
 PROJ.email = 'dima@ruboss.com'
 PROJ.url = 'http://github.com/dima/ruboss4ruby/wikis'
 PROJ.version = Ruboss4Ruby::VERSION
+
+PROJ.executables = ['bin/ruboss-gen']
+
 PROJ.readme_file = 'README.rdoc'
 PROJ.rubyforge.name = 'ruboss4ruby'
+
+PROJ.exclude << %w(.DS_Store .gitignore)
 
 PROJ.spec.opts << '--color'
 PROJ.test.opts << '-W1'

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:<%= application_tag %> xmlns:mx="http://www.adobe.com/2006/mxml"
+  xmlns:generated="<%= base_package %>.components.generated.*"
+  paddingBottom="8" paddingLeft="8" paddingRight="8" paddingTop="8"
+  layout="horizontal" styleName="plain" initialize="init()">
+  <mx:Script>
+    <![CDATA[
+<% if use_air -%>
+      import org.ruboss.services.air.AIRServiceProvider;
+<% end -%>
+      import org.ruboss.Ruboss;
+      import <%= base_package %>.controllers.<%= command_controller_name %>;
+
+      private function init():void {
+<% if use_air -%>
+        <%= command_controller_name %>.initialize([AIRServiceProvider], AIRServiceProvider.ID, "<%= base_package %>");
+<% else -%>
+        <%= command_controller_name %>.initialize();
+<% end -%>
+      }
+    ]]>
+  </mx:Script>
+  <mx:LinkBar dataProvider="{mainViewStack}" direction="vertical" borderStyle="solid" backgroundColor="#EEEEEE"/>
+  <mx:ViewStack id="mainViewStack" width="100%" height="100%">
+    <!-- For a simple demo, put all the components here. -->
+<% for component in component_names -%>
+    <generated:<%= component %>/>
+<% end -%>
+  </mx:ViewStack>
+</mx:<%= application_tag %>>
+
