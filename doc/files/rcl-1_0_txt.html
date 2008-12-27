@@ -1,324 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <title>File: rcl-1.0.txt</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-  <meta http-equiv="Content-Script-Type" content="text/javascript" />
-  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
-  <script type="text/javascript">
-  // <![CDATA[
-
-  function popupCode( url ) {
-    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
-  }
-
-  function toggleCode( id ) {
-    if ( document.getElementById )
-      elem = document.getElementById( id );
-    else if ( document.all )
-      elem = eval( "document.all." + id );
-    else
-      return false;
-
-    elemStyle = elem.style;
-    
-    if ( elemStyle.display != "block" ) {
-      elemStyle.display = "block"
-    } else {
-      elemStyle.display = "none"
-    }
-
-    return true;
-  }
-  
-  // Make codeblocks hidden by default
-  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
-  
-  // ]]>
-  </script>
-
-</head>
-<body>
-
-
-
-  <div id="fileHeader">
-    <h1>rcl-1.0.txt</h1>
-    <table class="header-table">
-    <tr class="top-aligned-row">
-      <td><strong>Path:</strong></td>
-      <td>rcl-1.0.txt
-      </td>
-    </tr>
-    <tr class="top-aligned-row">
-      <td><strong>Last Update:</strong></td>
-      <td>Tue Dec 23 12:42:53 -0800 2008</td>
-    </tr>
-    </table>
-  </div>
-  <!-- banner header -->
-
-  <div id="bodyContent">
-
-
-
-  <div id="contextContent">
-
-    <div id="description">
-      <p>
-þÿRUBOSS SHRINK-WRAP SOFTWARE LICENSE AGREEMENT FOR THAT RUBOSS SOFTWARE
-PRODUCT KNOWN AS THE RUBOSS FRAMEWORKVERY IMPORTANT - READ CAREFULLY:
-This Ruboss Shrink-Wrap Software License Agreement (the
-&quot;Agreement&quot;) is a legal binding agreement between You, the
-licensee, (the &quot;Licensee&quot;, &quot;You&quot;, or &quot;Your&quot;)
-and Ruboss Technology Corporation (&quot;Ruboss&quot;), for a license of
-use for the Ruboss software product containing thisAgreement (the
-&quot;Software&quot;) and for which the license key(s) are obtained
-throughRuboss or its authorized distributor. Ruboss, or its suppliers or
-licensors,retain title to all portions of the Ruboss technology and the
-Software and anyfull or partial copies thereof. Except as expressly
-provided under thisAgreement, no rights, title or interest to the Ruboss
-technology is transferredto You.YOUR LICENSED USE OF THE SOFTWARE IS
-CONDITIONED UPON YOUR AGREEMENT AND FULLCOMPLIANCE WITH THE FOLLOWING
-TERMS AND CONDITIONS. BEFORE YOU ARE PERMITTED TOCONTINUE TO INSTALL THE
-SOFTWARE, BY SELECTING &quot;I ACCEPT&quot;, OR BY INSTALLING,COPYING, OR
-OTHERWISE USING THE SOFTWARE, YOU AGREE TO BE BOUND BY THE TERMS OFTHIS
-AGREEMENT INCLUDING BUT NOT LIMITED TO THE GRANT AND RESTRICTIONS OF
-LICENSE, WARRANTY DISCLAIMERS, LIMITATIONS ON LIABILITY AND TERMINATION
-PROVISIONS.If You do not agree to the terms of this Agreement, do not
-install the Software,rather immediately terminate the install process and
-return the unused Softwareto the place from which You obtained it within
-thirty (30) days of the date of purchase and You will receive a refund of
-Your purchase price. Your rights to use the Software are specified in this
-Agreement.1. LICENSE GRANT AND RESTRICTIONSa) General License Grant.
-Subject to the terms and conditions of this Agreement,Ruboss hereby grants
-to You, and You accept, a non-exclusive, non-transferablelicense to use,
-copy and modify the Software only as authorized herein. TheSoftware is
-licensed per individual developer. You may make copies on more thanone
-computer, as long as the use of the Software is accessed and used by
-thesame developer. The Software is in &quot;use&quot; on a computer when
-it is loaded intotemporary memory (i.e. RAM) or installed into permanent
-memory (e.g. hard disk,CD-ROM, or other storage devise) of that computer.
-However, installation on anetwork server for the sole purpose of internal
-distribution to one or more other computer(s) shall not constitute
-&quot;use&quot; for which a separate license is required, provided You
-have a separate license for each developer which uses the software.b)
-Additional Terms - Software Source Code. With respect to the
-&#8216;Software Source Code&#8217;, the original, untranslated version of
-a computer program written in Adobe® Flex Action Script and MXML
-programming languages, which is in a human-readable format, and that must
-be translated by an assembler, compiler, or interpreter onto a machine
-language program (&quot;Object Code&quot;) in order to run on a computer,
-provided in related files, such is licensed to You for the sole purposes
-of education and troubleshooting. YOU ACKNOWLEDGE, AGREE AND
-UNDERSTANDTHAT SOFTWARE SOURCE CODE IS LICENSED &#8216;AS IS&#8217; AND
-THAT RUBOSS DOES NOT PROVIDE ANY TECHNICAL SUPPORT FOR SOFTWARE SOURCE
-CODE. (c) Additional Terms - Application Development License.
-&quot;Application&quot; means the software programs that are created by or
-for You using the Software (in whole orin part) and which embeds and/or
-executes the Software for your application development purposes. The
-Software is licensed to You for You to build Adobe® Flex and AIR
-applications using the Software. You may not resell the Software in any
-way including but not limited to as part of a value added reseller product
-or as part of an OEM offering. You will not grant, either expressly or
-impliedly, any rights, title, interest, or licenses to any such
-modifications, enhancements, derivative works and/or extensions to any
-third party. You will, however, be entitled to use such modifications,
-enhancements, derivative works and/or extensions under the terms set forth
-in this Agreement. You hereby agree to indemnify, hold harmless, and
-defend Ruboss from and against any and all liabilities, damages, losses,
-costs and expenses (including reasonable attorneys&#8217; fees) arising
-from or related to any claim, action, proceeding or allegation that arises
-or results, either directly or indirectly, from the use and distribution
-of any of Your software Application product(s) or components. (d)
-Additional Terms - Sample Code. &quot;Sample Code&quot; means sample
-software in sourcecode format which has been provided to demonstrate
-features of the Software. You are permitted to use Sample Code in your
-applications provided You agree tothe Indemnity provisions herein. (e)
-Software License Restrictions. ABSENT WRITTEN PRE-AUTHORIZATION SIGNED
-BYRUBOSS AND PAYMENT OF ADDITIONAL FEES TO RUBOSS FOR SUCH EXPANDED
-LICENSED RIGHTS, YOU ARE NOT LICENSED TO USE OR INCORPORATE THE SOFTWARE,
-IN WHOLE OR INPART, AS PART OF AN OEM OFFERING OR VALUE ADDED RESELLER
-(VAR) PURPOSE. SUCH RESTRICTION IS APPLICABLE WHETHER OR NOT YOU HAVE
-RECEIVED FEES FOR SUCH APPLICATION OR SERVICE. Further, except as
-expressly permitted under this Agreement, You may not, nor allow others in
-Your control or under contract to You to: (i) distribute, disseminate,
-sublicense, copy, modify, reverse engineer,decompile, translate,
-disassemble or create a source code equivalent of the Software or permit,
-allow or facilitate others to do so for Your benefit; (ii) use the
-Software on any platform that is not supported by Ruboss as indicated in
-the Ruboss documentation; (iii) transfer, rent, lease, give,
-loan,distribute, transmit over an external network, or sublicense the
-Software or thedocumentation in whole or in part. You may not use the
-Software Source Code forany purpose other than to assist You to identity a
-&#8216;bug&#8217; in the Software. TheSoftware includes various components
-designed and licensed to You as a singleproduct however, while You are not
-required to use all component parts of theSoftware, You shall not
-un-bundle the component parts for use on differentplatforms or to
-repackage Software. You may not distribute the Ruboss sourcecode, or any
-modification, enhancement, derivative work and/or extensionthereto, in
-source code form. Licensee shall not be entitled to use the Softwareand/or
-the Software Source Code to develop a product that competes with
-theLicensed Software or which has the same or substantially the same
-features asthe Software. For further clarity, under no circumstances may
-the SoftwareSource Code be used in whole or in part, as the basis for
-creating a productthat provides the same, or substantially the same,
-functionality as the RubossFramework. You will not take any action, or
-assist or otherwise aid anyone elsein taking any action, that would limit
-Ruboss&#8217; independent development, sale,assignment, licensing or use
-of its own software or any modification, enhancement, derivative work
-and/or extension thereto. Under no circumstances may any portion of the
-source code be distributed, disclosed or otherwise made available to any
-third party without the express, prior written consent of Ruboss. ALL
-RIGHTS NOT EXPRESSLY GRANTED UNDER THIS AGREEMENT ARE RESERVED BY
-RUBOSS.2. COPYRIGHT. You will not modify or delete, in whole or part,
-any copyright, trade secret, proprietary, confidential or other notice
-thereon or therein without the express, prior written consent of Ruboss.
-All title and copyrights in and to the Software and the accompanying
-printed materials are owned by Ruboss or its suppliers. The Software is
-protected by Canadian copyright laws and international treaty provisions.
-All rights are reserved worldwide. You musttreat the Software like any
-other copyrighted material, except that You may, inaddition to the copies
-permitted in this Agreement, make one copy of the Software solely for
-backup or archival purposes. No part of the accompanying printed materials
-may be reproduced, transmitted, transcribed, stored in any retrieval
-system, or translated into any language by any means without the express
-prior written permission of Ruboss. (3. MAINTENANCE SERVICES. General
-information about the Software is available athttp://ruboss.com. Ruboss is
-not obligated to provide maintenance, technical support or updates for the
-Software however, under separate written agreement signed by Ruboss and
-payment to Ruboss of applicable fees certain maintenance services are
-available.4. LIMITED WARRANTY. (i) Ruboss warrants it has the right,
-title or authority togrant the license to the Software. (ii) Ruboss
-warrants for a period of thirty (30) days from the date of receipt
-thereof, that the media on which the Softwareis furnished (if the Software
-is provided on physical media instead of as a download) will be free of
-defects in materials. Ruboss does not warranty that the Software will be
-error-free. Ruboss&#8217; and its suppliers&#8217; entire liability,
-incontract, tort or otherwise, and Your exclusive remedy under the
-performance warranty set forth in this Section, shall be return of the
-purchase price. Software purchased other than directly from Ruboss shall
-be returned to the place it was purchased. This limited warranty is void
-if failure of the Softwarehas resulted from accident, abuse, or
-misapplication. Any replacement Softwarewill be warranted for the
-remainder of the original thirty (30) day period. EXCEPT AS EXPRESSLY SET
-FORTH IN THIS SECTION, RUBOSS AND ITS SUPPLIERS DISCLAIMALL OTHER
-WARRANTIES, EITHER EXPRESS OR IMPLIED, WHETHER ARISING BY STATUTE
-OROTHERWISE IN LAW OR FROM A COURSE OF DEALING OR USAGE OR TRADE,
-INCLUDING, BUTNOT LIMITED TO, ANY IMPLIED WARRANTIES OF ACCURACY,
-COMPLETENESS, PERFORMANCE, CURRENCY, MERCHANTABILITY OR FITNESS FOR A
-PARTICULAR PURPOSE WITH REGARD TO THESOFTWARE.5. LIMITATION OF
-LIABILITY. Ruboss&#8216;s liability, whether in contract, tort, or
-otherwise, arising out of Your use of, or in connection with, the Software
-shallnot exceed the amount of the license fee received by Ruboss from Your
-license for the use of the Software. IN NO EVENT SHALL RUBOSS OR ITS
-SUPPLIERS BE LIABLEFOR ANY SPECIAL, INCIDENTAL, INDIRECT, OR CONSEQUENTIAL
-DAMAGES WHATSOEVER (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF
-BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
-ANY OTHER PECUNIARY LOSS) ARISINGOUT OF THE USE OF OR INABILITY TO USE THE
-SOFTWARE, EVEN IF RUBOSS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH
-DAMAGES. Some states and jurisdictions do notallow the exclusion or
-limitation of liability for consequential or incidental damages, or the
-exclusion of implied warranties or limitations on how long a warranty may
-last, so the limitations in may not apply to You. THIS SECTION SURVIVES
-TERMINATION OR EXPIRATION OF THE AGREEMENT.6. INDEMNIFICATION -
-APPLICATION DEVELOPED BY LICENSEE. You will indemnify, defend (at Your
-expense) and hold Ruboss harmless from any claim, suit or proceeding
-arising out of a claim that an application created by, or on behalfof, You
-infringes a third party intellectual property right. Such indemnification
-obligation will require that Ruboss give You prompt writtennotice of any
-such claim and cooperate with You, at Your cost and expense, inthe defense
-and settlement of any such claim. You will pay any settlement, costsand
-damages awarded after final appeal, but You will not be responsible for
-anysettlement or compromise made without Your consent.7. U.S.
-GOVERNMENT; RESTRICTED RIGHTS. To the extent any license to Software
-anddocumentation is provided to the United States of America, its agencies
-and/orthe U.S. Government (&quot;the Government&quot;) as the Software was
-developed exclusivelyat private expense, such shall be deemed to be
-provided with RESTRICTED RIGHTS.Thus, use, duplication, or disclosure by
-the Government is subject to restrictions as set forth in 48 C.F.R. 2.101
-(October 1995), consisting of&quot;Commercial Computer Software&quot; and
-&quot;Commercial Computer Software Documentation&quot;as such terms are
-used in 48 C.F.R. 12.212 (September 1995) and in FAR Sections52-227-14 and
-52-227-19 or DFARS Section 52.227-7013 (C)(1)(ii), or theirsuccessors, as
-applicable. Consistent with 48 C.F.R. 12.212 and 48 C.F.R. 227.7202-1
-through 227.7204-4 (June 1995), or any successor regulations, this
-Software is provided to Government users pursuant to the terms and
-conditions herein.8. TERMINATION; SURVIVAL. This Agreement and Your
-right to use the Software willterminate immediately without notice from
-Ruboss if You fail to comply with theterms and conditions of this
-Agreement. Upon termination, You agree to destroythe Software, including
-all accompanying documents and copies. This is inaddition to and not in
-lieu of any criminal, civil or other remedies availableto Ruboss. Sections
-that by their nature are intended to survive expiration ortermination of
-this Agreement shall survive any expiration or termination ofthis
-Agreement. (9. COMPLIANCE WITH LAWS; GOVERNING LAW; WAIVER. Each party
-agrees that it willstrictly comply with all national, federal, state,
-territorial and local lawsand regulations, including but not limited to
-import or export laws andregulations, pertaining to the use of the
-Licensed Software and/ordocumentation. This Agreement shall be governed
-and construed by the laws of theProvince of British Columbia, Canada. The
-failure to enforce any right will notbe deemed a waiver of such or any
-other right, including the right to enforce asubsequent breach of the same
-obligation. In the event that any part of thisAgreement is found to be
-unenforceable, the remainder shall continue in effectand such part shall
-be changed and interpreted so as to best accomplish theobjectives of such
-part to the extent permissible by law and consistent with theintent of the
-Parties as of the Effective Date. (10. MISCELLANEOUS. This is a license
-agreement and NOT an agreement for sale.In the event of invalidity of any
-provision of this Agreement, the parties agreethat such invalidity shall
-not affect the validity of the remaining portions.This Agreement may only
-be modified by a fully executed written amendment signedby Ruboss which
-references this Agreement; for clarity, no purchase orders,other ordering
-documentation, email or any hand written or typewritten textwhich purports
-to modify or supplement this Agreement shall add to or vary theterms and
-conditions of this Agreement. You agree that You will not export
-orre-export the Software without the appropriate Canadian or foreign
-governmentlicenses. This is the entire agreement between You and Ruboss
-which supersedesany prior agreement, whether written or oral, relating to
-this subject matter.You shall be responsible for any taxes owed in
-connection with Your purchase oflicenses to the Software. If You have any
-questions regarding this Agreement orif You wish to request any
-information from Ruboss please use the address andcontact information
-included with this product to contact the Ruboss officeserving Your
-jurisdiction. Ruboss is either a registered trademark or trademarkof
-Ruboss Technology Corporation in Canada and/or other countries.Ruboss
-Technology Corporation24339 102 AvenueMaple Ridge, BC, CanadaV2W 1X9
-</p>
-
-    </div>
-
-
-   </div>
-
-
-  </div>
-
-
-    <!-- if includes -->
-
-    <div id="section">
-
-
-
-
-
-      
-
-
-    <!-- if method_list -->
-
-
-  </div>
-
-
-<div id="validator-badges">
-  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
-</div>
-
-</body>
-</html>
