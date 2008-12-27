@@ -47,13 +47,6 @@ end
 
 require Ruboss4Ruby::LIB_DIR + 'configuration'
 
-if defined?(Merb)
-  scope 'merb-gen' do
-    dir = File.join(File.dirname(__FILE__), '..', 'merb_generators/')
-    Merb.add_generators dir + 'ruboss_config', dir + 'ruboss_flex_app', dir + 'ruboss_controller'
-  end
-end
-
 # make sure we're running inside Merb
 if defined?(Merb::Plugins)
   Merb::Plugins.add_rakefiles 'ruboss4ruby/tasks'
