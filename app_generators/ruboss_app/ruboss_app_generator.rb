@@ -14,7 +14,6 @@ class RubossAppGenerator < RubiGen::Base
     super
     usage if args.empty?
     @destination_root = File.expand_path(args.shift)
-    #extract_options
     @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder = extract_names(base_name)
 
     @use_air = options[:air_config]
@@ -30,11 +29,10 @@ class RubossAppGenerator < RubiGen::Base
   def manifest
     record do |m|
       m.directory ''
+      
+      %w(script lib db).each { |dir| m.directory dir }
 
-      m.directory 'script'
-      m.directory 'lib'
-      m.directory 'db'
-      m.file 'default_tasks.rake', 'Rakefile'
+      m.file 'default_tasks.rake', 'Rakefile' unless File.exist?('Rakefile')      
       m.file 'flex.properties', '.flexProperties'
       m.file 'generate.rb', 'script/generate', { :chmod => 0755 }
       if @use_air

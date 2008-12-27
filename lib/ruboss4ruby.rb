@@ -4,30 +4,12 @@ module Ruboss4Ruby
   VERSION = '1.1.0'
   RUBOSS_FRAMEWORK_VERSION = '1.1.0'
   LIB_DIR = File.join(File.dirname(__FILE__), 'ruboss4ruby/')
-  LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR
-  PATH = ::File.dirname(LIBPATH) + ::File::SEPARATOR
   # :startdoc:
 
   # Returns the version string for the library.
   #
   def self.version
     VERSION
-  end
-
-  # Returns the library path for the module. If any arguments are given,
-  # they will be joined to the end of the libray path using
-  # <tt>File.join</tt>.
-  #
-  def self.libpath( *args )
-    args.empty? ? LIBPATH : ::File.join(LIBPATH, args.flatten)
-  end
-
-  # Returns the lpath for the module. If any arguments are given,
-  # they will be joined to the end of the path using
-  # <tt>File.join</tt>.
-  #
-  def self.path( *args )
-    args.empty? ? PATH : ::File.join(PATH, args.flatten)
   end
 
   # Utility method used to require all files ending in .rb that lie in the
@@ -65,7 +47,7 @@ if defined?(Merb::Plugins)
     end
   end    
 elsif defined?(ActionController::Base)
-  # if we are not running in Merb, we've got to be running in Rails
+  # if we are not running in Merb, try to hook up Rails
   Mime::Type.register_alias "application/xml", :fxml
   
   ['active_foo', 'active_record_default_methods', 'rails/swf_helper'].each { |lib| require Ruboss4Ruby::LIB_DIR + lib }
