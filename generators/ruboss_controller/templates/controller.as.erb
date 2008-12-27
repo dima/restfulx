@@ -29,10 +29,6 @@ package <%= base_package %>.controllers {
       if (!RubossUtils.isEmpty(airDatabaseName)) Ruboss.airDatabaseName = airDatabaseName;
       controller = new <%= command_controller_name %>(new SingletonEnforcer, extraServices,
         defaultServiceId);
-			Ruboss.sessionToken = Application.application.parameters.session_token;
-			if (Application.application.parameters.authenticity_token) {
-			  Ruboss.defaultMetadata = { authenticity_token : Application.application.parameters.authenticity_token };
-			}
     }
   }
 }

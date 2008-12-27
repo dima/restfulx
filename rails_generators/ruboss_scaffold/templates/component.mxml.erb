@@ -1,102 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" label="<%= class_name %>"
   xmlns:rcomponents="org.ruboss.components.*">
-<mx:Script><![CDATA[
-  import org.ruboss.Ruboss;
-  import org.ruboss.utils.RubossUtils;
-  import <%= base_package %>.models.<%= class_name %>;
+  <mx:Script><![CDATA[
+    import org.ruboss.Ruboss;
+    import org.ruboss.utils.RubossUtils;
+    import <%= base_package %>.models.<%= class_name %>;
 <% for model in belongs_tos -%>
-  import <%= base_package %>.models.<%= model.camelcase %>;
+    import <%= base_package %>.models.<%= model.camelcase %>;
 <% end -%>
 
-  [Bindable]
-  private var _<%= class_name.dcfirst %>:<%= class_name %> = new <%= class_name %>();
+    [Bindable]
+    private var _<%= class_name.dcfirst %>:<%= class_name %> = new <%= class_name %>();
 
-  private function new<%= class_name %>():void {
-    _<%= class_name.dcfirst %> = new <%= class_name %>();
-    <%= class_name.dcfirst.pluralize %>List.selectedIndex = -1;
-  }
-
-  private function save<%= class_name %>():void {
-    if (_<%= class_name.dcfirst %>.id) {
-      update<%= class_name %>();
-    } else {
-      create<%= class_name %>();
+    private function new<%= class_name %>():void {
+      _<%= class_name.dcfirst %> = new <%= class_name %>();
+      <%= class_name.dcfirst.pluralize %>List.selectedIndex = -1;
     }
-  }
+
+    private function save<%= class_name %>():void {
+      if (_<%= class_name.dcfirst %>.id) {
+        update<%= class_name %>();
+      } else {
+        create<%= class_name %>();
+      }
+    }
   
-  private function create<%= class_name %>():void {
-    var <%= class_name.dcfirst %>:<%= class_name %> = new <%= class_name %>();
+    private function create<%= class_name %>():void {
+      var <%= class_name.dcfirst %>:<%= class_name %> = new <%= class_name %>();
 <% for attribute in attributes -%>
 <% if attribute.type == :boolean -%>
-    <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>CheckBox.selected;
+      <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>CheckBox.selected;
 <% elsif attribute.type == :string -%>
-    <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>TextInput.text;
+      <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>TextInput.text;
 <% elsif attribute.type == :text -%>
-    <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>TextArea.text;
+      <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>TextArea.text;
 <% elsif attribute.type == :datetime || attribute.type == :time -%>
-    <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>DateTimeTextInput.date;
+      <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>DateTimeTextInput.date;
 <% elsif attribute.type == :date -%>
-    <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>DateField.selectedDate;
+      <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>DateField.selectedDate;
 <% else -%>
-    <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_type %>(<%= attribute.flex_name %>TextInput.text);
+      <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_type %>(<%= attribute.flex_name %>TextInput.text);
 <% end -%>
 <% end -%>
 
 <% for model in belongs_tos -%>
-    <%= class_name.dcfirst %>.<%= model.camelcase(:lower) %> = <%= model.camelcase %>(<%= model.camelcase(:lower) %>ComboBox.selectedItem);
+      <%= class_name.dcfirst %>.<%= model.camelcase(:lower) %> = <%= model.camelcase %>(<%= model.camelcase(:lower) %>ComboBox.selectedItem);
 <% end -%>
-    <%= class_name.dcfirst %>.create({onSuccess: on<%= class_name %>Create});
-  }
+      <%= class_name.dcfirst %>.create({onSuccess: on<%= class_name %>Create});
+    }
 
-  private function update<%= class_name %>():void {
+    private function update<%= class_name %>():void {
 <% for attribute in attributes -%>
 <% if attribute.type == :boolean -%>
-    _<%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>CheckBox.selected;
+      _<%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>CheckBox.selected;
 <% elsif attribute.type == :string -%>
-    _<%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>TextInput.text;
+      _<%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>TextInput.text;
 <% elsif attribute.type == :text -%>
-    _<%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>TextArea.text;
+      _<%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>TextArea.text;
 <% elsif attribute.type == :datetime || attribute.type == :time -%>
-    _<%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>DateTimeTextInput.date;
+      _<%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>DateTimeTextInput.date;
 <% elsif attribute.type == :date -%>
-    _<%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>DateField.selectedDate;
+      _<%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>DateField.selectedDate;
 <% else -%>
-    _<%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_type %>(<%= attribute.flex_name %>TextInput.text);
+      _<%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_type %>(<%= attribute.flex_name %>TextInput.text);
 <% end -%>
 <% end -%>
 
 <% for model in belongs_tos -%>
-    _<%= class_name.dcfirst %>.<%= model.camelcase(:lower) %> = <%= model.camelcase %>(<%= model.camelcase(:lower) %>ComboBox.selectedItem);
+      _<%= class_name.dcfirst %>.<%= model.camelcase(:lower) %> = <%= model.camelcase %>(<%= model.camelcase(:lower) %>ComboBox.selectedItem);
 <% end -%>
-    _<%= class_name.dcfirst %>.update({onSuccess: on<%= class_name %>Update});
-  }
+      _<%= class_name.dcfirst %>.update({onSuccess: on<%= class_name %>Update});
+    }
 
-  private function destroy<%= class_name %>():void {
-    _<%= class_name.dcfirst %>.destroy({onSuccess: on<%= class_name %>Destroy});
-  }
+    private function destroy<%= class_name %>():void {
+      _<%= class_name.dcfirst %>.destroy({onSuccess: on<%= class_name %>Destroy});
+    }
   
-  private function on<%= class_name %>Select():void {
-    _<%= class_name.dcfirst %> = RubossUtils.clone(<%= class_name.dcfirst.pluralize %>List.selectedItem) as <%= class_name %>;
-  }
+    private function on<%= class_name %>Select():void {
+      _<%= class_name.dcfirst %> = RubossUtils.clone(<%= class_name.dcfirst.pluralize %>List.selectedItem) as <%= class_name %>;
+    }
   
-  private function on<%= class_name %>Create(<%= class_name.dcfirst %>:<%= class_name %>):void {
-    _<%= class_name.dcfirst %> = new <%= class_name %>;
-  }
+    private function on<%= class_name %>Create(<%= class_name.dcfirst %>:<%= class_name %>):void {
+      _<%= class_name.dcfirst %> = new <%= class_name %>;
+    }
   
-  private function on<%= class_name %>Update(<%= class_name.dcfirst %>:<%= class_name %>):void {
-    <%= class_name.dcfirst.pluralize %>List.selectedItem = <%= class_name.dcfirst %>;
-    _<%= class_name.dcfirst %> = RubossUtils.clone(<%= class_name.dcfirst %>) as <%= class_name %>;
-  }
+    private function on<%= class_name %>Update(<%= class_name.dcfirst %>:<%= class_name %>):void {
+      <%= class_name.dcfirst.pluralize %>List.selectedItem = <%= class_name.dcfirst %>;
+      _<%= class_name.dcfirst %> = RubossUtils.clone(<%= class_name.dcfirst %>) as <%= class_name %>;
+    }
   
-  private function on<%= class_name %>Destroy(<%= class_name.dcfirst %>:<%= class_name %>):void {
-    on<%= class_name %>Create(<%= class_name.dcfirst %>);
-  }
+    private function on<%= class_name %>Destroy(<%= class_name.dcfirst %>:<%= class_name %>):void {
+      on<%= class_name %>Create(<%= class_name.dcfirst %>);
+    }
 
-  private function canDelete<%= class_name %>(<%= class_name.dcfirst %>:<%= class_name %>):Boolean {
-    return <%= class_name.dcfirst %> != null && !RubossUtils.isEmpty(<%= class_name.dcfirst %>.id);
-  }
-]]></mx:Script>
+    private function canDelete<%= class_name %>(<%= class_name.dcfirst %>:<%= class_name %>):Boolean {
+      return <%= class_name.dcfirst %> != null && !RubossUtils.isEmpty(<%= class_name.dcfirst %>.id);
+    }
+  ]]></mx:Script>
   <mx:Panel id="<%= class_name.dcfirst.pluralize %>Panel"
     title="<%= class_name.pluralize %>" cornerRadius="0" dropShadowEnabled="false" borderStyle="solid" 
     borderThickness="1" backgroundColor="#EEEEEE" width="25%" height="100%">
