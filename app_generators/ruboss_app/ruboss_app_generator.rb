@@ -57,8 +57,6 @@ class RubossAppGenerator < RubiGen::Base
         m.template 'index.html.erb', 'public/index.html'
       end
       
-      m.directory "test"
-
       %w(components controllers commands models events).each do |dir|
         m.directory "app/flex/#{base_folder}/#{dir}"
       end
