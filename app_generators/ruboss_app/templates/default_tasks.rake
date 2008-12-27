@@ -9,13 +9,13 @@ namespace :air do
 end
 
 namespace :flex do
-  desc "Test the Flex application"
+  desc "Test flex application"
   task :test => ["ruboss:test:build", "ruboss:test:run"]
   
-  desc "Build Flex applications"
+  desc "Build flex application"
   task :build do
-    extra_lib = '/Users/Dima/Projects/ruboss/ruboss_framework/framework/bin/ruboss.swc'
-    compile_app(get_executable('mxmlc'), 'public/bin', "-library-path+=#{extra_lib}")  
+    libs = [] # < '/Users/Dima/Projects/ruboss/ruboss_framework/framework/bin/ruboss.swc'
+    compile_app(get_executable('mxmlc'), 'public/bin', "-library-path+=#{libs.join(',')}")  
   end
 end
 
@@ -26,7 +26,7 @@ namespace :ruboss do
       project_path = File.join(APP_ROOT, "app/flex", TEST_APP_NAME)
     
       libs = Dir.glob(File.join(APP_ROOT, 'lib', '*.swc'))
-      libs << '/Users/Dima/Projects/ruboss/ruboss_framework/framework/bin/ruboss.swc'
+      #libs << '/Users/Dima/Projects/ruboss/ruboss_framework/framework/bin/ruboss.swc'
     
       target_project_path = File.join(APP_ROOT, "public/bin", APP_NAME.sub(/.mxml$/, '.swf'))
     
