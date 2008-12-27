@@ -1,5 +1,0 @@
-Description:
-    Fetches the latest published Ruboss Framework SWC file.
-
-Examples:
-    `./script/generate ruboss_config`

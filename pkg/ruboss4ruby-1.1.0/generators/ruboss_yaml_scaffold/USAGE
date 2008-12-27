@@ -1,7 +1,0 @@
-Description:
-    Scaffolds an entire application based on db/model.yml file. This generator
-    transforms entries in db/model.yml into command line calls to 
-    "ruboss_scaffold".
-
-Examples:
-    `./script/generate ruboss_yaml_scaffold`

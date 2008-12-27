@@ -1,8 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-vienna:
-  name: Vienna
-  user: ludwig
-  
-stratford:
-  name: Stratford Upon Avon
-  user: shakespeare
