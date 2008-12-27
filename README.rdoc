@@ -3,12 +3,21 @@ ruboss4ruby
 
 == DESCRIPTION:
 
-Ruboss Framework Rails 2.1+ and Merb 1.0 Integration Support (RubyGem)
+Ruboss Framework Code Generation Engine / Rails 2.1+ and Merb 1.0 Integration Support
 
 == REQUIREMENTS:
 
-* Ruby On Rails 2.1+ or Merb 1.0
+The following gems are required to make run Ruboss code generators
+
+* RubiGen
+* ActiveSupport
+
+If you are running a server the following configurations are known to work:
+
+* Rails 2.1+
+* Merb 1.0+
+* Sinatra
 
 == INSTALL:
 
-* sudo gem install ruboss4ruby
+* sudo gem install dima-ruboss4ruby -s http://gems.github.com
