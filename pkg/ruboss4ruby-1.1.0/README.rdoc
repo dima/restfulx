@@ -1,0 +1,25 @@
+= ruboss4ruby
+
+    http://github.com/dima/ruboss4ruby/wikis
+
+== DESCRIPTION:
+
+Ruboss Framework Code Generation Engine / Rails 2.1+ and Merb 1.0 Integration Support
+
+== REQUIREMENTS:
+
+The following gems are required to run Ruboss code generators:
+
+* RubiGen (rubigen)
+* ActiveSupport (activesupport)
+* Mr Bones (bones)
+
+If you are running a server the following configurations are known to work:
+
+* Rails 2.1+
+* Merb 1.0+
+* Sinatra
+
+== INSTALL:
+
+    sudo gem install dima-ruboss4ruby -s http://gems.github.com

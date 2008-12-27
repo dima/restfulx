@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+ludwig:
+  login: ludwig
+  first_name: Ludwig
+  last_name: van Beethoven
+  email: ludwig@vienna.de
+  
+shakespeare:
+  login: william
+  first_name: William
+  last_name: Shakespeare
+  email: will@theglobetheater.com

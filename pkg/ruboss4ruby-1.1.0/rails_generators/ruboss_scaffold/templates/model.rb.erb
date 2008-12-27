@@ -1,0 +1,11 @@
+class <%= class_name %> < ActiveRecord::Base
+<% for model in belongs_tos -%>
+  belongs_to :<%= model %>
+<% end -%>
+<% for model in has_ones -%>
+  has_one :<%= model %>
+<% end -%>
+<% for model in has_manies -%>
+  has_many :<%= model %>
+<% end -%>
+end

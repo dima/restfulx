@@ -1,0 +1,71 @@
+To play with the test models in a console,  do this:
+
+$> irb -r test/helpers/test_helper.rb -r test/helpers/unit_test_helper.rb
+
+You can then do things like this:
+
+$> irb -r test/helpers/test_helper.rb -r test/helpers/unit_test_helper.rb
+-- create_table("locations", {:force=>true})
+   -> 0.0170s
+-- create_table("notes", {:force=>true})
+   -> 0.0091s
+-- create_table("projects", {:force=>true})
+   -> 0.0091s
+-- create_table("tasks", {:force=>true})
+   -> 0.0098s
+-- create_table("users", {:force=>true})
+   -> 0.0506s
+-- initialize_schema_migrations_table()
+   -> 0.0010s
+-- assume_migrated_upto_version(20080729045550)
+   -> 0.0009s
+>> u = User.create(:login => 'spatten')
+=> #<User id: 1, login: "spatten", first_name: nil, last_name: nil, email: nil, created_at: "2008-10-15 17:29:36", updated_at: "2008-10-15 17:29:36">
+>> u.tasks << Task.create
+=> [#<Task id: 1, name: nil, notes: nil, start_time: nil, end_time: nil, completed: nil, next_action: nil, project_id: nil, location_id: nil, user_id: 1, created_at: "2008-10-15 17:29:48", updated_at: "2008-10-15 17:29:48">]
+>> u.projects << Project.create
+=> [#<Project id: 1, name: nil, notes: nil, start_date: nil, end_date: nil, completed: nil, user_id: 1, created_at: "2008-10-15 17:29:54", updated_at: "2008-10-15 17:29:54">]
+>> puts u.to_fxml
+<?xml version="1.0" encoding="UTF-8"?>
+<user>
+  <created_at type="datetime">2008/10/15 17:29:36</created_at>
+  <email nil="true"></email>
+  <first_name nil="true"></first_name>
+  <id type="integer">1</id>
+  <last_name nil="true"></last_name>
+  <login>spatten</login>
+  <updated_at type="datetime">2008/10/15 17:29:36</updated_at>
+  <full_name> </full_name>
+  <has_nothing_to_do type="boolean">false</has_nothing_to_do>
+  <tasks type="array">
+    <task>
+      <completed type="boolean" nil="true"></completed>
+      <created_at type="datetime">2008/10/15 17:29:48</created_at>
+      <end_time type="datetime" nil="true"></end_time>
+      <id type="integer">1</id>
+      <location_id type="integer" nil="true"></location_id>
+      <name nil="true"></name>
+      <next_action type="boolean" nil="true"></next_action>
+      <notes nil="true"></notes>
+      <project_id type="integer" nil="true"></project_id>
+      <start_time type="datetime" nil="true"></start_time>
+      <updated_at type="datetime">2008/10/15 17:29:48</updated_at>
+      <user_id type="integer">1</user_id>
+    </task>
+  </tasks>
+  <projects type="array">
+    <project>
+      <completed type="boolean" nil="true"></completed>
+      <created_at type="datetime">2008/10/15 17:29:54</created_at>
+      <end_date type="date" nil="true"></end_date>
+      <id type="integer">1</id>
+      <name nil="true"></name>
+      <notes nil="true"></notes>
+      <start_date type="date" nil="true"></start_date>
+      <updated_at type="datetime">2008/10/15 17:29:54</updated_at>
+      <user_id type="integer">1</user_id>
+    </project>
+  </projects>
+</user>
+=> nil
+>> 

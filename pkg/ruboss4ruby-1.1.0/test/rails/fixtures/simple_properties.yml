@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+apple:
+  name: Apple
+  amount: 12
+  price: 10.50
+  quantity: 12
+  available: true
+  delivered_on: <%= 2.days.ago %>
+  sold_on: <%= 2.hours.ago %>
+
+orange:
+  name: Orange
+  amount: 15
+  price: 15.50
+  quantity: 15
+  available: false
+  delivered_on: <%= 2.days.ago %>
+  sold_on: <%= 2.hours.ago %>
