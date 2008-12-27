@@ -31,7 +31,6 @@ class RubossYamlScaffoldGenerator < RubiGen::Base
         puts 'running: ruboss_scaffold ' + line
         RubiGen::Scripts::Generate.new.run(["ruboss_scaffold"] + line.split)
         puts 'done ...'
-        sleep 1
       end
       RubiGen::Scripts::Generate.new.run(["ruboss_main_app"])
     end
