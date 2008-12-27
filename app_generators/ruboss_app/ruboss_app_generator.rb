@@ -30,7 +30,7 @@ class RubossAppGenerator < RubiGen::Base
     record do |m|
       m.directory ''
       
-      %w(script lib db).each { |dir| m.directory dir }
+      %w(script lib db bin-debug).each { |dir| m.directory dir }
 
       m.file 'default_tasks.rake', 'Rakefile' unless File.exist?('Rakefile')      
       m.file 'flex.properties', '.flexProperties'
