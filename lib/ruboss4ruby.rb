@@ -1,3 +1,7 @@
+# Sets up all the relevant configuration options and brings together 
+# patches for Rails, Merb, ActiveRecord and Data Mapper.
+#
+# Loads Ruboss specific rake tasks if appropriate.
 module Ruboss4Ruby
 
   # :stopdoc:
@@ -54,7 +58,10 @@ elsif defined?(ActionController::Base)
 
   ActionView::Base.send :include, SWFHelper unless ActionView::Base.included_modules.include?(SWFHelper)  
 
+  # We mess with default +render+ implementation a bit to add support for expressions
+  # such as format.fxml { render :fxml => @foo }
   module ActionController
+    # Override render to add support for render :fxml
     class Base
       alias_method :old_render, :render unless method_defined?(:old_render)
 
@@ -72,6 +79,8 @@ elsif defined?(ActionController::Base)
     end
   end
 
+  # It is possible to pass metadata with any Ruboss model. This module adds support for
+  # extracting that metadata into the standard params hash.
   module Ruboss4RubyController
     private
 
@@ -89,7 +98,11 @@ elsif defined?(ActionController::Base)
   end
   
   module ActiveRecord
+    # ActiveRecord named scopes are computed *before* ruboss4ruby gem gets loaded
+    # this patch addresses that and makes sure +to_fxml+ calls are properly
+    # delegated
     module NamedScope
+      # make sure we properly delegate +to_fxml+ calls to the proxy
       class Scope
         delegate :to_fxml, :to => :proxy_found
       end

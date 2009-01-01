@@ -1,3 +1,4 @@
+# Rake tasks for building Ruboss-based Flex and AIR applications
 require 'rake'
 require 'ftools'
 require 'rexml/document'
@@ -6,6 +7,8 @@ require File.join(File.dirname(__FILE__), 'configuration')
 APP_ROOT = Ruboss4Ruby::Configuration::APP_ROOT
 
 namespace :ruboss do
+  # Compile the main Flex/AIR application using given executable to the given
+  # destination folder
   def compile_app(executable, destination, opts = '')
     app_properties = REXML::Document.new(File.open(File.join(APP_ROOT, ".actionScriptProperties")))
     app_properties.elements.each("*/applications/application") do |elm|
@@ -43,11 +46,13 @@ namespace :ruboss do
     end    
   end
   
+  # Find what the main application is based on .actionScriptProperties file
   def get_main_application
     app_properties = REXML::Document.new(File.open(File.join(APP_ROOT, ".actionScriptProperties")))
     app_properties.root.attributes['mainApplicationPath'].split("/").last
   end
   
+  # Get appropriate executable based on platform
   def get_executable(executable)
     if RUBY_PLATFORM =~ /mswin32/
       executable << '.exe'

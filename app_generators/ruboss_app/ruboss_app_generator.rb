@@ -77,12 +77,4 @@ class RubossAppGenerator < RubiGen::Base
       opt.on("-a", "--air", "Configure AIR project instead of Flex. Flex is default.", 
         "Default: false") { |v| options[:air_config] = v }
     end
-
-    def banner
-          <<-EOS
-    Creates the skeleton for a new Ruboss app
-
-    USAGE: #{spec.name} (-a) app_name
-    EOS
-    end
 end

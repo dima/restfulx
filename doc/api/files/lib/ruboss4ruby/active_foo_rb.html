@@ -63,7 +63,7 @@
           </tr>
           <tr>
             <td>Modified:</td>
-            <td>Thu Dec 25 22:40:15 -0800 2008</td>
+            <td>Wed Dec 31 20:09:11 -0800 2008</td>
           </tr>
         </table>
       </td></tr>
@@ -76,9 +76,32 @@
       <div id="content">
  
   <div class="description"><p>
-<a href="../../../classes/ActiveRecord.html">ActiveRecord</a>+<a
-href="../../../classes/ActiveSupport.html">ActiveSupport</a> specific
-patches
+There&#8216;s a number of things that <a
+href="../../../classes/ActiveRecord.html">ActiveRecord</a>/<a
+href="../../../classes/ActiveSupport.html">ActiveSupport</a> and the rest
+of the family get ~wrong~ from the point of view of Flex clients.
+</p>
+<p>
+Some of these things are:
+</p>
+<ul>
+<li>Date formats
+
+</li>
+<li>XML format (Flex <b>really</b> doesn&#8216;t like dashes in XML messages)
+
+</li>
+<li>Errors (we need to be more specific and communicate what went wrong
+<b>where</b>)
+
+</li>
+</ul>
+<p>
+This is where we try to fix this stuff.
+</p>
+<p>
+Some of the things that are done can be called <em>monkey</em>
+<em>patching</em> while others can be called extensions. Caveat emptor.
 </p>
 </div>
  

@@ -26,7 +26,7 @@ PROJ.version = Ruboss4Ruby::VERSION
 
 PROJ.executables = ['bin/ruboss-gen']
 
-PROJ.rdoc.opts << '-Tjamis'
+#PROJ.rdoc.opts << '-Tjamis'
 PROJ.rdoc.exclude << %w(.txt)
 PROJ.rdoc.main = 'README.rdoc'
 PROJ.rdoc.dir = 'doc/api'

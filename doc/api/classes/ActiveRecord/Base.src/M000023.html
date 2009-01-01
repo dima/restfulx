@@ -22,7 +22,7 @@
 </style>
 </head>
 <body bgcolor="white">
-<pre><span class="ruby-comment cmt"># File lib/ruboss4ruby/active_record_default_methods.rb, line 6</span>
+<pre><span class="ruby-comment cmt"># File lib/ruboss4ruby/active_record_default_methods.rb, line 19</span>
       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default_methods</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
         <span class="ruby-identifier">methods</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>.<span class="ruby-identifier">dup</span>
         <span class="ruby-identifier">module_eval</span> <span class="ruby-value str">&quot;def self.default_methods_array\nreturn [\#{methods.inspect}].flatten\nend\n&quot;</span> 

@@ -22,7 +22,7 @@
 </style>
 </head>
 <body bgcolor="white">
-<pre><span class="ruby-comment cmt"># File lib/ruboss4ruby/tasks.rb, line 46</span>
+<pre><span class="ruby-comment cmt"># File lib/ruboss4ruby/tasks.rb, line 50</span>
   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_main_application</span>
     <span class="ruby-identifier">app_properties</span> = <span class="ruby-constant">REXML</span><span class="ruby-operator">::</span><span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">APP_ROOT</span>, <span class="ruby-value str">&quot;.actionScriptProperties&quot;</span>)))
     <span class="ruby-identifier">app_properties</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'mainApplicationPath'</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;/&quot;</span>).<span class="ruby-identifier">last</span>

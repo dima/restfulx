@@ -1,3 +1,4 @@
+# Adds a little helper to make it easier empbedding SWFs in ERB templates.
 module SWFHelper
   
   # Creates a swfObject Javascript call.  You must include swfobject.js to use this.

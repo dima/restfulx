@@ -1,7 +1,9 @@
-require 'find'
-
+# Adds Capistrano recipes for deploying Flex applications
+#
 # To use these recipes, add the following to your Capfile:
-# require 'ruboss4ruby/rails/recipes'
+#
+#   require 'ruboss4ruby/rails/recipes'
+require 'find'
 
 Capistrano::Configuration.instance(:must_exist).load do
   after "deploy:setup", "deploy:flex:setup"

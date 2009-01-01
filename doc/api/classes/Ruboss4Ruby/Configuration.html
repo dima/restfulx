@@ -69,6 +69,11 @@
   <div id="bodyContent">
       <div id="content">
  
+  <div class="description"><p>
+Computes necessary configuration options from the environment. This can be
+used in Rails, Merb or standalone from the command line.
+</p>
+</div>
  
  
  
@@ -98,17 +103,68 @@
     <a name="M000011"></a><b>extract_names</b>(project = nil)
 [&nbsp;<a href="Configuration.src/M000011.html" target="SOURCE_CODE" onclick="javascript:openCode('Configuration.src/M000011.html'); return false;">source</a>&nbsp;]
   </div>
+  <div class="description">
+  <p>
+Extract project, package, controller names from the environment. This will
+respect config/ruboss.yml if it exists, you can override all of the
+defaults there. The defaults are:
+</p>
+<ul>
+<li>*base-package* same as project name downcased
+
+</li>
+<li>*controller-name* &#8216;ApplicationController&#8216;
+
+</li>
+</ul>
+<p>
+Here&#8216;s a sample ruboss.yml file:
+</p>
+<p>
+Ruboss code generation configuration options
+</p>
+<p>
+By default flex models, commands, controllers and components are genearated
+into app/flex/&lt;your rails project name&gt; folder. If you&#8216;d like
+to customize the target folder (to say append a &quot;com&quot; package
+before your rails project name) uncomment the line below base-package must
+follow the usual flex package notation (a string separated by
+&quot;.&quot;)
+</p>
+<p>
+base-package: com.pomodo
+</p>
+<p>
+Main ruboss controller is typically named AppicationController. This
+controller is created in &lt;base-package&gt;.controllers folder. You can
+customize the name by uncommenting the following line and changing the
+controller name.
+</p>
+<p>
+controller-name: ApplicationController
+</p>
+  </div>
 </div>
 <div class="method">
   <div class="title">
     <a name="M000012"></a><b>list_as_files</b>(dir_name)
 [&nbsp;<a href="Configuration.src/M000012.html" target="SOURCE_CODE" onclick="javascript:openCode('Configuration.src/M000012.html'); return false;">source</a>&nbsp;]
   </div>
+  <div class="description">
+  <p>
+List files ending in *.as (ActionScript) in a given folder
+</p>
+  </div>
 </div>
 <div class="method">
   <div class="title">
     <a name="M000013"></a><b>list_mxml_files</b>(dir_name)
 [&nbsp;<a href="Configuration.src/M000013.html" target="SOURCE_CODE" onclick="javascript:openCode('Configuration.src/M000013.html'); return false;">source</a>&nbsp;]
+  </div>
+  <div class="description">
+  <p>
+List files ending in *.mxml in a given folder
+</p>
   </div>
 </div>
 </div>

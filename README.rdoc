@@ -1,25 +1,52 @@
-= ruboss4ruby
+= Ruboss Framework Ruby Toolkit
 
-    http://github.com/dima/ruboss4ruby/wikis
+== Description
 
-== DESCRIPTION:
+The Ruboss Framework brings the design principles and productivity of 
+Rails to Flex development, and makes integration with RESTful APIs as simple as possible.
 
-Ruboss Framework Code Generation Engine / Rails 2.1+ and Merb 1.0 Integration Support
+Here's some of the things you can do:
 
-== REQUIREMENTS:
+* *Create* a complete _Adobe_ _Flex_ or _AIR_ application in less than 5 minutes.
 
-The following gems are required to run Ruboss code generators:
+  Use our lightweight Ruby-based code generation toolkit to create a fully functional
+  CRUD application. Simply do:
+  
+    sudo gem install dima-ruboss4ruby -s http://gems.github.com 
+  
+  And then run:
+  
+    ruboss-gen -h
 
-* RubiGen (rubigen)
-* ActiveSupport (activesupport)
-* Mr Bones (bones)
+* *Integrate* with _Ruby_ _On_ _Rails_, _Merb_ or _Sinatra_ applications 
+  that use _ActiveRecord_ or _DataMapper_.
 
-If you are running a server the following configurations are known to work:
+* *Communicate* between your Flex/AIR rich client and service providers 
+  using either _XML_ or _JSON_.
+  
+* *Persist* your data directly in Adobe AIR's _SQLite_ database or _CouchDB_ 
+  without any additional infrastructure or intermediate servers.
 
-* Rails 2.1+
-* Merb 1.0+
-* Sinatra
+* *Switch* between any of these data providers on the fly.
 
-== INSTALL:
+== Getting Started
 
-    sudo gem install dima-ruboss4ruby -s http://gems.github.com
+For details on how to get started with the Ruboss framework refer to:
+
+    http://github.com/dima/ruboss_framework/wikis/home 
+    
+    http://github.com/dima/ruboss4ruby/wikis/home
+    
+== Getting Involved
+
+Report bugs or track framework development progress:
+
+    http://ruboss.lighthouseapp.com/projects/12668-ruboss-framework/overview
+    
+Get involved with the community:
+      
+    http://groups.google.com/group/ruboss-framework
+    
+== License
+
+Copyright (c) 2008 Ruboss Technology Corporation, released under dual GPLv3 and Ruboss Commercial License

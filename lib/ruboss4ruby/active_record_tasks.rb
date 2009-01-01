@@ -1,7 +1,10 @@
+# ActiveRecord specific Rake tasks. Namely, nice little extras such as:
+# - db:mysql:stage
+# - db:refresh
 require File.join(File.dirname(__FILE__), 'tasks')
 
-# these tasks are active record specific
-
+# stores local copy of the application environment ('production', 'test', etc)
+# so that appropriate values in config/database.yml are used
 APP_ENV = defined?(ENV['RAILS_ENV']) ? ENV['RAILS_ENV'] : ENV['MERB_ENV']
 
 namespace :db do
@@ -26,7 +29,10 @@ namespace :db do
       stage_database(db_names, admin_password, db_user_name, db_password)
     end
   end  
-    
+  
+  # Performs MySQL database set-up based on the username and password
+  # provided. Also updates Rails config/database.yml file with database
+  # username and password
   def stage_database(db_names, admin_password, db_user_name, db_password)
     sql_command = ""
     
