@@ -22,7 +22,7 @@
 </style>
 </head>
 <body bgcolor="white">
-<pre><span class="ruby-comment cmt"># File lib/ruboss4ruby/configuration.rb, line 36</span>
+<pre><span class="ruby-comment cmt"># File lib/ruboss4ruby/configuration.rb, line 65</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">list_as_files</span>(<span class="ruby-identifier">dir_name</span>)
       <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">entries</span>(<span class="ruby-identifier">dir_name</span>).<span class="ruby-identifier">grep</span>(<span class="ruby-regexp re">/\.as$/</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/\.as$/</span>, <span class="ruby-value str">&quot;&quot;</span>) }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;, &quot;</span>)
     <span class="ruby-keyword kw">end</span></pre>

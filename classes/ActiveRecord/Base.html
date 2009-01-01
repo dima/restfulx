@@ -75,6 +75,23 @@ Object
   <div id="bodyContent">
       <div id="content">
  
+  <div class="description"><p>
+We also add support for serializing model methods along the lines of:
+</p>
+<pre>
+  class Project &lt; ActiveRecord::Base
+    default_methods :foobar
+
+    def foobar
+      'foobar'
+    end
+  end
+</pre>
+<p>
+When you do <tt>to_fxml</tt> on this model method foobar will be
+automatically serialized as a simple attribute
+</p>
+</div>
  
  
  
@@ -95,11 +112,21 @@ Object
     <a name="M000023"></a><b>default_methods</b>(*args)
 [&nbsp;<a href="Base.src/M000023.html" target="SOURCE_CODE" onclick="javascript:openCode('Base.src/M000023.html'); return false;">source</a>&nbsp;]
   </div>
+  <div class="description">
+  <p>
+default methods hook
+</p>
+  </div>
 </div>
 <div class="method">
   <div class="title">
     <a name="M000024"></a><b>defaults_hash</b>(already_included = [], ignore_default_methods = nil)
 [&nbsp;<a href="Base.src/M000024.html" target="SOURCE_CODE" onclick="javascript:openCode('Base.src/M000024.html'); return false;">source</a>&nbsp;]
+  </div>
+  <div class="description">
+  <p>
+default methods hook
+</p>
   </div>
 </div>
 </div>

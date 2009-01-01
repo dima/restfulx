@@ -63,7 +63,7 @@
           </tr>
           <tr>
             <td>Modified:</td>
-            <td>Fri Dec 26 15:23:22 -0800 2008</td>
+            <td>Wed Dec 31 19:44:18 -0800 2008</td>
           </tr>
         </table>
       </td></tr>
@@ -75,6 +75,31 @@
   <div id="bodyContent">
       <div id="content">
  
+  <div class="description"><pre>
+ Generates the primary Ruboss project directory structure and
+ sets up Flex Builder and TextMate specific descriptor files
+
+ You can generate Flex Builder configuration for either *pure* Flex
+ project or an AIR project. To generate AIR configuration pass the -a
+ (--air) option to the generator.
+</pre>
+<p>
+Examples:
+</p>
+<pre>
+    `ruboss-gen pomodo` # generates project structure and a
+                        # default Flex app configuration.
+    `ruboss-gen -a pomodo` # as above but generates an AIR app
+                           # and configuration
+</pre>
+<p>
+Next Steps:
+</p>
+<pre>
+    In your new Ruboss project folder run `ruby script/generate` for
+    a list of available generators.
+</pre>
+</div>
  
   <div class="sectiontitle">Required Files</div>
   <ul>

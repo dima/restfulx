@@ -63,7 +63,7 @@
           </tr>
           <tr>
             <td>Modified:</td>
-            <td>Wed Dec 24 21:42:04 -0800 2008</td>
+            <td>Wed Dec 31 20:12:43 -0800 2008</td>
           </tr>
         </table>
       </td></tr>
@@ -75,6 +75,19 @@
   <div id="bodyContent">
       <div id="content">
  
+  <div class="description"><p>
+<a href="../../../classes/ActiveRecord.html">ActiveRecord</a> specific Rake
+tasks. Namely, nice little extras such as:
+</p>
+<ul>
+<li>db:mysql:stage
+
+</li>
+<li>db:refresh
+
+</li>
+</ul>
+</div>
  
  
  
@@ -96,7 +109,9 @@
   <tr valign='top'>
     <td>&nbsp;</td>
     <td colspan="2" class="attr-desc">
-these tasks are active record specific
+stores local copy of the application environment (&#8216;production&#8217;,
+&#8216;test&#8217;, etc) so that appropriate values in config/database.yml
+are used
 
 </td>
   </tr>
@@ -108,6 +123,13 @@ these tasks are active record specific
   <div class="title">
     <a name="M000001"></a><b>stage_database</b>(db_names, admin_password, db_user_name, db_password)
 [&nbsp;<a href="active_record_tasks_rb.src/M000001.html" target="SOURCE_CODE" onclick="javascript:openCode('active_record_tasks_rb.src/M000001.html'); return false;">source</a>&nbsp;]
+  </div>
+  <div class="description">
+  <p>
+Performs MySQL database set-up based on the username and password provided.
+Also updates Rails config/database.yml file with database username and
+password
+</p>
   </div>
 </div>
 </div>
