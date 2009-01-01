@@ -49,10 +49,12 @@ module Ruboss4Ruby
         project_name_downcase = project_name.downcase
       end
       
+      # give a chance to override the settings via ruboss.yml
       begin      
         config = YAML.load(File.open("#{APP_ROOT}/config/ruboss.yml"))
         base_package = config['base-package'] || project_name_downcase
         base_folder = base_package.gsub('.', '/').gsub(/\s/, '')
+        project_name = config['project-name'].camelcase.gsub(/\s/, '') || project_name
         controller_name = config['controller-name'] || "ApplicationController"
       rescue
         base_folder = base_package = project_name_downcase
