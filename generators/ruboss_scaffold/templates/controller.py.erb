@@ -8,20 +8,20 @@ from app.models import assist, <%= file_name %>
 
 class Controller(restful.Controller):
   def get(self):
-    restful.send_successful_response(self, assist.all(<%= class_name %>))
+    restful.send_successful_response(self, assist.all(<%= file_name %>.<%= class_name %>))
     
   @restful.methods_via_query_allowed
   def post(self):
-    model = <%= class_name %>()
+    model = <%= file_name %>.<%= class_name %>()
     assist.update_model_from_params(model, self.request.params)
     restful.send_successful_response(self, model.to_xml())
     
   def put(self):
-    model = <%= class_name %>.get(db.Key(restful.get_model_key(self)))
+    model = <%= file_name %>.<%= class_name %>.get(db.Key(restful.get_model_key(self)))
     assist.update_model_from_params(model, self.request.params)
     restful.send_successful_response(self, model.to_xml())
     
   def delete(self):
-    model = <%= class_name %>.get(db.Key(restful.get_model_key(self)))
+    model = <%= file_name %>.<%= class_name %>.get(db.Key(restful.get_model_key(self)))
     db.delete(model)
     restful.send_successful_response(self, model.to_xml())

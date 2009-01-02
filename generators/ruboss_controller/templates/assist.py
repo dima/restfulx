@@ -27,8 +27,11 @@ import datetime
 
 # Some useful module methods
 def all(model):
-  items = "\n".join(str(item.to_xml()) for item in model.all())
-  return '<entities kind="%s" type="array">%s</entities>' % (model.kind(), items)
+  items = "".join(str(item.to_xml()) for item in model.all())
+  if items == "":
+    return '<entities type="array"/>'
+  else:
+    return '<entities kind="%s" type="array">%s</entities>' % (model.kind(), items)
 
 def update_model_from_params(model, params):
   for k, v in params.items():
