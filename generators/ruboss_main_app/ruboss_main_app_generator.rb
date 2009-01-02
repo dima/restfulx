@@ -40,7 +40,10 @@ class RubossMainAppGenerator < RubiGen::Base
   end
 
   protected
-    def banner
-      "Usage: #{$0} #{spec.name}" 
-    end
+  def add_options!(opt)
+    opt.separator ''
+    opt.separator 'Options:'
+    opt.on("-g", "--gae", "Generate Google App Engine Python classes in addition to Ruboss Flex resources.", 
+      "Default: false") { |v| options[:gae] = v }
+  end
 end

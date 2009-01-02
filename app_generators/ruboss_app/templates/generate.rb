@@ -12,10 +12,6 @@ require 'activesupport'
 require 'ruboss4ruby'
 
 ARGV.shift if ['--help', '-h'].include?(ARGV[0])
-source = RubiGen::PathSource.new(:component, 
-  File.join(File.expand_path('ruboss4ruby'), "generators"))
-  
-RubiGen::Base.use_component_sources!  
-RubiGen::Base.append_sources source
 
+RubiGen::Base.use_component_sources!  
 RubiGen::Scripts::Generate.new.run(ARGV)

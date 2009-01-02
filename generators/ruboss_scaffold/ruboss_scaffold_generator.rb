@@ -19,13 +19,16 @@ module Ruboss4Ruby
         end
       end
       
-      def flex_default(prefix = '')
-        @flex_default = case type
-          when :integer, :float, :decimal   then '0'
-          when :string, :text               then '""'
-          when :boolean                     then 'false'
+      def gae_type
+        @gae_type = case type
+          when :integer     then 'IntegerProperty'
+          when :date        then 'DateProperty'
+          when :time        then 'TimeProperty'
+          when :datetime    then 'DateTimeProperty'
+          when :boolean     then 'BooleanProperty'
+          when :text        then 'TextProperty'
           else
-            'null'
+            'StringProperty'
         end
       end
     end
@@ -48,9 +51,7 @@ class RubossScaffoldGenerator < RubiGen::Base
   attr_reader   :name,
                 :class_name,
                 :file_name
-                                
-  attr_accessor :constructor_args
-      
+                                      
   def initialize(runtime_args, runtime_options = {})
     super
 
@@ -62,8 +63,34 @@ class RubossScaffoldGenerator < RubiGen::Base
     @file_name = @name.underscore
     @class_name = @name.camelize
     
-    @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder = extract_names
-    
+    @project_name, @flex_project_name, @command_controller_name, 
+      @base_package, @base_folder = extract_names
+    extract_relationships
+  end
+  
+  def manifest
+    record do |m|      
+      m.template 'model.as.erb',
+        File.join("app", 'flex', base_folder, "models", "#{@class_name}.as"), 
+        :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+
+      m.template 'component.mxml.erb',
+        File.join("app", 'flex', base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
+        :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+        
+      if options[:gae]
+        m.template 'controller.py.erb', "app/controllers/#{file_name.pluralize}.py"
+        m.template 'model.py.erb', "app/models/#{file_name}.py"
+      end
+
+      # Run the rcontroller generator to clobber the
+      # RubossCommandController subclass to include the new models.
+      m.dependency 'ruboss_controller', [name] + @args, :collision => :force, :gae => options[:gae]
+    end
+  end
+  
+  protected
+  def extract_relationships
     @belongs_tos = []
     @has_ones = []
     @has_manies = []
@@ -80,38 +107,19 @@ class RubossScaffoldGenerator < RubiGen::Base
       end
     end
     
-    # Remove the has_one and has_many arguments since they are
-    # not for consumption by the scaffold generator, and since
-    # we have already used them to set the @belongs_tos, @has_ones and
-    # @has_manies.
     @args.delete_if { |elt| elt =~ /^(has_one|has_many|belongs_to):/ }
   end
-  
-  def manifest
-    record do |m|      
-      # Generate Flex AS model and MXML component based on the
-      # Ruboss templates.
-      
-      puts @file_name
-      
-      m.template 'model.as.erb',
-        File.join("app", 'flex', base_folder, "models", "#{@class_name}.as"), 
-        :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
 
-      m.template 'component.mxml.erb',
-        File.join("app", 'flex', base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
-        :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
-
-      # Run the rcontroller generator to clobber the
-      # RubossCommandController subclass to include the new models.
-      m.dependency 'ruboss_controller', [name] + @args, :collision => :force
+  def attributes
+    @attributes ||= @args.collect do |attribute|
+      Ruboss4Ruby::Generator::GeneratedAttribute.new(*attribute.split(":"))
     end
   end
-  
-  protected
-    def attributes
-      @attributes ||= @args.collect do |attribute|
-        Ruboss4Ruby::Generator::GeneratedAttribute.new(*attribute.split(":"))
-      end
-    end
+
+  def add_options!(opt)
+    opt.separator ''
+    opt.separator 'Options:'
+    opt.on("-g", "--gae", "Generate Google App Engine Python classes in addition to Ruboss Flex resources.", 
+      "Default: false") { |v| options[:gae] = v }
+  end
 end

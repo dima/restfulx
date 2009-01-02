@@ -14,7 +14,9 @@ class RubossAppGenerator < RubiGen::Base
     super
     usage if args.empty?
     @destination_root = File.expand_path(args.shift)
-    @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder = extract_names(base_name)
+    
+    @project_name, @flex_project_name, @command_controller_name, 
+      @base_package, @base_folder = extract_names(base_name)
 
     @use_air = options[:air_config]
     if @use_air
@@ -31,6 +33,13 @@ class RubossAppGenerator < RubiGen::Base
       m.directory ''
       
       %w(script lib db bin-debug).each { |dir| m.directory dir }
+      
+      if options[:gae]
+        m.directory 'app/controllers'
+        m.file 'empty.txt', 'app/controllers/__init__.rb'
+        m.directory 'app/models'
+        m.file 'empty.txt', 'app/models/__init__.rb'
+      end
 
       m.file 'default_tasks.rake', 'Rakefile' unless File.exist?('Rakefile')      
       m.file 'flex.properties', '.flexProperties'
@@ -76,5 +85,7 @@ class RubossAppGenerator < RubiGen::Base
       opt.separator 'Options:'
       opt.on("-a", "--air", "Configure AIR project instead of Flex. Flex is default.", 
         "Default: false") { |v| options[:air_config] = v }
+      opt.on("-g", "--gae", "Generate Google App Engine Python classes in addition to Ruboss Flex resources.", 
+        "Default: false") { |v| options[:gae] = v }
     end
 end

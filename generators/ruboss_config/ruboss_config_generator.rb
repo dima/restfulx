@@ -16,9 +16,4 @@ class RubossConfigGenerator < RubiGen::Base
       end
     end
   end
-
-  protected
-    def banner
-      "Usage: #{$0} #{spec.name}" 
-    end
 end

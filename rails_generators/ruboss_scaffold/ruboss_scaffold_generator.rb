@@ -47,16 +47,6 @@ module Rails
             'String'
         end
       end
-      
-      def flex_default(prefix = '')
-        @flex_default = case type
-          when :integer, :float, :decimal   then '0'
-          when :string, :text               then '""'
-          when :boolean                     then 'false'
-          else
-            'null'
-        end
-      end
     end
   end
 end
@@ -83,9 +73,7 @@ class RubossScaffoldGenerator < Rails::Generator::NamedBase
                 :controller_underscore_name,
                 :controller_singular_name,
                 :controller_plural_name
-                
-  attr_accessor :constructor_args
-                  
+                                  
   alias_method  :controller_file_name,  :controller_underscore_name
   alias_method  :controller_table_name, :controller_plural_name
       
@@ -104,28 +92,7 @@ class RubossScaffoldGenerator < Rails::Generator::NamedBase
     else
       @controller_class_name = "#{@controller_class_nesting}::#{@controller_class_name_without_nesting}"
     end
-
-    @belongs_tos = []
-    @has_ones = []
-    @has_manies = []
-    # Figure out has_one, has_many and belongs_to based on args
-    @args.each do |arg|
-      if arg =~ /^has_one:/
-        # arg = "has_one:arg1,arg2", so all the has_one are together
-        @has_ones = arg.split(':')[1].split(',')
-      elsif arg =~ /^has_many:/
-        # arg = "has_many:arg1,arg2", so all the has_many are together 
-        @has_manies = arg.split(":")[1].split(",")
-      elsif arg =~ /^belongs_to:/ # belongs_to:arg1,arg2
-        @belongs_tos = arg.split(":")[1].split(',')
-      end
-    end
-    
-    # Remove the has_one and has_many arguments since they are
-    # not for consumption by the scaffold generator, and since
-    # we have already used them to set the @belongs_tos, @has_ones and
-    # @has_manies.
-    @args.delete_if { |elt| elt =~ /^(has_one|has_many|belongs_to):/ }
+    extract_relationships
   end
   
   def manifest
@@ -167,11 +134,35 @@ class RubossScaffoldGenerator < Rails::Generator::NamedBase
     end
   end
   
-  protected    
-    def add_options!(opt)
-      opt.separator ''
-      opt.separator 'Options:'
-      opt.on("-f", "--flex-only", "Scaffold Flex code only", 
-        "Default: false") { |v| options[:flex_only] = v}
+  protected
+  def extract_relationships
+    @belongs_tos = []
+    @has_ones = []
+    @has_manies = []
+    # Figure out has_one, has_many and belongs_to based on args
+    @args.each do |arg|
+      if arg =~ /^has_one:/
+        # arg = "has_one:arg1,arg2", so all the has_one are together
+        @has_ones = arg.split(':')[1].split(',')
+      elsif arg =~ /^has_many:/
+        # arg = "has_many:arg1,arg2", so all the has_many are together 
+        @has_manies = arg.split(":")[1].split(",")
+      elsif arg =~ /^belongs_to:/ # belongs_to:arg1,arg2
+        @belongs_tos = arg.split(":")[1].split(',')
+      end
     end
+    
+    # Remove the has_one and has_many arguments since they are
+    # not for consumption by the scaffold generator, and since
+    # we have already used them to set the @belongs_tos, @has_ones and
+    # @has_manies.
+    @args.delete_if { |elt| elt =~ /^(has_one|has_many|belongs_to):/ }
+  end
+  
+  def add_options!(opt)
+    opt.separator ''
+    opt.separator 'Options:'
+    opt.on("-f", "--flex-only", "Scaffold Flex code only", 
+      "Default: false") { |v| options[:flex_only] = v}
+  end
 end

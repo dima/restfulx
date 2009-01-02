@@ -1,3 +1,4 @@
+.gitignore
 History.txt
 Manifest.txt
 README.rdoc
@@ -7,6 +8,7 @@ app_generators/ruboss_app/ruboss_app_generator.rb
 app_generators/ruboss_app/templates/actionscript.properties
 app_generators/ruboss_app/templates/actionscriptair.properties
 app_generators/ruboss_app/templates/default_tasks.rake
+app_generators/ruboss_app/templates/empty.txt
 app_generators/ruboss_app/templates/expressInstall.swf
 app_generators/ruboss_app/templates/flex.properties
 app_generators/ruboss_app/templates/generate.rb
@@ -29,14 +31,18 @@ generators/ruboss_config/USAGE
 generators/ruboss_config/ruboss_config_generator.rb
 generators/ruboss_controller/USAGE
 generators/ruboss_controller/ruboss_controller_generator.rb
+generators/ruboss_controller/templates/assist.py
 generators/ruboss_controller/templates/controller.as.erb
+generators/ruboss_controller/templates/restful.py
 generators/ruboss_main_app/USAGE
 generators/ruboss_main_app/ruboss_main_app_generator.rb
 generators/ruboss_main_app/templates/mainapp.mxml
 generators/ruboss_scaffold/USAGE
 generators/ruboss_scaffold/ruboss_scaffold_generator.rb
 generators/ruboss_scaffold/templates/component.mxml.erb
+generators/ruboss_scaffold/templates/controller.py.erb
 generators/ruboss_scaffold/templates/model.as.erb
+generators/ruboss_scaffold/templates/model.py.erb
 generators/ruboss_yaml_scaffold/USAGE
 generators/ruboss_yaml_scaffold/ruboss_yaml_scaffold_generator.rb
 gpl-3.0.txt
@@ -85,9 +91,11 @@ rails_generators/ruboss_scaffold/templates/model.rb.erb
 rails_generators/ruboss_yaml_scaffold/USAGE
 rails_generators/ruboss_yaml_scaffold/ruboss_yaml_scaffold_generator.rb
 rcl-1.0.txt
+rdoc/generators/template/html/jamis.rb
 ruboss4ruby.gemspec
 spec/ruboss4ruby_spec.rb
 spec/spec_helper.rb
+test/rails/.gitignore
 test/rails/controllers/application.rb
 test/rails/controllers/locations_controller.rb
 test/rails/controllers/notes_controller.rb
@@ -101,6 +109,7 @@ test/rails/fixtures/projects.yml
 test/rails/fixtures/simple_properties.yml
 test/rails/fixtures/tasks.yml
 test/rails/fixtures/users.yml
+test/rails/helpers/.gitignore
 test/rails/helpers/functional_test_helper.rb
 test/rails/helpers/test_helper.rb
 test/rails/helpers/unit_test_helper.rb
@@ -111,7 +120,6 @@ test/rails/models/project.rb
 test/rails/models/simple_property.rb
 test/rails/models/task.rb
 test/rails/models/user.rb
-test/rails/playing_around_in_a_console.txt
 test/rails/schema.rb
 test/rails/test.swf
 test/rails/test_active_foo.rb

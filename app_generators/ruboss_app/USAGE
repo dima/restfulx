@@ -5,12 +5,17 @@ Description:
     You can generate Flex Builder configuration for either *pure* Flex
     project or an AIR project. To generate AIR configuration pass the -a
     (--air) option to the generator.
+    
+    You can also choose to generate a simple Google App Engine back-end
+    along with your Flex front-end by passing the -a (--gae) option.
 
 Examples:
     `ruboss-gen pomodo` # generates project structure and a 
                         # default Flex app configuration.
     `ruboss-gen -a pomodo` # as above but generates an AIR app
                            # and configuration
+    `ruboss-gen -g pomodo` # generate Flex + GAE application
+                           # configuration
                            
 Next Steps:
     In your new Ruboss project folder run `ruby script/generate` for
