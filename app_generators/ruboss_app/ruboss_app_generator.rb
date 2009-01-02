@@ -35,10 +35,12 @@ class RubossAppGenerator < RubiGen::Base
       %w(script lib db bin-debug).each { |dir| m.directory dir }
       
       if options[:gae]
+        m.file 'index.yaml', 'index.yaml' unless File.exist?('index.yaml')
+        m.template 'app.yaml.erb', 'app.yaml' unless File.exist?('index.yaml')
         m.directory 'app/controllers'
-        m.file 'empty.txt', 'app/controllers/__init__.rb'
+        m.file 'empty.txt', 'app/controllers/__init__.py'
         m.directory 'app/models'
-        m.file 'empty.txt', 'app/models/__init__.rb'
+        m.file 'empty.txt', 'app/models/__init__.py'
       end
 
       m.file 'default_tasks.rake', 'Rakefile' unless File.exist?('Rakefile')      

@@ -7,8 +7,8 @@ class RubossMainAppGenerator < RubiGen::Base
               :base_folder, 
               :command_controller_name,
               :model_names, 
-              :command_names,
               :component_names,
+              :controller_names,
               :use_air,
               :application_tag
 
@@ -31,11 +31,20 @@ class RubossMainAppGenerator < RubiGen::Base
     if File.exists?("app/flex/#{base_folder}/components/generated")
       @component_names = list_mxml_files("app/flex/#{base_folder}/components/generated")
     end
+    
+    @controller_names = ""
+    if options[:gae] && File.exists?("app/controllers")
+      @controller_names = 
+        Dir.entries("app/controllers").grep(/\.py$/).delete_if { |name| name == "__init__.py" }.map { |name| name.sub(/\.py$/, "") }.join(", ")
+    end
   end
 
   def manifest
     record do |m|      
       m.template 'mainapp.mxml', File.join('app', 'flex', "#{project_name}.mxml")
+      if options[:gae]
+        m.template 'main.py.erb', 'main.py'
+      end
     end
   end
 
