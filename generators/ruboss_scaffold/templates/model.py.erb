@@ -1,6 +1,6 @@
 from google.appengine.ext import db
 
-class <%= class_name %>(db>.Model):
+class <%= class_name %>(db.Model):
 <% for attribute in attributes -%>
   <%= attribute.name %> = db.<%= attribute.gae_type %>
 <% end -%>
