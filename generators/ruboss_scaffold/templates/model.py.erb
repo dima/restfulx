@@ -8,7 +8,7 @@ class <%= class_name %>(db.Model):
   <%= attribute.name %> = db.<%= attribute.gae_type %>()
 <% end -%>
 <% for model in belongs_tos -%>
-  <%= model %> = db.ReferenceProperty(<%= model %>.<%= model.camelcase %>)
+  <%= model %> = db.ReferenceProperty(<%= model %>.<%= model.camelcase %>, collection_name="<% = model.pluralize %>")
 <% end -%>
   
   
