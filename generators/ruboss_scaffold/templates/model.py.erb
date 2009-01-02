@@ -1,11 +1,14 @@
 from google.appengine.ext import db
+<% if belongs_tos.length > 0 -%>
+import <%= belongs_tos.join(", ") %>
+<% end -%>
 
 class <%= class_name %>(db.Model):
 <% for attribute in attributes -%>
-  <%= attribute.name %> = db.<%= attribute.gae_type %>
+  <%= attribute.name %> = db.<%= attribute.gae_type %>()
 <% end -%>
 <% for model in belongs_tos -%>
-  <%= model %> = db.ReferenceProperty(<%= model.camelcase %>)
+  <%= model %> = db.ReferenceProperty(<%= model %>.<%= model.camelcase %>)
 <% end -%>
   
   

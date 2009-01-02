@@ -33,7 +33,7 @@ class RubossYamlScaffoldGenerator < RubiGen::Base
           :gae => options[:gae])
         puts 'done ...'
       end
-      RubiGen::Scripts::Generate.new.run(['ruboss_main_app'], :gae => options[:gae])
+      RubiGen::Scripts::Generate.new.run([], :generator => 'ruboss_main_app', :gae => options[:gae])
     end
   end
 

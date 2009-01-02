@@ -8,12 +8,16 @@
 <% if use_air -%>
       import org.ruboss.services.air.AIRServiceProvider;
 <% end -%>
-      import org.ruboss.Ruboss;
+<% if use_gae -%>
+      import org.ruboss.services.http.GAEHTTPServiceProvider;
+<% end -%>
       import <%= base_package %>.controllers.<%= command_controller_name %>;
 
       private function init():void {
 <% if use_air -%>
         <%= command_controller_name %>.initialize([AIRServiceProvider], AIRServiceProvider.ID, "<%= base_package %>");
+<% elsif use_gae -%>
+        <%= command_controller_name %>.initialize([GAEHTTPServiceProvider], GAEHTTPServiceProvider.ID);
 <% else -%>
         <%= command_controller_name %>.initialize();
 <% end -%>

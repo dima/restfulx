@@ -16,7 +16,7 @@ def main():
   application = webapp.WSGIApplication(
   [('/*$', AppController), 
 <% for component in controller_names.split(", ") -%>
-  ('/<%= component %>.*/'), <%= component %>.Controller),
+  ('/<%= component %>.*/', <%= component %>.Controller),
 <% end -%>
   ], debug=True)
   wsgiref.handlers.CGIHandler().run(application)

@@ -38,6 +38,7 @@ class RubossAppGenerator < RubiGen::Base
         m.file 'index.yaml', 'index.yaml' unless File.exist?('index.yaml')
         m.template 'app.yaml.erb', 'app.yaml' unless File.exist?('app.yaml')
         m.directory 'app/controllers'
+        m.file 'empty.txt', 'app/__init__.py'
         m.file 'empty.txt', 'app/controllers/__init__.py'
         m.directory 'app/models'
         m.file 'empty.txt', 'app/models/__init__.py'
