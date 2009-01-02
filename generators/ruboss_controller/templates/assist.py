@@ -36,7 +36,10 @@ def all(model):
 def update_model_from_params(model, params):
   for k, v in params.items():
     if k.endswith("_id"):
-      setattr(model, k.replace("_id", ""), db.Key(v))
+      if v == "":
+        setattr(model, k.replace("_id", ""), None)
+      else:
+        setattr(model, k.replace("_id", ""), db.Key(v))
     elif hasattr(model, k):
       if isinstance(getattr(model, k), bool):
         if v == "false" or v == "":
