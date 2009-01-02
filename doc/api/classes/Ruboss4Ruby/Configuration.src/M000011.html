@@ -32,10 +32,12 @@
         <span class="ruby-identifier">project_name_downcase</span> = <span class="ruby-identifier">project_name</span>.<span class="ruby-identifier">downcase</span>
       <span class="ruby-keyword kw">end</span>
       
+      <span class="ruby-comment cmt"># give a chance to override the settings via ruboss.yml</span>
       <span class="ruby-keyword kw">begin</span>      
         <span class="ruby-identifier">config</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{APP_ROOT}/config/ruboss.yml&quot;</span>))
         <span class="ruby-identifier">base_package</span> = <span class="ruby-identifier">config</span>[<span class="ruby-value str">'base-package'</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">project_name_downcase</span>
         <span class="ruby-identifier">base_folder</span> = <span class="ruby-identifier">base_package</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'.'</span>, <span class="ruby-value str">'/'</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\s/</span>, <span class="ruby-value str">''</span>)
+        <span class="ruby-identifier">project_name</span> = <span class="ruby-identifier">config</span>[<span class="ruby-value str">'project-name'</span>].<span class="ruby-identifier">camelcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\s/</span>, <span class="ruby-value str">''</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">project_name</span>
         <span class="ruby-identifier">controller_name</span> = <span class="ruby-identifier">config</span>[<span class="ruby-value str">'controller-name'</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">&quot;ApplicationController&quot;</span>
       <span class="ruby-keyword kw">rescue</span>
         <span class="ruby-identifier">base_folder</span> = <span class="ruby-identifier">base_package</span> = <span class="ruby-identifier">project_name_downcase</span>
