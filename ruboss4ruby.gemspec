@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dima Berastau"]
-  s.date = %q{2009-01-02}
+  s.date = %q{2009-01-03}
   s.default_executable = %q{ruboss-gen}
   s.description = %q{The Ruboss Framework brings the design principles and productivity of  Rails to Flex development, and makes integration with RESTful APIs as simple as possible.  Here's some of the things you can do:  * *Create* a complete _Adobe_ _Flex_ or _AIR_ application in less than 5 minutes.  Use our lightweight Ruby-based code generation toolkit to create a fully functional CRUD application. Simply do:  sudo gem install ruboss4ruby  And then run:  ruboss-gen -h  * *Integrate* with _Ruby_ _On_ _Rails_, _Merb_ or _Sinatra_ applications  that use _ActiveRecord_, _DataMapper_, _CouchRest_, _ActiveCouch_, etc.  * *Communicate* between your Flex/AIR rich client and service providers  using either _XML_ or _JSON_.  * *Persist* your data directly in Adobe AIR's _SQLite_ database or _CouchDB_  without any additional infrastructure or intermediate servers.  * *Deploy* your Ruboss application on the Google App Engine and use Google DataStore for persistence.}
   s.email = %q{dima@ruboss.com}
@@ -27,17 +27,17 @@ Gem::Specification.new do |s|
     s.specification_version = 2
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rubigen>, [">= 1.5.1"])
-      s.add_runtime_dependency(%q<activesupport>, [">= 2.2.2"])
+      s.add_runtime_dependency(%q<rubigen>, [">= 1.4.0"])
+      s.add_runtime_dependency(%q<activesupport>, [">= 2.0.0"])
       s.add_development_dependency(%q<bones>, [">= 2.2.0"])
     else
-      s.add_dependency(%q<rubigen>, [">= 1.5.1"])
-      s.add_dependency(%q<activesupport>, [">= 2.2.2"])
+      s.add_dependency(%q<rubigen>, [">= 1.4.0"])
+      s.add_dependency(%q<activesupport>, [">= 2.0.0"])
       s.add_dependency(%q<bones>, [">= 2.2.0"])
     end
   else
-    s.add_dependency(%q<rubigen>, [">= 1.5.1"])
-    s.add_dependency(%q<activesupport>, [">= 2.2.2"])
+    s.add_dependency(%q<rubigen>, [">= 1.4.0"])
+    s.add_dependency(%q<activesupport>, [">= 2.0.0"])
     s.add_dependency(%q<bones>, [">= 2.2.0"])
   end
 end

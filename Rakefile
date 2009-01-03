@@ -12,8 +12,8 @@ end
 ensure_in_path 'lib'
 require 'ruboss4ruby'
 
-depend_on 'rubigen'
-depend_on 'activesupport'
+depend_on 'rubigen', '1.4.0'
+depend_on 'activesupport', '2.0.0'
 
 task :default => 'spec:run'
 
