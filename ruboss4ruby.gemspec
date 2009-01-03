@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{ruboss4ruby}
   s.rubygems_version = %q{1.3.1}
-  s.summary = %q{Ruboss Framework Code Generation Engine / Rails 2.1+ and Merb 1.0 Integration Support}
+  s.summary = %q{Ruboss Framework Code Generation Engine / Rails 2.1+ Integration Support}
   s.test_files = ["test/rails/helpers/test_helper.rb", "test/rails/test_active_foo.rb", "test/rails/test_ruboss_rails_integration_functional.rb", "test/rails/test_to_fxml.rb", "test/rails/test_to_json.rb"]
 
   if s.respond_to? :specification_version then

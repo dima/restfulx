@@ -18,7 +18,7 @@ depend_on 'activesupport'
 task :default => 'spec:run'
 
 PROJ.name = 'ruboss4ruby'
-PROJ.summary = 'Ruboss Framework Code Generation Engine / Rails 2.1+ and Merb 1.0 Integration Support'
+PROJ.summary = 'Ruboss Framework Code Generation Engine / Rails 2.1+ Integration Support'
 PROJ.authors = 'Dima Berastau'
 PROJ.email = 'dima@ruboss.com'
 PROJ.url = 'http://github.com/dima/ruboss4ruby/wikis'
