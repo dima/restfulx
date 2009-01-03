@@ -17,7 +17,7 @@ package <%= base_package %>.models {
 <% if attribute.type == :datetime || attribute.type == :time -%>
     [DateTime]
 <% end -%>
-    public var <%= attribute.flex_name %>:<%= attribute.flex_type %>;
+    public var <%= attribute.flex_name %>:<%= attribute.flex_type %> = <%= attribute.flex_default %>;
 
 <% end -%>
 <% for model in belongs_tos -%>

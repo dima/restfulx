@@ -10,25 +10,47 @@ module Ruboss4Ruby
       
       def flex_type
         @flex_type = case type
-          when :integer                     then 'int'
-          when :date, :datetime, :time      then 'Date'
-          when :boolean                     then 'Boolean'
-          when :float, :decimal             then 'Number'
-          else
-            'String'
+        when :integer                     then 'int'
+        when :date, :datetime, :time      then 'Date'
+        when :boolean                     then 'Boolean'
+        when :float, :decimal             then 'Number'
+        else
+          'String'
+        end
+      end
+      
+      def flex_default
+        @flex_default = case type
+        when :integer                 then '0'
+        when :date, :datetime, :time  then 'new Date'
+        when :boolean                 then 'false'
+        when :float, :decimal         then 'new Number'
+        else
+          "\"\""
         end
       end
       
       def gae_type
         @gae_type = case type
-          when :integer     then 'IntegerProperty'
-          when :date        then 'DateProperty'
-          when :time        then 'TimeProperty'
-          when :datetime    then 'DateTimeProperty'
-          when :boolean     then 'BooleanProperty'
-          when :text        then 'TextProperty'
-          else
-            'StringProperty'
+        when :integer     then 'IntegerProperty'
+        when :date        then 'DateProperty'
+        when :time        then 'TimeProperty'
+        when :datetime    then 'DateTimeProperty'
+        when :boolean     then 'BooleanProperty'
+        when :text        then 'TextProperty'
+        else
+          'StringProperty'
+        end
+      end
+      
+      def gae_default
+        @gae_default = case type
+        when :integer                then 'default = 0'
+        when :date, :time, :datetime then 'auto_now_add = True'
+        when :boolean                then 'default = False'
+        when :float, :decimal        then 'default = 0'
+        else
+          ""
         end
       end
     end
