@@ -34,7 +34,7 @@ PROJ.rdoc.dir = 'doc/api'
 PROJ.readme_file = 'README.rdoc'
 PROJ.rubyforge.name = 'ruboss4ruby'
 
-PROJ.exclude << %w(.DS_Store .gitignore, .log, .sqlite3)
+PROJ.exclude << %w(.DS_Store .gitignore .log, .sqlite3)
 
 PROJ.spec.opts << '--color'
 PROJ.test.opts << '-W1'
