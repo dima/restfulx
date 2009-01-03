@@ -38,6 +38,7 @@ module Ruboss4Ruby
         when :datetime    then 'DateTimeProperty'
         when :boolean     then 'BooleanProperty'
         when :text        then 'TextProperty'
+        when :float, :decimal then 'FloatProperty'
         else
           'StringProperty'
         end
@@ -48,7 +49,7 @@ module Ruboss4Ruby
         when :integer                then 'default = 0'
         when :date, :time, :datetime then 'auto_now_add = True'
         when :boolean                then 'default = False'
-        when :float, :decimal        then 'default = 0'
+        when :float, :decimal        then 'default = 0.0'
         else
           ""
         end
