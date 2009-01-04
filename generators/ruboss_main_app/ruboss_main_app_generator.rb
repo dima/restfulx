@@ -37,7 +37,7 @@ class RubossMainAppGenerator < RubiGen::Base
     if options[:gae] && File.exists?("app/controllers")
       @use_gae = true
       @controller_names = 
-        Dir.entries("app/controllers").grep(/\.py$/).delete_if { |name| name == "__init__.py" }.map { |name| name.sub(/\.py$/, "") }
+        Dir.entries("app/controllers").grep(/\.py$/).delete_if { |name| name == "__init__.py" || name == "restful.py" }.map { |name| name.sub(/\.py$/, "") }
     end
   end
 
