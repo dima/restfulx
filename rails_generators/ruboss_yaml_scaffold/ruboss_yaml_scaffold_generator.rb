@@ -36,9 +36,4 @@ class RubossYamlScaffoldGenerator < Rails::Generator::Base
         :skip_framework => ARGV.include?('skipframework'))
     end
   end
-
-  protected
-  def banner
-    "Usage: #{$0} #{spec.name}" 
-  end
 end

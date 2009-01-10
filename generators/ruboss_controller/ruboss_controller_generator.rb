@@ -29,6 +29,7 @@ class RubossControllerGenerator < RubiGen::Base
     end
   end
 
+  protected
   def add_options!(opt)
     opt.separator ''
     opt.separator 'Options:'

@@ -1,4 +1,4 @@
-require 'rubygems'
+# this will use the latest version of ruboss4ruby
 require 'ruboss4ruby/tasks'
 
 TEST_APP_NAME = 'TestApp.mxml'

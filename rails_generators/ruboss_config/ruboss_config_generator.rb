@@ -98,18 +98,18 @@ class RubossConfigGenerator < Rails::Generator::Base
   end
 
   protected
-    def add_options!(opt)
-      opt.separator ''
-      opt.separator 'Options:'
-      opt.on("-m", "--main-only", "Only generate the main Flex/AIR application file.", 
-        "Default: false") { |v| options[:main_only] = v }
-      opt.on("-a", "--air", "Configure AIR project instead of Flex. Flex is default.", 
-        "Default: false") { |v| options[:air_config] = v }
-      opt.on("-s", "--skip-framework", "Don't fetch the latest framework binary. You'll have to link/build the framework yourself.", 
-        "Default: false") { |v| options[:skip_framework] = v }
-    end
+  def add_options!(opt)
+    opt.separator ''
+    opt.separator 'Options:'
+    opt.on("-m", "--main-only", "Only generate the main Flex/AIR application file.", 
+      "Default: false") { |v| options[:main_only] = v }
+    opt.on("-a", "--air", "Configure AIR project instead of Flex. Flex is default.", 
+      "Default: false") { |v| options[:air_config] = v }
+    opt.on("-s", "--skip-framework", "Don't fetch the latest framework binary. You'll have to link/build the framework yourself.", 
+      "Default: false") { |v| options[:skip_framework] = v }
+  end
 
-    def banner
-      "Usage: #{$0} #{spec.name}" 
-    end
+  def banner
+    "Usage: #{$0} #{spec.name}" 
+  end
 end

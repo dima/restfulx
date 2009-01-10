@@ -83,12 +83,12 @@ class RubossAppGenerator < RubiGen::Base
   end
 
   protected
-    def add_options!(opt)
-      opt.separator ''
-      opt.separator 'Options:'
-      opt.on("-a", "--air", "Configure AIR project instead of Flex. Flex is default.", 
-        "Default: false") { |v| options[:air_config] = v }
-      opt.on("--gae", "Generate Google App Engine Python classes in addition to Ruboss Flex resources.", 
-        "Default: false") { |v| options[:gae] = v }
-    end
+  def add_options!(opt)
+    opt.separator ''
+    opt.separator 'Options:'
+    opt.on("-a", "--air", "Configure AIR project instead of Flex. Flex is default.", 
+      "Default: false") { |v| options[:air_config] = v }
+    opt.on("--gae", "Generate Google App Engine Python classes in addition to Ruboss Flex resources.", 
+      "Default: false") { |v| options[:gae] = v }
+  end
 end

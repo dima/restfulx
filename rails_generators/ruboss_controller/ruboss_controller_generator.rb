@@ -25,9 +25,4 @@ class RubossControllerGenerator < Rails::Generator::Base
         "#{command_controller_name}.as")
     end
   end
-
-  protected
-    def banner
-      "Usage: #{$0} #{spec.name}" 
-    end
 end
