@@ -1,4 +1,5 @@
 require 'open-uri'
+require File.join(File.dirname(__FILE__), '..', '..', 'lib', 'ruboss4ruby') if !defined?(Ruboss4Ruby)
 
 class RubossConfigGenerator < Rails::Generator::Base
   include Ruboss4Ruby::Configuration

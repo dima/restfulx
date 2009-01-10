@@ -1,3 +1,5 @@
+require File.join(File.dirname(__FILE__), '..', '..', 'lib', 'ruboss4ruby') if !defined?(Ruboss4Ruby)
+
 module Rails
   module Generator
     class GeneratedAttribute
