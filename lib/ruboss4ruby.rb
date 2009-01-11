@@ -54,7 +54,7 @@ elsif defined?(ActionController::Base)
   # if we are not running in Merb, try to hook up Rails
   Mime::Type.register_alias "application/xml", :fxml
   
-  ['active_foo', 'active_record_default_methods', 'rails/swf_helper'].each { |lib| require Ruboss4Ruby::LIB_DIR + lib }
+  ['active_foo', 'rails/swf_helper'].each { |lib| require Ruboss4Ruby::LIB_DIR + lib }
 
   ActionView::Base.send :include, SWFHelper unless ActionView::Base.included_modules.include?(SWFHelper)  
 

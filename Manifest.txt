@@ -50,7 +50,6 @@ generators/ruboss_yaml_scaffold/ruboss_yaml_scaffold_generator.rb
 gpl-3.0.txt
 lib/ruboss4ruby.rb
 lib/ruboss4ruby/active_foo.rb
-lib/ruboss4ruby/active_record_default_methods.rb
 lib/ruboss4ruby/active_record_tasks.rb
 lib/ruboss4ruby/configuration.rb
 lib/ruboss4ruby/datamapper_foo.rb
