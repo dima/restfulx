@@ -1,3 +1,7 @@
+== 1.1.2 / 2009-01-11
+
+* Got rid of default_methods helper for AR models. to_fxml(:methods => []) syntax must be used instead.
+
 == 1.1.1 / 2009-01-09
 
 * Bug fixing code generation templates so that AIR projects compile properly with Flex SDK 3.2.0

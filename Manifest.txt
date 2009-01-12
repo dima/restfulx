@@ -109,7 +109,9 @@ test/rails/fixtures/projects.yml
 test/rails/fixtures/simple_properties.yml
 test/rails/fixtures/tasks.yml
 test/rails/fixtures/users.yml
+test/rails/helpers/controllers.log
 test/rails/helpers/functional_test_helper.rb
+test/rails/helpers/models.log
 test/rails/helpers/test_helper.rb
 test/rails/helpers/unit_test_helper.rb
 test/rails/model.yml

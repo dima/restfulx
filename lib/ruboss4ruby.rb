@@ -5,8 +5,8 @@
 module Ruboss4Ruby
 
   # :stopdoc:
-  VERSION = '1.1.1'
-  RUBOSS_FRAMEWORK_VERSION = '1.1.1'
+  VERSION = '1.1.2'
+  RUBOSS_FRAMEWORK_VERSION = '1.1.2'
   LIB_DIR = File.join(File.dirname(__FILE__), 'ruboss4ruby/')
   # :startdoc:
 
