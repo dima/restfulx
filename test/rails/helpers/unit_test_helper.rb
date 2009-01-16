@@ -18,7 +18,7 @@ require 'action_controller/test_process'
 require 'action_controller/integration'
 require 'sqlite3'
 
-require File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'ruboss4ruby')
+require File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'restfulx')
 
 config = YAML::load(IO.read(File.join(File.dirname(__FILE__), '..', 'database.yml')))[ENV['DB'] || 'test']
 ActiveRecord::Base.configurations = config

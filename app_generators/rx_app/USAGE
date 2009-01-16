@@ -1,0 +1,22 @@
+Description:
+    Generates the primary RestfulX project directory structure and sets 
+    up Flex Builder and TextMate specific descriptor files
+    
+    You can generate Flex Builder configuration for either *pure* Flex
+    project or an AIR project. To generate AIR configuration pass the -a
+    (--air) option to the generator.
+    
+    You can also choose to generate a simple Google App Engine back-end
+    along with your Flex front-end by passing the --gae option.
+
+Examples:
+    `rx-gen pomodo`     # generates project structure and a 
+                        # default Flex app configuration.
+    `rx-gen -a pomodo`  # as above but generates an AIR app
+                        # and configuration
+    `rx-gen --gae pomodo` # generate Flex + GAE application
+                          # configuration
+                           
+Next Steps:
+    In your new RestfulX project folder run `ruby script/generate` for
+    a list of available generators.

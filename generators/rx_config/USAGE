@@ -1,0 +1,5 @@
+Description:
+    Fetches the latest published RestfulX Framework SWC file.
+
+Examples:
+    `./script/generate rx_config`

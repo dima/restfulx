@@ -10,21 +10,21 @@ rescue LoadError
 end
 
 ensure_in_path 'lib'
-require 'ruboss4ruby'
+require 'restfulx'
 
 depend_on 'rubigen', '1.4.0'
 depend_on 'activesupport', '2.0.0'
 
 task :default => 'spec:run'
 
-PROJ.name = 'ruboss4ruby'
-PROJ.summary = 'Ruboss Framework Code Generation Engine / Rails 2.1+ Integration Support'
+PROJ.name = 'restfulx'
+PROJ.summary = 'RestfulX Framework Code Generation Engine / Rails 2.1+ Integration Support'
 PROJ.authors = 'Dima Berastau'
-PROJ.email = 'dima@ruboss.com'
-PROJ.url = 'http://github.com/dima/ruboss4ruby/wikis'
-PROJ.version = Ruboss4Ruby::VERSION
+PROJ.email = 'dima.berastau@gmail.com'
+PROJ.url = 'http://github.com/dima/restfulx_framework/wikis'
+PROJ.version = RestfulX::VERSION
 
-PROJ.executables = ['bin/ruboss-gen']
+PROJ.executables = ['bin/rx-gen']
 
 #PROJ.rdoc.opts << '-Tjamis'
 PROJ.rdoc.exclude << %w(.txt)
@@ -32,7 +32,7 @@ PROJ.rdoc.main = 'README.rdoc'
 PROJ.rdoc.dir = 'doc/api'
 
 PROJ.readme_file = 'README.rdoc'
-PROJ.rubyforge.name = 'ruboss4ruby'
+PROJ.rubyforge.name = 'restfulx'
 
 PROJ.exclude << %w(.DS_Store .gitignore .log, .sqlite3)
 

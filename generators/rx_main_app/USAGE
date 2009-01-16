@@ -1,0 +1,8 @@
+Description:
+    Refreshes main Flex/AIR application file to make sure that
+    any of the generated components are included. Warning,
+    this will wipe your main application file. Used mostly
+    during code generation phase.
+
+Examples:
+    `./script/generate rx_main_app`

@@ -1,0 +1,29 @@
+Description:
+    Scaffolds an entire RestfulX resource. The resource is ready to use as a
+    starting point for your restful, resource-oriented application.
+    
+    rx_scaffold :
+      1. Generates all required Flex code.
+      2. You can pass special belongs_to, has_one and has_many attributes
+         to generate appropriate relationships.
+
+    Pass the name of the model, either CamelCased or under_scored, as the first
+    argument, and an optional list of attribute pairs.
+
+    Attribute pairs are column_name:sql_type arguments specifying the
+    model's attributes. Timestamps are added by default, so you don't have to
+    specify them by hand as 'created_at:datetime updated_at:datetime'.
+    
+    The syntax for belongs_to, has_one and has_many attributes is as follows:
+      belongs_to:<relationship_name> or
+      belongs_to:<relationship_name>,<another_relationship>,<and_another>
+
+    You don't have to think up every attribute up front, but it helps to
+    sketch out a few so you can start working with the resource immediately.
+
+    For example, `rx_scaffold post title:string body:text published:boolean`
+    gives you a model with those three attributes.
+
+Examples:
+    `./script/generate rx_scaffold project name:string has_many:tasks`
+    `./script/generate rx_scaffold task name:string belongs_to:project`

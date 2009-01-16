@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: RestfulX::Configuration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+ 
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+ 
+        function toggleSource( id )
+        {
+          var elem
+          var link
+ 
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+ 
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+ 
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+ 
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />RestfulX::Configuration</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/restfulx/configuration_rb.html">lib/restfulx/configuration.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+ 
+  <div id="bodyContent">
+      <div id="content">
+ 
+  <div class="description"><p>
+Computes necessary configuration options from the environment. This can be
+used in Rails, Merb or standalone from the command line.
+</p>
+</div>
+ 
+ 
+ 
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000013">extract_names</a></li>
+  <li><a href="#M000014">list_as_files</a></li>
+  <li><a href="#M000015">list_mxml_files</a></li>
+  </ul>
+ 
+ 
+ 
+ 
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">APP_ROOT</td>
+    <td>=</td>
+    <td class="attr-value">defined?(RAILS_ROOT) ? RAILS_ROOT : defined?(Merb) ? Merb.root : File.expand_path(&quot;.&quot;)</td>
+  </tr>
+  </table>
+ 
+ 
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000013"></a><b>extract_names</b>(project = nil)
+[&nbsp;<a href="Configuration.src/M000013.html" target="SOURCE_CODE" onclick="javascript:openCode('Configuration.src/M000013.html'); return false;">source</a>&nbsp;]
+  </div>
+  <div class="description">
+  <p>
+Extract project, package, controller names from the environment. This will
+respect config/restfulx.yml if it exists, you can override all of the
+defaults there. The defaults are:
+</p>
+<ul>
+<li>*base-package* same as project name downcased
+
+</li>
+<li>*controller-name* &#8216;ApplicationController&#8216;
+
+</li>
+</ul>
+<p>
+Here&#8216;s a sample restfulx.yml file:
+</p>
+<p>
+<a href="../RestfulX.html">RestfulX</a> code generation configuration
+options
+</p>
+<p>
+By default flex models, commands, controllers and components are genearated
+into app/flex/&lt;your rails project name&gt; folder. If you&#8216;d like
+to customize the target folder (to say append a &quot;com&quot; package
+before your rails project name) uncomment the line below base-package must
+follow the usual flex package notation (a string separated by
+&quot;.&quot;)
+</p>
+<p>
+base-package: com.pomodo
+</p>
+<p>
+Main <a href="../RestfulX.html">RestfulX</a> controller is typically named
+AppicationController. This controller is created in
+&lt;base-package&gt;.controllers folder. You can customize the name by
+uncommenting the following line and changing the controller name.
+</p>
+<p>
+controller-name: ApplicationController
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000014"></a><b>list_as_files</b>(dir_name)
+[&nbsp;<a href="Configuration.src/M000014.html" target="SOURCE_CODE" onclick="javascript:openCode('Configuration.src/M000014.html'); return false;">source</a>&nbsp;]
+  </div>
+  <div class="description">
+  <p>
+List files ending in *.as (ActionScript) in a given folder
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000015"></a><b>list_mxml_files</b>(dir_name)
+[&nbsp;<a href="Configuration.src/M000015.html" target="SOURCE_CODE" onclick="javascript:openCode('Configuration.src/M000015.html'); return false;">source</a>&nbsp;]
+  </div>
+  <div class="description">
+  <p>
+List files ending in *.mxml in a given folder
+</p>
+  </div>
+</div>
+</div>
+
+  </div>
+ 
+    </body>
+</html>

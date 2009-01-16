@@ -1,6 +1,6 @@
 
 require File.expand_path(
-    File.join(File.dirname(__FILE__), %w[.. lib ruboss4ruby]))
+    File.join(File.dirname(__FILE__), %w[.. lib restfulx]))
 
 Spec::Runner.configure do |config|
   # == Mock Framework

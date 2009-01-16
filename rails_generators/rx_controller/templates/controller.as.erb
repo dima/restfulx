@@ -1,0 +1,40 @@
+package <%= base_package %>.controllers {
+  import <%= base_package %>.models.*;
+  import <%= base_package %>.commands.*;
+
+	import mx.core.Application;		
+  import org.restfulx.Rx;
+  import org.restfulx.controllers.RxApplicationController;
+  import org.restfulx.utils.RxUtils;
+
+  public class <%= command_controller_name %> extends RxApplicationController {
+    private static var controller:<%= command_controller_name %>;
+    
+    public static var models:Array = [<%= model_names %>]; /* Models */
+    
+    public static var commands:Array = [<%= command_names %>]; /* Commands */
+    
+    public function <%= command_controller_name %>(enforcer:SingletonEnforcer, extraServices:Array,
+      defaultServiceId:int = -1) {
+      super(commands, models, extraServices, defaultServiceId);
+    }
+    
+    public static function get instance():<%= command_controller_name %> {
+      if (controller == null) initialize();
+      return controller;
+    }
+    
+    public static function initialize(extraServices:Array = null, defaultServiceId:int = -1,
+      airDatabaseName:String = null):void {
+      if (!RxUtils.isEmpty(airDatabaseName)) Rx.airDatabaseName = airDatabaseName;
+      controller = new <%= command_controller_name %>(new SingletonEnforcer, extraServices,
+        defaultServiceId);
+			Rx.sessionToken = Application.application.parameters.session_token;
+			if (Application.application.parameters.authenticity_token) {
+			  Rx.defaultMetadata = { authenticity_token : Application.application.parameters.authenticity_token };
+			}
+    }
+  }
+}
+
+class SingletonEnforcer {}

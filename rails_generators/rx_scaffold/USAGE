@@ -1,0 +1,35 @@
+Description:
+    Scaffolds an entire resource, from model and migration to controller and
+    views, along with a full test suite. The resource is ready to use as a
+    starting point for your restful, resource-oriented application.
+    
+    rx_scaffold delegates the underlying rails code generation to "scaffold"
+    and extends it in a number of ways:
+      1. Generates all required Flex code.
+      2. You can pass special belongs_to, has_one and has_many attributes
+         to generate *all* appropriate relationships. No more manual code
+         editing.
+
+    Pass the name of the model, either CamelCased or under_scored, as the first
+    argument, and an optional list of attribute pairs.
+
+    Attribute pairs are column_name:sql_type arguments specifying the
+    model's attributes. Timestamps are added by default, so you don't have to
+    specify them by hand as 'created_at:datetime updated_at:datetime'.
+    
+    The syntax for belongs_to, has_one and has_many attributes is as follows:
+      belongs_to:<relationship_name> or
+      belongs_to:<relationship_name>,<another_relationship>,<and_another>
+
+    You don't have to think up every attribute up front, but it helps to
+    sketch out a few so you can start working with the resource immediately.
+
+    For example, `scaffold post title:string body:text published:boolean`
+    gives you a model with those three attributes, a controller that handles
+    the create/show/update/destroy, forms to create and edit your posts, and
+    an index that lists them all, as well as a map.resources :posts
+    declaration in config/routes.rb.
+
+Examples:
+    `./script/generate rx_scaffold project name:string has_many:tasks`
+    `./script/generate rx_scaffold task name:string belongs_to:project`

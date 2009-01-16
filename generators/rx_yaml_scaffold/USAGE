@@ -1,0 +1,45 @@
+Description:
+    Scaffolds an entire application based on db/model.yml file.
+    
+    This generator transforms entries in db/model.yml into 
+    command line calls to "rx_scaffold".
+
+Examples:
+    `./script/generate rx_yaml_scaffold`
+    
+Sample Model File:
+    project:
+     - name: string
+     - notes: text
+     - start_date: date
+     - end_date: date
+     - completed: boolean
+     - belongs_to: [user]
+     - has_many: [tasks]
+
+    location:
+     - name: string
+     - notes: text
+     - belongs_to: [user]
+     - has_many: [tasks]
+
+    task:
+     - name: string
+     - notes: text
+     - start_time: datetime
+     - end_time: datetime
+     - completed: boolean
+     - next_action: boolean
+     - belongs_to: [project, location, user]
+
+    note:
+     - content: text
+     - belongs_to: [user]
+
+    user:
+     - login: string
+     - first_name: string
+     - last_name: string
+     - email: string
+     - has_many: [tasks, projects, locations]
+     - has_one: [note]
