@@ -21,7 +21,7 @@ PROJ.name = 'restfulx'
 PROJ.summary = 'RestfulX Framework Code Generation Engine / Rails 2.1+ Integration Support'
 PROJ.authors = 'Dima Berastau'
 PROJ.email = 'dima.berastau@gmail.com'
-PROJ.url = 'http://github.com/dima/restfulx_framework/wikis'
+PROJ.url = 'http://wiki.github.com/dima/restfulx'
 PROJ.version = RestfulX::VERSION
 
 PROJ.executables = ['bin/rx-gen']
