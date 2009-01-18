@@ -22,7 +22,7 @@
 </style>
 </head>
 <body bgcolor="white">
-<pre><span class="ruby-comment cmt"># File lib/ruboss4ruby/rails/swf_helper.rb, line 7</span>
+<pre><span class="ruby-comment cmt"># File lib/restfulx/rails/swf_helper.rb, line 7</span>
   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">swfobject</span>(<span class="ruby-identifier">swf_url</span>, <span class="ruby-identifier">params</span> = {})
     <span class="ruby-identifier">params</span>.<span class="ruby-identifier">reverse_merge!</span>({<span class="ruby-identifier">:width</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'100%'</span>,
                            <span class="ruby-identifier">:height</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'100%'</span>,
@@ -49,7 +49,7 @@
     <span class="ruby-comment cmt">#   flashVars['session_token'] = &lt;%= session.session_id -%&gt;</span>
     <span class="ruby-comment cmt"># &lt;/script&gt;</span>
     <span class="ruby-comment cmt"># If you include an authenticity_token parameter in flashVars, </span>
-    <span class="ruby-comment cmt"># then the Flex app will add it to Ruboss.defaultMetadata, so that it will be sent</span>
+    <span class="ruby-comment cmt"># then the Flex app will add it to Rx.defaultMetadata, so that it will be sent</span>
     <span class="ruby-comment cmt"># back up to your Rails app with every request.</span>
     <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:flash_vars</span>] <span class="ruby-operator">||=</span> {}
     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:flash_vars</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
