@@ -42,7 +42,7 @@ class RxYamlScaffoldGenerator < Rails::Generator::Base
     opt.separator ''
     opt.separator 'Options:'
     opt.on("--flex-only", "Only generate the Flex/AIR files.", 
-      "Default: false") { |v| options[:main_only] = v }
+      "Default: false") { |v| options[:flex_only] = v }
     opt.on("--skip-framework", "Don't fetch the latest framework binary. You'll have to link/build the framework yourself.", 
       "Default: false") { |v| options[:skip_framework] = v }
   end
