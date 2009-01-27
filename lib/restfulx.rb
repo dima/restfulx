@@ -6,7 +6,7 @@ module RestfulX
 
   # :stopdoc:
   VERSION = '1.2.0'
-  FRAMEWORK_VERSION = '1.2.0'
+  FRAMEWORK_VERSION = '1.2.1-preview'
   LIB_DIR = File.join(File.dirname(__FILE__), 'restfulx/')
   # :startdoc:
 
@@ -114,4 +114,6 @@ elsif defined?(ActionController::Base)
 
   # temporarily disable forgery protection site-wise
   ActionController::Base.allow_forgery_protection = false
+elsif defined?(DataMapper)
+  require RestfulX::LIB_DIR + 'datamapper_foo'
 end
