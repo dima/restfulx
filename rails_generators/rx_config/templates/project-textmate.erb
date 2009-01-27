@@ -21,10 +21,6 @@
   <integer>299</integer> 
   <key>metaData</key> 
   <dict/> 
-  <key>openDocuments</key>
-  <array>
-    <string>app/flex/<%= project_name %>.mxml</string>
-  </array>
 	<key>shellVariables</key>
 	<array>
 		<dict>
@@ -43,10 +39,34 @@
 			<key>variable</key>
 			<string>TM_FLEX_OUTPUT</string>
 		</dict>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>value</key>
+			<string>app/flex</string>
+			<key>variable</key>
+			<string>TM_AS3_USUAL_SRC_DIRS</string>
+		</dict>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>value</key>
+			<string>/Users/Dima/Projects/dev/restfulx_framework/framework/src</string>
+			<key>variable</key>
+			<string>TM_AS3_LIB_SRC_DIRS</string>
+		</dict>
+    <dict>
+      <key>enabled</key>
+      <true/>
+      <key>value</key>
+      <string><%= use_air ? 'air' : 'flex' %></string>
+      <key>variable</key>
+      <string>TM_FLEX_RUNTIME</string>
+    </dict>
 	</array>
-  <key>showFileHierarchyDrawer</key>
-  <false/>
-  <key>windowFrame</key>
-  <string>{{5, 15}, {1073, 860}}</string>
+	<key>showFileHierarchyDrawer</key>
+	<false/>
+	<key>windowFrame</key>
+	<string>{{53, 14}, {1221, 864}}</string>
 </dict>
 </plist>
