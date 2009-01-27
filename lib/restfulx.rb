@@ -116,4 +116,6 @@ elsif defined?(ActionController::Base)
   ActionController::Base.allow_forgery_protection = false
 elsif defined?(DataMapper)
   require RestfulX::LIB_DIR + 'datamapper_foo'
+elsif defined?(ActiveRecord::Base)
+  require RestfulX::LIB_DIR + 'active_foo'  
 end
