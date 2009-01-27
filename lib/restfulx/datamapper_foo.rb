@@ -20,7 +20,7 @@ module DataMapper
         "#{property.name.to_json}: #{send(property.getter).to_json}"
       end
       
-      fields << "ruby_class: #{self.class.to_json}"
+      fields << "\"ruby_class\": #{self.class.to_json}"
 
       # add methods
       (options[:methods] || []).each do |meth|
