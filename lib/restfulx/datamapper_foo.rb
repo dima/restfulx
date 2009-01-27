@@ -1,4 +1,5 @@
-require 'builder'
+require 'dm-serializer/common'
+require 'dm-serializer/xml_serializers'
 require File.join(File.dirname(__FILE__), '..', 'lib', 'restfulx') if !defined?(RestfulX)
 
 # Flex friendly DataMapper patches, more specifically we just add +to_xml+ on 
@@ -52,20 +53,24 @@ module DataMapper
     class ValidationErrors
       # Add Flex-friendly +to_xml+ implementation
       def to_xml
-        xml = Builder::XmlMarkup.new(:indent => 2)
-        xml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
-        xml.errors do |e|
-          @errors.each_key do |attribute|
-            @errors[attribute].each do |msg|
-              next if msg.nil?
-              if attribute == "base"
-                e.error("message" => msg)
-              else
-                e.error("field" => attribute.to_s.camelcase(:lower), "message" => msg)
-              end
+        xml = DataMapper::Serialize::XMLSerializers::SERIALIZER
+        doc ||= xml.new_document
+        root = xml.root_node(doc, "errors")
+        @errors.each_key do |attribute|
+          @errors[attribute].each do |msg|
+            next if msg.nil?
+            if attribute == "base"
+              xml.add_node(root, "error", nil, {"message" => msg})
+            else
+              xml.add_node(root, "error", nil, {"field" => attribute.to_s.camel_case.dcfirst, "message" => msg})
             end
           end
         end
+        xml.output(doc)
+      end
+      
+      def to_json
+        @errors.to_json
       end
     end
   end
