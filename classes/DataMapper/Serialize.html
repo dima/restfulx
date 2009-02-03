@@ -4,9 +4,9 @@
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>Module: DataMapper</title>
+    <title>Module: DataMapper::Serialize</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-    <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
  
     <script language="JavaScript" type="text/javascript">
     // <![CDATA[
@@ -51,13 +51,13 @@
  
   <body>
   <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
-  <td class="file-title"><span class="file-title-prefix">Module</span><br />DataMapper</td>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />DataMapper::Serialize</td>
   <td align="right">
     <table cellspacing="0" cellpadding="2">
       <tr valign="top">
         <td>In:</td>
         <td>
-<a href="../files/lib/restfulx/datamapper_foo_rb.html">lib/restfulx/datamapper_foo.rb</a>
+<a href="../../files/lib/restfulx/datamapper_foo_rb.html">lib/restfulx/datamapper_foo.rb</a>
         </td>
       </tr>
          </table>
@@ -70,22 +70,41 @@
       <div id="content">
  
   <div class="description"><p>
-<a href="RestfulX.html">RestfulX</a> datamapper patches
+Monkey patches dm-serialization <a
+href="Serialize.html#M000009">to_json</a> method to add ruby_class:
+YourClass to all serialized objects
 </p>
 </div>
  
  
  
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000009">to_json</a></li>
+  </ul>
  
  
  
-  <div class="sectiontitle">Classes and Modules</div>
-  Module <a href="DataMapper/Serialize.html" class="link">DataMapper::Serialize</a><br />
-Module <a href="DataMapper/Validate.html" class="link">DataMapper::Validate</a><br />
-
  
  
  
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000009"></a><b>to_json</b>(*args)
+[&nbsp;<a href="Serialize.src/M000009.html" target="SOURCE_CODE" onclick="javascript:openCode('Serialize.src/M000009.html'); return false;">source</a>&nbsp;]
+  </div>
+  <div class="description">
+  <p>
+<a href="Serialize.html">Serialize</a> a Resource to JavaScript Object
+Notation (JSON; RFC 4627)
+</p>
+<p>
+@return &lt;<a href="../String.html">String</a>&gt; a JSON representation
+of the Resource
+</p>
+  </div>
+</div>
 </div>
 
   </div>

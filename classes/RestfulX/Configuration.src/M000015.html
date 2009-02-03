@@ -3,7 +3,7 @@
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head><title>list_mxml_files (RestfulX::Configuration)</title>
+<head><title>extract_names (RestfulX::Configuration)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <style type="text/css">
 .ruby-comment    { color: green; font-style: italic }
@@ -22,9 +22,28 @@
 </style>
 </head>
 <body bgcolor="white">
-<pre><span class="ruby-comment cmt"># File lib/restfulx/configuration.rb, line 72</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">list_mxml_files</span>(<span class="ruby-identifier">dir_name</span>)
-      <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">entries</span>(<span class="ruby-identifier">dir_name</span>).<span class="ruby-identifier">grep</span>(<span class="ruby-regexp re">/\.mxml$/</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/\.mxml$/</span>, <span class="ruby-value str">&quot;&quot;</span>) }
+<pre><span class="ruby-comment cmt"># File lib/restfulx/configuration.rb, line 43</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extract_names</span>(<span class="ruby-identifier">project</span> = <span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">project</span>
+        <span class="ruby-identifier">project_name</span> = <span class="ruby-identifier">project</span>.<span class="ruby-identifier">camelcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\s/</span>, <span class="ruby-value str">''</span>)
+        <span class="ruby-identifier">project_name_downcase</span> = <span class="ruby-identifier">project_name</span>.<span class="ruby-identifier">downcase</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">project_name</span> = <span class="ruby-constant">APP_ROOT</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;/&quot;</span>).<span class="ruby-identifier">last</span>.<span class="ruby-identifier">camelcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\s/</span>, <span class="ruby-value str">''</span>)
+        <span class="ruby-identifier">project_name_downcase</span> = <span class="ruby-identifier">project_name</span>.<span class="ruby-identifier">downcase</span>
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-comment cmt"># give a chance to override the settings via restfulx.yml</span>
+      <span class="ruby-keyword kw">begin</span>      
+        <span class="ruby-identifier">config</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{APP_ROOT}/config/restfulx.yml&quot;</span>))
+        <span class="ruby-identifier">base_package</span> = <span class="ruby-identifier">config</span>[<span class="ruby-value str">'base-package'</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">project_name_downcase</span>
+        <span class="ruby-identifier">base_folder</span> = <span class="ruby-identifier">base_package</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'.'</span>, <span class="ruby-value str">'/'</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\s/</span>, <span class="ruby-value str">''</span>)
+        <span class="ruby-identifier">project_name</span> = <span class="ruby-identifier">config</span>[<span class="ruby-value str">'project-name'</span>].<span class="ruby-identifier">camelcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\s/</span>, <span class="ruby-value str">''</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">project_name</span>
+        <span class="ruby-identifier">controller_name</span> = <span class="ruby-identifier">config</span>[<span class="ruby-value str">'controller-name'</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">&quot;ApplicationController&quot;</span>
+      <span class="ruby-keyword kw">rescue</span>
+        <span class="ruby-identifier">base_folder</span> = <span class="ruby-identifier">base_package</span> = <span class="ruby-identifier">project_name_downcase</span>
+        <span class="ruby-identifier">controller_name</span> = <span class="ruby-value str">&quot;ApplicationController&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+      [<span class="ruby-identifier">project_name</span>, <span class="ruby-identifier">project_name_downcase</span>, <span class="ruby-identifier">controller_name</span>, <span class="ruby-identifier">base_package</span>, <span class="ruby-identifier">base_folder</span>]
     <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>
