@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{restfulx}
-  s.version = "1.2.0"
+  s.version = "1.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dima Berastau"]
-  s.date = %q{2009-01-16}
+  s.date = %q{2009-02-02}
   s.default_executable = %q{rx-gen}
   s.description = %q{Here's some of the things you can do with *RestfulX*:  * *Create* a complete _Adobe_ _Flex_ or _AIR_ application in less than 5 minutes.  Use our lightweight Ruby-based code generation toolkit to create a fully functional CRUD application. Simply do:  sudo gem install restfulx  And then run:  rx-gen -h  * *Integrate* with _Ruby_ _On_ _Rails_, _Merb_ or _Sinatra_ applications  that use _ActiveRecord_, _DataMapper_, _CouchRest_, _ActiveCouch_ and so on.  * *Communicate* between your Flex/AIR Rich Internet Application and service providers  using either _XML_ or _JSON_.  * *Persist* your data directly in Adobe AIR _SQLite_ database or _CouchDB_  without any additional infrastructure or intermediate servers.  * *Deploy* your RestfulX application on the Google App Engine and use Google DataStore for persistence.  * *Synchronize* your data between AIR _SQLite_ and other service providers.}
   s.email = %q{dima.berastau@gmail.com}
