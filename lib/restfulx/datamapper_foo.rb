@@ -1,11 +1,14 @@
+# Flex friendly DataMapper patches, more specifically we just add +to_xml+ on 
+# ValidationErrors class
 require 'dm-serializer/common'
 require 'dm-serializer/xml_serializers'
 require File.join(File.dirname(__FILE__), '..', 'lib', 'restfulx') if !defined?(RestfulX)
 
-# Flex friendly DataMapper patches, more specifically we just add +to_xml+ on 
-# ValidationErrors class
+# RestfulX datamapper patches
 module DataMapper
   
+  # Monkey patches dm-serialization to_json method to add ruby_class: YourClass
+  # to all serialized objects
   module Serialize
     # Serialize a Resource to JavaScript Object Notation (JSON; RFC 4627)
     #
@@ -69,6 +72,7 @@ module DataMapper
         xml.output(doc)
       end
       
+      # Add to_json support for datamapper errors too
       def to_json
         @errors.to_json
       end
