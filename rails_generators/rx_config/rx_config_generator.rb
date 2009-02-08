@@ -86,8 +86,17 @@ class RxConfigGenerator < Rails::Generator::Base
   
         m.file 'swfobject.js', 'public/javascripts/swfobject.js'
         m.file 'expressInstall.swf', 'public/expressInstall.swf'
-        m.template 'index.html.erb', 'public/index.html'
         
+        m.file 'flex_controller.erb', 'app/controllers/flex_controller.rb'
+        
+        m.directory "app/views/flex"
+        
+        m.template 'index.erb', 'app/views/flex/index.html.erb'
+        
+        m.file 'routes.erb', 'config/routes.rb', :collision => :force
+        
+        FileUtils.rm 'public/index.html' if File.exist?('public/index.html')
+                
         m.dependency 'rx_controller', @args
       end
       m.template 'project-textmate.erb', "#{project_name.underscore}.tmproj"

@@ -111,9 +111,6 @@ elsif defined?(ActionController::Base)
 
   ActionController::Base.send :include, RxController  
   ActionController::Base.send :prepend_before_filter, :extract_metadata_from_params  
-
-  # temporarily disable forgery protection site-wise
-  ActionController::Base.allow_forgery_protection = false
 elsif defined?(DataMapper)
   require RestfulX::LIB_DIR + 'datamapper_foo'
 elsif defined?(ActiveRecord::Base)

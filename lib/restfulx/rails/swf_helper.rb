@@ -18,7 +18,7 @@ module SWFHelper
                            :include_session_token => true
                           })                       
     arg_order = [:id, :width, :height, :version, :express_install_swf]
-    js_params = ["'#{swf_url}?#{rails_asset_id(swf_url)}'"]
+    js_params = ["'#{swf_url}'"]
     js_params += arg_order.collect {|arg| "'#{params[arg]}'" }
     
     # Add authenticity_token and the session key to flashVars.  This will only work if flashVars is a Hash or nil

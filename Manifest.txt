@@ -61,13 +61,14 @@ rails_generators/rx_config/templates/actionscript.properties
 rails_generators/rx_config/templates/actionscriptair.properties
 rails_generators/rx_config/templates/expressInstall.swf
 rails_generators/rx_config/templates/flex.properties
+rails_generators/rx_config/templates/flex_controller.erb
 rails_generators/rx_config/templates/html-template/AC_OETags.js
 rails_generators/rx_config/templates/html-template/history/history.css
 rails_generators/rx_config/templates/html-template/history/history.js
 rails_generators/rx_config/templates/html-template/history/historyFrame.html
 rails_generators/rx_config/templates/html-template/index.template.html
 rails_generators/rx_config/templates/html-template/playerProductInstall.swf
-rails_generators/rx_config/templates/index.html.erb
+rails_generators/rx_config/templates/index.erb
 rails_generators/rx_config/templates/mainair-app.xml
 rails_generators/rx_config/templates/mainapp-config.xml
 rails_generators/rx_config/templates/mainapp.mxml
@@ -76,6 +77,7 @@ rails_generators/rx_config/templates/project.properties
 rails_generators/rx_config/templates/projectair.properties
 rails_generators/rx_config/templates/restfulx.yml
 rails_generators/rx_config/templates/restfulx_tasks.rake
+rails_generators/rx_config/templates/routes.erb
 rails_generators/rx_config/templates/swfobject.js
 rails_generators/rx_controller/USAGE
 rails_generators/rx_controller/rx_controller_generator.rb
@@ -91,6 +93,7 @@ rails_generators/rx_scaffold/templates/model.rb.erb
 rails_generators/rx_yaml_scaffold/USAGE
 rails_generators/rx_yaml_scaffold/rx_yaml_scaffold_generator.rb
 rdoc/generators/template/html/jamis.rb
+restfulx.gemspec
 spec/restfulx_spec.rb
 spec/spec_helper.rb
 test/rails/controllers/application.rb
