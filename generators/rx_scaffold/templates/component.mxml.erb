@@ -62,11 +62,11 @@
   
     private function on<%= class_name %>Update(result:<%= class_name %>):void {
       <%= class_name.dcfirst.pluralize %>List.selectedItem = result;
-      <%= class_name.dcfirst %> = RxUtils.clone(result) as <%= class_name %>;
+      on<%= class_name %>Select();
     }
   
-    private function on<%= class_name %>Destroy(<%= class_name.dcfirst %>:<%= class_name %>):void {
-      on<%= class_name %>Create(<%= class_name.dcfirst %>);
+    private function on<%= class_name %>Destroy(result:<%= class_name %>):void {
+      on<%= class_name %>Create(result);
     }
   ]]></mx:Script>
   <mx:Panel id="<%= class_name.dcfirst.pluralize %>Panel"
