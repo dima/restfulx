@@ -14,8 +14,8 @@ package <%= base_package %>.controllers {
     
     public static var commands:Array = [<%= command_names %>]; /* Commands */
     
-    public function <%= command_controller_name %>(enforcer:SingletonEnforcer, extraServices:Array,
-      defaultServiceId:int = -1) {
+    public function <%= command_controller_name %>(enforcer:SingletonEnforcer, 
+      extraServices:Array, defaultServiceId:int = -1) {
       super(commands, models, extraServices, defaultServiceId);
     }
     
@@ -24,15 +24,13 @@ package <%= base_package %>.controllers {
       return controller;
     }
     
-    public static function initialize(extraServices:Array = null, defaultServiceId:int = -1,
-      airDatabaseName:String = null):void {
+    public static function initialize(extraServices:Array = null, 
+      defaultServiceId:int = -1, airDatabaseName:String = null):void {
       if (!RxUtils.isEmpty(airDatabaseName)) Rx.airDatabaseName = airDatabaseName;
-      controller = new <%= command_controller_name %>(new SingletonEnforcer, extraServices,
-        defaultServiceId);
+      controller = new <%= command_controller_name %>(new SingletonEnforcer, 
+        extraServices, defaultServiceId);
 			Rx.sessionToken = Application.application.parameters.session_token;
-			if (Application.application.parameters.authenticity_token) {
-			  Rx.defaultMetadata = { authenticity_token : Application.application.parameters.authenticity_token };
-			}
+			Rx.authenticityToken = Application.application.parameters.authenticity_token;
     }
   }
 }
