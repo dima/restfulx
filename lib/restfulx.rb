@@ -54,9 +54,10 @@ elsif defined?(ActionController::Base)
   # if we are not running in Merb, try to hook up Rails
   Mime::Type.register_alias "application/xml", :fxml
   
-  ['active_foo', 'rails/swf_helper'].each { |lib| require RestfulX::LIB_DIR + lib }
+  ['active_foo', 'rails/swf_helper', 'schema_to_yaml'].each { |lib| require RestfulX::LIB_DIR + lib }
 
-  ActionView::Base.send :include, SWFHelper unless ActionView::Base.included_modules.include?(SWFHelper)  
+  ActionView::Base.send :include, SWFHelper unless ActionView::Base.included_modules.include?(SWFHelper)
+  ActiveRecord::Migration.send :include, SchemaToYaml
 
   # We mess with default +render+ implementation a bit to add support for expressions
   # such as format.fxml { render :fxml => @foo }
