@@ -1,12 +1,19 @@
 package <%= base_package %>.models {
-<% if has_manies.length > 0 -%>
-  import org.restfulx.collections.ModelsCollection;
+<% if has_manies.length > 0 || has_many_through.length > 0 -%>
+  import org.rx.collections.ModelsCollection;
 <% end -%>
-  import org.restfulx.models.RxModel;
+<% if tree_model.size > 0 -%>
+  <% @tree_or_no_tree = 'RxTreeModel' %>
+  import org.rx.models.RxTreeModel
+<% end -%>
+<% unless tree_model.size > 0 -%>
+  <% @tree_or_no_tree = 'RxModel' %>
+  import org.rx.models.RxModel;
+<% end -%>
   
   [Resource(name="<%= resource_controller_name %>")]
   [Bindable]
-  public class <%= class_name %> extends RxModel {
+  public class <%= class_name %> extends <%= @tree_or_no_tree %> {
 <% if attributes && !attributes.empty? && attributes[0].flex_type != "Boolean" -%>
     public static const LABEL:String = "<%= attributes[0].flex_name %>";
 <% else -%>
@@ -24,6 +31,25 @@ package <%= base_package %>.models {
     [BelongsTo]
     public var <%= model.camelcase(:lower) %>:<%= model.camelcase %>;
 
+<% end -%>
+<% if tree_model.size > 0 -%>
+    [BelongsTo]
+    public var <%= tree_model[0].camelcase(:lower) %>:<%= class_name %>;
+
+<% end -%>
+<% for model in polymorphic -%>
+    [BelongsTo(polymorphic="true", dependsOn="Model1, Model2")]
+    public var <%= model.camelcase(:lower) %>:Object;
+      
+<% end -%>
+<% if has_many_through.size > 0 -%>
+  <% has_many_through.each do |k,v| %>
+    [HasMany]
+    public var <%= k.camelcase(:lower) %>:ModelsCollection;
+    
+    [HasMany(through="<%= k.camelcase %>")]
+    public var <%= v.camelcase(:lower) %>:ModelsCollection;
+  <% end -%>
 <% end -%>
 <% for model in has_ones -%>
     [HasOne]

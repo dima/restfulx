@@ -1,0 +1,23 @@
+class <%= controller_class_name %>Controller < ResourceController::Base
+  
+  before_filter :load_fxml_params
+  
+  index.wants.fxml            { render :fxml => @collection.to_fxml(@fxml_params) }
+  show.wants.fxml             { render :fxml => @object.to_fxml(@fxml_params) }
+  create.wants.fxml           { render :fxml => @object.to_fxml(@fxml_params) }
+  create.failure.wants.fxml   { render :fxml => @object.errors }
+  update.wants.fxml           { render :fxml => @object.to_fxml(@fxml_params) }
+  update.failure.wants.fxml   { render :fxml => @object.errors }
+  destroy.wants.fxml          { render :fxml => @object }
+
+private
+
+  def collection
+    @collection = end_of_association_chain.all
+  end
+  
+  def load_fxml_params
+    @fxml_params = { }
+  end
+  
+end
