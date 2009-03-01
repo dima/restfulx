@@ -1,14 +1,14 @@
 package <%= base_package %>.models {
 <% if has_manies.length > 0 || has_many_through.length > 0 -%>
-  import org.rx.collections.ModelsCollection;
+  import org.restfulx.collections.ModelsCollection;
 <% end -%>
 <% if tree_model.size > 0 -%>
   <% @tree_or_no_tree = 'RxTreeModel' %>
-  import org.rx.models.RxTreeModel
+  import org.restfulx.models.RxTreeModel
 <% end -%>
 <% unless tree_model.size > 0 -%>
   <% @tree_or_no_tree = 'RxModel' %>
-  import org.rx.models.RxModel;
+  import org.restfulx.models.RxModel;
 <% end -%>
   
   [Resource(name="<%= resource_controller_name %>")]
@@ -43,13 +43,13 @@ package <%= base_package %>.models {
       
 <% end -%>
 <% if has_many_through.size > 0 -%>
-  <% has_many_through.each do |k,v| %>
+<% has_many_through.each do |k,v| %>
     [HasMany]
     public var <%= k.camelcase(:lower) %>:ModelsCollection;
     
     [HasMany(through="<%= k.camelcase %>")]
     public var <%= v.camelcase(:lower) %>:ModelsCollection;
-  <% end -%>
+<% end -%>
 <% end -%>
 <% for model in has_ones -%>
     [HasOne]
