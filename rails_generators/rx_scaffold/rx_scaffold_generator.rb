@@ -61,6 +61,11 @@ module Rails
         end
       end
     end
+    module Commands
+      class Create
+        include SchemaToYaml
+      end
+    end
   end
 end
 
@@ -82,7 +87,8 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
                 :polymorphic,
                 :tree_model,
                 :layout,
-                :ignored_fields
+                :ignored_fields,
+                :args_for_generation
     
   attr_reader   :controller_name,
                 :controller_class_path,
@@ -117,7 +123,8 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
   
   def manifest
     record do |m|
-      m.dependency 'scaffold', [name] + @args, :skip_migration => true, :collision => :skip unless options[:flex_only]
+      # don't think we need this?  Only creates a helper, and tries to overwrite the controller.. thoughts?
+      # m.dependency 'scaffold', [name] + @args, :skip_migration => true, :collision => :skip unless options[:flex_only]
       
       unless options[:flex_view_only]
         m.template 'model.as.erb',
@@ -207,6 +214,8 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
       polymorphic tree_model layout ignored_fields).each do |special_field|
       @args.delete_if { |f| f =~ /^(#{special_field}):/ }
     end
+    
+    @args_for_generation = @args.clone
     
     # delete ignored_fields from @args ivar
     @ignored_fields.each do |ignored|

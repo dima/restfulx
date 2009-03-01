@@ -46,6 +46,8 @@ module SchemaToYaml
           schema << " - tree_model: [#{col_name.gsub('_id','')}]\n"
         elsif col_name =~ /_file_size$/
           schema << " - attachment_field: [#{col_name.gsub(/_file_size$/,'')}]\n"
+        elsif col_name == 'filename'
+          schema << " - attachment_field: [uploaded_data]\n"
         else
           belong_tos << col_name.gsub('_id',', ') if col_name.include?('_id') && !disregarded_columns.include?(col_name)
         end
