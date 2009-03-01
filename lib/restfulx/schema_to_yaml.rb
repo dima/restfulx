@@ -8,13 +8,13 @@ Dir[File.dirname(__FILE__) + "/schema_to_yaml/extensions/*.rb"].each do |f|
 end
 
 module SchemaToYaml
-  @settings = SchemaToYaml::Settings::Core
+  RxSettings = SchemaToYaml::Settings::Core
   
   def self.schema_to_yaml
     table_arr = ActiveRecord::Base.connection.tables - 
       %w(schema_info schema_migrations).map - 
-      @settings.ignored.tables[0].split
-    disregarded_columns = %w(id created_at updated_at) + @settings.ignored.fields[0].split
+      RxSettings.ignored.tables[0].split
+    disregarded_columns = %w(id created_at updated_at) + RxSettings.ignored.fields[0].split
     schema = []
     @array_of_has_manies = []
     

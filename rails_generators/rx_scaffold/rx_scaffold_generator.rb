@@ -1,3 +1,5 @@
+require File.join(File.dirname(__FILE__), '..', '..', 'lib', 'restfulx') if !defined?(RestfulX)
+
 module Rails
   module Generator
     class GeneratedAttribute
@@ -59,17 +61,12 @@ module Rails
         end
       end
     end
-    module Commands
-      class Create
-        Settings = SchemaToYaml::Settings
-      end
-    end
   end
 end
 
 class RxScaffoldGenerator < Rails::Generator::NamedBase
-  Settings = SchemaToYaml::Settings
-  include RestfulX::Configuration 
+  include RestfulX::Configuration
+  include SchemaToYaml
   
   attr_reader   :project_name, 
                 :flex_project_name, 
@@ -127,19 +124,19 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
           File.join("app", "flex", base_folder, "models", "#{@class_name}.as"), 
           :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
           
-        m.template "controllers/#{Settings.controller_pattern}.rb.erb", File.join("app/controllers", 
+        m.template "controllers/#{RxSettings.controller_pattern}.rb.erb", File.join("app/controllers", 
           controller_class_path, "#{controller_file_name}_controller.rb") unless options[:flex_only]
         
         m.template 'model.rb.erb', File.join("app", "models", "#{file_name}.rb") unless options[:flex_only]
       end
         
-      if Settings.layouts.enabled == 'true'
+      if RxSettings.layouts.enabled == 'true'
         if @layout.size > 0
           m.template "layouts/#{@layout}.erb",
             File.join("app", "flex", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
             :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
         else
-          m.template "layouts/#{Settings.layouts.default}.erb",
+          m.template "layouts/#{RxSettings.layouts.default}.erb",
             File.join("app", "flex", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
             :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
         end
@@ -221,11 +218,11 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
   def add_options!(opt)
     opt.separator ''
     opt.separator 'Options:'
-    opt.on("-f", "--flex-only", "scaffold flex code only", 
+    opt.on("-f", "--flex-only", "Only generate the Flex/AIR files", 
       "Default: false") { |v| options[:flex_only] = v}
-    opt.on("-r", "--rails-only", "scaffold rails code only", 
+    opt.on("-r", "--rails-only", "Only generate the Rails files", 
       "Default: false") { |v| options[:rails_only] = v}
-    opt.on("-fv", "--flex_view_only", "scaffold flex generated component only", 
+    opt.on("-fv", "--flex_view_only", "Only generate the Flex component files", 
       "Default: false") { |v| options[:flex_view_only] = v}
   end
 end
