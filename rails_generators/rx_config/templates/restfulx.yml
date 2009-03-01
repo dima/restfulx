@@ -12,3 +12,22 @@
 # and changing the controller name.
 
 #controller-name: ApplicationController
+
+defaults: &defaults
+  attachment_plugin:  'paperclip'              # => paperclip
+  controller_pattern: 'default'                # => default/resource_controller
+  layouts:
+    enabled:  'true'                           # => true/false
+    default:  'default'                        # => default (more coming soon)
+  ignored:                                     # => ignored tables/fields won't appear in model.yml
+    tables: [table1 table2]
+    fields: [field1 field2]
+    
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

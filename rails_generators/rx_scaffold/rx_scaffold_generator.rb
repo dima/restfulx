@@ -65,7 +65,8 @@ module Rails
 end
 
 class RxScaffoldGenerator < Rails::Generator::NamedBase
-  include RestfulX::Configuration 
+  include RestfulX::Configuration
+  include SchemaToYaml
   
   attr_reader   :project_name, 
                 :flex_project_name, 
@@ -75,7 +76,13 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
 
   attr_reader   :belongs_tos, 
                 :has_manies,
-                :has_ones
+                :has_ones,
+                :attachment_field,
+                :has_many_through,
+                :polymorphic,
+                :tree_model,
+                :layout,
+                :ignored_fields
     
   attr_reader   :controller_name,
                 :controller_class_path,
@@ -112,22 +119,32 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
     record do |m|
       m.dependency 'scaffold', [name] + @args, :skip_migration => true, :collision => :skip unless options[:flex_only]
       
-      # Generate Flex AS model and MXML component based on the
-      # RestfulX templates.
-      m.template 'model.as.erb',
-        File.join("app", "flex", base_folder, "models", "#{@class_name}.as"), 
-        :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
-
-      m.template 'component.mxml.erb',
-        File.join("app", "flex", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
-        :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+      unless options[:flex_view_only]
+        m.template 'model.as.erb',
+          File.join("app", "flex", base_folder, "models", "#{@class_name}.as"), 
+          :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+          
+        m.template "controllers/#{RxSettings.controller_pattern}.rb.erb", File.join("app/controllers", 
+          controller_class_path, "#{controller_file_name}_controller.rb") unless options[:flex_only]
         
-      m.template 'controller.rb.erb', File.join("app/controllers", controller_class_path, 
-        "#{controller_file_name}_controller.rb"), :collision => :force unless options[:flex_only]
-      
-      # Create a new generated ActiveRecord model based on the RestfulX templates.
-      m.template 'model.rb.erb', File.join("app", "models", "#{file_name}.rb"), 
-        :collision => :force unless options[:flex_only]
+        m.template 'model.rb.erb', File.join("app", "models", "#{file_name}.rb") unless options[:flex_only]
+      end
+        
+      if RxSettings.layouts.enabled == 'true'
+        if @layout.size > 0
+          m.template "layouts/#{@layout}.erb",
+            File.join("app", "flex", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
+            :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+        else
+          m.template "layouts/#{RxSettings.layouts.default}.erb",
+            File.join("app", "flex", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
+            :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+        end
+      else
+        m.template 'component.mxml.erb',
+          File.join("app", "flex", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
+          :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+      end
 
       unless options[:skip_fixture] 
         m.template 'fixtures.yml.erb',  File.join("test", "fixtures", "#{table_name}.yml"), 
@@ -147,33 +164,65 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
   
   protected
   def extract_relationships
+    # arrays
     @belongs_tos = []
     @has_ones = []
     @has_manies = []
-    # Figure out has_one, has_many and belongs_to based on args
+    @attachment_field = []
+    @polymorphic = []
+    @tree_model = []
+    @layout = []
+    @ignored_fields = []
+    
+    # hashes
+    @has_many_through = {}
+
     @args.each do |arg|
+      # arrays
       if arg =~ /^has_one:/
-        # arg = "has_one:arg1,arg2", so all the has_one are together
         @has_ones = arg.split(':')[1].split(',')
       elsif arg =~ /^has_many:/
-        # arg = "has_many:arg1,arg2", so all the has_many are together 
         @has_manies = arg.split(":")[1].split(",")
-      elsif arg =~ /^belongs_to:/ # belongs_to:arg1,arg2
+      elsif arg =~ /^belongs_to:/
         @belongs_tos = arg.split(":")[1].split(',')
+      elsif arg =~ /^attachment_field:/
+        @attachment_field = arg.split(":")[1].split(',')
+      elsif arg =~ /^polymorphic:/
+        @polymorphic = arg.split(":")[1].split(',')
+      elsif arg =~ /^tree_model:/
+        @tree_model = arg.split(":")[1].split(',')
+      elsif arg =~ /^layout:/
+        @layout = arg.split(":")[1].split(',')
+      elsif arg =~ /^ignored_fields:/
+        @ignored_fields = arg.split(":")[1].split(',')
+      # hashes
+      elsif arg =~ /^has_many_through:/
+        hmt_arr = arg.split(":")[1].split(',')
+        @has_many_through[hmt_arr.first] = hmt_arr.last
       end
     end
     
-    # Remove the has_one and has_many arguments since they are
-    # not for consumption by the scaffold generator, and since
-    # we have already used them to set the @belongs_tos, @has_ones and
-    # @has_manies.
-    @args.delete_if { |elt| elt =~ /^(has_one|has_many|belongs_to):/ }
+    # delete special fields from @args ivar
+    %w(has_one has_many belongs_to attachment_field has_many_through 
+      polymorphic tree_model layout ignored_fields).each do |special_field|
+      @args.delete_if { |f| f =~ /^(#{special_field}):/ }
+    end
+    
+    # delete ignored_fields from @args ivar
+    @ignored_fields.each do |ignored|
+      @args.delete_if { |f| f =~ /^(#{ignored}):/ }
+    end
+    
   end
   
   def add_options!(opt)
     opt.separator ''
     opt.separator 'Options:'
-    opt.on("--flex-only", "Scaffold Flex code only", 
+    opt.on("-f", "--flex-only", "Only generate the Flex/AIR files", 
       "Default: false") { |v| options[:flex_only] = v}
+    opt.on("-r", "--rails-only", "Only generate the Rails files", 
+      "Default: false") { |v| options[:rails_only] = v}
+    opt.on("-fv", "--flex_view_only", "Only generate the Flex component files", 
+      "Default: false") { |v| options[:flex_view_only] = v}
   end
 end

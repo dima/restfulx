@@ -28,7 +28,9 @@ class RxYamlScaffoldGenerator < Rails::Generator::Base
         line = model[0].camelcase + " " + line
         puts 'running: rx_scaffold ' + line
         Rails::Generator::Scripts::Generate.new.run(["rx_scaffold"] + line.split, 
-          :flex_only => options[:flex_only])
+          :flex_only => options[:flex_only],
+          :flex_view_only => options[:flex_view_only],
+          :rails_only => options[:rails_only])
         puts 'done ...'
         sleep 1
       end
@@ -41,8 +43,12 @@ class RxYamlScaffoldGenerator < Rails::Generator::Base
   def add_options!(opt)
     opt.separator ''
     opt.separator 'Options:'
-    opt.on("--flex-only", "Only generate the Flex/AIR files.", 
-      "Default: false") { |v| options[:flex_only] = v }
+    opt.on("-f", "--flex-only", "Only generate the Flex/AIR files", 
+      "Default: false") { |v| options[:flex_only] = v}
+    opt.on("-r", "--rails-only", "Only generate the Rails files", 
+      "Default: false") { |v| options[:rails_only] = v}
+    opt.on("-fv", "--flex_view_only", "Only generate the Flex component files", 
+      "Default: false") { |v| options[:flex_view_only] = v}
     opt.on("--skip-framework", "Don't fetch the latest framework binary. You'll have to link/build the framework yourself.", 
       "Default: false") { |v| options[:skip_framework] = v }
   end
