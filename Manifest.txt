@@ -54,6 +54,10 @@ lib/restfulx/configuration.rb
 lib/restfulx/datamapper_foo.rb
 lib/restfulx/rails/recipes.rb
 lib/restfulx/rails/swf_helper.rb
+lib/restfulx/schema_to_yaml.rb
+lib/restfulx/schema_to_yaml/extensions/enumerable.rb
+lib/restfulx/schema_to_yaml/settings/config.rb
+lib/restfulx/schema_to_yaml/settings/core.rb
 lib/restfulx/tasks.rb
 rails_generators/rx_config/USAGE
 rails_generators/rx_config/rx_config_generator.rb
@@ -85,8 +89,10 @@ rails_generators/rx_controller/templates/controller.as.erb
 rails_generators/rx_scaffold/USAGE
 rails_generators/rx_scaffold/rx_scaffold_generator.rb
 rails_generators/rx_scaffold/templates/component.mxml.erb
-rails_generators/rx_scaffold/templates/controller.rb.erb
+rails_generators/rx_scaffold/templates/controllers/default.rb.erb
+rails_generators/rx_scaffold/templates/controllers/resource_controller.rb.erb
 rails_generators/rx_scaffold/templates/fixtures.yml.erb
+rails_generators/rx_scaffold/templates/layouts/default.erb
 rails_generators/rx_scaffold/templates/migration.rb.erb
 rails_generators/rx_scaffold/templates/model.as.erb
 rails_generators/rx_scaffold/templates/model.rb.erb
