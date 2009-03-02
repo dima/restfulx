@@ -16,9 +16,6 @@ class RxControllerGenerator < Rails::Generator::Base
     super
     @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder, 
       @flex_root = extract_names
-      
-    puts "flex_root: #{@flex_root}"
-    puts "base_folder: #{@base_folder}"
     
     @model_names = list_as_files("#{@flex_root}/#{@base_folder}/models")
     @command_names = list_as_files("#{@flex_root}/#{@base_folder}/commands")

@@ -26,6 +26,7 @@ app_generators/rx_app/templates/mainapp.mxml
 app_generators/rx_app/templates/project-textmate.erb
 app_generators/rx_app/templates/project.properties
 app_generators/rx_app/templates/projectair.properties
+app_generators/rx_app/templates/restfulx.yml
 app_generators/rx_app/templates/swfobject.js
 bin/rx-gen
 generators/rx_config/USAGE

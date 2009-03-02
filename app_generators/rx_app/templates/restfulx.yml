@@ -1,0 +1,53 @@
+# RestfulX code generation configuration options
+
+flex-root: <%= flex_root %>
+
+# By default flex models, commands, controllers and components are genearated into
+# app/flex/<your rails project name> folder. If you'd like to customize the target folder 
+# (to say append a "com" package before your rails project name) uncomment the line below
+# base-package must follow the usual flex package notation (a string separated by ".")
+
+base-package: <%= base_package %>
+
+# Main RestfulX controller is typically named AppicationController. This controller is created in 
+# <base-package>.controllers folder. You can customize the name by uncommenting the following line 
+# and changing the controller name.
+
+controller-name: <%= command_controller_name %>
+
+project-name: <%= flex_project_name %>
+
+defaults: &defaults
+  attachment_plugin:  'paperclip'              # => paperclip/attachment_fu
+  controller_pattern: 'default'                # => default/resource_controller
+  layouts:
+    enabled:  'true'                           # => true/false
+    default:  'default'                        # => default (more coming soon)
+  ignored:                                     # => ignored tables/fields won't appear in model.yml
+    tables: [table1 table2]
+    fields: [field1 field2]
+    
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  
+# Special model.yml fields for RestfulX code-generation:
+#
+# attachment_field: [avatar]
+#   * arg takes Paperclip field name, or takes [uploaded_data] for Attachment_Fu
+# belongs_to: [account, profile]
+# has_many: [announcements, files, folders, users]
+# has_many_through: [permissions, roles]
+#   * has_many :roles, :through => :permissions
+# has_one:  [suitcase]
+# polymorphic: [commentable]
+# tree_model: [parent]
+# layout: [default]
+#   * default template is the only current theme, with more coming soon
+# ignored_fields: [children_count, ancestors_count, descendants_count, position]
+#   * specify fields you don't want generated for your template

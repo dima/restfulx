@@ -123,10 +123,7 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
   end
   
   def manifest
-    record do |m|
-      # don't think we need this?  Only creates a helper, and tries to overwrite the controller.. thoughts?
-      # m.dependency 'scaffold', [name] + @args, :skip_migration => true, :collision => :skip unless options[:flex_only]
-      
+    record do |m|      
       unless options[:flex_view_only]
         m.template 'model.as.erb',
           File.join("#{@flex_root}", base_folder, "models", "#{@class_name}.as"), 
@@ -160,11 +157,13 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
       end
       
       unless options[:skip_migration]
-        m.directory 'schema/migration'
+        FileUtils.rm Dir.glob("db/migrate/[0-9]*_create_#{file_path.gsub(/\//, '_').pluralize}.rb"), :force => true        
         m.migration_template 'migration.rb.erb', 'db/migrate', :assigns => {
           :migration_name => "Create#{class_name.pluralize.gsub(/::/, '')}"
         }, :migration_file_name => "create_#{file_path.gsub(/\//, '_').pluralize}" unless options[:flex_only]
       end
+      
+      m.route_resources controller_file_name
 
       m.dependency 'rx_controller', [name] + @args, :collision => :force
     end

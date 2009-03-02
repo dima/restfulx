@@ -65,7 +65,8 @@ class RxScaffoldGenerator < RubiGen::Base
                 :flex_project_name, 
                 :base_package, 
                 :base_folder, 
-                :command_controller_name
+                :command_controller_name,
+                :flex_root
 
   attr_reader   :belongs_tos, 
                 :has_manies,
@@ -87,18 +88,18 @@ class RxScaffoldGenerator < RubiGen::Base
     @class_name = @name.camelize
     
     @project_name, @flex_project_name, @command_controller_name, 
-      @base_package, @base_folder = extract_names
+      @base_package, @base_folder, @flex_root = extract_names
     extract_relationships
   end
   
   def manifest
     record do |m|      
       m.template 'model.as.erb',
-        File.join("app", 'flex', base_folder, "models", "#{@class_name}.as"), 
+        File.join("#{flex_root}", base_folder, "models", "#{@class_name}.as"), 
         :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
 
       m.template 'component.mxml.erb',
-        File.join("app", 'flex', base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
+        File.join("#{flex_root}", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
         :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
         
       if options[:gae]

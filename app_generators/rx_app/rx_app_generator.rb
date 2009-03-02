@@ -8,7 +8,9 @@ class RxAppGenerator < RubiGen::Base
               :command_controller_name, 
               :component_names, 
               :application_tag,
-              :use_air
+              :use_air,
+              :flex_root,
+              :base_flex_package
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -16,8 +18,13 @@ class RxAppGenerator < RubiGen::Base
     @destination_root = File.expand_path(args.shift)
     
     @project_name, @flex_project_name, @command_controller_name, 
-      @base_package, @base_folder = extract_names(base_name)
+      @base_package, @base_folder, @flex_root = extract_names(base_name)
 
+    
+    @base_package = options[:base_flex_package] if options[:base_flex_package]
+    @base_folder = options[:base_flex_package].gsub('.', '/').gsub(/\s/, '') if options[:base_flex_package]
+    @flex_root = options[:flex_root] if options[:flex_root]
+    
     @use_air = options[:air_config]
     if @use_air
       @application_tag = 'WindowedApplication'
@@ -32,7 +39,7 @@ class RxAppGenerator < RubiGen::Base
     record do |m|
       m.directory ''
       
-      %w(script lib db bin-debug).each { |dir| m.directory dir }
+      %w(script lib db config bin-debug).each { |dir| m.directory dir }
       
       if options[:gae]
         m.file 'index.yaml', 'index.yaml' unless File.exist?('index.yaml')
@@ -44,6 +51,7 @@ class RxAppGenerator < RubiGen::Base
         m.file 'empty.txt', 'app/models/__init__.py'
       end
 
+      m.template 'restfulx.yml', 'config/restfulx.yml'
       m.file 'default_tasks.rake', 'Rakefile' unless File.exist?('Rakefile')      
       m.file 'flex.properties', '.flexProperties'
       m.file 'generate.rb', 'script/generate', { :chmod => 0755 }
@@ -70,15 +78,15 @@ class RxAppGenerator < RubiGen::Base
       end
       
       %w(components controllers commands models events).each do |dir|
-        m.directory "app/flex/#{base_folder}/#{dir}"
+        m.directory "#{flex_root}/#{base_folder}/#{dir}"
       end
       
-      m.directory "app/flex/#{base_folder}/components/generated"
+      m.directory "#{flex_root}/#{base_folder}/components/generated"
 
       m.template 'project-textmate.erb', "#{project_name.underscore}.tmproj"
-      m.template 'mainapp.mxml', File.join('app', 'flex', "#{project_name}.mxml")
-      m.template 'mainapp-config.xml', File.join('app', 'flex', "#{project_name}-config.xml")
-      m.template 'mainair-app.xml', File.join('app', 'flex', "#{project_name}-app.xml") if @use_air      
+      m.template 'mainapp.mxml', File.join("#{flex_root}", "#{project_name}.mxml")
+      m.template 'mainapp-config.xml', File.join("#{flex_root}", "#{project_name}-config.xml")
+      m.template 'mainair-app.xml', File.join("#{flex_root}", "#{project_name}-app.xml") if @use_air      
     end
   end
 
@@ -90,5 +98,9 @@ class RxAppGenerator < RubiGen::Base
       "Default: false") { |v| options[:air_config] = v }
     opt.on("--gae", "Generate Google App Engine Python classes in addition to RestfulX Flex resources.", 
       "Default: false") { |v| options[:gae] = v }
+    opt.on("--flex-root [FOLDER]", "Root folder for generated flex code.", 
+      "Default: app/flex") { |v| options[:flex_root] = v }
+    opt.on("--base-flex-package [PACKAGE]", "Base package for your application.", 
+      "Default: #{flex_project_name}") { |v| options[:base_flex_package] = v }
   end
 end

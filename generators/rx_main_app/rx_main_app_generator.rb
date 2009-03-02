@@ -11,11 +11,13 @@ class RxMainAppGenerator < RubiGen::Base
               :controller_names,
               :use_air,
               :use_gae,
-              :application_tag
+              :application_tag,
+              :flex_root
 
   def initialize(runtime_args, runtime_options = {})
     super
-    @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder = extract_names
+    @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder,
+      @flex_root = extract_names
 
     project_file_name = APP_ROOT + '/.project'
     if File.exist?(project_file_name)
@@ -29,8 +31,8 @@ class RxMainAppGenerator < RubiGen::Base
     end
 
     @component_names = []
-    if File.exists?("app/flex/#{base_folder}/components/generated")
-      @component_names = list_mxml_files("app/flex/#{base_folder}/components/generated")
+    if File.exists?("#{flex_root}/#{base_folder}/components/generated")
+      @component_names = list_mxml_files("#{flex_root}/#{base_folder}/components/generated")
     end
     
     @controller_names = []
@@ -43,7 +45,7 @@ class RxMainAppGenerator < RubiGen::Base
 
   def manifest
     record do |m|      
-      m.template 'mainapp.mxml', File.join('app', 'flex', "#{project_name}.mxml")
+      m.template 'mainapp.mxml', File.join("#{flex_root}", "#{project_name}.mxml")
       if options[:gae]
         m.template 'main.py.erb', 'main.py'
       end
