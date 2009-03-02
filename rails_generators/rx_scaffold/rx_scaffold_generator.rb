@@ -78,6 +78,7 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
                 :base_package, 
                 :base_folder, 
                 :command_controller_name
+                :flex_root
 
   attr_reader   :belongs_tos, 
                 :has_manies,
@@ -105,7 +106,7 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
       
   def initialize(runtime_args, runtime_options = {})
     super
-    @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder = extract_names
+    @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder, @flex_root = extract_names
     @controller_name = @name.pluralize
 
     base_name, @controller_class_path, @controller_file_path, @controller_class_nesting, 
@@ -128,7 +129,7 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
       
       unless options[:flex_view_only]
         m.template 'model.as.erb',
-          File.join("app", "flex", base_folder, "models", "#{@class_name}.as"), 
+          File.join("#{@flex_root}", base_folder, "models", "#{@class_name}.as"), 
           :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
           
         m.template "controllers/#{RxSettings.controller_pattern}.rb.erb", File.join("app/controllers", 
@@ -140,16 +141,16 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
       if RxSettings.layouts.enabled == 'true'
         if @layout.size > 0
           m.template "layouts/#{@layout}.erb",
-            File.join("app", "flex", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
+            File.join("#{@flex_root}", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
             :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
         else
           m.template "layouts/#{RxSettings.layouts.default}.erb",
-            File.join("app", "flex", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
+            File.join("#{@flex_root}", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
             :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
         end
       else
         m.template 'component.mxml.erb',
-          File.join("app", "flex", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
+          File.join("#{@flex_root}", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
           :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
       end
 

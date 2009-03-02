@@ -56,11 +56,13 @@ module RestfulX
         base_folder = base_package.gsub('.', '/').gsub(/\s/, '')
         project_name = config['project-name'].camelcase.gsub(/\s/, '') || project_name
         controller_name = config['controller-name'] || "ApplicationController"
+        flex_root = config['flex-root'] || "app/flex"
       rescue
         base_folder = base_package = project_name_downcase
         controller_name = "ApplicationController"
+        flex_root = "app/flex"
       end
-      [project_name, project_name_downcase, controller_name, base_package, base_folder]
+      [project_name, project_name_downcase, controller_name, base_package, base_folder, flex_root]
     end
 
     # List files ending in *.as (ActionScript) in a given folder

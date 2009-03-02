@@ -4,7 +4,7 @@ require 'ftools'
 require 'rexml/document'
 require File.join(File.dirname(__FILE__), 'configuration')
 
-APP_ROOT = RestfulX::Configuration::APP_ROOT
+include RestfulX::Configuration
 
 namespace :rx do
   # Compile the given Flex/AIR application
@@ -15,11 +15,14 @@ namespace :rx do
   #     :opts => nil
   #     :flex_root => 'app/flex'
   def compile_application(params = {})
+    project_name, flex_project_name, command_controller_name, base_package, base_folder, 
+      flex_root = extract_names()
+    
     executable = params[:executable] || 'mxmlc'
     application = params[:application] || get_main_application
     destination = params[:destination] || 'public/bin'
     opts = params[:opts] || ''
-    flex_root = params[:flex_root] || 'app/flex'
+    flex_root = params[:flex_root] || flex_root
     
     compiler = get_executable(executable)
     

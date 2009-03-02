@@ -11,11 +11,18 @@ class RxConfigGenerator < Rails::Generator::Base
               :command_controller_name, 
               :component_names, 
               :application_tag,
-              :use_air
+              :use_air,
+              :flex_root,
+              :base_flex_package
 
   def initialize(runtime_args, runtime_options = {})
     super
-    @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder = extract_names
+    @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder, 
+      @flex_root = extract_names
+    
+    @base_package = options[:base_flex_package] if options[:base_flex_package]
+    @base_folder = options[:base_flex_package].gsub('.', '/').gsub(/\s/, '') if options[:base_flex_package]
+    @flex_root = options[:flex_root] if options[:flex_root]
     
     # if we are updating main file only we probably want to maintain the type of project it is
     if options[:main_only]
@@ -32,7 +39,7 @@ class RxConfigGenerator < Rails::Generator::Base
     else
       @use_air = options[:air_config]
     end
-                
+                    
     if @use_air
       @application_tag = 'WindowedApplication'
     else
@@ -40,8 +47,8 @@ class RxConfigGenerator < Rails::Generator::Base
     end
         
     @component_names = []
-    if File.exists?("app/flex/#{base_folder}/components/generated")
-      @component_names = list_mxml_files("app/flex/#{base_folder}/components/generated")
+    if File.exists?("#{flex_root}/#{base_folder}/components/generated")
+      @component_names = list_mxml_files("#{flex_root}/#{base_folder}/components/generated")
     end
   end
 
@@ -50,7 +57,7 @@ class RxConfigGenerator < Rails::Generator::Base
       if !options[:main_only]
         m.file 'restfulx_tasks.rake', 'lib/tasks/restfulx_tasks.rake'
         m.file 'flex.properties', '.flexProperties'
-        m.file 'restfulx.yml', 'config/restfulx.yml'
+        m.template 'restfulx.yml', 'config/restfulx.yml'
         if @use_air
           m.template 'actionscriptair.properties', '.actionScriptProperties'
           m.template 'projectair.properties', '.project'
@@ -69,10 +76,10 @@ class RxConfigGenerator < Rails::Generator::Base
         end
         
         %w(components controllers commands models events).each do |dir|
-          m.directory "app/flex/#{base_folder}/#{dir}"
+          m.directory "#{flex_root}/#{base_folder}/#{dir}"
         end
         
-        m.directory "app/flex/#{base_folder}/components/generated"
+        m.directory "#{flex_root}/#{base_folder}/components/generated"
         
         framework_release = RestfulX::FRAMEWORK_VERSION
         framework_distribution_url = "http://restfulx.github.com/releases/restfulx-#{framework_release}.swc"
@@ -100,9 +107,9 @@ class RxConfigGenerator < Rails::Generator::Base
         m.dependency 'rx_controller', @args
       end
       m.template 'project-textmate.erb', "#{project_name.underscore}.tmproj"
-      m.template 'mainapp.mxml', File.join('app/flex', "#{project_name}.mxml")
-      m.template 'mainapp-config.xml', File.join('app/flex', "#{project_name}-config.xml")
-      m.template 'mainair-app.xml', File.join('app/flex', "#{project_name}-app.xml") if @use_air
+      m.template 'mainapp.mxml', File.join("#{flex_root}", "#{project_name}.mxml")
+      m.template 'mainapp-config.xml', File.join("#{flex_root}", "#{project_name}-config.xml")
+      m.template 'mainair-app.xml', File.join("#{flex_root}", "#{project_name}-app.xml") if @use_air
     end
   end
 
@@ -116,6 +123,10 @@ class RxConfigGenerator < Rails::Generator::Base
       "Default: false") { |v| options[:air_config] = v }
     opt.on("--skip-framework", "Don't fetch the latest framework binary. You'll have to link/build the framework yourself.", 
       "Default: false") { |v| options[:skip_framework] = v }
+    opt.on("--flex-root [FOLDER]", "Root folder for generated flex code.", 
+      "Default: app/flex") { |v| options[:flex_root] = v }
+    opt.on("--base-flex-package [PACKAGE]", "Base package for your application.", 
+      "Default: #{flex_project_name}") { |v| options[:base_flex_package] = v }
   end
 
   def banner
