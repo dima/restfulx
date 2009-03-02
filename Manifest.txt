@@ -60,6 +60,7 @@ lib/restfulx/schema_to_yaml/extensions/enumerable.rb
 lib/restfulx/schema_to_yaml/settings/config.rb
 lib/restfulx/schema_to_yaml/settings/core.rb
 lib/restfulx/tasks.rb
+lib/restfulx/uuid_helper.rb
 rails_generators/rx_config/USAGE
 rails_generators/rx_config/rx_config_generator.rb
 rails_generators/rx_config/templates/actionscript.properties

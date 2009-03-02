@@ -1,4 +1,7 @@
 class <%= class_name %> < ActiveRecord::Base
+<% if distributed -%>
+  include RestfulX::UUIDHelper
+<% end -%>
 <% for model in belongs_tos -%>
   belongs_to :<%= model %>
 <% end -%>

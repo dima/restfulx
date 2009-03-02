@@ -12,9 +12,12 @@
     import org.restfulx.utils.RxFileReference;
 <% end -%>
 
-    [Bindable]private var <%= class_name.dcfirst %>:<%= class_name %> = new <%= class_name %>();
+    [Bindable]
+    private var <%= class_name.dcfirst %>:<%= class_name %> = new <%= class_name %>();
 <% if attachment_field.size > 0 -%>
-    [Bindable]private var fileName:String = "None selected";
+    [Bindable]
+    private var fileName:String = "None selected";
+    
     private var file:RxFileReference;
 <% end -%>
 

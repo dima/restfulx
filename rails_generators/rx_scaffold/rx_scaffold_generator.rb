@@ -77,8 +77,9 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
                 :flex_project_name, 
                 :base_package, 
                 :base_folder, 
-                :command_controller_name
-                :flex_root
+                :command_controller_name,
+                :flex_root,
+                :distributed
 
   attr_reader   :belongs_tos, 
                 :has_manies,
@@ -108,6 +109,8 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
     super
     @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder, @flex_root = extract_names
     @controller_name = @name.pluralize
+    
+    @distributed = options[:distributed]
 
     base_name, @controller_class_path, @controller_file_path, @controller_class_nesting, 
       @controller_class_nesting_depth = extract_modules(@controller_name)
@@ -228,10 +231,12 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
     opt.separator ''
     opt.separator 'Options:'
     opt.on("-f", "--flex-only", "Only generate the Flex/AIR files", 
-      "Default: false") { |v| options[:flex_only] = v}
+      "Default: false") { |v| options[:flex_only] = v }
     opt.on("-r", "--rails-only", "Only generate the Rails files", 
-      "Default: false") { |v| options[:rails_only] = v}
-    opt.on("-fv", "--flex_view_only", "Only generate the Flex component files", 
-      "Default: false") { |v| options[:flex_view_only] = v}
+      "Default: false") { |v| options[:rails_only] = v }
+    opt.on("-fv", "--flex-view-only", "Only generate the Flex component files", 
+      "Default: false") { |v| options[:flex_view_only] = v }
+    opt.on("--distributed", "Creates migrations, controllers and models that use UUIDs and are distribution ready", 
+      "Default: false") { |v| options[:distributed] = v }
   end
 end

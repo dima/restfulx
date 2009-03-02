@@ -2,34 +2,38 @@
 
 <% unless attributes.empty? && belongs_tos.empty? -%>
 <%= class_name.underscore -%>_one:
+  id: <%%= Fixtures.identify(:<%= class_name.underscore %>_one) %>
 <% for attribute in attributes -%>
   <%= attribute.name %>: <%= attribute.default("#{class_name}1") %>
 <% end -%>
 <% for model in belongs_tos -%>
-  <%= model %>: <%= model %>_one
+  <%= model %>_id: <%%= Fixtures.identify(:<%= model %>_one) %>
 <% end -%>
 
 <%= class_name.underscore -%>_two:
+  id: <%%= Fixtures.identify(:<%= class_name.underscore %>_two) %>
 <% for attribute in attributes -%>
   <%= attribute.name %>: <%= attribute.default("#{class_name}2") %>
 <% end -%>
 <% for model in belongs_tos -%>
-  <%= model %>: <%= model %>_two
+  <%= model %>_id: <%%= Fixtures.identify(:<%= model %>_two) %>
 <% end -%>
 
 <%= class_name.underscore -%>_three:
+  id: <%%= Fixtures.identify(:<%= class_name.underscore %>_three) %>
 <% for attribute in attributes -%>
   <%= attribute.name %>: <%= attribute.default("#{class_name}3") %>
 <% end -%>
 <% for model in belongs_tos -%>
-  <%= model %>: <%= model %>_three
+  <%= model %>_id: <%%= Fixtures.identify(:<%= model %>_three) %>
 <% end -%>
 
 <%= class_name.underscore -%>_four:
+  id: <%%= Fixtures.identify(:<%= class_name.underscore %>_four) %>
 <% for attribute in attributes -%>
   <%= attribute.name %>: <%= attribute.default("#{class_name}4") %>
 <% end -%>
 <% for model in belongs_tos -%>
-  <%= model %>: <%= model %>_four
+  <%= model %>_id: <%%= Fixtures.identify(:<%= model %>_four) %>
 <% end -%>
 <% end -%>

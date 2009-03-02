@@ -1,11 +1,20 @@
 class <%= migration_name %> < ActiveRecord::Migration
   def self.up
+<% if distributed -%>
+    create_table :<%= table_name %>, :id => false do |t|
+      t.string :id
+<% else -%>
     create_table :<%= table_name %> do |t|
+<% end -%>
 <% for attribute in args_for_generation -%>
       t.<%= attribute.split(':')[1] %> :<%= attribute.split(':')[0] %>
 <% end -%>
 <% for model in belongs_tos -%>
+<% if distributed -%>
+      t.string :<%= model %>_id
+<% else -%>
       t.references :<%= model %>
+<% end -%>
 <% end -%>
 <% unless options[:skip_timestamps] %>
       t.timestamps
