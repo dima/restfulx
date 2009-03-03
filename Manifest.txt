@@ -94,7 +94,6 @@ rails_generators/rx_main_app/rx_main_app_generator.rb
 rails_generators/rx_main_app/templates/mainapp.mxml
 rails_generators/rx_scaffold/USAGE
 rails_generators/rx_scaffold/rx_scaffold_generator.rb
-rails_generators/rx_scaffold/templates/component.mxml.erb
 rails_generators/rx_scaffold/templates/controllers/default.rb.erb
 rails_generators/rx_scaffold/templates/controllers/resource_controller.rb.erb
 rails_generators/rx_scaffold/templates/fixtures.yml.erb
