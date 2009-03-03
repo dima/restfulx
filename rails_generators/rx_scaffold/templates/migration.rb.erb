@@ -16,6 +16,24 @@ class <%= migration_name %> < ActiveRecord::Migration
       t.references :<%= model %>
 <% end -%>
 <% end -%>
+<% if attachment_field.size > 0 -%>
+<% if RxSettings.attachment_plugin == 'paperclip' -%>
+      # For paperclip
+      t.column :avatar_file_name, :string
+      t.column :avatar_content_type, :string
+      t.column :avatar_file_size, :integer
+      t.column :avatar_updated_at, :datetime
+<% elsif RxSettings.attachment_plugin == 'attachment_fu' -%>
+      # For attachment_fu
+      t.column :parent_id,  :integer
+      t.column :content_type, :string
+      t.column :filename, :string    
+      t.column :thumbnail, :string 
+      t.column :size, :integer
+      t.column :width, :integer
+      t.column :height, :integer
+<% end -%>
+<% end -%>
 <% unless options[:skip_timestamps] %>
       t.timestamps
 <% end -%>

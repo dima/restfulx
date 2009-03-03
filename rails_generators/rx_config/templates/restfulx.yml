@@ -17,6 +17,8 @@ controller-name: <%= command_controller_name %>
 
 project-name: <%= flex_project_name %>
 
+distributed: <%= distributed %>
+
 defaults: &defaults
   attachment_plugin:  'paperclip'              # => paperclip/attachment_fu
   controller_pattern: 'default'                # => default/resource_controller

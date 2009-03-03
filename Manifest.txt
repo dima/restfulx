@@ -81,6 +81,7 @@ rails_generators/rx_config/templates/mainapp.mxml
 rails_generators/rx_config/templates/project-textmate.erb
 rails_generators/rx_config/templates/project.properties
 rails_generators/rx_config/templates/projectair.properties
+rails_generators/rx_config/templates/restfulx.erb
 rails_generators/rx_config/templates/restfulx.yml
 rails_generators/rx_config/templates/restfulx_tasks.rake
 rails_generators/rx_config/templates/routes.erb
@@ -88,6 +89,9 @@ rails_generators/rx_config/templates/swfobject.js
 rails_generators/rx_controller/USAGE
 rails_generators/rx_controller/rx_controller_generator.rb
 rails_generators/rx_controller/templates/controller.as.erb
+rails_generators/rx_main_app/USAGE
+rails_generators/rx_main_app/rx_main_app_generator.rb
+rails_generators/rx_main_app/templates/mainapp.mxml
 rails_generators/rx_scaffold/USAGE
 rails_generators/rx_scaffold/rx_scaffold_generator.rb
 rails_generators/rx_scaffold/templates/component.mxml.erb

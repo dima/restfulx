@@ -51,7 +51,6 @@
       <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_type %>(<%= attribute.flex_name %>TextInput.text);
 <% end -%>
 <% end -%>  
-
 <% for model in belongs_tos -%>
       <%= class_name.dcfirst %>.<%= model.camelcase(:lower) %> = <%= model.camelcase %>(<%= model.camelcase(:lower) %>ComboBox.selectedItem);
 <% end -%>
@@ -79,9 +78,9 @@
     
     private function on<%= class_name %>Destroy(result:<%= class_name %>):void {
       on<%= class_name %>Create(result);
-    }
-    
+    }    
 <% if attachment_field.size > 0 -%>
+
     private function chooseFile():void {
       file = new RxFileReference("<%= attachment_field[0].camelcase(:lower) %>");
       file.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler, false, 0, true);
@@ -106,7 +105,6 @@
       fileChooser.errorString = "Failed to selected a file. Please try again.";
     }
 <% end -%>
-    
   ]]></mx:Script>
   <mx:Panel id="<%= class_name.dcfirst.pluralize %>Panel"
     title="<%= class_name.pluralize %>" cornerRadius="0" dropShadowEnabled="false" borderStyle="solid"
@@ -144,6 +142,7 @@
       <mx:FormItem label="<%= attachment_field[0].camelcase %>:" width="100%" id="fileChooser">
         <mx:Button label="Browse…" id="fileBrowseButton" click="chooseFile()"/>
         <mx:Label text="{fileName}" maxWidth="190"/>
+        <mx:Image source="{<%= class_name.dcfirst %>.attachmentUrl}"/>
       </mx:FormItem>
 <% end -%>
 <% for model in belongs_tos -%>

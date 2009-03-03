@@ -50,7 +50,7 @@ module RestfulX
         project_name = APP_ROOT.split("/").last.camelcase.gsub(/\s/, '')
         project_name_downcase = project_name.downcase
       end
-      
+            
       # give a chance to override the settings via restfulx.yml
       begin      
         config = YAML.load(File.open("#{APP_ROOT}/config/restfulx.yml"))
@@ -59,12 +59,14 @@ module RestfulX
         project_name = config['project-name'].camelcase.gsub(/\s/, '') || project_name
         controller_name = config['controller-name'] || "ApplicationController"
         flex_root = config['flex-root'] || "app/flex"
+        distributed = config['distributed'] || false
       rescue
         base_folder = base_package = project_name_downcase
         controller_name = "ApplicationController"
         flex_root = "app/flex"
+        distributed = false
       end
-      [project_name, project_name_downcase, controller_name, base_package, base_folder, flex_root]
+      [project_name, project_name_downcase, controller_name, base_package, base_folder, flex_root, distributed]
     end
 
     # List files ending in *.as (ActionScript) in a given folder

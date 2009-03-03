@@ -107,11 +107,10 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
       
   def initialize(runtime_args, runtime_options = {})
     super
-    @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder, @flex_root = extract_names
+    @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder, @flex_root, 
+      @distributed = extract_names
     @controller_name = @name.pluralize
     
-    @distributed = options[:distributed]
-
     base_name, @controller_class_path, @controller_file_path, @controller_class_nesting, 
       @controller_class_nesting_depth = extract_modules(@controller_name)
     @controller_class_name_without_nesting, @controller_underscore_name, @controller_plural_name = inflect_names(base_name)
@@ -236,7 +235,5 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
       "Default: false") { |v| options[:rails_only] = v }
     opt.on("-fv", "--flex-view-only", "Only generate the Flex component files", 
       "Default: false") { |v| options[:flex_view_only] = v }
-    opt.on("--distributed", "Creates migrations, controllers and models that use UUIDs and are distribution ready", 
-      "Default: false") { |v| options[:distributed] = v }
   end
 end

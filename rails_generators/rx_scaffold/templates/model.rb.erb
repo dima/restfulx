@@ -29,11 +29,18 @@ class <%= class_name %> < ActiveRecord::Base
   #   http://github.com/thoughtbot/paperclip/tree/master
   has_attached_file :<%= attachment_field[0] %>,
     :styles => { :medium => "600x480>", :thumb  => "100x100#" }
-<% end -%>
-<% if RxSettings.attachment_plugin == 'attachment_fu' -%>
+    
+  def attachment_url
+    <%= attachment_field[0] %>.url(:original)
+  end
+<% elsif RxSettings.attachment_plugin == 'attachment_fu' -%>
   # attachment_fu examples:
   #   http://github.com/technoweenie/attachment_fu/blob/ab1e4f7b0b9de85e0c9decf061d2ef5c1dc0feaa/README#L56-69
   has_attachment
+  
+  def attachment_url
+    "" # FIX ME
+  end
 <% end -%>
 <% end -%>
 end

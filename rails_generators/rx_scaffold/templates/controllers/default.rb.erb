@@ -8,7 +8,11 @@ class <%= controller_class_name %>Controller < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @<%= table_name %> }
+<% if attachment_field.size > 0 -%>
+      format.fxml  { render :fxml => @<%= table_name %>.to_fxml(:methods => [:attachment_url]) }
+<% else -%>
       format.fxml  { render :fxml => @<%= table_name %> }
+<% end -%>
     end
   end
 
@@ -21,7 +25,11 @@ class <%= controller_class_name %>Controller < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @<%= file_name %> }
+<% if attachment_field.size > 0 -%>
+      format.fxml  { render :fxml => @<%= file_name %>.to_fxml(:methods => [:attachment_url]) }
+<% else -%>
       format.fxml  { render :fxml => @<%= file_name %> }
+<% end -%>
     end
   end
 
@@ -52,7 +60,11 @@ class <%= controller_class_name %>Controller < ApplicationController
         flash[:notice] = '<%= class_name %> was successfully created.'
         format.html { redirect_to(@<%= file_name %>) }
         format.xml  { render :xml => @<%= file_name %>, :status => :created, :location => @<%= file_name %> }
+<% if attachment_field.size > 0 -%>
+        format.fxml  { render :fxml => @<%= file_name %>.to_fxml(:methods => [:attachment_url]) }
+<% else -%>
         format.fxml  { render :fxml => @<%= file_name %> }
+<% end -%>
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }
@@ -84,7 +96,11 @@ class <%= controller_class_name %>Controller < ApplicationController
         flash[:notice] = '<%= class_name %> was successfully updated.'
         format.html { redirect_to(@<%= file_name %>) }
         format.xml  { head :ok }
+<% if attachment_field.size > 0 -%>
+        format.fxml  { render :fxml => @<%= file_name %>.to_fxml(:methods => [:attachment_url]) }
+<% else -%>
         format.fxml  { render :fxml => @<%= file_name %> }
+<% end -%>
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }

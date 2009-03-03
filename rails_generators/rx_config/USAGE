@@ -14,5 +14,6 @@ Examples:
                                   # folder
     `./script/generate rx_config -a` # as above but generates an AIR app
                                      # and configuration
-    `./script/generate rx_config -s` # generates Flex app but does not fetch
+    `./script/generate rx_config --skip-framework` # generates Flex app 
+                                     # but does not fetch
                                      # the RestfulX framework SWC.

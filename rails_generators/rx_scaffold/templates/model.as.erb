@@ -61,6 +61,11 @@ package <%= base_package %>.models {
     public var <%= model.camelcase(:lower) %>:ModelsCollection;
     
 <% end -%>
+<% if attachment_field.size > 0 -%>
+    [Ignored]
+    public var attachmentUrl:String;
+    
+<% end -%>
     public function <%= class_name %>() {
       super(LABEL);
     }

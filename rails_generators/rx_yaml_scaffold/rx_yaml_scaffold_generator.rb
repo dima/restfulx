@@ -30,13 +30,11 @@ class RxYamlScaffoldGenerator < Rails::Generator::Base
         Rails::Generator::Scripts::Generate.new.run(["rx_scaffold"] + line.split, 
           :flex_only => options[:flex_only],
           :flex_view_only => options[:flex_view_only],
-          :rails_only => options[:rails_only],
-          :distributed => options[:distributed])
+          :rails_only => options[:rails_only])
         puts 'done ...'
         sleep 1
       end
-      Rails::Generator::Scripts::Generate.new.run(["rx_config"], :main_only => true, 
-        :skip_framework => options[:skip_framework])
+      Rails::Generator::Scripts::Generate.new.run(["rx_main_app"])
     end
   end
 
@@ -50,9 +48,5 @@ class RxYamlScaffoldGenerator < Rails::Generator::Base
       "Default: false") { |v| options[:rails_only] = v }
     opt.on("-fv", "--flex-view-only", "Only generate the Flex component files", 
       "Default: false") { |v| options[:flex_view_only] = v }
-    opt.on("--distributed", "Creates migrations, controllers and models that use UUIDs and are distribution ready", 
-      "Default: false") { |v| options[:distributed] = v }
-    opt.on("--skip-framework", "Don't fetch the latest framework binary. You'll have to link/build the framework yourself.", 
-      "Default: false") { |v| options[:skip_framework] = v }
   end
 end
