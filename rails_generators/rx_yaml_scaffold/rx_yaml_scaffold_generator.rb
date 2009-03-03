@@ -26,14 +26,30 @@ class RxYamlScaffoldGenerator < Rails::Generator::Base
           line = extract_attrs(line, attrs)
         end
         line = model[0].camelcase + " " + line
-        puts 'running: rx_scaffold ' + line
-        Rails::Generator::Scripts::Generate.new.run(["rx_scaffold"] + line.split, 
-          :flex_only => options[:flex_only],
-          :flex_view_only => options[:flex_view_only],
-          :rails_only => options[:rails_only])
-        puts 'done ...'
-        sleep 1
+        
+        if ARGV.size > 0
+          ARGV.each do |arg|
+            if model[0].camelcase == arg
+              puts 'running: rx_scaffold ' + line
+              Rails::Generator::Scripts::Generate.new.run(["rx_scaffold"] + line.split, 
+                :flex_only => options[:flex_only],
+                :flex_view_only => options[:flex_view_only],
+                :rails_only => options[:rails_only])
+              puts 'done ...'
+              sleep 1
+            end
+          end
+        else
+          puts 'running: rx_scaffold ' + line
+          Rails::Generator::Scripts::Generate.new.run(["rx_scaffold"] + line.split, 
+            :flex_only => options[:flex_only],
+            :flex_view_only => options[:flex_view_only],
+            :rails_only => options[:rails_only])
+          puts 'done ...'
+          sleep 1
+        end
       end
+      
       Rails::Generator::Scripts::Generate.new.run(["rx_main_app"])
     end
   end

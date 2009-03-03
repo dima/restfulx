@@ -137,18 +137,12 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
         m.template 'model.rb.erb', File.join("app", "models", "#{file_name}.rb") unless options[:flex_only]
       end
         
-      if RxSettings.layouts.enabled == 'true'
-        if @layout.size > 0
-          m.template "layouts/#{@layout}.erb",
-            File.join("#{@flex_root}", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
-            :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
-        else
-          m.template "layouts/#{RxSettings.layouts.default}.erb",
-            File.join("#{@flex_root}", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
-            :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
-        end
+      if @layout.size > 0
+        m.template "layouts/#{@layout}.erb",
+          File.join("#{@flex_root}", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
+          :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
       else
-        m.template 'component.mxml.erb',
+        m.template "layouts/#{RxSettings.layouts.default}.erb",
           File.join("#{@flex_root}", base_folder, "components", "generated", "#{@class_name}Box.mxml"), 
           :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
       end
