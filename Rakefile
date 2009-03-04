@@ -1,42 +1,77 @@
-# Look in the tasks/setup.rb file for the various options that can be
-# configured in this Rakefile. The .rake files in the tasks directory
-# are where the options are used.
+require 'rake'
 
 begin
-  require 'bones'
-  Bones.setup
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "restfulx"
+    gem.summary = "RestfulX Framework Code Generation Engine / Rails 2.1+ Integration Support"
+    gem.email = "dima.berastau@gmail.com"
+    gem.homepage = "http://restfulx.org"
+    gem.rubyforge_project = "restfulx"
+    gem.authors = ["Dima Berastau"]
+    gem.files =  FileList["[A-Z]*", "{bin,app_generators,rails_generators,generators,lib,test,spec}/**/*"]
+    gem.add_dependency('rubigen', '>=1.4.0')
+    gem.add_dependency('activesupport', '>=2.0.0')
+  end
 rescue LoadError
-  load 'tasks/setup.rb'
+  puts "Jeweler not available. Install it with: sudo gem install dima-jeweler -s http://gems.github.com"
 end
 
-ensure_in_path 'lib'
-require 'restfulx'
+require 'rake/rdoctask'
+Rake::RDocTask.new do |rdoc|
+  config = YAML.load(File.read('VERSION.yml'))
+  rdoc.rdoc_dir = 'doc/api'
+  rdoc.title = "RestfulX #{config[:major]}.#{config[:minor]}.#{config[:patch]}"
+  rdoc.options << '--line-numbers' << '--inline-source' #<< '-Tjamis'
+  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
 
-depend_on 'rubigen', '1.4.0'
-depend_on 'activesupport', '2.0.0'
+begin
+  require 'rake/contrib/sshpublisher'
+  namespace :rubyforge do
+    namespace :release do
+      desc "Publish RDoc to RubyForge."
+      task :docs => [:rdoc] do
+        config = YAML.load(
+            File.read(File.expand_path('~/.rubyforge/user-config.yml'))
+        )
 
-task :default => 'spec:run'
+        host = "#{config['username']}@rubyforge.org"
+        remote_dir = "/var/www/gforge-projects/restfulx/"
+        local_dir = 'doc/api'
 
-PROJ.name = 'restfulx'
-PROJ.summary = 'RestfulX Framework Code Generation Engine / Rails 2.1+ Integration Support'
-PROJ.authors = 'Dima Berastau'
-PROJ.email = 'dima.berastau@gmail.com'
-PROJ.url = 'http://wiki.github.com/dima/restfulx'
-PROJ.version = RestfulX::VERSION
+        Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
+      end
+    end
+  end
+rescue LoadError
+  puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
+end
 
-PROJ.executables = ['bin/rx-gen']
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'lib' << 'test'
+  t.pattern = 'test/**/test_*.rb'
+  t.verbose = false
+end
 
-#PROJ.rdoc.opts << '-Tjamis'
-PROJ.rdoc.exclude << %w(.txt)
-PROJ.rdoc.main = 'README.rdoc'
-PROJ.rdoc.dir = 'doc/api'
+begin
+  require 'rcov/rcovtask'
+  Rcov::RcovTask.new do |t|
+    t.libs << 'test'
+    t.test_files = FileList['test/**/test_*.rb']
+    t.verbose = true
+  end
+rescue LoadError
+  puts "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
+end
 
-PROJ.readme_file = 'README.rdoc'
-PROJ.rubyforge.name = 'restfulx'
+begin
+  require 'cucumber/rake/task'
+  Cucumber::Rake::Task.new(:features)
+rescue LoadError
+  puts "Cucumber is not available. In order to run features, you must: sudo gem install cucumber"
+end
 
-PROJ.exclude << %w(.DS_Store .gitignore .log, .sqlite3)
-
-PROJ.spec.opts << '--color'
-PROJ.test.opts << '-W1'
-
-# EOF
+task :default => :test

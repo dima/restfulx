@@ -71,7 +71,7 @@
  
   <div class="description"><p>
 Monkey patches dm-serialization <a
-href="Serialize.html#M000009">to_json</a> method to add ruby_class:
+href="Serialize.html#M000011">to_json</a> method to add ruby_class:
 YourClass to all serialized objects
 </p>
 </div>
@@ -80,7 +80,7 @@ YourClass to all serialized objects
  
   <div class="sectiontitle">Methods</div>
   <ul>
-  <li><a href="#M000009">to_json</a></li>
+  <li><a href="#M000011">to_json</a></li>
   </ul>
  
  
@@ -91,8 +91,7 @@ YourClass to all serialized objects
 <div class="sectiontitle">Public Instance methods</div>
 <div class="method">
   <div class="title">
-    <a name="M000009"></a><b>to_json</b>(*args)
-[&nbsp;<a href="Serialize.src/M000009.html" target="SOURCE_CODE" onclick="javascript:openCode('Serialize.src/M000009.html'); return false;">source</a>&nbsp;]
+    <a name="M000011"></a><b>to_json</b>(*args)
   </div>
   <div class="description">
   <p>
@@ -104,6 +103,48 @@ Notation (JSON; RFC 4627)
 of the Resource
 </p>
   </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000011_source')" id="l_M000011_source">show source</a> ]</p>
+  <div id="M000011_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/datamapper_foo.rb, line 16</span>
+16:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_json</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+17:       <span class="ruby-identifier">options</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">||</span> {}
+18:       <span class="ruby-identifier">result</span> = <span class="ruby-value str">'{ '</span>
+19:       <span class="ruby-identifier">fields</span> = []
+20: 
+21:       <span class="ruby-identifier">propset</span> = <span class="ruby-identifier">properties_to_serialize</span>(<span class="ruby-identifier">options</span>)
+22: 
+23:       <span class="ruby-identifier">fields</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">propset</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">property</span><span class="ruby-operator">|</span>
+24:         <span class="ruby-node">&quot;#{property.name.to_json}: #{send(property.getter).to_json}&quot;</span>
+25:       <span class="ruby-keyword kw">end</span>
+26:       
+27:       <span class="ruby-identifier">fields</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;\&quot;ruby_class\&quot;: #{self.class.to_json}&quot;</span>
+28: 
+29:       <span class="ruby-comment cmt"># add methods</span>
+30:       (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:methods</span>] <span class="ruby-operator">||</span> []).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">meth</span><span class="ruby-operator">|</span>
+31:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">meth</span>)
+32:           <span class="ruby-identifier">fields</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{meth.to_json}: #{send(meth).to_json}&quot;</span>
+33:         <span class="ruby-keyword kw">end</span>
+34:       <span class="ruby-keyword kw">end</span>
+35: 
+36:       <span class="ruby-comment cmt"># Note: if you want to include a whole other model via relation, use :methods</span>
+37:       <span class="ruby-comment cmt"># comments.to_json(:relationships=&gt;{:user=&gt;{:include=&gt;[:first_name],:methods=&gt;[:age]}})</span>
+38:       <span class="ruby-comment cmt"># add relationships</span>
+39:       <span class="ruby-comment cmt"># TODO: This needs tests and also needs to be ported to #to_xml and #to_yaml</span>
+40:       (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:relationships</span>] <span class="ruby-operator">||</span> {}).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">rel</span>,<span class="ruby-identifier">opts</span><span class="ruby-operator">|</span>
+41:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">rel</span>)
+42:           <span class="ruby-identifier">fields</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{rel.to_json}: #{send(rel).to_json(opts)}&quot;</span>
+43:         <span class="ruby-keyword kw">end</span>
+44:       <span class="ruby-keyword kw">end</span>
+45: 
+46:       <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">', '</span>)
+47:       <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">' }'</span>
+48:       <span class="ruby-identifier">result</span>
+49:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
 </div>
 </div>
 

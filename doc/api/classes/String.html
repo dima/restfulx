@@ -87,8 +87,8 @@ the string We patch the class to add our own implementation.
  
   <div class="sectiontitle">Methods</div>
   <ul>
-  <li><a href="#M000006">dcfirst</a></li>
-  <li><a href="#M000005">ucfirst</a></li>
+  <li><a href="#M000007">dcfirst</a></li>
+  <li><a href="#M000006">ucfirst</a></li>
   </ul>
  
  
@@ -99,25 +99,45 @@ the string We patch the class to add our own implementation.
 <div class="sectiontitle">Public Instance methods</div>
 <div class="method">
   <div class="title">
-    <a name="M000006"></a><b>dcfirst</b>()
-[&nbsp;<a href="String.src/M000006.html" target="SOURCE_CODE" onclick="javascript:openCode('String.src/M000006.html'); return false;">source</a>&nbsp;]
+    <a name="M000007"></a><b>dcfirst</b>()
   </div>
   <div class="description">
   <p>
 Down-case first character of a string leaving the rest of it intact
 </p>
   </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000007_source')" id="l_M000007_source">show source</a> ]</p>
+  <div id="M000007_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/configuration.rb, line 13</span>
+13:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dcfirst</span>
+14:     <span class="ruby-keyword kw">self</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>].<span class="ruby-identifier">downcase</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+15:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
 </div>
 <div class="method">
   <div class="title">
-    <a name="M000005"></a><b>ucfirst</b>()
-[&nbsp;<a href="String.src/M000005.html" target="SOURCE_CODE" onclick="javascript:openCode('String.src/M000005.html'); return false;">source</a>&nbsp;]
+    <a name="M000006"></a><b>ucfirst</b>()
   </div>
   <div class="description">
   <p>
 Upper-case first character of a string leave the rest of the string intact
 </p>
   </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000006_source')" id="l_M000006_source">show source</a> ]</p>
+  <div id="M000006_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/configuration.rb, line 8</span>
+ 8:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ucfirst</span>
+ 9:     <span class="ruby-keyword kw">self</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>].<span class="ruby-identifier">capitalize</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+10:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
 </div>
 </div>
 

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: SchemaToYaml</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+ 
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+ 
+        function toggleSource( id )
+        {
+          var elem
+          var link
+ 
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+ 
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+ 
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+ 
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />SchemaToYaml</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../files/lib/restfulx/schema_to_yaml/settings/config_rb.html">lib/restfulx/schema_to_yaml/settings/config.rb</a>
+<a href="../files/lib/restfulx/schema_to_yaml/settings/core_rb.html">lib/restfulx/schema_to_yaml/settings/core.rb</a>
+<a href="../files/lib/restfulx/schema_to_yaml_rb.html">lib/restfulx/schema_to_yaml.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+ 
+  <div id="bodyContent">
+      <div id="content">
+ 
+ 
+ 
+ 
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000026">schema_to_yaml</a></li>
+  </ul>
+ 
+ 
+ 
+  <div class="sectiontitle">Classes and Modules</div>
+  Module <a href="SchemaToYaml/Settings.html" class="link">SchemaToYaml::Settings</a><br />
+
+ 
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">RxSettings</td>
+    <td>=</td>
+    <td class="attr-value">SchemaToYaml::Settings::Core</td>
+  </tr>
+  </table>
+ 
+ 
+<div class="sectiontitle">Public Class methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000026"></a><b>schema_to_yaml</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000026_source')" id="l_M000026_source">show source</a> ]</p>
+  <div id="M000026_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/schema_to_yaml.rb, line 13</span>
+13:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">schema_to_yaml</span>
+14:     <span class="ruby-identifier">table_arr</span> = <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">tables</span> <span class="ruby-operator">-</span> 
+15:       <span class="ruby-node">%w(schema_info schema_migrations)</span>.<span class="ruby-identifier">map</span> <span class="ruby-operator">-</span> 
+16:       <span class="ruby-constant">RxSettings</span>.<span class="ruby-identifier">ignored</span>.<span class="ruby-identifier">tables</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">split</span>
+17:     <span class="ruby-identifier">disregarded_columns</span> = <span class="ruby-node">%w(id created_at updated_at)</span> <span class="ruby-operator">+</span> <span class="ruby-constant">RxSettings</span>.<span class="ruby-identifier">ignored</span>.<span class="ruby-identifier">fields</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">split</span>
+18:     <span class="ruby-identifier">schema</span> = []
+19:     <span class="ruby-ivar">@array_of_has_manies</span> = []
+20:     
+21:     <span class="ruby-identifier">table_arr</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">table</span><span class="ruby-operator">|</span>
+22:       <span class="ruby-identifier">column_arr</span> = <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">columns</span>(<span class="ruby-identifier">table</span>)
+23:       <span class="ruby-identifier">column_arr</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">col</span><span class="ruby-operator">|</span>
+24:         <span class="ruby-identifier">col_name</span> = <span class="ruby-identifier">col</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>
+25:         <span class="ruby-ivar">@array_of_has_manies</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{col_name.gsub('_id','')}_#{table}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">col_name</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">'_id'</span>)
+26:       <span class="ruby-keyword kw">end</span>
+27:     <span class="ruby-keyword kw">end</span>
+28:     
+29:     <span class="ruby-identifier">table_arr</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">table</span><span class="ruby-operator">|</span>
+30:       <span class="ruby-identifier">belong_tos</span> = []
+31:       <span class="ruby-identifier">has_manies</span> = []
+32:       <span class="ruby-identifier">polymorphics</span> = []
+33:       
+34:       <span class="ruby-identifier">schema</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{table.singularize}:\n&quot;</span>
+35:       <span class="ruby-identifier">column_arr</span> = <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">columns</span>(<span class="ruby-identifier">table</span>)
+36:       
+37:       <span class="ruby-identifier">column_arr</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">col</span><span class="ruby-operator">|</span>
+38:         <span class="ruby-identifier">col_name</span> = <span class="ruby-identifier">col</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>
+39:         <span class="ruby-identifier">columns_check</span> = []
+40:         <span class="ruby-identifier">disregarded_columns</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">dc</span><span class="ruby-operator">|</span> <span class="ruby-identifier">columns_check</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">col_name</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">dc</span>) }
+41:         <span class="ruby-identifier">polymorphics</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">col_name</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'_id'</span>,<span class="ruby-value str">'PMCHECK'</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'_type'</span>,<span class="ruby-value str">'PMCHECK'</span>)
+42:         
+43:         <span class="ruby-identifier">schema</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; - #{col_name}: #{col.type}\n&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">columns_check</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-keyword kw">true</span>)
+44:   
+45:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">col_name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'parent_id'</span>
+46:           <span class="ruby-identifier">schema</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; - tree_model: [#{col_name.gsub('_id','')}]\n&quot;</span>
+47:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">col_name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/_file_size$/</span>
+48:           <span class="ruby-identifier">schema</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; - attachment_field: [#{col_name.gsub(/_file_size$/,'')}]\n&quot;</span>
+49:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">col_name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'filename'</span>
+50:           <span class="ruby-identifier">schema</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot; - attachment_field: [uploaded_data]\n&quot;</span>
+51:         <span class="ruby-keyword kw">else</span>
+52:           <span class="ruby-identifier">belong_tos</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">col_name</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'_id'</span>,<span class="ruby-value str">', '</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">col_name</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">'_id'</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">disregarded_columns</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">col_name</span>)
+53:         <span class="ruby-keyword kw">end</span>
+54:       <span class="ruby-keyword kw">end</span>
+55:       
+56:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">polymorphics</span>.<span class="ruby-identifier">dups</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+57:         <span class="ruby-identifier">schema</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; - polymorphic: [#{polymorphics.dups.first.gsub('PMCHECK','')}]\n&quot;</span>
+58:         <span class="ruby-ivar">@polymorphic</span> = <span class="ruby-identifier">polymorphics</span>.<span class="ruby-identifier">dups</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'PMCHECK'</span>,<span class="ruby-value str">''</span>)
+59:       <span class="ruby-keyword kw">end</span>
+60:       
+61:       <span class="ruby-ivar">@array_of_has_manies</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hm</span><span class="ruby-operator">|</span>
+62:         <span class="ruby-identifier">sanity_check</span> = <span class="ruby-identifier">hm</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-node">/^#{table.singularize}_/</span>,<span class="ruby-value str">''</span>)
+63:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hm</span> <span class="ruby-operator">=~</span> <span class="ruby-node">/^#{table.singularize}_/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">table_arr</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">sanity_check</span>)
+64:           <span class="ruby-identifier">has_manies</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">hm</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-node">/^#{table.singularize}_/</span>,<span class="ruby-value str">''</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">', '</span>
+65:         <span class="ruby-keyword kw">end</span>
+66:       <span class="ruby-keyword kw">end</span>
+67:       
+68:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">belong_tos</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+69:         <span class="ruby-identifier">belong_tos</span> = <span class="ruby-identifier">belong_tos</span>.<span class="ruby-identifier">delete_if</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">==</span> <span class="ruby-node">&quot;#{@polymorphic}, &quot;</span> }
+70:         <span class="ruby-identifier">last_in_array_fix</span> = <span class="ruby-identifier">belong_tos</span>.<span class="ruby-identifier">last</span>
+71:         <span class="ruby-identifier">last_in_array_fix</span> = <span class="ruby-identifier">last_in_array_fix</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">', '</span>,<span class="ruby-value str">''</span>)
+72:         <span class="ruby-identifier">belong_tos</span>.<span class="ruby-identifier">pop</span>
+73:         <span class="ruby-identifier">belong_tos</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">last_in_array_fix</span>
+74:         <span class="ruby-identifier">schema</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; - belongs_to: [#{belong_tos}]\n&quot;</span>
+75:       <span class="ruby-keyword kw">end</span>
+76:       
+77:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_manies</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+78:         <span class="ruby-identifier">last_in_array_fix</span> = <span class="ruby-identifier">has_manies</span>.<span class="ruby-identifier">last</span>
+79:         <span class="ruby-identifier">last_in_array_fix</span> = <span class="ruby-identifier">last_in_array_fix</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">', '</span>,<span class="ruby-value str">''</span>)
+80:         <span class="ruby-identifier">has_manies</span>.<span class="ruby-identifier">pop</span>
+81:         <span class="ruby-identifier">has_manies</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">last_in_array_fix</span>
+82:         <span class="ruby-identifier">schema</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; - has_many: [#{has_manies}]\n&quot;</span>
+83:       <span class="ruby-keyword kw">end</span>
+84:       
+85:       <span class="ruby-identifier">schema</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n&quot;</span>
+86:     <span class="ruby-keyword kw">end</span>
+87:     
+88:     <span class="ruby-identifier">yml_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RAILS_ROOT</span>, <span class="ruby-value str">&quot;db&quot;</span>, <span class="ruby-value str">&quot;model.yml&quot;</span>)
+89:     <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">yml_file</span>, <span class="ruby-value str">&quot;w&quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">schema</span>.<span class="ruby-identifier">to_s</span> }
+90:     <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Model.yml created at db/model.yml&quot;</span>
+91:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+ 
+    </body>
+</html>
