@@ -33,8 +33,10 @@ namespace :rx do
       
     libs = Dir.glob(File.join(APP_ROOT, 'lib', '*.swc')).map {|lib| lib.gsub(' ', '\ ')}
       
-    cmd = "#{compiler} #{opts} -library-path+=#{libs.join(',')} " << 
-      "-keep-as3-metadata+=Resource,HasOne,HasMany,BelongsTo,DateTime,Lazy,Ignored #{project_path.gsub(' ', '\ ')}"
+    additional_compiler_args = app_properties.elements["actionScriptProperties"].elements["compiler"].attributes["additionalCompilerArguments"]
+    additional_compiler_args.gsub!("../locale/", "#{APP_ROOT}/app/locale/")
+    
+    cmd = "#{executable} #{opts} -library-path+=#{libs.join(',')} " << additional_compiler_args << " #{project_path.gsub(' ', '\ ')}"
     puts "Compiling #{project_path}"
     if system(cmd)
       FileUtils.makedirs File.join(APP_ROOT, destination)
