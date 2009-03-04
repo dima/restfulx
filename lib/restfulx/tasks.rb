@@ -33,7 +33,7 @@ namespace :rx do
       
     libs = Dir.glob(File.join(APP_ROOT, 'lib', '*.swc')).map {|lib| lib.gsub(' ', '\ ')}
       
-    additional_compiler_args = app_properties.elements["actionScriptProperties"].elements["compiler"].attributes["additionalCompilerArguments"]
+    additional_compiler_args = get_app_properties().elements["actionScriptProperties"].elements["compiler"].attributes["additionalCompilerArguments"]
     additional_compiler_args.gsub!("../locale/", "#{APP_ROOT}/app/locale/")
     
     cmd = "#{executable} #{opts} -library-path+=#{libs.join(',')} " << additional_compiler_args << " #{project_path.gsub(' ', '\ ')}"
@@ -74,8 +74,11 @@ namespace :rx do
   
   # Find what the main application is based on .actionScriptProperties file
   def get_main_application
-    app_properties = REXML::Document.new(File.open(File.join(APP_ROOT, ".actionScriptProperties")))
-    app_properties.root.attributes['mainApplicationPath'].split("/").last
+    get_app_properties().root.attributes['mainApplicationPath'].split("/").last
+  end
+  
+  def get_app_properties
+    REXML::Document.new(File.open(File.join(APP_ROOT, ".actionScriptProperties")))
   end
   
   # Get appropriate executable based on platform
