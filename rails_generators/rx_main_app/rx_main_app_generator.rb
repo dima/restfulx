@@ -1,5 +1,15 @@
 require File.join(File.dirname(__FILE__), '..', '..', 'lib', 'restfulx') if !defined?(RestfulX)
 
+module Rails
+  module Generator
+    module Commands
+      class Create
+        include SchemaToYaml
+      end
+    end
+  end
+end
+
 class RxMainAppGenerator < Rails::Generator::Base
   include RestfulX::Configuration
   
