@@ -28,6 +28,11 @@ class CGI::Session
   end
 end
 
+# If you have configured your Rails/Flex/AIR application to share authenticity_token
+# comment this out to enable forgery protection. By default, this is disabled to allow
+# generated code to work out of the box.
+ActionController::Base.allow_forgery_protection = false
+
 <% if distributed -%>
 # If we are in distributed mode we need to make sure that the RestfulX::UUIDHelper is loaded
 require "restfulx/uuid_helper"
