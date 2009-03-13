@@ -22,7 +22,7 @@ class RxConfigGenerator < Rails::Generator::Base
       @flex_root = extract_names
     
     @base_package = options[:base_flex_package] if options[:base_flex_package]
-    @base_folder = options[:base_flex_package].gsub('.', '/').gsub(/\s/, '') if options[:base_flex_package]
+    @base_folder = options[:base_flex_package].gsub('.', '/').gsub(/\W/, '') if options[:base_flex_package]
     @flex_root = options[:flex_root] if options[:flex_root]
     @distributed = options[:distributed]
     

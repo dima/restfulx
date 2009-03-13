@@ -22,7 +22,7 @@ class RxAppGenerator < RubiGen::Base
 
     
     @base_package = options[:base_flex_package] if options[:base_flex_package]
-    @base_folder = options[:base_flex_package].gsub('.', '/').gsub(/\s/, '') if options[:base_flex_package]
+    @base_folder = options[:base_flex_package].gsub('.', '/').gsub(/\W/, '') if options[:base_flex_package]
     @flex_root = options[:flex_root] if options[:flex_root]
     
     @use_air = options[:air_config]

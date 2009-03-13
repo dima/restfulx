@@ -44,10 +44,10 @@ module RestfulX
     # controller-name: ApplicationController
     def extract_names(project = nil)
       if project
-        project_name = project.camelcase.gsub(/\s/, '')
+        project_name = project.camelcase.gsub(/\W/, '')
         project_name_downcase = project_name.downcase
       else
-        project_name = APP_ROOT.split("/").last.camelcase.gsub(/\s/, '')
+        project_name = APP_ROOT.split("/").last.camelcase.gsub(/\W/, '')
         project_name_downcase = project_name.downcase
       end
             
@@ -55,8 +55,8 @@ module RestfulX
       begin      
         config = YAML.load(File.open("#{APP_ROOT}/config/restfulx.yml"))
         base_package = config['base-package'] || project_name_downcase
-        base_folder = base_package.gsub('.', '/').gsub(/\s/, '')
-        project_name = config['project-name'].camelcase.gsub(/\s/, '') || project_name
+        base_folder = base_package.gsub('.', '/').gsub(/\W/, '')
+        project_name = config['project-name'].camelcase.gsub(/\W/, '') || project_name
         controller_name = config['controller-name'] || "ApplicationController"
         flex_root = config['flex-root'] || "app/flex"
         distributed = config['distributed'] || false
