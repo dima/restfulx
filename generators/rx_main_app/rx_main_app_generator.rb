@@ -12,12 +12,13 @@ class RxMainAppGenerator < RubiGen::Base
               :use_air,
               :use_gae,
               :application_tag,
-              :flex_root
+              :flex_root,
+              :distributed
 
   def initialize(runtime_args, runtime_options = {})
     super
     @project_name, @flex_project_name, @command_controller_name, @base_package, @base_folder,
-      @flex_root = extract_names
+      @flex_root, @distributed = extract_names
 
     project_file_name = APP_ROOT + '/.project'
     if File.exist?(project_file_name)
@@ -58,5 +59,7 @@ class RxMainAppGenerator < RubiGen::Base
     opt.separator 'Options:'
     opt.on("--gae", "Generate Google App Engine Python classes in addition to RestfulX Flex resources.", 
       "Default: false") { |v| options[:gae] = v }
+    opt.on("--distributed", "Creates migrations, controllers and models that use UUIDs and are distribution ready", 
+      "Default: false") { |v| options[:distributed] = v }
   end
 end

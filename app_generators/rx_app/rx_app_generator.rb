@@ -10,7 +10,8 @@ class RxAppGenerator < RubiGen::Base
               :application_tag,
               :use_air,
               :flex_root,
-              :base_flex_package
+              :base_flex_package,
+              :distributed
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -18,7 +19,7 @@ class RxAppGenerator < RubiGen::Base
     @destination_root = File.expand_path(args.shift)
     
     @project_name, @flex_project_name, @command_controller_name, 
-      @base_package, @base_folder, @flex_root = extract_names(base_name)
+      @base_package, @base_folder, @flex_root, @distributed = extract_names(base_name)
 
     
     @base_package = options[:base_flex_package] if options[:base_flex_package]
@@ -102,5 +103,7 @@ class RxAppGenerator < RubiGen::Base
       "Default: app/flex") { |v| options[:flex_root] = v }
     opt.on("--base-flex-package [PACKAGE]", "Base package for your application.", 
       "Default: #{flex_project_name}") { |v| options[:base_flex_package] = v }
+    opt.on("--distributed", "Creates migrations, controllers and models that use UUIDs and are distribution ready", 
+      "Default: false") { |v| options[:distributed] = v }
   end
 end
