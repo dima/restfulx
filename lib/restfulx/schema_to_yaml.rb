@@ -13,7 +13,7 @@ module SchemaToYaml
   def self.schema_to_yaml
     table_arr = ActiveRecord::Base.connection.tables - 
       %w(schema_info schema_migrations).map - 
-      Settings.ignored.tables[0].split
+      RxSettings.ignored.tables[0].split
     disregarded_columns = %w(id created_at updated_at) + RxSettings.ignored.fields[0].split
     schema = []
     @array_of_has_manies = []
