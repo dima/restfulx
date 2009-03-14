@@ -9,6 +9,7 @@ class RxAppGenerator < RubiGen::Base
               :component_names, 
               :application_tag,
               :use_air,
+              :use_gae,
               :flex_root,
               :base_flex_package,
               :distributed
@@ -25,8 +26,9 @@ class RxAppGenerator < RubiGen::Base
     @base_package = options[:base_flex_package] if options[:base_flex_package]
     @base_folder = options[:base_flex_package].gsub('.', '/').gsub(/\W/, '') if options[:base_flex_package]
     @flex_root = options[:flex_root] if options[:flex_root]
-    
+    @use_gae = options[:gae]
     @use_air = options[:air_config]
+    @distributed = options[:distributed] unless @distributed
     if @use_air
       @application_tag = 'WindowedApplication'
     else

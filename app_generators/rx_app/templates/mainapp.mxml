@@ -23,9 +23,9 @@
 <% end -%>
       import org.restfulx.Rx;
       import <%= base_package %>.controllers.<%= command_controller_name %>;
-      
 <% if use_air -%>
 <% if distributed -%>
+
       [Bindable]
       private var socketMonitor:SocketMonitor;
 
@@ -63,15 +63,16 @@
         Rx.changes.addEventListener(PullEndEvent.ID, onPullEnd);
 <% end -%>
 <% else -%>
-<% if use_age -%>
+<% if use_gae -%>
         <%= command_controller_name %>.initialize([GAEHTTPServiceProvider], GAEHTTPServiceProvider.ID);
 <% else -%>
         <%= command_controller_name %>.initialize();
 <% end -%>
+<% end -%>
       }
-      
 <% if use_air -%>
 <% if distributed -%>
+
       private function onPushStart(event:Event):void {
         syncStatus = "Pushing changes ...";
       }

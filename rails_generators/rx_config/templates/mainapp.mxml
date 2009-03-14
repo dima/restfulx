@@ -20,9 +20,9 @@
 <% end -%>
       import org.restfulx.Rx;
       import <%= base_package %>.controllers.<%= command_controller_name %>;
-      
 <% if use_air -%>
 <% if distributed -%>
+
       [Bindable]
       private var socketMonitor:SocketMonitor;
 
@@ -63,9 +63,9 @@
         <%= command_controller_name %>.initialize();
 <% end -%>
       }
-      
 <% if use_air -%>
 <% if distributed -%>
+
       private function onPushStart(event:Event):void {
         syncStatus = "Pushing changes ...";
       }
