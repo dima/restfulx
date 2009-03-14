@@ -10,7 +10,7 @@ begin
     gem.rubyforge_project = "restfulx"
     gem.authors = ["Dima Berastau"]
     gem.files =  FileList["[A-Z]*", "{bin,app_generators,rails_generators,generators,lib,test,spec}/**/*"]
-    gem.add_dependency('rubigen', '>=1.4.0')
+    gem.add_dependency('rubigen', '1.4.0')
     gem.add_dependency('activesupport', '>=2.0.0')
   end
 rescue LoadError

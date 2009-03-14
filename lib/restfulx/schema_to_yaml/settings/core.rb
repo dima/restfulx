@@ -1,3 +1,5 @@
+# Inspired from http://settingslogic.rubyforge.org/
+# Used to read in settings from restfulx.yml for use in code generation
 module SchemaToYaml
   module Settings
     class Core
