@@ -51,13 +51,13 @@ def update_model_from_params(model, params):
       elif isinstance(getattr(model, k), int) and v != "":
         setattr(model, k, int(v))
       elif isinstance(getattr(model, k), datetime.datetime) and v != "":
-        value = datetime.datetime.strptime(v, "%Y-%m-%dT%H:%M:%S")
+        value = datetime.datetime.strptime(v, "%Y-%m-%dT%H:%M:%S%Z")
         setattr(model, k, value)
       elif isinstance(getattr(model, k), datetime.date) and v != "":
         value = datetime.datetime.strptime(v, "%Y-%m-%d")
         setattr(model, k, datetime.date(value.year, value.month, value.day))
       elif isinstance(getattr(model, k), datetime.time) and v != "":
-        value = datetime.datetime.strptime(v, "%Y-%m-%dT%H:%M:%S")
+        value = datetime.datetime.strptime(v, "%Y-%m-%dT%H:%M:%S%Z")
         setattr(model, k, datetime.time(value.hour, value.minute, value.second))
       else:
         setattr(model, k, v)
