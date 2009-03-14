@@ -11,13 +11,6 @@
 # Some of the things that are done can be called _monkey_ _patching_ while others can
 # be called extensions. Caveat emptor.
 
-# Flex friendly date, datetime formats
-ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(:flex_date => "%Y/%m/%d")
-ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:flex_datetime => "%Y-%m-%dT%H:%M:%S%Z")
-
-Hash::XML_FORMATTING['date'] = Proc.new { |date| date.to_s(:flex_date) }
-Hash::XML_FORMATTING['datetime'] = Proc.new { |datetime| datetime.to_s(:flex_datetime) }
-
 # ActiveSupport specific patches. More specifically we add +to_fxml+ methods to Array and
 # Hash conversion modules
 module ActiveSupport
