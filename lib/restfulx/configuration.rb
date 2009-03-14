@@ -1,5 +1,3 @@
-require 'activesupport'
-
 # Interestingly enough there's no way to *just* upper-case or down-case first letter of a given
 # string. Ruby's own +capitalize+ actually downcases all the rest of the characters in the string
 # We patch the class to add our own implementation.

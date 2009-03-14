@@ -8,6 +8,10 @@
 <% if use_air -%>
 <% if distributed -%>
       import air.net.SocketMonitor;
+      import org.restfulx.events.PullEndEvent;
+      import org.restfulx.events.PullStartEvent;
+      import org.restfulx.events.PushEndEvent;
+      import org.restfulx.events.PushStartEvent;
       import org.restfulx.controllers.ChangeController;
       import org.restfulx.services.ISyncingServiceProvider;
       import org.restfulx.services.http.XMLHTTPServiceProvider;
@@ -24,6 +28,9 @@
 
       [Bindable]
       private var online:Boolean;
+
+      [Bindable]
+      private var syncStatus:String;
 <% end -%>
 <% end -%>
 
@@ -39,11 +46,18 @@
         socketMonitor.start();
         
 <% end -%>
-        <%= command_controller_name %>.initialize([AIRServiceProvider], AIRServiceProvider.ID, "<%= base_package %>");
+        <%= command_controller_name %>.initialize([AIRServiceProvider], 
+          AIRServiceProvider.ID, "<%= base_package %>");
         
 <% if distributed -%>
-        Rx.changes.setSyncProviders(ISyncingServiceProvider(Rx.services.getServiceProvider(AIRServiceProvider.ID)),
-          Rx.services.getServiceProvider(XMLHTTPServiceProvider.ID));
+        Rx.changes.setSyncProviders(
+          ISyncingServiceProvider(Rx.services.getServiceProvider(AIRServiceProvider.ID)),
+            Rx.services.getServiceProvider(XMLHTTPServiceProvider.ID));
+
+        Rx.changes.addEventListener(PushStartEvent.ID, onPushStart);
+        Rx.changes.addEventListener(PushEndEvent.ID, onPushEnd);
+        Rx.changes.addEventListener(PullStartEvent.ID, onPullStart);
+        Rx.changes.addEventListener(PullEndEvent.ID, onPullEnd);
 <% end -%>
 <% else -%>
         <%= command_controller_name %>.initialize();
@@ -52,6 +66,22 @@
       
 <% if use_air -%>
 <% if distributed -%>
+      private function onPushStart(event:Event):void {
+        syncStatus = "Pushing changes ...";
+      }
+
+      private function onPushEnd(event:Event):void {
+        syncStatus = "Push complete.";
+      }
+
+      private function onPullStart(event:Event):void {
+        syncStatus = "Pulling data...";
+      }
+
+      private function onPullEnd(event:Event):void {
+        syncStatus = "Pull complete.";
+      }
+
       private function onNetworkStatusChange(event:StatusEvent):void {
         online = (socketMonitor.available) ? true : false;
   
@@ -85,6 +115,7 @@
       <mx:Button label="Push" click="{Rx.changes.push()}" enabled="{online}"/>
       <mx:Button label="Pull" click="{Rx.changes.pull()}" enabled="{online}"/>
     </mx:HBox>
+    <mx:Label text="{syncStatus}"/>
   </mx:VBox>
 <% end -%>
 <% end -%>
@@ -96,4 +127,3 @@
 <% end -%>
   </mx:ViewStack>
 </mx:<%= application_tag %>>
-

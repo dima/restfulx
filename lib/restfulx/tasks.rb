@@ -2,6 +2,7 @@
 require 'rake'
 require 'ftools'
 require 'rexml/document'
+require 'activesupport'
 require File.join(File.dirname(__FILE__), 'configuration')
 
 include RestfulX::Configuration
