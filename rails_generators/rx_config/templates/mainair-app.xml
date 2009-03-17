@@ -15,13 +15,13 @@
 -->
 
 	<!-- The application identifier string, unique to this application. Required. -->
-	<id><%= project_name %></id>
+	<id><%= flex_project_name %></id>
 
 	<!-- Used as the filename for the application. Required. -->
-	<filename><%= project_name %></filename>
+	<filename><%= flex_project_name %></filename>
 
 	<!-- The name that is displayed in the AIR application installer. Optional. -->
-	<name><%= project_name %></name>
+	<name><%= flex_project_name %></name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
 	<version>v1</version>

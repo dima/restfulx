@@ -2,7 +2,7 @@
 
 # This option controls what the main Flex application file will be called.
 # By default it will be equal to the name of your rails project camelized
-project-name: <%= flex_project_name %>
+project-name: <%= project_name %>
 
 # This options determines what the root folder for generated Flex code is.
 # By default 'app/flex'

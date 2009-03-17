@@ -22,7 +22,6 @@ class RxAppGenerator < RubiGen::Base
     @project_name, @flex_project_name, @command_controller_name, 
       @base_package, @base_folder, @flex_root, @distributed = extract_names(base_name)
 
-    
     @base_package = options[:base_flex_package] if options[:base_flex_package]
     @base_folder = options[:base_flex_package].gsub('.', '/').gsub(/\W/, '') if options[:base_flex_package]
     @flex_root = options[:flex_root] if options[:flex_root]
@@ -86,10 +85,10 @@ class RxAppGenerator < RubiGen::Base
       
       m.directory "#{flex_root}/#{base_folder}/components/generated"
 
-      m.template 'project-textmate.erb', "#{project_name.underscore}.tmproj"
-      m.template 'mainapp.mxml', File.join("#{flex_root}", "#{project_name}.mxml")
-      m.template 'mainapp-config.xml', File.join("#{flex_root}", "#{project_name}-config.xml")
-      m.template 'mainair-app.xml', File.join("#{flex_root}", "#{project_name}-app.xml") if @use_air      
+      m.template 'project-textmate.erb', "#{project_name}.tmproj"
+      m.template 'mainapp.mxml', File.join("#{flex_root}", "#{flex_project_name}.mxml")
+      m.template 'mainapp-config.xml', File.join("#{flex_root}", "#{flex_project_name}-config.xml")
+      m.template 'mainair-app.xml', File.join("#{flex_root}", "#{flex_project_name}-app.xml") if @use_air      
     end
   end
 

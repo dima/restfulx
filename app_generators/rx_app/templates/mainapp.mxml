@@ -51,8 +51,8 @@
 <% end -%>
         <%= command_controller_name %>.initialize([AIRServiceProvider], 
           AIRServiceProvider.ID, "<%= base_package %>");
-        
 <% if distributed -%>
+
         Rx.changes.setSyncProviders(
           ISyncingServiceProvider(Rx.services.getServiceProvider(AIRServiceProvider.ID)),
             Rx.services.getServiceProvider(XMLHTTPServiceProvider.ID));

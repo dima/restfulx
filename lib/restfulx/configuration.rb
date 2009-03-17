@@ -42,29 +42,30 @@ module RestfulX
     # controller-name: ApplicationController
     def extract_names(project = nil)
       if project
-        project_name = project.camelcase.gsub(/\W/, '')
-        project_name_downcase = project_name.downcase
+        project_name = project.downcase.gsub(/\W/, '')
+        flex_project_name = project_name.camelize
       else
-        project_name = APP_ROOT.split("/").last.camelcase.gsub(/\W/, '')
-        project_name_downcase = project_name.downcase
+        project_name = APP_ROOT.split("/").last.gsub(/\W/, '')
+        flex_project_name = project_name.camelize
       end
             
       # give a chance to override the settings via restfulx.yml
       begin      
         config = YAML.load(File.open("#{APP_ROOT}/config/restfulx.yml"))
-        base_package = config['base-package'] || project_name_downcase
+        base_package = config['base-package'] || flex_project_name.downcase
         base_folder = base_package.gsub('.', '/').gsub(/\W/, '')
-        project_name = config['project-name'].camelcase.gsub(/\W/, '') || project_name
+        project_name = config['project-name'].downcase.gsub(/\W/, '') || project_name
+        flex_project_name = project_name.camelize
         controller_name = config['controller-name'] || "ApplicationController"
         flex_root = config['flex-root'] || "app/flex"
         distributed = config['distributed'] || false
       rescue
-        base_folder = base_package = project_name_downcase
+        base_folder = base_package = flex_project_name.downcase
         controller_name = "ApplicationController"
         flex_root = "app/flex"
         distributed = false
       end
-      [project_name, project_name_downcase, controller_name, base_package, base_folder, flex_root, distributed]
+      [project_name, flex_project_name, controller_name, base_package, base_folder, flex_root, distributed]
     end
 
     # List files ending in *.as (ActionScript) in a given folder

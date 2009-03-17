@@ -46,7 +46,7 @@ class RxMainAppGenerator < RubiGen::Base
 
   def manifest
     record do |m|      
-      m.template 'mainapp.mxml', File.join("#{flex_root}", "#{project_name}.mxml")
+      m.template 'mainapp.mxml', File.join("#{flex_root}", "#{flex_project_name}.mxml")
       if options[:gae]
         m.template 'main.py.erb', 'main.py'
       end

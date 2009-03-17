@@ -71,10 +71,10 @@ class RxConfigGenerator < Rails::Generator::Base
         m.template 'project.properties', '.project'
       end
       
-      m.template 'project-textmate.erb', "#{project_name.underscore}.tmproj"
-      m.template 'mainapp.mxml', File.join("#{flex_root}", "#{project_name}.mxml")
-      m.template 'mainapp-config.xml', File.join("#{flex_root}", "#{project_name}-config.xml")
-      m.template 'mainair-app.xml', File.join("#{flex_root}", "#{project_name}-app.xml") if @use_air
+      m.template 'project-textmate.erb', "#{project_name}.tmproj"
+      m.template 'mainapp.mxml', File.join("#{flex_root}", "#{flex_project_name}.mxml")
+      m.template 'mainapp-config.xml', File.join("#{flex_root}", "#{flex_project_name}-config.xml")
+      m.template 'mainair-app.xml', File.join("#{flex_root}", "#{flex_project_name}-app.xml") if @use_air
 
       m.directory 'html-template/history'      
       %w(index.template.html AC_OETags.js playerProductInstall.swf).each do |file|
