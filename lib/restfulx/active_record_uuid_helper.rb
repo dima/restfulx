@@ -1,5 +1,7 @@
+# Patches ActiveRecord models to use UUID based IDs instead of the default numeric ones
 require 'uuidtools'
 
+# Extends ActiveRecord models with UUID based IDs
 module RestfulX
   module UUIDHelper
     def self.included(base)

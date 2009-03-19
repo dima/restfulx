@@ -5,16 +5,9 @@
 module RestfulX
 
   # :stopdoc:
-  VERSION = '1.2.2'
   FRAMEWORK_VERSION = '1.2.2'
   LIB_DIR = File.join(File.dirname(__FILE__), 'restfulx/')
   # :startdoc:
-
-  # Returns the version string for the library.
-  #
-  def self.version
-    VERSION
-  end
 
   # Utility method used to require all files ending in .rb that lie in the
   # directory below this file that has the same name as the filename passed
@@ -28,7 +21,6 @@ module RestfulX
 
     Dir.glob(search_me).sort.each {|rb| require rb}
   end
-
 end
 
 require RestfulX::LIB_DIR + 'configuration'
@@ -54,7 +46,7 @@ elsif defined?(ActionController::Base)
   # if we are not running in Merb, try to hook up Rails
   Mime::Type.register_alias "application/xml", :fxml
   
-  ['active_foo', 'rails/swf_helper', 'schema_to_yaml'].each { |lib| require RestfulX::LIB_DIR + lib }
+  ['active_foo', 'rails/swf_helper', 'rails/schema_to_yaml'].each { |lib| require RestfulX::LIB_DIR + lib }
 
   ActionView::Base.send :include, SWFHelper unless ActionView::Base.included_modules.include?(SWFHelper)
   ActiveRecord::Migration.send :include, SchemaToYaml

@@ -102,13 +102,13 @@ Enforces Flex friendly options on XML and delegates processing to standard
   <p class="source-link">[ <a href="javascript:toggleSource('M000022_source')" id="l_M000022_source">show source</a> ]</p>
   <div id="M000022_source" class="dyn-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/restfulx/active_foo.rb, line 133</span>
-133:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_fxml</span>(<span class="ruby-identifier">options</span> = {}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-134:       <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">:dasherize</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>)
-135:       <span class="ruby-identifier">default_except</span> = [<span class="ruby-identifier">:crypted_password</span>, <span class="ruby-identifier">:salt</span>, <span class="ruby-identifier">:remember_token</span>, <span class="ruby-identifier">:remember_token_expires_at</span>]
-136:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] = (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">default_except</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">default_except</span>)
-137:       <span class="ruby-identifier">to_xml</span>(<span class="ruby-identifier">options</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-138:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/restfulx/active_foo.rb, line 125</span>
+125:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_fxml</span>(<span class="ruby-identifier">options</span> = {}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+126:       <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">:dasherize</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>)
+127:       <span class="ruby-identifier">default_except</span> = [<span class="ruby-identifier">:crypted_password</span>, <span class="ruby-identifier">:salt</span>, <span class="ruby-identifier">:remember_token</span>, <span class="ruby-identifier">:remember_token_expires_at</span>]
+128:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] = (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">default_except</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">default_except</span>)
+129:       <span class="ruby-identifier">to_xml</span>(<span class="ruby-identifier">options</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+130:     <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>

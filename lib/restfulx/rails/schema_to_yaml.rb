@@ -8,6 +8,8 @@ Dir[File.dirname(__FILE__) + "/schema_to_yaml/extensions/*.rb"].each do |f|
   require f
 end
 
+# Provides facilities to convert an existing Rails application schema.rb file to 
+# RestfulX model.yml file
 module SchemaToYaml
   RxSettings = SchemaToYaml::Settings::Core
 
@@ -116,5 +118,4 @@ module SchemaToYaml
     File.open(yml_file, "w") { |f| f << schema.to_s }
     puts "Model.yml created at db/model.yml" 
   end
-
 end

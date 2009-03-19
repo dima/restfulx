@@ -6,7 +6,6 @@
 # to load from the query string via the request URI.
 #
 # Based on the code from http://seventytwo.co.uk/posts/making-swfupload-and-rails-work-together
-#
 class CGI::Session
   alias original_initialize initialize
 
@@ -35,5 +34,5 @@ ActionController::Base.allow_forgery_protection = false
 
 <% if distributed -%>
 # If we are in distributed mode we need to make sure that the RestfulX::UUIDHelper is loaded
-require "restfulx/uuid_helper"
+require "restfulx/active_record_uuid_helper"
 <% end -%>

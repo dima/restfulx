@@ -1,3 +1,4 @@
+# Enumerable extensions
 module Enumerable
   # Helps you find duplicates
   # used in schema_to_yaml.rb for cleanup

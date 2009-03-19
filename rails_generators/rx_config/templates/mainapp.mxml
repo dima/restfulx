@@ -14,9 +14,13 @@
       import org.restfulx.events.PushStartEvent;
       import org.restfulx.controllers.ChangeController;
       import org.restfulx.services.ISyncingServiceProvider;
-      import org.restfulx.services.http.XMLHTTPServiceProvider;
 <% end -%>
       import org.restfulx.services.air.AIRServiceProvider;
+<% end -%>
+<% if use_gae -%>
+      import org.restfulx.services.http.GAEHTTPServiceProvider;
+<% else -%>
+      import org.restfulx.services.http.XMLHTTPServiceProvider;
 <% end -%>
       import org.restfulx.Rx;
       import <%= base_package %>.controllers.<%= command_controller_name %>;
@@ -50,9 +54,15 @@
           AIRServiceProvider.ID, "<%= base_package %>");
 <% if distributed -%>
 
+<% if use_gae -%>
+        Rx.changes.setSyncProviders(
+          ISyncingServiceProvider(Rx.services.getServiceProvider(AIRServiceProvider.ID)),
+            Rx.services.getServiceProvider(GAEHTTPServiceProvider.ID));
+<% else -%>
         Rx.changes.setSyncProviders(
           ISyncingServiceProvider(Rx.services.getServiceProvider(AIRServiceProvider.ID)),
             Rx.services.getServiceProvider(XMLHTTPServiceProvider.ID));
+<% end -%>
 
         Rx.changes.addEventListener(PushStartEvent.ID, onPushStart);
         Rx.changes.addEventListener(PushEndEvent.ID, onPushEnd);
@@ -60,7 +70,11 @@
         Rx.changes.addEventListener(PullEndEvent.ID, onPullEnd);
 <% end -%>
 <% else -%>
+<% if use_gae -%>
+        <%= command_controller_name %>.initialize([GAEHTTPServiceProvider], GAEHTTPServiceProvider.ID);
+<% else -%>
         <%= command_controller_name %>.initialize();
+<% end -%>
 <% end -%>
       }
 <% if use_air -%>
@@ -69,24 +83,28 @@
       private function onPushStart(event:Event):void {
         syncStatus = "Pushing changes ...";
       }
-
+      
       private function onPushEnd(event:Event):void {
         syncStatus = "Push complete.";
       }
-
+      
       private function onPullStart(event:Event):void {
         syncStatus = "Pulling data...";
       }
-
+      
       private function onPullEnd(event:Event):void {
         syncStatus = "Pull complete.";
       }
-
+      
       private function onNetworkStatusChange(event:StatusEvent):void {
         online = (socketMonitor.available) ? true : false;
   
         if (online) {
+<% if use_gae -%>
+          Rx.defaultServiceId = GAEHTTPServiceProvider.ID;
+<% else -%>
           Rx.defaultServiceId = XMLHTTPServiceProvider.ID;
+<% end -%>
         } else {
           Rx.defaultServiceId = AIRServiceProvider.ID;
         }
@@ -94,8 +112,13 @@
 
       private function getCurrentProviderName(id:int):String {
         switch (id) {
+<% if use_gae -%>
+          case GAEHTTPServiceProvider.ID:
+            return "GAE";
+<% else -%>
           case XMLHTTPServiceProvider.ID:
-            return "Rails";
+            return "XML/HTTP";
+<% end -%>
           case AIRServiceProvider.ID:
             return "AIR (SQLite)";
           default :

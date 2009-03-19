@@ -2,7 +2,6 @@
 # ~wrong~ from the point of view of Flex clients.
 #
 # Some of these things are:
-# * Date formats
 # * XML format (Flex *really* doesn't like dashes in XML messages)
 # * Errors (we need to be more specific and communicate what went wrong *where*) 
 #

@@ -22,7 +22,7 @@ require 'rubigen'
 require File.join(File.dirname(__FILE__), '..', 'lib', 'restfulx')
 
 if %w(-v --version).include? ARGV.first
-  puts "#{File.basename($0)} #{RestfulX::VERSION}"
+  puts "#{File.basename($0)} #{RestfulX::FRAMEWORK_VERSION}"
   exit(0)
 end
 

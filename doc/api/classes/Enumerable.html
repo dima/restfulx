@@ -57,7 +57,7 @@
       <tr valign="top">
         <td>In:</td>
         <td>
-<a href="../files/lib/restfulx/schema_to_yaml/extensions/enumerable_rb.html">lib/restfulx/schema_to_yaml/extensions/enumerable.rb</a>
+<a href="../files/lib/restfulx/rails/schema_to_yaml/extensions/enumerable_rb.html">lib/restfulx/rails/schema_to_yaml/extensions/enumerable.rb</a>
         </td>
       </tr>
          </table>
@@ -69,6 +69,10 @@
   <div id="bodyContent">
       <div id="content">
  
+  <div class="description"><p>
+<a href="Enumerable.html">Enumerable</a> extensions
+</p>
+</div>
  
  
  
@@ -87,14 +91,19 @@
   <div class="title">
     <a name="M000032"></a><b>dups</b>()
   </div>
+  <div class="description">
+  <p>
+Helps you find duplicates used in schema_to_yaml.rb for cleanup
+</p>
+  </div>
 <div class="sourcecode">
   <p class="source-link">[ <a href="javascript:toggleSource('M000032_source')" id="l_M000032_source">show source</a> ]</p>
   <div id="M000032_source" class="dyn-source">
 <pre>
-   <span class="ruby-comment cmt"># File lib/restfulx/schema_to_yaml/extensions/enumerable.rb, line 2</span>
-2:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dups</span>
-3:     <span class="ruby-identifier">inject</span>({}) {<span class="ruby-operator">|</span><span class="ruby-identifier">h</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">h</span>[<span class="ruby-identifier">v</span>]=<span class="ruby-identifier">h</span>[<span class="ruby-identifier">v</span>].<span class="ruby-identifier">to_i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>; <span class="ruby-identifier">h</span>}.<span class="ruby-identifier">reject</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>}.<span class="ruby-identifier">keys</span>
-4:   <span class="ruby-keyword kw">end</span>
+   <span class="ruby-comment cmt"># File lib/restfulx/rails/schema_to_yaml/extensions/enumerable.rb, line 5</span>
+5:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dups</span>
+6:     <span class="ruby-identifier">inject</span>({}) {<span class="ruby-operator">|</span><span class="ruby-identifier">h</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">h</span>[<span class="ruby-identifier">v</span>]=<span class="ruby-identifier">h</span>[<span class="ruby-identifier">v</span>].<span class="ruby-identifier">to_i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>; <span class="ruby-identifier">h</span>}.<span class="ruby-identifier">reject</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>}.<span class="ruby-identifier">keys</span>
+7:   <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>

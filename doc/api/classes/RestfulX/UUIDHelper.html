@@ -57,7 +57,7 @@
       <tr valign="top">
         <td>In:</td>
         <td>
-<a href="../../files/lib/restfulx/uuid_helper_rb.html">lib/restfulx/uuid_helper.rb</a>
+<a href="../../files/lib/restfulx/active_record_uuid_helper_rb.html">lib/restfulx/active_record_uuid_helper.rb</a>
         </td>
       </tr>
          </table>
@@ -92,12 +92,12 @@
   <p class="source-link">[ <a href="javascript:toggleSource('M000019_source')" id="l_M000019_source">show source</a> ]</p>
   <div id="M000019_source" class="dyn-source">
 <pre>
-   <span class="ruby-comment cmt"># File lib/restfulx/uuid_helper.rb, line 5</span>
-5:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
-6:       <span class="ruby-identifier">base</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword kw">do</span> 
-7:         <span class="ruby-identifier">before_create</span> <span class="ruby-identifier">:generate_uuid</span>
-8:       <span class="ruby-keyword kw">end</span>
-9:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/restfulx/active_record_uuid_helper.rb, line 7</span>
+ 7:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
+ 8:       <span class="ruby-identifier">base</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword kw">do</span> 
+ 9:         <span class="ruby-identifier">before_create</span> <span class="ruby-identifier">:generate_uuid</span>
+10:       <span class="ruby-keyword kw">end</span>
+11:     <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>
@@ -111,10 +111,10 @@
   <p class="source-link">[ <a href="javascript:toggleSource('M000020_source')" id="l_M000020_source">show source</a> ]</p>
   <div id="M000020_source" class="dyn-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/restfulx/uuid_helper.rb, line 11</span>
-11:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_uuid</span>
-12:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span> = <span class="ruby-constant">UUID</span>.<span class="ruby-identifier">random_create</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;-&quot;</span>, <span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>
-13:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/restfulx/active_record_uuid_helper.rb, line 13</span>
+13:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_uuid</span>
+14:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span> = <span class="ruby-constant">UUID</span>.<span class="ruby-identifier">random_create</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;-&quot;</span>, <span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>
+15:     <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>

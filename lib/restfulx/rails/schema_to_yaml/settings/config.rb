@@ -1,3 +1,4 @@
+# SchemaToYaml settings
 module SchemaToYaml
   module Settings
     class Config

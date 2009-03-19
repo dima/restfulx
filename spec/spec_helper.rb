@@ -1,4 +1,3 @@
-
 require File.expand_path(
     File.join(File.dirname(__FILE__), %w[.. lib restfulx]))
 
@@ -12,5 +11,3 @@ Spec::Runner.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 end
-
-# EOF

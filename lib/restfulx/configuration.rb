@@ -13,33 +13,16 @@ class String
   end
 end
 
+# Primary RestfulX configuration options
 module RestfulX
   # Computes necessary configuration options from the environment. This can be used in Rails, Merb
   # or standalone from the command line.
   module Configuration
+    # We try to figure out the application root using a number of possible options
     APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : defined?(Merb) ? Merb.root : File.expand_path(".")
 
-    # Extract project, package, controller names from the environment. This will respect
-    # config/restfulx.yml if it exists, you can override all of the defaults there. The defaults are:
-    # - *base-package* same as project name downcased
-    # - *controller-name* 'ApplicationController'
-    #
-    # Here's a sample restfulx.yml file:
-    #
-    # RestfulX code generation configuration options
-    # 
-    # By default flex models, commands, controllers and components are genearated into
-    # app/flex/<your rails project name> folder. If you'd like to customize the target folder 
-    # (to say append a "com" package before your rails project name) uncomment the line below
-    # base-package must follow the usual flex package notation (a string separated by ".")
-    # 
-    # base-package: com.pomodo
-    # 
-    # Main RestfulX controller is typically named AppicationController. This controller is created in 
-    # <base-package>.controllers folder. You can customize the name by uncommenting the following line 
-    # and changing the controller name.
-    # 
-    # controller-name: ApplicationController
+    # Extract project, package, controller name, etc from the environment. This will respect
+    # config/restfulx.yml if it exists, you can override all of the defaults there.
     def extract_names(project = nil)
       if project
         project_name = project.downcase.gsub(/\W/, '')

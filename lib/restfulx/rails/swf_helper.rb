@@ -1,6 +1,5 @@
 # Adds a little helper to make it easier empbedding SWFs in ERB templates.
 module SWFHelper
-  
   # Creates a swfObject Javascript call.  You must include swfobject.js to use this.
   # See http://code.google.com/p/swfobject/wiki/documentation for full details and documentation
   # of the swfobject js library.
@@ -29,9 +28,6 @@ module SWFHelper
     #   flashVars['authenticity_token'] = <%= form_authenticity_token -%>
     #   flashVars['session_token'] = <%= session.session_id -%>
     # </script>
-    # If you include an authenticity_token parameter in flashVars, 
-    # then the Flex app will add it to Rx.defaultMetadata, so that it will be sent
-    # back up to your Rails app with every request.
     params[:flash_vars] ||= {}
     if params[:flash_vars].is_a?(Hash)
       if params[:include_authenticity_token] && ActionController::Base.allow_forgery_protection
@@ -56,5 +52,4 @@ module SWFHelper
     swf_tag += content_tag(:div, nil, :id => params[:id]) if params[:create_div]    
     swf_tag
   end
-  
 end

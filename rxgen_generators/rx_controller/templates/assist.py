@@ -23,7 +23,7 @@
 __author__ = 'Dima Berastau'
 
 from google.appengine.ext import db
-import datetime
+import datetime, iso8601
 
 # Some useful module methods
 def all(model):
@@ -51,13 +51,13 @@ def update_model_from_params(model, params):
       elif isinstance(getattr(model, k), int) and v != "":
         setattr(model, k, int(v))
       elif isinstance(getattr(model, k), datetime.datetime) and v != "":
-        value = datetime.datetime.strptime(v, "%Y-%m-%dT%H:%M:%S%Z")
+        value = iso8601.parse_date(v)
         setattr(model, k, value)
       elif isinstance(getattr(model, k), datetime.date) and v != "":
         value = datetime.datetime.strptime(v, "%Y-%m-%d")
         setattr(model, k, datetime.date(value.year, value.month, value.day))
       elif isinstance(getattr(model, k), datetime.time) and v != "":
-        value = datetime.datetime.strptime(v, "%Y-%m-%dT%H:%M:%S%Z")
+        value = iso8601.parse_date(v)
         setattr(model, k, datetime.time(value.hour, value.minute, value.second))
       else:
         setattr(model, k, v)

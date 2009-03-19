@@ -2,7 +2,7 @@
 # - db:mysql:stage
 # - db:refresh
 require File.join(File.dirname(__FILE__), 'tasks')
-require File.join(File.dirname(__FILE__), 'schema_to_yaml')
+require File.join(File.dirname(__FILE__), 'rails', 'schema_to_yaml')
 
 # stores local copy of the application environment ('production', 'test', etc)
 # so that appropriate values in config/database.yml are used
@@ -87,5 +87,4 @@ namespace :db do
       SchemaToYaml.schema_to_yaml
     end
   end
-  
 end

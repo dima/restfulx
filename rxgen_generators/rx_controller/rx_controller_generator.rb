@@ -26,6 +26,7 @@ class RxControllerGenerator < RubiGen::Base
       if options[:gae]
         m.file 'restful.py', 'app/controllers/restful.py' if !File.exist?('app/controllers/restful.py')
         m.file 'assist.py', 'app/models/assist.py' if !File.exist?('app/models/assist.py')
+        m.file 'assist.py', 'app/models/iso8601.py' if !File.exist?('app/models/iso8601.py')
       end
     end
   end

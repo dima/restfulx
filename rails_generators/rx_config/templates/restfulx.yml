@@ -35,17 +35,21 @@ defaults: &defaults
     tables: [table1 table2]
     fields: [field1 field2]
     
+# set up specific options for development environment
 development:
   <<: *defaults
 
+# set up specific options for test environment
 test:
   <<: *defaults
 
+# set up specific options for production environment
 production:
   <<: *defaults
   
-# Special model.yml fields for RestfulX code-generation:
+# The following special model.yml fields are supported.
 #
+# For example:
 # attachment_field: [avatar]
 #   * arg takes Paperclip field name, or takes [uploaded_data] for Attachment_Fu
 # belongs_to: [account, profile]

@@ -23,39 +23,3 @@ controller-name: <%= command_controller_name %>
 # code to take advantage of synchronization (online/offline) support in RestfulX by changing the following
 # option to true. By default distribution is disabled.
 distributed: <%= distributed %>
-
-# These options control code-generation options for view components, Flex and Rails models and so on.
-# Allowing you to choose what controller patterns, layouts, attachment plugin you want to use, etc.
-defaults: &defaults
-  attachment_plugin:  'paperclip'              # => paperclip/attachment_fu
-  controller_pattern: 'default'                # => default/resource_controller
-  layouts:
-    default:  'default'                        # => default (more coming soon)
-  ignored:                                     # => ignored tables/fields won't appear in model.yml
-    tables: [table1 table2]
-    fields: [field1 field2]
-    
-development:
-  <<: *defaults
-
-test:
-  <<: *defaults
-
-production:
-  <<: *defaults
-  
-# Special model.yml fields for RestfulX code-generation:
-#
-# attachment_field: [avatar]
-#   * arg takes Paperclip field name, or takes [uploaded_data] for Attachment_Fu
-# belongs_to: [account, profile]
-# has_many: [announcements, files, folders, users]
-# has_many_through: [permissions, roles]
-#   * has_many :roles, :through => :permissions
-# has_one:  [suitcase]
-# polymorphic: [commentable]
-# tree_model: [parent]
-# layout: [default]
-#   * default template is the only current theme, with more coming soon
-# ignored_fields: [children_count, ancestors_count, descendants_count, position]
-#   * specify fields you don't want generated for your template
