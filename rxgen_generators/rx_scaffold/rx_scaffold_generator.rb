@@ -94,12 +94,6 @@ class RxScaffoldGenerator < RubiGen::Base
   
   def manifest
     record do |m|   
-      %w(components controllers commands models events).each do |dir|
-        m.directory "#{flex_root}/#{base_folder}/#{dir}"
-      end
-      
-      m.directory "#{flex_root}/#{base_folder}/components/generated"
-         
       m.template 'model.as.erb',
         File.join("#{flex_root}", base_folder, "models", "#{@class_name}.as"), 
         :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
