@@ -53,7 +53,7 @@ module RestfulX
       begin      
         config = YAML.load(File.open("#{APP_ROOT}/config/restfulx.yml"))
         base_package = config['base-package'] || flex_project_name.downcase
-        base_folder = base_package.gsub('.', '/').gsub(/\W/, '')
+        base_folder = base_package.gsub('.', '/')
         project_name = config['project-name'].downcase.gsub(/\W/, '') || project_name
         flex_project_name = project_name.camelize
         controller_name = config['controller-name'] || "ApplicationController"
