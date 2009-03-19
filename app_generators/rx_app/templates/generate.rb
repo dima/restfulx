@@ -13,5 +13,5 @@ require 'restfulx'
 
 ARGV.shift if ['--help', '-h'].include?(ARGV[0])
 
-RubiGen::Base.use_component_sources!  
+RubiGen::Base.use_component_sources! [:rxgen]
 RubiGen::Scripts::Generate.new.run(ARGV)
