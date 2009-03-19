@@ -56,7 +56,7 @@ class RxConfigGenerator < Rails::Generator::Base
 
   def manifest
     record do |m|
-      m.file 'restfulx_tasks.rake', 'lib/tasks/restfulx_tasks.rake'
+      m.file 'restfulx_tasks.rake', 'lib/tasks/restfulx_tasks.rake' if !options[:skip_tasks]
       m.file 'flex.properties', '.flexProperties'
       m.template 'restfulx.yml', 'config/restfulx.yml'
       m.template 'restfulx.erb', 'config/initializers/restfulx.rb'
@@ -126,6 +126,8 @@ class RxConfigGenerator < Rails::Generator::Base
       "Default: false") { |v| options[:air_config] = v }
     opt.on("--skip-framework", "Don't fetch the latest framework binary. You'll have to link/build the framework yourself.", 
       "Default: false") { |v| options[:skip_framework] = v }
+    opt.on("--skip-tasks", "Don't install restfulx gem tasks hook into the project.", 
+      "Default: false") { |v| options[:skip_tasks] = v }
     opt.on("--flex-root [FOLDER]", "Root folder for generated flex code.", 
       "Default: app/flex") { |v| options[:flex_root] = v }
     opt.on("--base-flex-package [PACKAGE]", "Base package for your application.", 
