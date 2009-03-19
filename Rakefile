@@ -22,7 +22,7 @@ Rake::RDocTask.new do |rdoc|
   config = YAML.load(File.read('VERSION.yml'))
   rdoc.rdoc_dir = 'doc/api'
   rdoc.title = "RestfulX #{config[:major]}.#{config[:minor]}.#{config[:patch]}"
-  rdoc.options << '--line-numbers' << '--inline-source' << '-Tjamis'
+  rdoc.options << '--line-numbers' << '--inline-source' #<< '-Tjamis'
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
