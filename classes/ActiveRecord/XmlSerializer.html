@@ -86,7 +86,7 @@ question mark, like &#8216;valid?&#8217; or &#8216;is_true?&#8216;
  
   <div class="sectiontitle">Methods</div>
   <ul>
-  <li><a href="#M000021">add_tag</a></li>
+  <li><a href="#M000024">add_tag</a></li>
   </ul>
  
  
@@ -100,14 +100,28 @@ question mark, like &#8216;valid?&#8217; or &#8216;is_true?&#8216;
 <div class="sectiontitle">Public Instance methods</div>
 <div class="method">
   <div class="title">
-    <a name="M000021"></a><b>add_tag</b>(attribute)
-[&nbsp;<a href="XmlSerializer.src/M000021.html" target="SOURCE_CODE" onclick="javascript:openCode('XmlSerializer.src/M000021.html'); return false;">source</a>&nbsp;]
+    <a name="M000024"></a><b>add_tag</b>(attribute)
   </div>
   <div class="description">
   <p>
 Strips &#8217;?&#8217; from serialized method names
 </p>
   </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000024_source')" id="l_M000024_source">show source</a> ]</p>
+  <div id="M000024_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/restfulx/active_foo.rb, line 137</span>
+137:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_tag</span>(<span class="ruby-identifier">attribute</span>)
+138:       <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">tag!</span>(
+139:         <span class="ruby-identifier">dasherize?</span> <span class="ruby-value">? </span><span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">display_name</span>.<span class="ruby-identifier">dasherize</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">display_name</span>,
+140:         <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>,
+141:         <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">decorations</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">options</span>[<span class="ruby-identifier">:skip_types</span>])
+142:       )
+143:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
 </div>
 </div>
 

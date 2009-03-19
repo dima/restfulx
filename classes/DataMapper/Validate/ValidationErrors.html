@@ -78,7 +78,7 @@ Object
   <div class="description"><p>
 By default <a href="../../DataMapper.html">DataMapper</a> validation errors
 doesn&#8216;t have <tt><a
-href="ValidationErrors.html#M000007">to_xml</a></tt> method. This is
+href="ValidationErrors.html#M000010">to_xml</a></tt> method. This is
 actually very useful when dealing with remote stateful clients such as
 Flex/AIR.
 </p>
@@ -88,8 +88,8 @@ Flex/AIR.
  
   <div class="sectiontitle">Methods</div>
   <ul>
-  <li><a href="#M000008">to_json</a></li>
-  <li><a href="#M000007">to_xml</a></li>
+  <li><a href="#M000011">to_json</a></li>
+  <li><a href="#M000010">to_xml</a></li>
   </ul>
  
  
@@ -100,27 +100,60 @@ Flex/AIR.
 <div class="sectiontitle">Public Instance methods</div>
 <div class="method">
   <div class="title">
-    <a name="M000008"></a><b>to_json</b>()
-[&nbsp;<a href="ValidationErrors.src/M000008.html" target="SOURCE_CODE" onclick="javascript:openCode('ValidationErrors.src/M000008.html'); return false;">source</a>&nbsp;]
+    <a name="M000011"></a><b>to_json</b>()
   </div>
   <div class="description">
   <p>
-Add <a href="ValidationErrors.html#M000008">to_json</a> support for
+Add <a href="ValidationErrors.html#M000011">to_json</a> support for
 datamapper errors too
 </p>
   </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000011_source')" id="l_M000011_source">show source</a> ]</p>
+  <div id="M000011_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/datamapper_foo.rb, line 76</span>
+76:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_json</span>
+77:         <span class="ruby-ivar">@errors</span>.<span class="ruby-identifier">to_json</span>
+78:       <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
 </div>
 <div class="method">
   <div class="title">
-    <a name="M000007"></a><b>to_xml</b>()
-[&nbsp;<a href="ValidationErrors.src/M000007.html" target="SOURCE_CODE" onclick="javascript:openCode('ValidationErrors.src/M000007.html'); return false;">source</a>&nbsp;]
+    <a name="M000010"></a><b>to_xml</b>()
   </div>
   <div class="description">
   <p>
 Add Flex-friendly <tt><a
-href="ValidationErrors.html#M000007">to_xml</a></tt> implementation
+href="ValidationErrors.html#M000010">to_xml</a></tt> implementation
 </p>
   </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000010_source')" id="l_M000010_source">show source</a> ]</p>
+  <div id="M000010_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/datamapper_foo.rb, line 58</span>
+58:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_xml</span>
+59:         <span class="ruby-identifier">xml</span> = <span class="ruby-constant">DataMapper</span><span class="ruby-operator">::</span><span class="ruby-constant">Serialize</span><span class="ruby-operator">::</span><span class="ruby-constant">XMLSerializers</span><span class="ruby-operator">::</span><span class="ruby-constant">SERIALIZER</span>
+60:         <span class="ruby-identifier">doc</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">xml</span>.<span class="ruby-identifier">new_document</span>
+61:         <span class="ruby-identifier">root</span> = <span class="ruby-identifier">xml</span>.<span class="ruby-identifier">root_node</span>(<span class="ruby-identifier">doc</span>, <span class="ruby-value str">&quot;errors&quot;</span>)
+62:         <span class="ruby-ivar">@errors</span>.<span class="ruby-identifier">each_key</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">attribute</span><span class="ruby-operator">|</span>
+63:           <span class="ruby-ivar">@errors</span>[<span class="ruby-identifier">attribute</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">msg</span><span class="ruby-operator">|</span>
+64:             <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">nil?</span>
+65:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attribute</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;base&quot;</span>
+66:               <span class="ruby-identifier">xml</span>.<span class="ruby-identifier">add_node</span>(<span class="ruby-identifier">root</span>, <span class="ruby-value str">&quot;error&quot;</span>, <span class="ruby-keyword kw">nil</span>, {<span class="ruby-value str">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>})
+67:             <span class="ruby-keyword kw">else</span>
+68:               <span class="ruby-identifier">xml</span>.<span class="ruby-identifier">add_node</span>(<span class="ruby-identifier">root</span>, <span class="ruby-value str">&quot;error&quot;</span>, <span class="ruby-keyword kw">nil</span>, {<span class="ruby-value str">&quot;field&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">camel_case</span>.<span class="ruby-identifier">dcfirst</span>, <span class="ruby-value str">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>})
+69:             <span class="ruby-keyword kw">end</span>
+70:           <span class="ruby-keyword kw">end</span>
+71:         <span class="ruby-keyword kw">end</span>
+72:         <span class="ruby-identifier">xml</span>.<span class="ruby-identifier">output</span>(<span class="ruby-identifier">doc</span>)
+73:       <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
 </div>
 </div>
 

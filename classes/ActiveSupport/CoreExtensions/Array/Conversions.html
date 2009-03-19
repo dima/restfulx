@@ -79,7 +79,7 @@ more details
  
   <div class="sectiontitle">Methods</div>
   <ul>
-  <li><a href="#M000011">to_fxml</a></li>
+  <li><a href="#M000013">to_fxml</a></li>
   </ul>
  
  
@@ -90,14 +90,51 @@ more details
 <div class="sectiontitle">Public Instance methods</div>
 <div class="method">
   <div class="title">
-    <a name="M000011"></a><b>to_fxml</b>(options = {}) {|xml if block_given?| ...}
-[&nbsp;<a href="Conversions.src/M000011.html" target="SOURCE_CODE" onclick="javascript:openCode('Conversions.src/M000011.html'); return false;">source</a>&nbsp;]
+    <a name="M000013"></a><b>to_fxml</b>(options = {}) {|xml if block_given?| ...}
   </div>
   <div class="description">
   <p>
 Flex friendly XML format (no dashes, etc)
 </p>
   </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000013_source')" id="l_M000013_source">show source</a> ]</p>
+  <div id="M000013_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/restfulx/active_foo.rb, line 83</span>
+ 83:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_fxml</span>(<span class="ruby-identifier">options</span> = {})
+ 84:           <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Not all elements respond to to_fxml&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">all?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:to_fxml</span> }
+ 85: 
+ 86:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:root</span>]     <span class="ruby-operator">||=</span> <span class="ruby-identifier">all?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-identifier">first</span>.<span class="ruby-identifier">class</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">first</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">&quot;Hash&quot;</span> } <span class="ruby-operator">?</span> <span class="ruby-identifier">first</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;records&quot;</span>
+ 87:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:children</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:root</span>].<span class="ruby-identifier">singularize</span>
+ 88:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:indent</span>]   <span class="ruby-operator">||=</span> <span class="ruby-value">2</span>
+ 89:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>]  <span class="ruby-operator">||=</span> <span class="ruby-constant">Builder</span><span class="ruby-operator">::</span><span class="ruby-constant">XmlMarkup</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:indent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:indent</span>])
+ 90:           <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">:dasherize</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>)
+ 91: 
+ 92:           <span class="ruby-identifier">root</span>     = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:root</span>).<span class="ruby-identifier">to_s</span>
+ 93:           <span class="ruby-identifier">children</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:children</span>)
+ 94: 
+ 95:           <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:dasherize</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:dasherize</span>]
+ 96:             <span class="ruby-identifier">root</span> = <span class="ruby-identifier">root</span>.<span class="ruby-identifier">dasherize</span>
+ 97:           <span class="ruby-keyword kw">end</span>
+ 98: 
+ 99:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>].<span class="ruby-identifier">instruct!</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:skip_instruct</span>)
+100: 
+101:           <span class="ruby-identifier">opts</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>({ <span class="ruby-identifier">:root</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">children</span> })
+102: 
+103:           <span class="ruby-identifier">xml</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>]
+104:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">empty?</span>
+105:             <span class="ruby-identifier">xml</span>.<span class="ruby-identifier">tag!</span>(<span class="ruby-identifier">root</span>, <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:skip_types</span>] <span class="ruby-operator">?</span> {} <span class="ruby-operator">:</span> {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;array&quot;</span>})
+106:           <span class="ruby-keyword kw">else</span>
+107:             <span class="ruby-identifier">xml</span>.<span class="ruby-identifier">tag!</span>(<span class="ruby-identifier">root</span>, <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:skip_types</span>] <span class="ruby-operator">?</span> {} <span class="ruby-operator">:</span> {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;array&quot;</span>}) {
+108:               <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">xml</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+109:               <span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">to_fxml</span>(<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">merge!</span>({ <span class="ruby-identifier">:skip_instruct</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span> })) }
+110:             }
+111:           <span class="ruby-keyword kw">end</span>
+112:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
 </div>
 </div>
 

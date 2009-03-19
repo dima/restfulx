@@ -63,7 +63,7 @@
           </tr>
           <tr>
             <td>Modified:</td>
-            <td>Mon Jan 26 20:34:17 -0800 2009</td>
+            <td>Wed Mar 18 22:17:28 -0700 2009</td>
           </tr>
         </table>
       </td></tr>
@@ -87,63 +87,183 @@ applications
   <li>rake</li>
   <li>ftools</li>
   <li>rexml/document</li>
+  <li>activesupport</li>
   </ul>
  
  
   <div class="sectiontitle">Methods</div>
   <ul>
-  <li><a href="#M000002">compile_app</a></li>
-  <li><a href="#M000004">get_executable</a></li>
-  <li><a href="#M000003">get_main_application</a></li>
+  <li><a href="#M000002">compile_application</a></li>
+  <li><a href="#M000005">get_app_properties</a></li>
+  <li><a href="#M000006">get_executable</a></li>
+  <li><a href="#M000004">get_main_application</a></li>
+  <li><a href="#M000003">run_air_application</a></li>
   </ul>
  
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li><a href="../../../classes/RestfulX/Configuration.html">RestfulX::Configuration</a></li>
+</ul>
  
  
  
-  <div class="sectiontitle">Constants</div>
-  <table border='0' cellpadding='5'>
-  <tr valign='top'>
-    <td class="attr-name">APP_ROOT</td>
-    <td>=</td>
-    <td class="attr-value">RestfulX::Configuration::APP_ROOT</td>
-  </tr>
-  </table>
  
  
 <div class="sectiontitle">Public Instance methods</div>
 <div class="method">
   <div class="title">
-    <a name="M000002"></a><b>compile_app</b>(executable, destination, opts = '')
-[&nbsp;<a href="tasks_rb.src/M000002.html" target="SOURCE_CODE" onclick="javascript:openCode('tasks_rb.src/M000002.html'); return false;">source</a>&nbsp;]
+    <a name="M000002"></a><b>compile_application</b>(params = {})
   </div>
   <div class="description">
   <p>
-Compile the main Flex/AIR application using given executable to the given
-destination folder
+Compile the given Flex/AIR application The following options are supported:
 </p>
+<pre>
+    :executable =&gt; 'mxmlc'
+    :application =&gt; nil
+    :destination =&gt; 'public/bin'
+    :opts =&gt; nil
+    :flex_root =&gt; 'app/flex'
+</pre>
   </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000002_source')" id="l_M000002_source">show source</a> ]</p>
+  <div id="M000002_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/tasks.rb, line 18</span>
+18:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compile_application</span>(<span class="ruby-identifier">params</span> = {})
+19:     <span class="ruby-identifier">project_name</span>, <span class="ruby-identifier">flex_project_name</span>, <span class="ruby-identifier">command_controller_name</span>, <span class="ruby-identifier">base_package</span>, <span class="ruby-identifier">base_folder</span>, 
+20:       <span class="ruby-identifier">flex_root</span> = <span class="ruby-identifier">extract_names</span>()
+21:     
+22:     <span class="ruby-identifier">executable</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:executable</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'mxmlc'</span>
+23:     <span class="ruby-identifier">application</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:application</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">get_main_application</span>
+24:     <span class="ruby-identifier">destination</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:destination</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'public/bin'</span>
+25:     <span class="ruby-identifier">opts</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:opts</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">''</span>
+26:     <span class="ruby-identifier">flex_root</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:flex_root</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">flex_root</span>
+27:     
+28:     <span class="ruby-identifier">compiler</span> = <span class="ruby-identifier">get_executable</span>(<span class="ruby-identifier">executable</span>)
+29:     
+30:     <span class="ruby-identifier">application</span> = <span class="ruby-identifier">get_main_application</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">application</span>
+31:     <span class="ruby-identifier">project_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">APP_ROOT</span>, <span class="ruby-identifier">flex_root</span>, <span class="ruby-identifier">application</span>)
+32:     <span class="ruby-identifier">target_project_path</span> = <span class="ruby-identifier">project_path</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/.mxml$/</span>, <span class="ruby-value str">'.swf'</span>)
+33:     <span class="ruby-identifier">target_project_air_descriptor</span> = <span class="ruby-identifier">project_path</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/.mxml$/</span>, <span class="ruby-value str">'-app.xml'</span>)
+34:       
+35:     <span class="ruby-identifier">libs</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">APP_ROOT</span>, <span class="ruby-value str">'lib'</span>, <span class="ruby-value str">'*.swc'</span>)).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">lib</span><span class="ruby-operator">|</span> <span class="ruby-identifier">lib</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">' '</span>, <span class="ruby-value str">'\ '</span>)}
+36:       
+37:     <span class="ruby-identifier">additional_compiler_args</span> = <span class="ruby-identifier">get_app_properties</span>().<span class="ruby-identifier">elements</span>[<span class="ruby-value str">&quot;actionScriptProperties&quot;</span>].<span class="ruby-identifier">elements</span>[<span class="ruby-value str">&quot;compiler&quot;</span>].<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">&quot;additionalCompilerArguments&quot;</span>]
+38:     <span class="ruby-identifier">additional_compiler_args</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-value str">&quot;../locale/&quot;</span>, <span class="ruby-node">&quot;#{APP_ROOT}/app/locale/&quot;</span>)
+39:     
+40:     <span class="ruby-identifier">cmd</span> = <span class="ruby-node">&quot;#{executable} #{opts} -library-path+=#{libs.join(',')} &quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">additional_compiler_args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; #{project_path.gsub(' ', '\ ')}&quot;</span>
+41:     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Compiling #{project_path}&quot;</span>
+42:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">system</span>(<span class="ruby-identifier">cmd</span>)
+43:       <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">makedirs</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">APP_ROOT</span>, <span class="ruby-identifier">destination</span>)
+44:       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Moving #{target_project_path} to &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">APP_ROOT</span>, <span class="ruby-identifier">destination</span>)
+45:       <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mv</span> <span class="ruby-identifier">target_project_path</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">APP_ROOT</span>, <span class="ruby-identifier">destination</span>), <span class="ruby-identifier">:force</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+46:       <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">target_project_air_descriptor</span>)
+47:         <span class="ruby-identifier">descriptor</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">target_project_air_descriptor</span>)
+48:         <span class="ruby-identifier">descriptor_name</span> = <span class="ruby-identifier">target_project_air_descriptor</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;/&quot;</span>).<span class="ruby-identifier">last</span>
+49:         <span class="ruby-identifier">app_swf</span> = <span class="ruby-identifier">target_project_path</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;/&quot;</span>).<span class="ruby-identifier">last</span>
+50:         <span class="ruby-identifier">descriptor</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-value str">&quot;[This value will be overwritten by Flex Builder in the output app.xml]&quot;</span>, 
+51:           <span class="ruby-identifier">app_swf</span>)
+52: 
+53:         <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{APP_ROOT}/#{destination}/#{descriptor_name}&quot;</span>, <span class="ruby-value str">&quot;w&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+54:           <span class="ruby-identifier">file</span>.<span class="ruby-identifier">print</span> <span class="ruby-identifier">descriptor</span>
+55:         <span class="ruby-keyword kw">end</span>
+56:         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Created #{APP_ROOT}/#{destination}/#{descriptor_name} descriptor.&quot;</span>
+57:       <span class="ruby-keyword kw">end</span>
+58:       <span class="ruby-identifier">puts</span> <span class="ruby-value str">'Done!'</span>
+59:     <span class="ruby-keyword kw">else</span>
+60:       <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;The application was not compiled. Check console for errors. &quot;</span> <span class="ruby-operator">&lt;&lt;</span>
+61:         <span class="ruby-value str">&quot;It is possible that '(a)mxmlc' executable was not found or there are compilation errors.&quot;</span>
+62:     <span class="ruby-keyword kw">end</span>
+63:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
 </div>
 <div class="method">
   <div class="title">
-    <a name="M000004"></a><b>get_executable</b>(executable)
-[&nbsp;<a href="tasks_rb.src/M000004.html" target="SOURCE_CODE" onclick="javascript:openCode('tasks_rb.src/M000004.html'); return false;">source</a>&nbsp;]
+    <a name="M000005"></a><b>get_app_properties</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000005_source')" id="l_M000005_source">show source</a> ]</p>
+  <div id="M000005_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/tasks.rb, line 81</span>
+81:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_app_properties</span>
+82:     <span class="ruby-constant">REXML</span><span class="ruby-operator">::</span><span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">APP_ROOT</span>, <span class="ruby-value str">&quot;.actionScriptProperties&quot;</span>)))
+83:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000006"></a><b>get_executable</b>(executable)
   </div>
   <div class="description">
   <p>
 Get appropriate executable based on platform
 </p>
   </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000006_source')" id="l_M000006_source">show source</a> ]</p>
+  <div id="M000006_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/tasks.rb, line 86</span>
+86:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_executable</span>(<span class="ruby-identifier">executable</span>)
+87:     <span class="ruby-keyword kw">if</span> <span class="ruby-constant">RUBY_PLATFORM</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/mswin32/</span>
+88:       <span class="ruby-identifier">executable</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'.exe'</span>
+89:     <span class="ruby-keyword kw">end</span>
+90:     <span class="ruby-identifier">executable</span>
+91:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
 </div>
 <div class="method">
   <div class="title">
-    <a name="M000003"></a><b>get_main_application</b>()
-[&nbsp;<a href="tasks_rb.src/M000003.html" target="SOURCE_CODE" onclick="javascript:openCode('tasks_rb.src/M000003.html'); return false;">source</a>&nbsp;]
+    <a name="M000004"></a><b>get_main_application</b>()
   </div>
   <div class="description">
   <p>
 Find what the main application is based on .actionScriptProperties file
 </p>
   </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000004_source')" id="l_M000004_source">show source</a> ]</p>
+  <div id="M000004_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/tasks.rb, line 77</span>
+77:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_main_application</span>
+78:     <span class="ruby-identifier">get_app_properties</span>().<span class="ruby-identifier">root</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'mainApplicationPath'</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;/&quot;</span>).<span class="ruby-identifier">last</span>
+79:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000003"></a><b>run_air_application</b>(params = {})
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000003_source')" id="l_M000003_source">show source</a> ]</p>
+  <div id="M000003_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/tasks.rb, line 65</span>
+65:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_air_application</span>(<span class="ruby-identifier">params</span> = {})
+66:     <span class="ruby-identifier">application</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:application</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">get_main_application</span>
+67:     <span class="ruby-identifier">descriptor</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:descriptor</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">application</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/.mxml$/</span>, <span class="ruby-value str">'-app.xml'</span>)
+68:     <span class="ruby-identifier">destination</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:destination</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'bin-debug'</span>
+69:     
+70:     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Running AIR application with descriptor: #{descriptor}&quot;</span>
+71:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">system</span>(<span class="ruby-node">&quot;#{get_executable('adl')} #{destination}/#{descriptor}&quot;</span>)
+72:       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Could not run the application with descriptor: #{destination}/#{descriptor}. Check console for errors.&quot;</span>
+73:     <span class="ruby-keyword kw">end</span>
+74:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
 </div>
 </div>
 
