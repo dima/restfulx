@@ -96,8 +96,15 @@ class RxConfigGenerator < Rails::Generator::Base
       framework_destination_file = "lib/restfulx-#{framework_release}.swc"
       
       if !options[:skip_framework] && !File.exist?(framework_destination_file)
-        puts "fetching #{framework_release} framework binary from: #{framework_distribution_url} ..."
-        open(framework_destination_file, "wb").write(open(framework_distribution_url).read)
+        puts "Fetching #{framework_release} framework binary from: #{framework_distribution_url} ..."
+        begin
+          framework_swc = open(framework_distribution_url).read
+        rescue
+          puts "ERROR: Unable to download and install #{framework_distribution_url}."
+          puts "Please check your internet connectivity and try again."
+          exit
+        end
+        open(framework_destination_file, "wb").write(framework_swc) unless framework_swc.blank?
         puts "done. saved to #{framework_destination_file}"
       end
 
