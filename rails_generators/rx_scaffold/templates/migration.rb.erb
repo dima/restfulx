@@ -19,10 +19,10 @@ class <%= migration_name %> < ActiveRecord::Migration
 <% if attachment_field.size > 0 -%>
 <% if RxSettings.attachment_plugin == 'paperclip' -%>
       # For paperclip
-      t.column :avatar_file_name, :string
-      t.column :avatar_content_type, :string
-      t.column :avatar_file_size, :integer
-      t.column :avatar_updated_at, :datetime
+      t.column :<%= attachment_field[0] %>_file_name, :string
+      t.column :<%= attachment_field[0] %>_content_type, :string
+      t.column :<%= attachment_field[0] %>_file_size, :integer
+      t.column :<%= attachment_field[0] %>_updated_at, :datetime
 <% elsif RxSettings.attachment_plugin == 'attachment_fu' -%>
       # For attachment_fu
       t.column :parent_id,  :integer
