@@ -1,11 +1,26 @@
-# When you do file uploads from Flash with File.upload() that, unfortunately generates a new session id,
-# which will fail to authenticate if you are using restful-authentication plugin or equivalent.
-#
-# The following code is a work-around for the Flash bug that prevents file uploader
-# from sending correct session_id. Here, we hack the Session#initialize method and force the session_id
-# to load from the query string via the request URI.
-#
-# Based on the code from http://seventytwo.co.uk/posts/making-swfupload-and-rails-work-together
+# the following patches allow us to overwrite session key on file uploads from Flash, 
+# which ends up creating a new session for every File.upload() invocation.
+
+<% if RAILS_GEM_VERSION =~ /^2.3/ -%>
+require 'rack/utils'
+
+class FlashSessionCookieMiddleware
+  def initialize(app, session_key = '_session_id')
+    @app = app
+    @session_key = session_key
+    @session_token = "_session_id"
+  end
+
+  def call(env)
+    if env['HTTP_USER_AGENT'] =~ /^(Adobe|Shockwave) Flash/
+      params = ::Rack::Utils.parse_query(env['QUERY_STRING'])
+      debugger
+      env['HTTP_COOKIE'] = [ @session_key, params[@session_token] ].join('=').freeze unless params[@session_token].nil?
+    end
+    @app.call(env)
+  end
+end
+<% else -%>
 class CGI::Session
   alias original_initialize initialize
 
@@ -26,6 +41,7 @@ class CGI::Session
     return option
   end
 end
+<% end -%>
 
 # If you have configured your Rails/Flex/AIR application to share authenticity_token
 # comment this out to enable forgery protection. By default, this is disabled to allow

@@ -61,6 +61,8 @@ class RxConfigGenerator < Rails::Generator::Base
       m.template 'restfulx.yml', 'config/restfulx.yml'
       m.template 'restfulx.erb', 'config/initializers/restfulx.rb'
       
+      m.template 'session_store_flash.erb', 'config/initializers/session_store_flash.rb' if RAILS_GEM_VERSION =~ /2.3/
+      
       m.directory "#{flex_root}"
       
       if @use_air
@@ -117,7 +119,7 @@ class RxConfigGenerator < Rails::Generator::Base
       
       m.template 'index.erb', 'app/views/flex/index.html.erb'
       
-      m.file 'routes.erb', 'config/routes.rb', :collision => :force
+      m.file 'routes.erb', 'config/routes.rb', :collision => :ask
       
       FileUtils.rm 'public/index.html' if File.exist?('public/index.html')
               

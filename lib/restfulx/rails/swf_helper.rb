@@ -34,7 +34,11 @@ module SWFHelper
         params[:flash_vars].reverse_merge!(:authenticity_token => form_authenticity_token)
       end
       if params[:include_session_token]
-        params[:flash_vars].reverse_merge!(:session_token => request.session_options[:id])
+        if RAILS_GEM_VERSION =~ /^2.3/
+          params[:flash_vars].reverse_merge!(:session_token => request.session_options[:id])
+        else
+          params[:flash_vars].reverse_merge!(:session_token => session.session_id)
+        end
       end        
     end          
     

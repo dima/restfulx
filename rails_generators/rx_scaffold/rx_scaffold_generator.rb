@@ -158,6 +158,13 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
           :migration_name => "Create#{class_name.pluralize.gsub(/::/, '')}"
         }, :migration_file_name => "create_#{file_path.gsub(/\//, '_').pluralize}" unless options[:flex_only]
       end
+
+      m.directory(File.join('test/functional', controller_class_path))
+      m.directory(File.join('test/unit', class_path))
+      m.directory(File.join('test/unit/helpers', class_path))
+
+      m.template('functional_test.rb', File.join('test/functional', controller_class_path, "#{controller_file_name}_controller_test.rb"))
+      m.template('helper_test.rb',     File.join('test/unit/helpers',    controller_class_path, "#{controller_file_name}_helper_test.rb"))
       
       m.route_resources controller_file_name
 
