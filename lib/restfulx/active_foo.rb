@@ -88,6 +88,9 @@ module ActiveSupport
           options[:indent]   ||= 2
           options[:builder]  ||= Builder::XmlMarkup.new(:indent => options[:indent])
           options.merge!(:dasherize => false)
+          
+          options[:attributes] ||= {}
+          options[:attributes].merge!(:type => "array")
 
           root     = options.delete(:root).to_s
           children = options.delete(:children)
@@ -102,9 +105,9 @@ module ActiveSupport
 
           xml = options[:builder]
           if empty?
-            xml.tag!(root, options[:skip_types] ? {} : {:type => "array"})
+            xml.tag!(root, options[:attributes])
           else
-            xml.tag!(root, options[:skip_types] ? {} : {:type => "array"}) {
+            xml.tag!(root, options[:attributes]) {
               yield xml if block_given?
               each { |e| e.to_fxml(opts.merge!({ :skip_instruct => true })) }
             }
