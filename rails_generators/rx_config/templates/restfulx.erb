@@ -20,6 +20,28 @@ class FlashSessionCookieMiddleware
     @app.call(env)
   end
 end
+
+class FlexNestedAttributeMiddleware
+  def initialize(app)
+    @app = app
+  end
+  
+  def call(env)
+    req = Rack::Request.new(env)        
+    if req && req.path_info =~ /\.fxml$/
+      if req.put? || req.post? || req.delete?
+        req.params.each do |key,value| 
+          matches = value.detect { |k,v| k =~ /\_attributes$/ }
+          req.params[key][matches[0]] = ActiveSupport::JSON.decode(matches[1]) if matches
+        end
+      end
+    end
+    env['rack.request'] = req
+    @app.call(env)
+  end
+end
+
+ActionController::Dispatcher.middleware.insert_after 'ActionController::ParamsParser', FlexNestedAttributeMiddleware
 <% else -%>
 class CGI::Session
   alias original_initialize initialize
