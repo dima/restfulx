@@ -155,7 +155,7 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
       unless options[:skip_migration]
         FileUtils.rm Dir.glob("db/migrate/[0-9]*_create_#{file_path.gsub(/\//, '_').pluralize}.rb"), :force => true        
         m.migration_template 'migration.rb.erb', 'db/migrate', :assigns => {
-          :migration_name => "Create#{class_name.pluralize.gsub(/::/, '')}"
+          :migration_name => "Create#{file_path.gsub(/\//, '_').pluralize.camelcase.gsub(/::/, '')}"
         }, :migration_file_name => "create_#{file_path.gsub(/\//, '_').pluralize}" unless options[:flex_only]
       end
 
