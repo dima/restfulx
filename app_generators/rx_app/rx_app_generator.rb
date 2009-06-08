@@ -79,11 +79,11 @@ class RxAppGenerator < RubiGen::Base
         m.template 'index.html.erb', 'public/index.html'
       end
       
-      %w(components controllers commands models events).each do |dir|
+      %w(views controllers commands models events helpers).each do |dir|
         m.directory "#{flex_root}/#{base_folder}/#{dir}"
       end
       
-      m.directory "#{flex_root}/#{base_folder}/components/generated"
+      m.directory "#{flex_root}/#{base_folder}/views/generated"
 
       m.template 'project-textmate.erb', "#{project_name}.tmproj"
       m.template 'mainapp.mxml', File.join("#{flex_root}", "#{flex_project_name}.mxml")

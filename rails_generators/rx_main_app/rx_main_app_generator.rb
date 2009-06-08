@@ -43,8 +43,8 @@ class RxMainAppGenerator < Rails::Generator::Base
     end
 
     @component_names = []
-    if File.exists?("#{flex_root}/#{base_folder}/components/generated")
-      @component_names = list_mxml_files("#{flex_root}/#{base_folder}/components/generated")
+    if File.exists?("#{flex_root}/#{base_folder}/views/generated")
+      @component_names = list_mxml_files("#{flex_root}/#{base_folder}/views/generated")
     end
   end
 

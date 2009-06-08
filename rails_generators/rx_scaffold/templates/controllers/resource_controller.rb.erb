@@ -10,8 +10,8 @@ class <%= controller_class_name %>Controller < ResourceController::Base
   update.failure.wants.fxml   { render :fxml => @object.errors }
   destroy.wants.fxml          { render :fxml => @object }
 
-private
-
+  private
+  
   def collection
     @collection = end_of_association_chain.all
   end

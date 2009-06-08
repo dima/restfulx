@@ -49,8 +49,8 @@ class RxConfigGenerator < Rails::Generator::Base
     end
         
     @component_names = []
-    if File.exists?("#{flex_root}/#{base_folder}/components/generated")
-      @component_names = list_mxml_files("#{flex_root}/#{base_folder}/components/generated")
+    if File.exists?("#{flex_root}/#{base_folder}/views/generated")
+      @component_names = list_mxml_files("#{flex_root}/#{base_folder}/views/generated")
     end
   end
 
@@ -87,11 +87,11 @@ class RxConfigGenerator < Rails::Generator::Base
         m.file "html-template/history/#{file}", "html-template/history/#{file}"
       end
       
-      %w(components controllers commands models events).each do |dir|
+      %w(views controllers commands models events helpers).each do |dir|
         m.directory "#{flex_root}/#{base_folder}/#{dir}"
       end
       
-      m.directory "#{flex_root}/#{base_folder}/components/generated"
+      m.directory "#{flex_root}/#{base_folder}/views/generated"
       
       framework_release = RestfulX::FRAMEWORK_VERSION
       framework_distribution_url = "http://restfulx.github.com/releases/restfulx-#{framework_release}.swc"

@@ -9,12 +9,14 @@
     import <%= base_package %>.models.<%= model.camelcase %>;
 <% end -%>
 <% if attachment_field.size > 0 -%>
+    import flash.net.FileReference;
     import org.restfulx.utils.RxFileReference;
 <% end -%>
 
     [Bindable]
     private var <%= class_name.dcfirst %>:<%= class_name %> = new <%= class_name %>();
 <% if attachment_field.size > 0 -%>
+
     [Bindable]
     private var fileName:String = "None selected";
     
@@ -83,10 +85,10 @@
 
     private function chooseFile():void {
       file = new RxFileReference("<%= attachment_field[0].camelcase(:lower) %>");
-      file.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler, false, 0, true);
-      file.addEventListener(Event.SELECT, selectFile, false, 0, true);
-      file.addEventListener(Event.CANCEL, cancelBrowse, false, 0, true);
-      file.browse();
+      file.reference.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler, false, 0, true);
+      file.reference.addEventListener(Event.SELECT, selectFile, false, 0, true);
+      file.reference.addEventListener(Event.CANCEL, cancelBrowse, false, 0, true);
+      file.reference.browse();
     }
     
     private function selectFile(event:Event):void { 
@@ -98,7 +100,7 @@
     }
     
     private function fileSelected(event:Event):void {
-      fileName = RxFileReference(event.target).name;
+      fileName = FileReference(event.target).name;
     }
     
     private function ioErrorHandler(event:Event):void {
