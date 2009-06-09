@@ -27,16 +27,16 @@ class FlexNestedAttributeMiddleware
   end
   
   def call(env)
-    req = Rack::Request.new(env)        
+    req = Rack::Request.new(env)
     if req && req.path_info =~ /\.fxml$/
       if req.put? || req.post? || req.delete?
-        req.params.each do |key,value| 
-          matches = value.detect { |k,v| k =~ /\_attributes$/ }
-          req.params[key][matches[0]] = ActiveSupport::JSON.decode(matches[1]) if matches
+        req.params.each do |key,value|
+          value.select { |k,v| k =~ /\_attributes$/ }.each do |match|
+            env['rack.request.form_hash'][key][match[0]] = ActiveSupport::JSON.decode(match[1])
+          end
         end
       end
     end
-    env['rack.request'] = req
     @app.call(env)
   end
 end

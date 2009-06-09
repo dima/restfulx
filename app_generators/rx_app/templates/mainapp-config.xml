@@ -11,6 +11,7 @@
        <name>DateTime</name>
        <name>Lazy</name>
        <name>Ignored</name>
+       <name>Nested</name>
     </keep-as3-metadata>
     <optimize>true</optimize>
     <keep-generated-actionscript>false</keep-generated-actionscript>
