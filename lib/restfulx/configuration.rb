@@ -1,6 +1,15 @@
 # Interestingly enough there's no way to *just* upper-case or down-case first letter of a given
 # string. Ruby's own +capitalize+ actually downcases all the rest of the characters in the string
 # We patch the class to add our own implementation.
+require "yaml" 
+require "erb" 
+require File.dirname(__FILE__) + "/rails/schema_to_yaml/settings/config" 
+require File.dirname(__FILE__) + "/rails/schema_to_yaml/settings/core" 
+
+Dir[File.dirname(__FILE__) + "/rails/schema_to_yaml/extensions/*.rb"].each do |f|
+  require f
+end
+
 class String
   # Upper-case first character of a string leave the rest of the string intact
   def ucfirst
@@ -20,6 +29,8 @@ module RestfulX
   module Configuration
     # We try to figure out the application root using a number of possible options
     APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : defined?(Merb) ? Merb.root : File.expand_path(".")
+    
+    RxSettings = SchemaToYaml::Settings::Core
 
     # Extract project, package, controller name, etc from the environment. This will respect
     # config/restfulx.yml if it exists, you can override all of the defaults there.
@@ -35,12 +46,12 @@ module RestfulX
       # give a chance to override the settings via restfulx.yml
       begin      
         config = YAML.load(File.open("#{APP_ROOT}/config/restfulx.yml"))
-        base_package = config['base-package'] || flex_project_name.downcase
+        base_package = config['base_package'] || flex_project_name.downcase
         base_folder = base_package.gsub('.', '/')
-        project_name = config['project-name'].downcase.gsub(/\W/, '') || project_name
+        project_name = config['project_name'].downcase.gsub(/\W/, '') || project_name
         flex_project_name = project_name.camelize
-        controller_name = config['controller-name'] || "ApplicationController"
-        flex_root = config['flex-root'] || "app/flex"
+        controller_name = config['controller_name'] || "ApplicationController"
+        flex_root = config['flex_root'] || "app/flex"
         distributed = config['distributed'] || false
       rescue
         base_folder = base_package = flex_project_name.downcase

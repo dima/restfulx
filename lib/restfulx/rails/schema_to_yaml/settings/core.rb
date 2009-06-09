@@ -2,6 +2,9 @@
 # Used to read in settings from restfulx.yml for use in code generation
 module SchemaToYaml
   module Settings
+    # We try to figure out the application root using a number of possible options
+    APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : defined?(Merb) ? Merb.root : File.expand_path(".")
+    
     class Core
       class << self
         def name
@@ -29,7 +32,7 @@ module SchemaToYaml
         when Hash
           self._settings = name_or_hash
         when String, Symbol
-          root_path = defined?(RAILS_ROOT) ? "#{RAILS_ROOT}/config/" : ""
+          root_path = defined?(APP_ROOT) ? "#{APP_ROOT}/config/" : ""
           file_path = name_or_hash.is_a?(Symbol) ? "#{root_path}#{name_or_hash}.yml" : name_or_hash
           self._settings = YAML.load(ERB.new(File.read(file_path)).result)
           self._settings = _settings[RAILS_ENV] if defined?(RAILS_ENV)

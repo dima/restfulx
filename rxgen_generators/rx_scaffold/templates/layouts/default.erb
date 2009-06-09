@@ -8,9 +8,20 @@
 <% for model in belongs_tos -%>
     import <%= base_package %>.models.<%= model.camelcase %>;
 <% end -%>
+<% if attachment_field.size > 0 -%>
+    import flash.net.FileReference;
+    import org.restfulx.utils.RxFileReference;
+<% end -%>
 
     [Bindable]
     private var <%= class_name.dcfirst %>:<%= class_name %> = new <%= class_name %>();
+<% if attachment_field.size > 0 -%>
+
+    [Bindable]
+    private var fileName:String = "None selected";
+    
+    private var file:RxFileReference;
+<% end -%>
 
     private function new<%= class_name %>():void {
       <%= class_name.dcfirst %> = new <%= class_name %>();
@@ -41,36 +52,64 @@
 <% else -%>
       <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_type %>(<%= attribute.flex_name %>TextInput.text);
 <% end -%>
-<% end -%>
-
+<% end -%>  
 <% for model in belongs_tos -%>
       <%= class_name.dcfirst %>.<%= model.camelcase(:lower) %> = <%= model.camelcase %>(<%= model.camelcase(:lower) %>ComboBox.selectedItem);
 <% end -%>
+<% if attachment_field.size > 0 -%>
+      <%= class_name.dcfirst %>.attachment = file;
+<% end -%>
     }
-
+   
     private function destroy<%= class_name %>():void {
       <%= class_name.dcfirst %>.destroy({onSuccess: on<%= class_name %>Destroy});
     }
-  
+    
     private function on<%= class_name %>Select():void {
       <%= class_name.dcfirst %> = RxUtils.clone(<%= class_name.dcfirst.pluralize %>List.selectedItem) as <%= class_name %>;
     }
-  
+    
     private function on<%= class_name %>Create(result:<%= class_name %>):void {
       <%= class_name.dcfirst %> = new <%= class_name %>;
     }
-  
+    
     private function on<%= class_name %>Update(result:<%= class_name %>):void {
       <%= class_name.dcfirst.pluralize %>List.selectedItem = result;
       on<%= class_name %>Select();
     }
-  
+    
     private function on<%= class_name %>Destroy(result:<%= class_name %>):void {
       on<%= class_name %>Create(result);
+    }    
+<% if attachment_field.size > 0 -%>
+
+    private function chooseFile():void {
+      file = new RxFileReference("<%= attachment_field[0].camelcase(:lower) %>");
+      file.reference.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler, false, 0, true);
+      file.reference.addEventListener(Event.SELECT, selectFile, false, 0, true);
+      file.reference.addEventListener(Event.CANCEL, cancelBrowse, false, 0, true);
+      file.reference.browse();
     }
+    
+    private function selectFile(event:Event):void { 
+      fileSelected(event)
+    }
+    
+    private function cancelBrowse(event:Event):void {
+      file = null;
+    }
+    
+    private function fileSelected(event:Event):void {
+      fileName = FileReference(event.target).name;
+    }
+    
+    private function ioErrorHandler(event:Event):void {
+      fileChooser.errorString = "Failed to selected a file. Please try again.";
+    }
+<% end -%>
   ]]></mx:Script>
   <mx:Panel id="<%= class_name.dcfirst.pluralize %>Panel"
-    title="<%= class_name.pluralize %>" cornerRadius="0" dropShadowEnabled="false" borderStyle="solid" 
+    title="<%= class_name.pluralize %>" cornerRadius="0" dropShadowEnabled="false" borderStyle="solid"
     borderThickness="1" backgroundColor="#EEEEEE" width="25%" height="100%">
     <mx:List id="<%= class_name.dcfirst.pluralize %>List"
       width="100%" height="100%"
@@ -81,7 +120,7 @@
         click="new<%= class_name %>()"/>
     </mx:ControlBar>
   </mx:Panel>
-  <mx:Panel title="Edit <%= class_name %>" cornerRadius="0" dropShadowEnabled="false" borderStyle="solid" 
+  <mx:Panel title="Edit <%= class_name %>" cornerRadius="0" dropShadowEnabled="false" borderStyle="solid"
     borderThickness="1" backgroundColor="#EEEEEE" width="75%" height="100%">
     <mx:Form width="100%" height="100%">
 <% for attribute in attributes -%>
@@ -101,12 +140,19 @@
 <% end -%>
       </mx:FormItem>
 <% end -%>
+<% if attachment_field.size > 0 -%>
+      <mx:FormItem label="<%= attachment_field[0].camelcase %>:" width="100%" id="fileChooser">
+        <mx:Button label="Browse…" id="fileBrowseButton" click="chooseFile()"/>
+        <mx:Label text="{fileName}" maxWidth="190"/>
+        <mx:Image source="{<%= class_name.dcfirst %>.attachmentUrl}"/>
+      </mx:FormItem>
+<% end -%>
 <% for model in belongs_tos -%>
       <mx:FormItem label="<%= model.camelcase %>" width="100%">
         <mx:ComboBox id="<%= model.camelcase(:lower) %>ComboBox" width="200"
           labelField="{<%= model.camelcase %>.LABEL}"
           dataProvider="{Rx.models.index(<%= model.camelcase %>)}" prompt="<%= model.camelcase %> ..."
-          selectedItem="{<%= class_name.dcfirst %>.<%= model.camelcase(:lower) %>}" />
+          selectedItem="{<%= class_name.dcfirst %>.<%= model.camelcase(:lower) %>}"/>
       </mx:FormItem>
 <% end -%>
     </mx:Form>

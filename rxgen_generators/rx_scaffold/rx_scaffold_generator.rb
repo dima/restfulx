@@ -70,7 +70,14 @@ class RxScaffoldGenerator < RubiGen::Base
 
   attr_reader   :belongs_tos, 
                 :has_manies,
-                :has_ones
+                :has_ones,
+                :attachment_field,
+                :has_many_through,
+                :polymorphic,
+                :tree_model,
+                :layout,
+                :ignored_fields,
+                :args_for_generation
     
   attr_reader   :name,
                 :class_name,
@@ -98,9 +105,15 @@ class RxScaffoldGenerator < RubiGen::Base
         File.join("#{flex_root}", base_folder, "models", "#{@class_name}.as"), 
         :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
 
-      m.template 'component.mxml.erb',
-        File.join("#{flex_root}", base_folder, "views", "generated", "#{@class_name}Box.mxml"), 
-        :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+      if @layout.size > 0
+        m.template "layouts/#{@layout}.erb",
+          File.join("#{@flex_root}", base_folder, "views", "generated", "#{@class_name}Box.mxml"), 
+          :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+      else
+        m.template "layouts/#{RxSettings.layouts.default}.erb",
+          File.join("#{@flex_root}", base_folder, "views", "generated", "#{@class_name}Box.mxml"), 
+          :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+      end
         
       if options[:gae]
         m.template 'controller.py.erb', "app/controllers/#{file_name.pluralize}.py"
@@ -113,23 +126,57 @@ class RxScaffoldGenerator < RubiGen::Base
   
   protected
   def extract_relationships
+    # arrays
     @belongs_tos = []
     @has_ones = []
     @has_manies = []
-    # Figure out has_one, has_many and belongs_to based on args
+    @attachment_field = []
+    @polymorphic = []
+    @tree_model = []
+    @layout = []
+    @ignored_fields = []
+    
+    # hashes
+    @has_many_through = {}
+
     @args.each do |arg|
+      # arrays
       if arg =~ /^has_one:/
-        # arg = "has_one:arg1,arg2", so all the has_one are together
         @has_ones = arg.split(':')[1].split(',')
       elsif arg =~ /^has_many:/
-        # arg = "has_many:arg1,arg2", so all the has_many are together 
         @has_manies = arg.split(":")[1].split(",")
-      elsif arg =~ /^belongs_to:/ # belongs_to:arg1,arg2
+      elsif arg =~ /^belongs_to:/
         @belongs_tos = arg.split(":")[1].split(',')
+      elsif arg =~ /^attachment_field:/
+        @attachment_field = arg.split(":")[1].split(',')
+      elsif arg =~ /^polymorphic:/
+        @polymorphic = arg.split(":")[1].split(',')
+      elsif arg =~ /^tree_model:/
+        @tree_model = arg.split(":")[1].split(',')
+      elsif arg =~ /^layout:/
+        @layout = arg.split(":")[1].split(',')
+      elsif arg =~ /^ignored_fields:/
+        @ignored_fields = arg.split(":")[1].split(',')
+      # hashes
+      elsif arg =~ /^has_many_through:/
+        hmt_arr = arg.split(":")[1].split(',')
+        @has_many_through[hmt_arr.first] = hmt_arr.last
       end
     end
     
-    @args.delete_if { |elt| elt =~ /^(has_one|has_many|belongs_to):/ }
+    # delete special fields from @args ivar
+    %w(has_one has_many belongs_to attachment_field has_many_through 
+      polymorphic tree_model layout ignored_fields).each do |special_field|
+      @args.delete_if { |f| f =~ /^(#{special_field}):/ }
+    end
+    
+    @args_for_generation = @args.clone
+    
+    # delete ignored_fields from @args ivar
+    @ignored_fields.each do |ignored|
+      @args.delete_if { |f| f =~ /^(#{ignored}):/ }
+    end
+    
   end
 
   def attributes

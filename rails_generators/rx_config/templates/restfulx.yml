@@ -2,22 +2,22 @@
 
 # This option controls what the main Flex application file will be called.
 # By default it will be equal to the name of your rails project camelized
-project-name: <%= project_name %>
+project_name: <%= project_name %>
 
 # This options determines what the root folder for generated Flex code is.
 # By default 'app/flex'
-flex-root: <%= flex_root %>
+flex_root: <%= flex_root %>
 
 # By default flex models, commands, controllers and components are genearated into
 # <flex-root>/<your rails project name> folder. If you'd like to customize the target folder 
 # (to say append a "com" package before your rails project name) uncomment the line below
 # base-package must follow the usual flex package notation (a string separated by ".")
-base-package: <%= base_package %>
+base_package: <%= base_package %>
 
 # Main RestfulX controller is typically named AppicationController. This controller is created in 
 # <base-package>.controllers folder. You can customize the name by uncommenting the following line 
 # and changing the controller name.
-controller-name: <%= command_controller_name %>
+controller_name: <%= command_controller_name %>
 
 # If you are using Rails on the back-end and Adobe AIR as the client you can generate Rails/Flex/AIR
 # code to take advantage of synchronization (online/offline) support in RestfulX by changing the following

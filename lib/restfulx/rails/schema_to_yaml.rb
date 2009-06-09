@@ -1,18 +1,7 @@
 # Used for analyzing your schema and exporting a model.yml file for Rx
-require "yaml" 
-require "erb" 
-require File.dirname(__FILE__) + "/schema_to_yaml/settings/config" 
-require File.dirname(__FILE__) + "/schema_to_yaml/settings/core" 
-
-Dir[File.dirname(__FILE__) + "/schema_to_yaml/extensions/*.rb"].each do |f|
-  require f
-end
-
 # Provides facilities to convert an existing Rails application schema.rb file to 
 # RestfulX model.yml file
 module SchemaToYaml
-  RxSettings = SchemaToYaml::Settings::Core
-
   # SchemaToYaml.schema_to_yaml
   #  - set of commands that introspects your database and formats your model.yml for export
   def self.schema_to_yaml
