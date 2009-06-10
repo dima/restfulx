@@ -14,6 +14,8 @@ class RxConfigGenerator < RubiGen::Base
         open(framework_destination_file, "wb").write(open(framework_distribution_url).read)
         puts "done. saved to #{framework_destination_file}"
       end
+
+      m.dependency 'rx_controller', @args
     end
   end
 end
