@@ -27,7 +27,7 @@ import datetime, iso8601
 
 # Some useful module methods
 def all(model):
-  items = "".join(str(item.to_xml()) for item in model.all())
+  items = "".join(str(item.to_xml().encode('UTF-8')) for item in model.all())
   if items == "":
     return '<entities type="array"/>'
   else:
