@@ -165,8 +165,10 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
 
       m.template('functional_test.rb', File.join('test/functional', controller_class_path, "#{controller_file_name}_controller_test.rb"))
       m.template('helper_test.rb',     File.join('test/unit/helpers',    controller_class_path, "#{controller_file_name}_helper_test.rb"))
-      
-      m.route_resources controller_file_name
+
+      if File.open('config/routes.rb').grep(/^\s*map.resources :#{controller_file_name}/).empty?
+        m.route_resources controller_file_name
+      end
 
       m.dependency 'rx_controller', [name] + @args, :collision => :force
     end
