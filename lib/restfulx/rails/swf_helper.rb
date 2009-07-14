@@ -10,8 +10,8 @@ module SWFHelper
                            :version => '9.0.0',
                            :express_install_swf => '/expressInstall.swf',
                            :flash_vars => nil,
-                           :params => nil,
-                           :attributes => nil,
+                           :params => { },
+                           :attributes => { },
                            :create_div => false, 
                            :include_authenticity_token => true,
                            :include_session_token => true
