@@ -125,7 +125,7 @@ Gem::Specification.new do |s|
      "spec/restfulx_spec.rb",
      "spec/spec_helper.rb",
      "tasks/restfulx.rake",
-     "test/rails/controllers/application.rb",
+     "test/rails/controllers/application_controller.rb",
      "test/rails/controllers/locations_controller.rb",
      "test/rails/controllers/notes_controller.rb",
      "test/rails/controllers/projects_controller.rb",
@@ -167,7 +167,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "spec/restfulx_spec.rb",
      "spec/spec_helper.rb",
-     "test/rails/controllers/application.rb",
+     "test/rails/controllers/application_controller.rb",
      "test/rails/controllers/locations_controller.rb",
      "test/rails/controllers/notes_controller.rb",
      "test/rails/controllers/projects_controller.rb",
