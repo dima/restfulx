@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
 end
 
-class RailsIntegrationFunctionalTest < Test::Unit::TestCase
+class RailsIntegrationFunctionalTest < ActiveRecord::TestCase
   fixtures :all
   
   def setup    

@@ -3,7 +3,7 @@ $:.unshift(File.dirname(__FILE__) + '/../../lib')
 schema_file = File.join(File.dirname(__FILE__), '..', 'schema.rb')
 ENV["RAILS_ENV"] = "test"
 
-require File.join(File.dirname(__FILE__), '..', 'controllers', 'application')
+require File.join(File.dirname(__FILE__), '..', 'controllers', 'application_controller')
 require File.join(File.dirname(__FILE__), '..', 'controllers', 'notes_controller')
 
 config = YAML::load(IO.read(File.join(File.dirname(__FILE__), '..', 'database.yml')))['test']

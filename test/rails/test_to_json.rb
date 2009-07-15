@@ -8,7 +8,7 @@ require 'models/task'
 require 'models/user'
 require 'models/simple_property'
 
-class ToJsonTest < Test::Unit::TestCase
+class ToJsonTest < ActiveRecord::TestCase
   fixtures :locations, :notes, :projects, :tasks, :users, :simple_properties
   
   def test_to_json_sanity

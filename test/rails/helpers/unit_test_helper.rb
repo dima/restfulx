@@ -13,7 +13,6 @@ require 'active_record'
 require 'active_record/fixtures'
 require 'action_controller'
 require 'action_controller/test_case'
-require 'action_controller/assertions'
 require 'action_controller/test_process'
 require 'action_controller/integration'
 require 'sqlite3'
@@ -26,5 +25,5 @@ ActiveRecord::Base.establish_connection(config)
 
 load(schema_file) if File.exist?(schema_file)
 
-Test::Unit::TestCase.fixture_path = File.join(File.dirname(__FILE__), '..', 'fixtures')
-$:.unshift(Test::Unit::TestCase.fixture_path)
+ActiveSupport::TestCase.fixture_path.fixture_path = File.join(File.dirname(__FILE__), '..', 'fixtures')
+$:.unshift(ActiveSupport::TestCase.fixture_path.fixture_path)

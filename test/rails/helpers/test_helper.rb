@@ -9,7 +9,6 @@ require 'active_record'
 require 'active_record/fixtures'
 require 'action_controller'
 require 'action_controller/test_case'
-require 'action_controller/assertions'
 require 'action_controller/test_process'
 require 'action_controller/integration'
 require 'sqlite3'
@@ -31,13 +30,7 @@ class MockResponse
 
 end
 
-class Test::Unit::TestCase #:nodoc:
-  # Turn off transactional fixtures if you're working with MyISAM tables in MySQL
-  self.use_transactional_fixtures = true
-
-  # Instantiated fixtures are slow, but give you @david where you otherwise would need people(:david)
-  self.use_instantiated_fixtures  = true
-
+class ActiveRecord::TestCase #:nodoc:
   # Add more helper methods to be used by all tests here...
 
   # Use this to test xml or fxml responses in unit tests.  For example,

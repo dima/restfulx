@@ -10,6 +10,8 @@ begin
     gem.rubyforge_project = "restfulx"
     gem.authors = ["Dima Berastau"]
     gem.files =  FileList["[A-Z]*", "{bin,app_generators,rails_generators,rxgen_generators,lib,test,spec,tasks}/**/*"]
+    gem.files.exclude 'test/**/*.log', 'test/**/*.sqlite3'
+    gem.test_files.exclude 'test/**/*.log', 'test/**/*.sqlite3'
     gem.add_dependency('rubigen', '>= 1.5.0')
     gem.add_dependency('activesupport', '>=2.0.0')
   end

@@ -8,7 +8,7 @@ require 'models/task'
 require 'models/user'
 require 'models/simple_property'
 
-class ToFxmlTest < Test::Unit::TestCase
+class ToFxmlTest < ActiveRecord::TestCase
   fixtures :locations, :notes, :projects, :tasks, :users, :simple_properties
   
   def test_to_fxml_sanity
