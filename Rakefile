@@ -14,7 +14,7 @@ begin
     gem.add_dependency('activesupport', '>=2.0.0')
   end
 rescue LoadError
-  puts "Jeweler not available. Install it with: sudo gem install dima-jeweler -s http://gems.github.com"
+  puts "Jeweler not available. Install it with: sudo gem install jeweler"
 end
 
 require 'rake/rdoctask'

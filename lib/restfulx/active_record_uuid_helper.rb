@@ -11,7 +11,7 @@ module RestfulX
     end
   
     def generate_uuid
-      self.id = UUID.random_create.to_s.gsub("-", "") unless self.id
+      self.id = UUIDTools::UUID.random_create.to_s.gsub("-", "") unless self.id
     end
   end
 end
