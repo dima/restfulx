@@ -113,7 +113,7 @@
 <pre>
     <span class="ruby-comment cmt"># File lib/restfulx/active_record_uuid_helper.rb, line 13</span>
 13:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_uuid</span>
-14:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span> = <span class="ruby-constant">UUID</span>.<span class="ruby-identifier">random_create</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;-&quot;</span>, <span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>
+14:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span> = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">random_create</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;-&quot;</span>, <span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>
 15:     <span class="ruby-keyword kw">end</span>
 </pre>
   </div>

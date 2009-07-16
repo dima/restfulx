@@ -75,13 +75,6 @@ Object
   <div id="bodyContent">
       <div id="content">
  
-  <div class="description"><p>
-Interestingly enough there&#8216;s no way to <b>just</b> upper-case or
-down-case first letter of a given string. Ruby&#8216;s own
-<tt>capitalize</tt> actually downcases all the rest of the characters in
-the string We patch the class to add our own implementation.
-</p>
-</div>
  
  
  
@@ -110,10 +103,10 @@ Down-case first character of a string leaving the rest of it intact
   <p class="source-link">[ <a href="javascript:toggleSource('M000008_source')" id="l_M000008_source">show source</a> ]</p>
   <div id="M000008_source" class="dyn-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/restfulx/configuration.rb, line 11</span>
-11:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dcfirst</span>
-12:     <span class="ruby-keyword kw">self</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>].<span class="ruby-identifier">downcase</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
-13:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/restfulx/configuration.rb, line 20</span>
+20:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dcfirst</span>
+21:     <span class="ruby-keyword kw">self</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>].<span class="ruby-identifier">downcase</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+22:   <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>
@@ -131,10 +124,10 @@ Upper-case first character of a string leave the rest of the string intact
   <p class="source-link">[ <a href="javascript:toggleSource('M000007_source')" id="l_M000007_source">show source</a> ]</p>
   <div id="M000007_source" class="dyn-source">
 <pre>
-   <span class="ruby-comment cmt"># File lib/restfulx/configuration.rb, line 6</span>
-6:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ucfirst</span>
-7:     <span class="ruby-keyword kw">self</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>].<span class="ruby-identifier">capitalize</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
-8:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/restfulx/configuration.rb, line 15</span>
+15:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ucfirst</span>
+16:     <span class="ruby-keyword kw">self</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>].<span class="ruby-identifier">capitalize</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+17:   <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>

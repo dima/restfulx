@@ -109,10 +109,10 @@ Object
   <p class="source-link">[ <a href="javascript:toggleSource('M000029_source')" id="l_M000029_source">show source</a> ]</p>
   <div id="M000029_source" class="dyn-source">
 <pre>
-   <span class="ruby-comment cmt"># File lib/restfulx/rails/schema_to_yaml/settings/core.rb, line 7</span>
-7:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">name</span>
-8:           <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">_settings</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value str">&quot;name&quot;</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">super</span>
-9:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/restfulx/rails/schema_to_yaml/settings/core.rb, line 10</span>
+10:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">name</span>
+11:           <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">_settings</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value str">&quot;name&quot;</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">super</span>
+12:         <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>
@@ -125,23 +125,23 @@ Object
   <p class="source-link">[ <a href="javascript:toggleSource('M000031_source')" id="l_M000031_source">show source</a> ]</p>
   <div id="M000031_source" class="dyn-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/restfulx/rails/schema_to_yaml/settings/core.rb, line 27</span>
-27:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name_or_hash</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">settings_file</span>)
-28:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">name_or_hash</span>
-29:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Hash</span>
-30:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_settings</span> = <span class="ruby-identifier">name_or_hash</span>
-31:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>, <span class="ruby-constant">Symbol</span>
-32:           <span class="ruby-identifier">root_path</span> = <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">RAILS_ROOT</span>) <span class="ruby-operator">?</span> <span class="ruby-node">&quot;#{RAILS_ROOT}/config/&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;&quot;</span>
-33:           <span class="ruby-identifier">file_path</span> = <span class="ruby-identifier">name_or_hash</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-operator">?</span> <span class="ruby-node">&quot;#{root_path}#{name_or_hash}.yml&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">name_or_hash</span>
-34:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_settings</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file_path</span>)).<span class="ruby-identifier">result</span>)
-35:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_settings</span> = <span class="ruby-identifier">_settings</span>[<span class="ruby-constant">RAILS_ENV</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">RAILS_ENV</span>)
-36:         <span class="ruby-keyword kw">else</span>
-37:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Your settings must be a hash, 
-38:             a symbol representing the name of the .yml file in your config directory,
-39:             or a string representing the abosolute path to your settings file.&quot;</span>)
-40:         <span class="ruby-keyword kw">end</span>
-41:         <span class="ruby-identifier">define_settings!</span>
-42:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/restfulx/rails/schema_to_yaml/settings/core.rb, line 30</span>
+30:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name_or_hash</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">settings_file</span>)
+31:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">name_or_hash</span>
+32:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Hash</span>
+33:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_settings</span> = <span class="ruby-identifier">name_or_hash</span>
+34:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>, <span class="ruby-constant">Symbol</span>
+35:           <span class="ruby-identifier">root_path</span> = <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">APP_ROOT</span>) <span class="ruby-operator">?</span> <span class="ruby-node">&quot;#{APP_ROOT}/config/&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;&quot;</span>
+36:           <span class="ruby-identifier">file_path</span> = <span class="ruby-identifier">name_or_hash</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-operator">?</span> <span class="ruby-node">&quot;#{root_path}#{name_or_hash}.yml&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">name_or_hash</span>
+37:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_settings</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file_path</span>)).<span class="ruby-identifier">result</span>)
+38:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_settings</span> = <span class="ruby-identifier">_settings</span>[<span class="ruby-constant">RAILS_ENV</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">RAILS_ENV</span>)
+39:         <span class="ruby-keyword kw">else</span>
+40:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Your settings must be a hash, 
+41:             a symbol representing the name of the .yml file in your config directory,
+42:             or a string representing the abosolute path to your settings file.&quot;</span>)
+43:         <span class="ruby-keyword kw">end</span>
+44:         <span class="ruby-identifier">define_settings!</span>
+45:       <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>
@@ -154,10 +154,10 @@ Object
   <p class="source-link">[ <a href="javascript:toggleSource('M000030_source')" id="l_M000030_source">show source</a> ]</p>
   <div id="M000030_source" class="dyn-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/restfulx/rails/schema_to_yaml/settings/core.rb, line 11</span>
-11:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset!</span>
-12:           <span class="ruby-ivar">@instance</span> = <span class="ruby-keyword kw">nil</span>
-13:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/restfulx/rails/schema_to_yaml/settings/core.rb, line 14</span>
+14:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset!</span>
+15:           <span class="ruby-ivar">@instance</span> = <span class="ruby-keyword kw">nil</span>
+16:         <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>

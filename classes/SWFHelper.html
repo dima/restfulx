@@ -112,8 +112,8 @@ href="SWFHelper.html#M000021">swfobject</a> js library.
 10:                            <span class="ruby-identifier">:version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'9.0.0'</span>,
 11:                            <span class="ruby-identifier">:express_install_swf</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'/expressInstall.swf'</span>,
 12:                            <span class="ruby-identifier">:flash_vars</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>,
-13:                            <span class="ruby-identifier">:params</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>,
-14:                            <span class="ruby-identifier">:attributes</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>,
+13:                            <span class="ruby-identifier">:params</span> =<span class="ruby-operator">&gt;</span> { },
+14:                            <span class="ruby-identifier">:attributes</span> =<span class="ruby-operator">&gt;</span> { },
 15:                            <span class="ruby-identifier">:create_div</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>, 
 16:                            <span class="ruby-identifier">:include_authenticity_token</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>,
 17:                            <span class="ruby-identifier">:include_session_token</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
@@ -136,24 +136,28 @@ href="SWFHelper.html#M000021">swfobject</a> js library.
 34:         <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:flash_vars</span>].<span class="ruby-identifier">reverse_merge!</span>(<span class="ruby-identifier">:authenticity_token</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">form_authenticity_token</span>)
 35:       <span class="ruby-keyword kw">end</span>
 36:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:include_session_token</span>]
-37:         <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:flash_vars</span>].<span class="ruby-identifier">reverse_merge!</span>(<span class="ruby-identifier">:session_token</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">session</span>.<span class="ruby-identifier">session_id</span>)
-38:       <span class="ruby-keyword kw">end</span>        
-39:     <span class="ruby-keyword kw">end</span>          
-40:     
-41:     <span class="ruby-identifier">js_params</span> <span class="ruby-operator">+=</span> [<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:flash_vars</span>], <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:params</span>], <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:attributes</span>]].<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hash_or_string</span><span class="ruby-operator">|</span>
-42:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hash_or_string</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-43:         <span class="ruby-identifier">hash_or_string</span>.<span class="ruby-identifier">to_json</span>
-44:       <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># If it's not a hash, then it should be a string giving the name of the Javascript variable to use</span>
-45:         <span class="ruby-identifier">hash_or_string</span>
-46:       <span class="ruby-keyword kw">end</span>
-47:     <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">compact</span>
-48: 
-49:     <span class="ruby-identifier">swf_tag</span> = <span class="ruby-identifier">javascript_tag</span> <span class="ruby-keyword kw">do</span> 
-50:       <span class="ruby-node">&quot;swfobject.embedSWF(#{js_params.join(',')})&quot;</span>
-51:     <span class="ruby-keyword kw">end</span> 
-52:     <span class="ruby-identifier">swf_tag</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:div</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:create_div</span>]    
-53:     <span class="ruby-identifier">swf_tag</span>
-54:   <span class="ruby-keyword kw">end</span>
+37:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">RAILS_GEM_VERSION</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^2.3/</span>
+38:           <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:flash_vars</span>].<span class="ruby-identifier">reverse_merge!</span>(<span class="ruby-identifier">:session_token</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">session_options</span>[<span class="ruby-identifier">:id</span>])
+39:         <span class="ruby-keyword kw">else</span>
+40:           <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:flash_vars</span>].<span class="ruby-identifier">reverse_merge!</span>(<span class="ruby-identifier">:session_token</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">session</span>.<span class="ruby-identifier">session_id</span>)
+41:         <span class="ruby-keyword kw">end</span>
+42:       <span class="ruby-keyword kw">end</span>        
+43:     <span class="ruby-keyword kw">end</span>          
+44:     
+45:     <span class="ruby-identifier">js_params</span> <span class="ruby-operator">+=</span> [<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:flash_vars</span>], <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:params</span>], <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:attributes</span>]].<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hash_or_string</span><span class="ruby-operator">|</span>
+46:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hash_or_string</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+47:         <span class="ruby-identifier">hash_or_string</span>.<span class="ruby-identifier">to_json</span>
+48:       <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># If it's not a hash, then it should be a string giving the name of the Javascript variable to use</span>
+49:         <span class="ruby-identifier">hash_or_string</span>
+50:       <span class="ruby-keyword kw">end</span>
+51:     <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">compact</span>
+52: 
+53:     <span class="ruby-identifier">swf_tag</span> = <span class="ruby-identifier">javascript_tag</span> <span class="ruby-keyword kw">do</span> 
+54:       <span class="ruby-node">&quot;swfobject.embedSWF(#{js_params.join(',')})&quot;</span>
+55:     <span class="ruby-keyword kw">end</span> 
+56:     <span class="ruby-identifier">swf_tag</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:div</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:create_div</span>]    
+57:     <span class="ruby-identifier">swf_tag</span>
+58:   <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>
