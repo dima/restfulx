@@ -2,141 +2,119 @@
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <title>File: tasks.rb</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-  <meta http-equiv="Content-Script-Type" content="text/javascript" />
-  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
-  <script type="text/javascript">
-  // <![CDATA[
-
-  function popupCode( url ) {
-    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
-  }
-
-  function toggleCode( id ) {
-    if ( document.getElementById )
-      elem = document.getElementById( id );
-    else if ( document.all )
-      elem = eval( "document.all." + id );
-    else
-      return false;
-
-    elemStyle = elem.style;
-    
-    if ( elemStyle.display != "block" ) {
-      elemStyle.display = "block"
-    } else {
-      elemStyle.display = "none"
-    }
-
-    return true;
-  }
-  
-  // Make codeblocks hidden by default
-  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
-  
-  // ]]>
-  </script>
-
-</head>
-<body>
-
-
-
-  <div id="fileHeader">
-    <h1>tasks.rb</h1>
-    <table class="header-table">
-    <tr class="top-aligned-row">
-      <td><strong>Path:</strong></td>
-      <td>lib/restfulx/tasks.rb
-      </td>
-    </tr>
-    <tr class="top-aligned-row">
-      <td><strong>Last Update:</strong></td>
-      <td>Sat Mar 21 13:44:30 -0700 2009</td>
-    </tr>
+<html>
+  <head>
+    <title>File: tasks.rb</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+ 
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+ 
+        function toggleSource( id )
+        {
+          var elem
+          var link
+ 
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+ 
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+ 
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+ 
+  <body>
+  <table border='0' cellpadding='0' cellspacing='0' width="100%" class='banner'>
+  <tr><td>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0'><tr>
+      <td class="file-title" colspan="2"><span class="file-title-prefix">File</span><br />tasks.rb</td>
+      <td align="right">
+        <table border='0' cellspacing="0" cellpadding="2">
+          <tr>
+            <td>Path:</td>
+            <td>lib/restfulx/tasks.rb
+            </td>
+          </tr>
+          <tr>
+            <td>Modified:</td>
+            <td>Sat Mar 21 13:44:30 -0700 2009</td>
+          </tr>
+        </table>
+      </td></tr>
     </table>
-  </div>
-  <!-- banner header -->
-
+  </td></tr>
+</table><br />
+ <!-- banner header -->
+ 
   <div id="bodyContent">
-
-
-
-  <div id="contextContent">
-
-    <div id="description">
-      <p>
+      <div id="content">
+ 
+  <div class="description"><p>
 Rake tasks for building <a
 href="../../../classes/RestfulX.html">RestfulX</a>-based Flex and AIR
 applications
 </p>
-
-    </div>
-
-    <div id="requires-list">
-      <h3 class="section-bar">Required files</h3>
-
-      <div class="name-list">
-      rake&nbsp;&nbsp;
-      rexml/document&nbsp;&nbsp;
-      activesupport&nbsp;&nbsp;
-      </div>
-    </div>
-
-   </div>
-
-    <div id="method-list">
-      <h3 class="section-bar">Methods</h3>
-
-      <div class="name-list">
-      <a href="#M000002">compile_application</a>&nbsp;&nbsp;
-      <a href="#M000005">get_app_properties</a>&nbsp;&nbsp;
-      <a href="#M000006">get_executable</a>&nbsp;&nbsp;
-      <a href="#M000004">get_main_application</a>&nbsp;&nbsp;
-      <a href="#M000003">run_air_application</a>&nbsp;&nbsp;
-      </div>
-    </div>
-
+</div>
+ 
+  <div class="sectiontitle">Required Files</div>
+  <ul>
+  <li>rake</li>
+  <li>rexml/document</li>
+  <li>activesupport</li>
+  </ul>
+ 
+ 
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000002">compile_application</a></li>
+  <li><a href="#M000005">get_app_properties</a></li>
+  <li><a href="#M000006">get_executable</a></li>
+  <li><a href="#M000004">get_main_application</a></li>
+  <li><a href="#M000003">run_air_application</a></li>
+  </ul>
+ 
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li><a href="../../../classes/RestfulX/Configuration.html">RestfulX::Configuration</a></li>
+</ul>
+ 
+ 
+ 
+ 
+ 
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000002"></a><b>compile_application</b>(params = {})
   </div>
-
-
-    <!-- if includes -->
-    <div id="includes">
-      <h3 class="section-bar">Included Modules</h3>
-
-      <div id="includes-list">
-        <span class="include-name"><a href="../../../classes/RestfulX/Configuration.html">RestfulX::Configuration</a></span>
-      </div>
-    </div>
-
-    <div id="section">
-
-
-
-
-
-      
-
-
-    <!-- if method_list -->
-    <div id="methods">
-      <h3 class="section-bar">Public Instance methods</h3>
-
-      <div id="method-M000002" class="method-detail">
-        <a name="M000002"></a>
-
-        <div class="method-heading">
-          <a href="#M000002" class="method-signature">
-          <span class="method-name">compile_application</span><span class="method-args">(params = {})</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
+  <div class="description">
+  <p>
 Compile the given Flex/AIR application The following options are supported:
 </p>
 <pre>
@@ -146,9 +124,10 @@ Compile the given Flex/AIR application The following options are supported:
     :opts =&gt; nil
     :flex_root =&gt; 'app/flex'
 </pre>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000002-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000002-source">
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000002_source')" id="l_M000002_source">show source</a> ]</p>
+  <div id="M000002_source" class="dyn-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/restfulx/tasks.rb, line 17</span>
 17:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compile_application</span>(<span class="ruby-identifier">params</span> = {})
@@ -198,49 +177,37 @@ Compile the given Flex/AIR application The following options are supported:
 61:     <span class="ruby-keyword kw">end</span>
 62:   <span class="ruby-keyword kw">end</span>
 </pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000005" class="method-detail">
-        <a name="M000005"></a>
-
-        <div class="method-heading">
-          <a href="#M000005" class="method-signature">
-          <span class="method-name">get_app_properties</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000005-source">
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000005"></a><b>get_app_properties</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000005_source')" id="l_M000005_source">show source</a> ]</p>
+  <div id="M000005_source" class="dyn-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/restfulx/tasks.rb, line 80</span>
 80:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_app_properties</span>
 81:     <span class="ruby-constant">REXML</span><span class="ruby-operator">::</span><span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">APP_ROOT</span>, <span class="ruby-value str">&quot;.actionScriptProperties&quot;</span>)))
 82:   <span class="ruby-keyword kw">end</span>
 </pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000006" class="method-detail">
-        <a name="M000006"></a>
-
-        <div class="method-heading">
-          <a href="#M000006" class="method-signature">
-          <span class="method-name">get_executable</span><span class="method-args">(executable)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000006"></a><b>get_executable</b>(executable)
+  </div>
+  <div class="description">
+  <p>
 Get appropriate executable based on platform
 </p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000006-source">
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000006_source')" id="l_M000006_source">show source</a> ]</p>
+  <div id="M000006_source" class="dyn-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/restfulx/tasks.rb, line 85</span>
 85:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_executable</span>(<span class="ruby-identifier">executable</span>)
@@ -250,49 +217,37 @@ Get appropriate executable based on platform
 89:     <span class="ruby-identifier">executable</span>
 90:   <span class="ruby-keyword kw">end</span>
 </pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000004" class="method-detail">
-        <a name="M000004"></a>
-
-        <div class="method-heading">
-          <a href="#M000004" class="method-signature">
-          <span class="method-name">get_main_application</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000004"></a><b>get_main_application</b>()
+  </div>
+  <div class="description">
+  <p>
 Find what the main application is based on .actionScriptProperties file
 </p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000004-source">
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000004_source')" id="l_M000004_source">show source</a> ]</p>
+  <div id="M000004_source" class="dyn-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/restfulx/tasks.rb, line 76</span>
 76:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_main_application</span>
 77:     <span class="ruby-identifier">get_app_properties</span>().<span class="ruby-identifier">root</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-value str">'mainApplicationPath'</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;/&quot;</span>).<span class="ruby-identifier">last</span>
 78:   <span class="ruby-keyword kw">end</span>
 </pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000003" class="method-detail">
-        <a name="M000003"></a>
-
-        <div class="method-heading">
-          <a href="#M000003" class="method-signature">
-          <span class="method-name">run_air_application</span><span class="method-args">(params = {})</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000003-source">
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000003"></a><b>run_air_application</b>(params = {})
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000003_source')" id="l_M000003_source">show source</a> ]</p>
+  <div id="M000003_source" class="dyn-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/restfulx/tasks.rb, line 64</span>
 64:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_air_application</span>(<span class="ruby-identifier">params</span> = {})
@@ -306,20 +261,12 @@ Find what the main application is based on .actionScriptProperties file
 72:     <span class="ruby-keyword kw">end</span>
 73:   <span class="ruby-keyword kw">end</span>
 </pre>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-
-
   </div>
-
-
-<div id="validator-badges">
-  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+</div>
 </div>
 
-</body>
+  </div>
+ 
+    </body>
 </html>
