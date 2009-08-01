@@ -5,7 +5,7 @@
 module RestfulX
 
   # :stopdoc:
-  FRAMEWORK_VERSION = '1.2.3'
+  FRAMEWORK_VERSION = '1.2.4'
   LIB_DIR = File.join(File.dirname(__FILE__), 'restfulx/')
   # :startdoc:
 

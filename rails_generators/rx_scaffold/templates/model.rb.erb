@@ -24,7 +24,7 @@ class <%= class_name %> < ActiveRecord::Base
   acts_as_category
 <% end -%>
 <% if attachment_field.size > 0 -%>
-<% if RxSettings.attachment_plugin == 'paperclip' -%>
+<% if RestfulX::Configuration::RxSettings.attachment_plugin == 'paperclip' -%>
   # paperclip examples:
   #   http://github.com/thoughtbot/paperclip/tree/master
   has_attached_file :<%= attachment_field[0] %>,
@@ -33,7 +33,7 @@ class <%= class_name %> < ActiveRecord::Base
   def attachment_url
     <%= attachment_field[0] %>.url(:original)
   end
-<% elsif RxSettings.attachment_plugin == 'attachment_fu' -%>
+<% elsif RestfulX::Configuration::RxSettings.attachment_plugin == 'attachment_fu' -%>
   # attachment_fu examples:
   #   http://github.com/technoweenie/attachment_fu/blob/ab1e4f7b0b9de85e0c9decf061d2ef5c1dc0feaa/README#L56-69
   has_attachment

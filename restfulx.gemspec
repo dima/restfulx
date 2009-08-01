@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{restfulx}
-  s.version = "1.2.3"
+  s.version = "1.2.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dima Berastau"]
-  s.date = %q{2009-07-15}
+  s.date = %q{2009-08-01}
   s.default_executable = %q{rx-gen}
   s.email = %q{dima.berastau@gmail.com}
   s.executables = ["rx-gen"]

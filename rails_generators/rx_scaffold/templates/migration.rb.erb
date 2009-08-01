@@ -17,13 +17,13 @@ class <%= migration_name %> < ActiveRecord::Migration
 <% end -%>
 <% end -%>
 <% if attachment_field.size > 0 -%>
-<% if RxSettings.attachment_plugin == 'paperclip' -%>
+<% if RestfulX::Configuration::RxSettings.attachment_plugin == 'paperclip' -%>
       # For paperclip
       t.column :<%= attachment_field[0] %>_file_name, :string
       t.column :<%= attachment_field[0] %>_content_type, :string
       t.column :<%= attachment_field[0] %>_file_size, :integer
       t.column :<%= attachment_field[0] %>_updated_at, :datetime
-<% elsif RxSettings.attachment_plugin == 'attachment_fu' -%>
+<% elsif RestfulX::Configuration::RxSettings.attachment_plugin == 'attachment_fu' -%>
       # For attachment_fu
       t.column :parent_id,  :integer
       t.column :content_type, :string
