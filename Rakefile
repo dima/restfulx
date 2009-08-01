@@ -16,7 +16,7 @@ begin
     gem.add_dependency('activesupport', '>=2.0.0')
   end
 rescue LoadError
-  puts "Jeweler not available. Install it with: sudo gem install jeweler"
+  puts "jeweler not available. Install it with: sudo gem install jeweler"
 end
 
 require 'rake/rdoctask'
