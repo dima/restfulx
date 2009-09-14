@@ -50,7 +50,7 @@ class RxMainAppGenerator < Rails::Generator::Base
 
   def manifest
     record do |m|      
-      m.template 'mainapp.mxml', File.join("#{flex_root}", "#{flex_project_name}.mxml")
+      m.template 'mainapp.mxml', File.join("#{flex_root}", "#{flex_project_name}.mxml"), :collision => options[:collision]
     end
   end
 

@@ -34,7 +34,8 @@ class RxYamlScaffoldGenerator < Rails::Generator::Base
               Rails::Generator::Scripts::Generate.new.run(["rx_scaffold"] + line.split, 
                 :flex_only => options[:flex_only],
                 :flex_view_only => options[:flex_view_only],
-                :rails_only => options[:rails_only])
+                :rails_only => options[:rails_only],
+                :collision => options[:collision])
               puts 'done ...'
               sleep 1
             end
@@ -44,13 +45,14 @@ class RxYamlScaffoldGenerator < Rails::Generator::Base
           Rails::Generator::Scripts::Generate.new.run(["rx_scaffold"] + line.split, 
             :flex_only => options[:flex_only],
             :flex_view_only => options[:flex_view_only],
-            :rails_only => options[:rails_only])
+            :rails_only => options[:rails_only],
+            :collision => options[:collision])
           puts 'done ...'
           sleep 1
         end
       end
       
-      Rails::Generator::Scripts::Generate.new.run(["rx_main_app"])
+      Rails::Generator::Scripts::Generate.new.run(["rx_main_app"], :collision => options[:collision])
     end
   end
 

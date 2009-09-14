@@ -129,22 +129,22 @@ class RxScaffoldGenerator < Rails::Generator::NamedBase
       unless options[:flex_view_only]
         m.template 'model.as.erb',
           File.join("#{@flex_root}", base_folder, "models", "#{@class_name}.as"), 
-          :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+          :assigns => { :resource_controller_name => "#{file_name.pluralize}" }, :collision => options[:collision]
           
         m.template "controllers/#{RxSettings.controller_pattern}.rb.erb", File.join("app/controllers", 
-          controller_class_path, "#{controller_file_name}_controller.rb") unless options[:flex_only]
+          controller_class_path, "#{controller_file_name}_controller.rb"), :collision => options[:collision] unless options[:flex_only]
         
-        m.template 'model.rb.erb', File.join("app", "models", "#{file_name}.rb") unless options[:flex_only]
+        m.template 'model.rb.erb', File.join("app", "models", "#{file_name}.rb"), :collision => options[:collision] unless options[:flex_only]
       end
         
       if @layout.size > 0
         m.template "layouts/#{@layout}.erb",
           File.join("#{@flex_root}", base_folder, "views", "generated", "#{@class_name}Box.mxml"), 
-          :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+          :assigns => { :resource_controller_name => "#{file_name.pluralize}" }, :collision => options[:collision]
       else
         m.template "layouts/#{RxSettings.layouts.default}.erb",
           File.join("#{@flex_root}", base_folder, "views", "generated", "#{@class_name}Box.mxml"), 
-          :assigns => { :resource_controller_name => "#{file_name.pluralize}" }
+          :assigns => { :resource_controller_name => "#{file_name.pluralize}" }, :collision => options[:collision]
       end
 
       unless options[:skip_fixture] 
