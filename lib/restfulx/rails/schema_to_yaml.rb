@@ -83,6 +83,7 @@ module SchemaToYaml
       # Appends belong_to's to schema
       if belong_tos.size > 0
         belong_tos = belong_tos.delete_if {|x| x == "#{@polymorphic}, " }
+        break if belong_tos.size == 0   # fixing to get around nil error when you only have one polymorphic belong_to
         last_in_array_fix = belong_tos.last
         last_in_array_fix = last_in_array_fix.gsub(', ','')
         belong_tos.pop
