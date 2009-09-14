@@ -119,7 +119,7 @@ class RxConfigGenerator < Rails::Generator::Base
       
       m.template 'index.erb', 'app/views/flex/index.html.erb'
       
-      m.file 'routes.erb', 'config/routes.rb', :collision => :ask
+      m.file 'routes.erb', 'config/routes.rb', :collision => options[:collision]
       
       FileUtils.rm 'public/index.html' if File.exist?('public/index.html')
               

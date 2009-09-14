@@ -5,6 +5,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "restfulx"
     gem.summary = "RestfulX Framework Code Generation Engine / Rails 2.1+ Integration Support"
+    gem.description = "RestfulX: The RESTful Way to develop Adobe Flex and AIR applications"
     gem.email = "dima.berastau@gmail.com"
     gem.homepage = "http://restfulx.org"
     gem.rubyforge_project = "restfulx"
