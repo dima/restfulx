@@ -51,4 +51,8 @@ class ActiveRecord::TestCase #:nodoc:
     assert_select(*args, &block)
   end
   
+  def assert_invalid(record)
+    assert !record.valid?
+  end
+
 end

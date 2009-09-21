@@ -11,3 +11,9 @@ shakespeare:
   first_name: William
   last_name: Shakespeare
   email: will@theglobetheater.com
+  
+vincent:
+  login: vincentsloginistoolong
+  first_name: Vincent
+  last_name: van Gogh
+  email: vince@invalid.com
