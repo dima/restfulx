@@ -32,4 +32,12 @@ class ToFxmlTest < ActiveRecord::TestCase
     assert_xml_select 'user full_name', 'Ludwig van Beethoven'
     assert_xml_select 'user has_nothing_to_do'
   end
+
+  def test_to_fxml_serializes_validation_errors
+    vince = users(:vincent)
+    assert_invalid vince
+    assert_not_nil vince.errors
+    set_response_to vince.errors.to_fxml
+    assert_xml_select 'errors error'
+  end
 end

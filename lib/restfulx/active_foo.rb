@@ -170,7 +170,7 @@ module ActiveRecord
             if attr == "base"
               options[:builder].error("message" => msg)
             else
-              fullmsg = @base.class.human_attribute_name(attr) + ' ' + msg
+              fullmsg = @base.class.human_attribute_name(attr) + ' ' + msg.to_s
               options[:builder].error("field" => attr.camelcase(:lower), "message" => fullmsg)
             end
           end
