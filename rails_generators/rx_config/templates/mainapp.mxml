@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:<%= application_tag %> xmlns:mx="http://www.adobe.com/2006/mxml"
-  xmlns:generated="<%= base_package %>.components.generated.*"
+  xmlns:generated="<%= base_package %>.views.generated.*"
   paddingBottom="8" paddingLeft="8" paddingRight="8" paddingTop="8"
   layout="horizontal" styleName="plain" initialize="init()">
   <mx:Script>
