@@ -16,6 +16,10 @@ begin
     gem.add_dependency('rubigen', '>= 1.5.0')
     gem.add_dependency('activesupport', '>=2.0.0')
   end
+  
+  Jeweler::RubyforgeTasks.new do |rubyforge|
+    rubyforge.doc_task = "rdoc"
+  end
 rescue LoadError
   puts "jeweler not available. Install it with: sudo gem install jeweler"
 end

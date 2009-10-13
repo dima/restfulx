@@ -94,7 +94,7 @@ module SchemaToYaml
       # Appends has_manies' to schema
       if has_manies.size > 0
         last_in_array_fix = has_manies.last
-        last_in_array_fix = last_in_array_fix.gsub(', ','')
+        last_in_array_fix = last_in_array_fix.gsub(', ','') unless last_in_array_fix.nil?
         has_manies.pop
         has_manies << last_in_array_fix
         schema << " - has_many: [#{has_manies}]\n" 
