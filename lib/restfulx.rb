@@ -50,9 +50,9 @@ elsif defined?(ActionController::Base)
 
   ActionView::Base.send :include, SWFHelper unless ActionView::Base.included_modules.include?(SWFHelper)
   ActiveRecord::Migration.send :include, SchemaToYaml
-
+  
   # We mess with default +render+ implementation a bit to add support for expressions
-  # such as format.fxml { render :fxml => @foo }
+  # such as format.fxml { render :fxml => @foo } and format.amf { render :amf => @foo }
   module ActionController
     # Override render to add support for render :fxml
     class Base
@@ -62,9 +62,15 @@ elsif defined?(ActionController::Base)
       # format.fxml  { render :fxml => @projects }
       def render(options = nil, extra_options = {}, &block)
         if options.is_a?(Hash) && options[:fxml]
-          xml = options[:fxml]
+          fxml = options[:fxml]
           response.content_type ||= Mime::XML
-          render_for_text(xml.respond_to?(:to_fxml) ? xml.to_fxml : xml, options[:status])
+          render_for_text(fxml.respond_to?(:to_fxml) ? fxml.to_fxml : fxml, options[:status])
+        elsif options.is_a?(Hash) && options[:amf]
+          amf = options[:amf]
+          # amf now contains whatever was rendered by the controller action
+          @performed_render = true
+          response.status = interpret_status(options[:status] || DEFAULT_RENDER_STATUS_CODE)
+          response.body = amf.respond_to?(:to_amf) ? amf.to_amf : amf
         else
           old_render(options, extra_options, &block)
         end

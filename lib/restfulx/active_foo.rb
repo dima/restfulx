@@ -168,10 +168,9 @@ module ActiveRecord
           @errors[attr].each do |msg|
             next if msg.nil?
             if attr == "base"
-              options[:builder].error("message" => msg)
+              options[:builder].error("message" => msg.to_s)
             else
-              fullmsg = @base.class.human_attribute_name(attr) + ' ' + msg.to_s
-              options[:builder].error("field" => attr.camelcase(:lower), "message" => fullmsg)
+              options[:builder].error("field" => attr.camelcase(:lower), "message" => msg.to_s)
             end
           end
         end
