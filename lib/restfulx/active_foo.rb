@@ -164,14 +164,12 @@ module ActiveRecord
       options[:builder].instruct! unless options.delete(:skip_instruct)
       options[:builder].errors do |e|
         # The @errors instance variable is a Hash inside the Errors class
-        @errors.each_key do |attr|
-          @errors[attr].each do |msg|
-            next if msg.nil?
-            if attr == "base"
-              options[:builder].error("message" => msg.to_s)
-            else
-              options[:builder].error("field" => attr.camelcase(:lower), "message" => msg.to_s)
-            end
+        @errors.each do |attr, msg|
+          next if msg.nil?
+          if attr == "base"
+            options[:builder].error("message", msg.to_s)
+          else
+            options[:builder].error("field" => attr.camelcase(:lower), "message" => msg.to_s)
           end
         end
       end
