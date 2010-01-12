@@ -30,8 +30,10 @@ class FlexNestedAttributeMiddleware
     if req && req.path_info =~ /\.fxml$/
       if req.put? || req.post? || req.delete?
         req.params.each do |key,value|
-          value.select { |k,v| k =~ /\_attributes$/ }.each do |match|
-            env['rack.request.form_hash'][key][match[0]] = ActiveSupport::JSON.decode(match[1])
+          if value.respond_to? :select
+            value.select { |k,v| k =~ /\_attributes$/ }.each do |match|
+              env['rack.request.form_hash'][key][match[0]] = ActiveSupport::JSON.decode(match[1])
+            end
           end
         end
       end
