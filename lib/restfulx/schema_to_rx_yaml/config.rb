@@ -1,5 +1,5 @@
-# SchemaToYaml settings
-module SchemaToYaml
+# SchemaToRxYaml settings
+module SchemaToRxYaml
   module Settings
     class Config
       class << self

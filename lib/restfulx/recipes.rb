@@ -2,7 +2,7 @@
 #
 # To use these recipes, add the following to your Capfile:
 #
-#   require 'restfulx/rails/recipes'
+#   require 'restfulx/recipes'
 require 'find'
 
 Capistrano::Configuration.instance(:must_exist).load do
@@ -17,7 +17,6 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   namespace :deploy do
     namespace :flex do
-    
       desc "Creates the flex_files directory in the shared directory"
       task :setup do
         flex_dir = File.join(shared_path, 'flex_files')

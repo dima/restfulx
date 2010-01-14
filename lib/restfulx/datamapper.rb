@@ -6,7 +6,6 @@ require File.join(File.dirname(__FILE__), '..', 'lib', 'restfulx') if !defined?(
 
 # RestfulX datamapper patches
 module DataMapper
-  
   # Monkey patches dm-serialization to_json method to add ruby_class: YourClass
   # to all serialized objects
   module Serialize

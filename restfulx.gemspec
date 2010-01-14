@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{restfulx}
-  s.version = "1.2.4"
+  s.version = "1.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dima Berastau"]
-  s.date = %q{2009-09-14}
+  s.date = %q{2010-01-13}
   s.default_executable = %q{rx-gen}
   s.description = %q{RestfulX: The RESTful Way to develop Adobe Flex and AIR applications}
   s.email = %q{dima.berastau@gmail.com}
@@ -49,17 +49,25 @@ Gem::Specification.new do |s|
      "app_generators/rx_app/templates/swfobject.js",
      "bin/rx-gen",
      "lib/restfulx.rb",
-     "lib/restfulx/active_foo.rb",
+     "lib/restfulx/action_controller.rb",
+     "lib/restfulx/active_record.rb",
      "lib/restfulx/active_record_tasks.rb",
      "lib/restfulx/active_record_uuid_helper.rb",
+     "lib/restfulx/active_support.rb",
+     "lib/restfulx/amf.rb",
+     "lib/restfulx/amf/class_mapping.rb",
+     "lib/restfulx/amf/constants.rb",
+     "lib/restfulx/amf/pure.rb",
+     "lib/restfulx/amf/pure/io_helpers.rb",
+     "lib/restfulx/amf/pure/serializer.rb",
      "lib/restfulx/configuration.rb",
-     "lib/restfulx/datamapper_foo.rb",
-     "lib/restfulx/rails/recipes.rb",
-     "lib/restfulx/rails/schema_to_yaml.rb",
-     "lib/restfulx/rails/schema_to_yaml/extensions/enumerable.rb",
-     "lib/restfulx/rails/schema_to_yaml/settings/config.rb",
-     "lib/restfulx/rails/schema_to_yaml/settings/core.rb",
-     "lib/restfulx/rails/swf_helper.rb",
+     "lib/restfulx/datamapper.rb",
+     "lib/restfulx/recipes.rb",
+     "lib/restfulx/schema_to_rx_yaml.rb",
+     "lib/restfulx/schema_to_rx_yaml/config.rb",
+     "lib/restfulx/schema_to_rx_yaml/core.rb",
+     "lib/restfulx/schema_to_rx_yaml/enumerable.rb",
+     "lib/restfulx/swf_helper.rb",
      "lib/restfulx/tasks.rb",
      "rails_generators/rx_config/USAGE",
      "rails_generators/rx_config/rx_config_generator.rb",

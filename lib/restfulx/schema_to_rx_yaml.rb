@@ -1,10 +1,10 @@
 # Used for analyzing your schema and exporting a model.yml file for Rx
 # Provides facilities to convert an existing Rails application schema.rb file to 
 # RestfulX model.yml file
-module SchemaToYaml
-  # SchemaToYaml.schema_to_yaml
+module SchemaToRxYaml
+  # SchemaToRxYaml.schema_to_rx_yaml
   #  - set of commands that introspects your database and formats your model.yml for export
-  def self.schema_to_yaml
+  def self.schema_to_rx_yaml
     # Iterates through your database, and sets up table_arr with all columns
     #  - excludes schema_info/schema_migrations/and any other tables you specify in restfulx.yml
     table_arr = ActiveRecord::Base.connection.tables - 
@@ -106,6 +106,6 @@ module SchemaToYaml
     # Writes model.yml file
     yml_file = File.join(RAILS_ROOT, "db", "model.yml")
     File.open(yml_file, "w") { |f| f << schema.to_s }
-    puts "Model.yml created at db/model.yml" 
+    puts "model.yml created at db/model.yml" 
   end
 end

@@ -1,6 +1,6 @@
 # Inspired from http://settingslogic.rubyforge.org/
 # Used to read in settings from restfulx.yml for use in code generation
-module SchemaToYaml
+module SchemaToRxYaml
   module Settings
     # We try to figure out the application root using a number of possible options
     APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : defined?(Merb) ? Merb.root : File.expand_path(".")

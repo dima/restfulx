@@ -2,11 +2,8 @@
 # string. Ruby's own +capitalize+ actually downcases all the rest of the characters in the string
 # We patch the class to add our own implementation.
 require "yaml" 
-require "erb" 
-require File.dirname(__FILE__) + "/rails/schema_to_yaml/settings/config" 
-require File.dirname(__FILE__) + "/rails/schema_to_yaml/settings/core" 
-
-Dir[File.dirname(__FILE__) + "/rails/schema_to_yaml/extensions/*.rb"].each do |f|
+require "erb"
+Dir[File.dirname(__FILE__) + "/schema_to_rx_yaml/*.rb"].each do |f|
   require f
 end
 
@@ -30,7 +27,7 @@ module RestfulX
     # We try to figure out the application root using a number of possible options
     APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : defined?(Merb) ? Merb.root : File.expand_path(".")
     
-    RxSettings = SchemaToYaml::Settings::Core
+    RxSettings = SchemaToRxYaml::Settings::Core
 
     # Extract project, package, controller name, etc from the environment. This will respect
     # config/restfulx.yml if it exists, you can override all of the defaults there.
