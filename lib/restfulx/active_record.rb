@@ -21,11 +21,16 @@ module RestfulX
       end
 
       def add_associations(association, records, opts, serializer)
+        nested_serializer = RestfulX::AMF::AMF3Serializer.new({:options => opts})
+        
+        serializer.write_utf8_vr(association.to_s)
         if records.is_a?(Enumerable)
-          serializer.write_nested_collection(association.to_s, records)
+          serializer.stream << RestfulX::AMF::AMF3_OBJECT_MARKER << RestfulX::AMF::AMF3_XML_DOC_MARKER
+          serializer.write_utf8_vr('org.restfulx.messaging.io.ModelsCollection')            
+          serializer.stream << nested_serializer.serialize(records)
         else
           if record = @record.send(association)
-            serializer.write_nested_association(association.to_s, record)
+            serializer.stream << nested_serializer.serialize(record)
           end
         end
       end
@@ -39,6 +44,8 @@ module RestfulX
     
     module InstanceMethods
       def to_amf(options = {}, &block)
+        default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at]
+        options[:except] = (options[:except] ? options[:except] + default_except : default_except)
         serializer = RestfulX::Serialization::AMFSerializer.new(self, options)
         block_given? ? serializer.to_s(&block) : serializer.to_s
       end

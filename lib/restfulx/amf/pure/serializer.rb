@@ -126,6 +126,7 @@ module RestfulX::AMF
           @stream << AMF3_CLOSE_DYNAMIC_ARRAY
           array.each do |elem|
             if elem.respond_to?(:to_amf)
+              puts elem.inspect
               @stream << elem.to_amf(@opts)
             else
               serialize(elem)
@@ -134,22 +135,6 @@ module RestfulX::AMF
           
           block.call(self) if block_given?
         end
-      end
-      
-      def write_typed_array(array)
-        @stream << AMF3_OBJECT_MARKER << AMF3_XML_DOC_MARKER
-        if @object_cache[array] != nil
-          write_reference(@object_cache[array])
-        else
-          write_utf8_vr('org.restfulx.messaging.io.TypedArray')
-          if @opts[:attributes]
-            @stream << AMF3Serializer.new({:serializable_names => @opts[:attributes].keys}).serialize(@opts[:attributes])
-          else
-            write_null
-          end
-          write_array(array)
-        end
-        @stream
       end
 
       def write_object(obj, &block)
@@ -203,24 +188,6 @@ module RestfulX::AMF
           @stream << pack_integer(header)
           @stream << str
         end
-      end
-      
-      def write_nested_collection(association, records)
-        write_utf8_vr(association)
-        @stream << AMF3_OBJECT_MARKER << AMF3_XML_DOC_MARKER
-        write_utf8_vr('org.restfulx.messaging.io.ModelsCollection')
-        write_array(records)
-        @stream    
-      end
-      
-      def write_nested_association(association, record)
-        write_utf8_vr(association)
-        if record.respond_to?(:to_amf)
-          @stream << record.to_amf(@opts)
-        else
-          serialize(record)
-        end
-        @stream
       end
 
       private

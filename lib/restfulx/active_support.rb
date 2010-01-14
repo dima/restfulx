@@ -122,9 +122,11 @@ module ActiveSupport::CoreExtensions
         options[:attributes] ||= {}
 
         serializer = RestfulX::AMF::AMF3Serializer.new({:options => options})
-        serializer.write_typed_array(self)
+        serializer.stream << RestfulX::AMF::AMF3_OBJECT_MARKER << RestfulX::AMF::AMF3_XML_DOC_MARKER
+        serializer.write_utf8_vr('org.restfulx.messaging.io.TypedArray')
+        serializer.stream << RestfulX::AMF::AMF3Serializer.new({:serializable_names => options[:attributes].keys}).serialize(options[:attributes])
         
-        block_given? ? serializer.to_s(&block) : serializer.to_s        
+        block_given? ? serializer.serialize(self, &block) : serializer.serialize(self)        
       end
     end
   end
