@@ -157,7 +157,7 @@ module RestfulX::AMF
           end
           
           hash_like = obj.respond_to?("[]=")
-          @serializable_names.sort.each do |name|
+          @serializable_names.each do |name|
             write_utf8_vr(name.to_s.camelize(:lower))
             if hash_like
               serialize(obj[name.to_sym])

@@ -30,7 +30,7 @@ module RestfulX
           serializer.stream << nested_serializer.serialize(records)
         else
           if record = @record.send(association)
-            serializer.stream << nested_serializer.serialize(record)
+            serializer.stream << record.to_amf(opts)
           end
         end
       end
