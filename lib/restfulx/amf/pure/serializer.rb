@@ -6,12 +6,10 @@ module RestfulX::AMF
     class AMF3Serializer
       attr_accessor :stream, :object_cache, :string_cache
 
-      def initialize(params = {})
+      def initialize()
         @stream = ""
         @string_cache = SerializerCache.new :string
         @object_cache = SerializerCache.new :object
-        @serializable_names = params[:serializable_names]
-        @opts = params[:options]
       end
 
       def version
@@ -22,29 +20,98 @@ module RestfulX::AMF
         @stream
       end
 
-      def serialize(obj, &block)
-        if obj.is_a?(NilClass)
+      def serialize_property(prop)
+        if prop.is_a?(NilClass)
           write_null
-        elsif obj.is_a?(TrueClass)
+        elsif prop.is_a?(TrueClass)
           write_true
-        elsif obj.is_a?(FalseClass)
+        elsif prop.is_a?(FalseClass)
           write_false
-        elsif obj.is_a?(Float)
-          write_float(obj)
-        elsif obj.is_a?(Integer)
-          write_integer(obj)
-        elsif obj.is_a?(Symbol) || obj.is_a?(String)
-          write_string(obj.to_s)
-        elsif obj.is_a?(Time) || obj.is_a?(DateTime)
-          write_time(obj)
-        elsif obj.is_a?(Date)
-          write_date(obj)
-        elsif obj.is_a?(Array)
-          write_array(obj, &block)
-        elsif obj.is_a?(Object)
-          write_object(obj, &block)
+        elsif prop.is_a?(Float)
+          write_float(prop)
+        elsif prop.is_a?(Integer)
+          write_integer(prop)
+        elsif prop.is_a?(Symbol) || prop.is_a?(String)
+          write_string(prop.to_s)
+        elsif prop.is_a?(Time) || prop.is_a?(DateTime)
+          write_time(prop)
+        elsif prop.is_a?(Date)
+          write_date(prop)
+        elsif prop.is_a?(Hash)
+          write_hash(prop)
         end
-        @stream
+        self
+      end
+      
+      def serialize_record(record, serializable_names = nil, options = {}, &block)
+        @stream << AMF3_OBJECT_MARKER
+        if @object_cache[record] != nil
+          write_reference(@object_cache[record])
+        else
+          # Cache object
+          @object_cache.add_obj(record)
+
+          # Always serialize things as dynamic objects
+          @stream << AMF3_DYNAMIC_OBJECT
+
+          # Write class name/anonymous
+          class_name = RestfulX::AMF::ClassMapper.get_as_class_name(record)
+          if class_name
+            write_utf8_vr(class_name)
+          else
+            @stream << AMF3_ANONYMOUS_OBJECT
+          end
+          
+          associations = Hash[*record.class.reflect_on_all_associations(:belongs_to).collect { |assoc| [assoc.primary_key_name, assoc.name] }.flatten]
+          
+          serializable_names.each do |name|
+            if associations.has_key?(name)
+              name = associations[name]
+            end
+            write_utf8_vr(name.to_s.camelize(:lower))
+            result = record.send(name)
+            if result.respond_to?(:to_amf)
+              if @object_cache[result] != nil
+                result.to_amf(options)
+              else
+                write_null
+              end
+            else
+              serialize_property(result)
+            end
+          end
+
+          block.call(self) if block_given?
+
+          # Write close
+          @stream << AMF3_CLOSE_DYNAMIC_OBJECT
+        end
+        self
+      end
+      
+      def serialize_records(records, options = {}, &block)
+        @stream << AMF3_ARRAY_MARKER
+        if @object_cache[records] != nil
+          write_reference(@object_cache[records])
+        else
+          # Cache array
+          @object_cache.add_obj(records)
+
+          header = records.length << 1 # make room for a low bit of 1
+          header = header | 1 # set the low bit to 1
+          @stream << pack_integer(header)
+          @stream << AMF3_CLOSE_DYNAMIC_ARRAY
+          records.each do |elem|
+            if elem.respond_to?(:to_amf)
+              elem.to_amf(options)
+            else
+              serialize_property(elem)
+            end
+          end
+
+          block.call(self) if block_given?
+        end
+        self
       end
 
       def write_reference index
@@ -111,33 +178,8 @@ module RestfulX::AMF
           @stream << pack_double(seconds)
         end
       end
-
-      def write_array(array)
-        @stream << AMF3_ARRAY_MARKER
-        if @object_cache[array] != nil
-          write_reference(@object_cache[array])
-        else
-          # Cache array
-          @object_cache.add_obj(array)
-
-          header = array.length << 1 # make room for a low bit of 1
-          header = header | 1 # set the low bit to 1
-          @stream << pack_integer(header)
-          @stream << AMF3_CLOSE_DYNAMIC_ARRAY
-          array.each do |elem|
-            if elem.respond_to?(:to_amf)
-              puts elem.inspect
-              @stream << elem.to_amf(@opts)
-            else
-              serialize(elem)
-            end
-          end
-          
-          block.call(self) if block_given?
-        end
-      end
-
-      def write_object(obj, &block)
+      
+      def write_hash(obj, &block)
         @stream << AMF3_OBJECT_MARKER
         if @object_cache[obj] != nil
           write_reference(@object_cache[obj])
@@ -146,24 +188,11 @@ module RestfulX::AMF
           @object_cache.add_obj(obj)
 
           # Always serialize things as dynamic objects
-          @stream << AMF3_DYNAMIC_OBJECT
-
-          # Write class name/anonymous
-          class_name = RestfulX::AMF::ClassMapper.get_as_class_name(obj)
-          if class_name
-            write_utf8_vr(class_name)
-          else
-            @stream << AMF3_ANONYMOUS_OBJECT
-          end
+          @stream << AMF3_DYNAMIC_OBJECT << AMF3_ANONYMOUS_OBJECT
           
-          hash_like = obj.respond_to?("[]=")
-          @serializable_names.each do |name|
+          obj.keys.sort.each do |name|
             write_utf8_vr(name.to_s.camelize(:lower))
-            if hash_like
-              serialize(obj[name.to_sym])
-            else
-              serialize(obj.send(name))
-            end
+            serialize_property(obj[name.to_sym])
           end
 
           block.call(self) if block_given?
@@ -218,13 +247,15 @@ module RestfulX::AMF
         def initialize
           @cache_index = 0
         end
-
+        
         def [](obj)
-          super(obj.object_id)
+          obj_id = obj.respond_to?(:attributes) ? "#{obj.class.to_s}_#{obj.attributes()['id']}" : obj.object_id
+          super(obj_id)
         end
 
         def add_obj(obj)
-          self[obj.object_id] = @cache_index
+          obj_id = obj.respond_to?(:attributes) ? "#{obj.class.to_s}_#{obj.attributes()['id']}" : obj.object_id  
+          self[obj_id] = @cache_index
           @cache_index += 1
         end
       end
