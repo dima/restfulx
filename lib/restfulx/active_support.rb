@@ -121,11 +121,12 @@ module ActiveSupport::CoreExtensions
         
         options[:attributes] ||= {}
         options[:serializer] ||= RestfulX::AMF::AMF3Serializer.new
+        options[:serializer].object_cache.cache_index = 1
         options[:serializer].stream << RestfulX::AMF::AMF3_OBJECT_MARKER << RestfulX::AMF::AMF3_XML_DOC_MARKER
         options[:serializer].write_utf8_vr('org.restfulx.messaging.io.TypedArray')
         options[:serializer].serialize_property(options[:attributes])
                 
-        block_given? ? options[:serializer].serialize_records(self, options, &block).to_s : options[:serializer].serialize_records(self, options) .to_s      
+        block_given? ? options[:serializer].serialize_records(self, options, &block).to_s : options[:serializer].serialize_records(self, options).to_s      
       end
     end
   end

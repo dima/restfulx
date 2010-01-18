@@ -11,17 +11,23 @@ module RestfulX
       end
 
       def serialize
-        @options[:serializer].serialize_record(@record, serializable_names, @options) do |serializer|
+        @options[:serializer].serialize_record(@record, serializable_attributes, @options) do |serializer|
           add_includes do |association, records, opts|
             add_associations(association, records, opts, serializer)
           end
           yield serializer if block_given?
-        end
+        end.to_s
+      end
+      
+      def serializable_attributes
+        associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect { |assoc| [assoc.primary_key_name, assoc.name] }.flatten]
+        serializable_names.map { |name| associations.has_key?(name) ? associations[name] : name.to_sym }
       end
 
       def add_associations(association, records, opts, serializer)        
         serializer.write_utf8_vr(association.to_s)
         if records.is_a?(Enumerable)
+          serializer.object_cache.cache_index = serializer.object_cache.cache_index + 3
           serializer.stream << RestfulX::AMF::AMF3_OBJECT_MARKER << RestfulX::AMF::AMF3_XML_DOC_MARKER
           serializer.write_utf8_vr('org.restfulx.messaging.io.ModelsCollection')            
           serializer.serialize_records(records, opts)

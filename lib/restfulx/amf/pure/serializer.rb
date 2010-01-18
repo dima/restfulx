@@ -61,13 +61,8 @@ module RestfulX::AMF
           else
             @stream << AMF3_ANONYMOUS_OBJECT
           end
-          
-          associations = Hash[*record.class.reflect_on_all_associations(:belongs_to).collect { |assoc| [assoc.primary_key_name, assoc.name] }.flatten]
-          
+                    
           serializable_names.each do |name|
-            if associations.has_key?(name)
-              name = associations[name]
-            end
             write_utf8_vr(name.to_s.camelize(:lower))
             result = record.send(name)
             if result.respond_to?(:to_amf)
@@ -152,31 +147,21 @@ module RestfulX::AMF
 
       def write_time(time)
         @stream << AMF3_DATE_MARKER
-        if @object_cache[time] != nil
-          write_reference(@object_cache[time])
-        else
-          @object_cache.add_obj(time)
 
-          # Build AMF string
-          time.utc unless time.utc?
-          seconds = (time.to_f * 1000).to_i
-          @stream << pack_integer(AMF3_NULL_MARKER)
-          @stream << pack_double(seconds)
-        end
+        # Build AMF string
+        time.utc unless time.utc?
+        seconds = (time.to_f * 1000).to_i
+        @stream << pack_integer(AMF3_NULL_MARKER)
+        @stream << pack_double(seconds)
       end
 
       def write_date(date)
         @stream << AMF3_DATE_MARKER
-        if @object_cache[date] != nil
-          write_reference(@object_cache[date])
-        else
-          @object_cache.add_obj(date)
 
-          # Build AMF string
-          seconds = ((date.strftime("%s").to_i) * 1000).to_i
-          @stream << pack_integer(AMF3_NULL_MARKER)
-          @stream << pack_double(seconds)
-        end
+        # Build AMF string
+        seconds = ((date.strftime("%s").to_i) * 1000).to_i
+        @stream << pack_integer(AMF3_NULL_MARKER)
+        @stream << pack_double(seconds)
       end
       
       def write_hash(obj, &block)
@@ -233,6 +218,8 @@ module RestfulX::AMF
       end
 
       class StringCache < Hash
+        attr_accessor :cache_index
+        
         def initialize
           @cache_index = 0
         end
@@ -244,6 +231,8 @@ module RestfulX::AMF
       end
 
       class ObjectCache < Hash
+        attr_accessor :cache_index
+        
         def initialize
           @cache_index = 0
         end
