@@ -27,7 +27,7 @@ module RestfulX
       def add_associations(association, records, opts, serializer)        
         serializer.write_utf8_vr(association.to_s)
         if records.is_a?(Enumerable)
-          serializer.object_cache.cache_index = serializer.object_cache.cache_index + 3
+          serializer.object_cache.cache_index += 3
           serializer.stream << RestfulX::AMF::AMF3_OBJECT_MARKER << RestfulX::AMF::AMF3_XML_DOC_MARKER
           serializer.write_utf8_vr('org.restfulx.messaging.io.ModelsCollection')            
           serializer.serialize_records(records, opts)
@@ -46,6 +46,10 @@ module RestfulX
     end
     
     module InstanceMethods
+      def unique_id
+        "#{self.class.to_s}_#{self.attributes()['id']}"
+      end
+      
       def to_amf(options = {}, &block)
         default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at]
         options[:except] = (options[:except] ? options[:except] + default_except : default_except)

@@ -12,13 +12,6 @@ module RestfulX::AMF
   
   ClassMapper = RestfulX::AMF::ClassMapping.new
   
-  class << self
-    # Serialize the given Ruby data structure _obj_ into an AMF stream
-    def serialize(obj, options = {}, &block)
-      RestfulX::AMF::AMF3Serializer.new(options).serialize(obj, &block)
-    end
-  end
-  
   # The base exception for AMF errors.
   class AMFError < StandardError; end
 end

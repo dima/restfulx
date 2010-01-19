@@ -8,8 +8,8 @@ module RestfulX::AMF
 
       def initialize()
         @stream = ""
-        @string_cache = SerializerCache.new :string
-        @object_cache = SerializerCache.new :object
+        @string_cache = SerializerCache.new
+        @object_cache = SerializerCache.new
       end
 
       def version
@@ -45,11 +45,13 @@ module RestfulX::AMF
       
       def serialize_record(record, serializable_names = nil, options = {}, &block)
         @stream << AMF3_OBJECT_MARKER
-        if @object_cache[record] != nil
-          write_reference(@object_cache[record])
+        record_id = record.respond_to?(:unique_id) ? record.unique_id : record.object_id
+        
+        if @object_cache[record_id] != nil
+          write_reference(@object_cache[record_id])
         else
           # Cache object
-          @object_cache.add_obj(record)
+          @object_cache.add_obj(record_id)
 
           # Always serialize things as dynamic objects
           @stream << AMF3_DYNAMIC_OBJECT
@@ -66,9 +68,11 @@ module RestfulX::AMF
             write_utf8_vr(name.to_s.camelize(:lower))
             result = record.send(name)
             if result.respond_to?(:to_amf)
-              if @object_cache[result] != nil
+              result_id = result.respond_to?(:unique_id) ? result.unique_id : result.object_id
+              if @object_cache[result_id] != nil
                 result.to_amf(options)
               else
+                # TODO: do something about non-nested associations
                 write_null
               end
             else
@@ -164,20 +168,20 @@ module RestfulX::AMF
         @stream << pack_double(seconds)
       end
       
-      def write_hash(obj, &block)
+      def write_hash(hash, &block)
         @stream << AMF3_OBJECT_MARKER
-        if @object_cache[obj] != nil
-          write_reference(@object_cache[obj])
+        if @object_cache[hash] != nil
+          write_reference(@object_cache[hash])
         else
           # Cache object
-          @object_cache.add_obj(obj)
+          @object_cache.add_obj(hash)
 
           # Always serialize things as dynamic objects
           @stream << AMF3_DYNAMIC_OBJECT << AMF3_ANONYMOUS_OBJECT
           
-          obj.keys.sort.each do |name|
+          hash.keys.sort.each do |name|
             write_utf8_vr(name.to_s.camelize(:lower))
-            serialize_property(obj[name.to_sym])
+            serialize_property(hash[name.to_sym])
           end
 
           block.call(self) if block_given?
@@ -208,45 +212,16 @@ module RestfulX::AMF
       include RestfulX::AMF::Pure::WriteIOHelpers
     end
 
-    class SerializerCache #:nodoc:all:
-      def self.new(type)
-        if type == :string
-          StringCache.new
-        elsif type == :object
-          ObjectCache.new
-        end
+    class SerializerCache < Hash
+      attr_accessor :cache_index
+    
+      def initialize
+        @cache_index = 0
       end
 
-      class StringCache < Hash
-        attr_accessor :cache_index
-        
-        def initialize
-          @cache_index = 0
-        end
-
-        def add_obj(str)
-          self[str] = @cache_index
-          @cache_index += 1
-        end
-      end
-
-      class ObjectCache < Hash
-        attr_accessor :cache_index
-        
-        def initialize
-          @cache_index = 0
-        end
-        
-        def [](obj)
-          obj_id = obj.respond_to?(:attributes) ? "#{obj.class.to_s}_#{obj.attributes()['id']}" : obj.object_id
-          super(obj_id)
-        end
-
-        def add_obj(obj)
-          obj_id = obj.respond_to?(:attributes) ? "#{obj.class.to_s}_#{obj.attributes()['id']}" : obj.object_id  
-          self[obj_id] = @cache_index
-          @cache_index += 1
-        end
+      def add_obj(obj)
+        self[obj] = @cache_index
+        @cache_index += 1
       end
     end
   end
