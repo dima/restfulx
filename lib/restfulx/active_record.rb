@@ -25,9 +25,9 @@ module RestfulX
       end
 
       def add_associations(association, records, opts, serializer)        
-        serializer.write_utf8_vr(association.to_s)
+        serializer.write_utf8_vr(association.to_s.camelcase(:lower))
         if records.is_a?(Enumerable)
-          serializer.object_cache.cache_index += 3
+          serializer.object_cache.cache_index += 2
           serializer.stream << RestfulX::AMF::AMF3_OBJECT_MARKER << RestfulX::AMF::AMF3_XML_DOC_MARKER
           serializer.write_utf8_vr('org.restfulx.messaging.io.ModelsCollection')            
           serializer.serialize_records(records, opts)
@@ -51,7 +51,7 @@ module RestfulX
       end
       
       def to_amf(options = {}, &block)
-        default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at]
+        default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at, :created_at, :updated_at]
         options[:except] = (options[:except] ? options[:except] + default_except : default_except)
         serializer = RestfulX::Serialization::AMFSerializer.new(self, options)
         block_given? ? serializer.to_s(&block) : serializer.to_s
@@ -59,7 +59,7 @@ module RestfulX
     
       def to_fxml(options = {}, &block)
         options.merge!(:dasherize => false)
-        default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at]
+        default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at, :created_at, :updated_at]
         options[:except] = (options[:except] ? options[:except] + default_except : default_except)
         to_xml(options, &block)
       end      

@@ -51,7 +51,7 @@ module RestfulX::AMF
           write_reference(@object_cache[record_id])
         else
           # Cache object
-          @object_cache.add_obj(record_id)
+          @object_cache.cache(record_id)
 
           # Always serialize things as dynamic objects
           @stream << AMF3_DYNAMIC_OBJECT
@@ -72,7 +72,6 @@ module RestfulX::AMF
               if @object_cache[result_id] != nil
                 result.to_amf(options)
               else
-                # TODO: do something about non-nested associations
                 write_null
               end
             else
@@ -90,26 +89,21 @@ module RestfulX::AMF
       
       def serialize_records(records, options = {}, &block)
         @stream << AMF3_ARRAY_MARKER
-        if @object_cache[records] != nil
-          write_reference(@object_cache[records])
-        else
-          # Cache array
-          @object_cache.add_obj(records)
+        @object_cache.cache_index += 1
 
-          header = records.length << 1 # make room for a low bit of 1
-          header = header | 1 # set the low bit to 1
-          @stream << pack_integer(header)
-          @stream << AMF3_CLOSE_DYNAMIC_ARRAY
-          records.each do |elem|
-            if elem.respond_to?(:to_amf)
-              elem.to_amf(options)
-            else
-              serialize_property(elem)
-            end
+        header = records.length << 1 # make room for a low bit of 1
+        header = header | 1 # set the low bit to 1
+        @stream << pack_integer(header)
+        @stream << AMF3_CLOSE_DYNAMIC_ARRAY
+        records.each do |elem|
+          if elem.respond_to?(:to_amf)
+            elem.to_amf(options)
+          else
+            serialize_property(elem)
           end
-
-          block.call(self) if block_given?
         end
+
+        block.call(self) if block_given?
         self
       end
 
@@ -151,6 +145,8 @@ module RestfulX::AMF
 
       def write_time(time)
         @stream << AMF3_DATE_MARKER
+        
+        @object_cache.cache_index += 1
 
         # Build AMF string
         time.utc unless time.utc?
@@ -161,6 +157,8 @@ module RestfulX::AMF
 
       def write_date(date)
         @stream << AMF3_DATE_MARKER
+        
+        @object_cache.cache_index += 1
 
         # Build AMF string
         seconds = ((date.strftime("%s").to_i) * 1000).to_i
@@ -174,7 +172,7 @@ module RestfulX::AMF
           write_reference(@object_cache[hash])
         else
           # Cache object
-          @object_cache.add_obj(hash)
+          @object_cache.cache(hash)
 
           # Always serialize things as dynamic objects
           @stream << AMF3_DYNAMIC_OBJECT << AMF3_ANONYMOUS_OBJECT
@@ -198,7 +196,7 @@ module RestfulX::AMF
           write_reference(@string_cache[str])
         else
           # Cache string
-          @string_cache.add_obj(str)
+          @string_cache.cache(str)
 
           # Build AMF string
           header = str.length << 1 # make room for a low bit of 1
@@ -219,7 +217,7 @@ module RestfulX::AMF
         @cache_index = 0
       end
 
-      def add_obj(obj)
+      def cache(obj)
         self[obj] = @cache_index
         @cache_index += 1
       end
