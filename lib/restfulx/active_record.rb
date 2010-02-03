@@ -27,7 +27,7 @@ module RestfulX
       def add_associations(association, records, opts, serializer)        
         serializer.write_utf8_vr(association.to_s.camelcase(:lower))
         if records.is_a?(Enumerable)
-          serializer.object_cache.cache_index += 2
+          serializer.object_cache.cache_index += 3
           serializer.stream << RestfulX::AMF::AMF3_OBJECT_MARKER << RestfulX::AMF::AMF3_XML_DOC_MARKER
           serializer.write_utf8_vr('org.restfulx.messaging.io.ModelsCollection')            
           serializer.serialize_records(records, opts)

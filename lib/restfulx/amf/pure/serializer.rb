@@ -69,8 +69,11 @@ module RestfulX::AMF
             result = record.send(name)
             if result.respond_to?(:to_amf)
               result_id = result.respond_to?(:unique_id) ? result.unique_id : result.object_id
+              puts "#{result_id} : #{@object_cache[result_id]}"
               if @object_cache[result_id] != nil
-                result.to_amf(options)
+                write_reference(7)
+                # result.to_amf(options)
+                # write_null
               else
                 write_null
               end
