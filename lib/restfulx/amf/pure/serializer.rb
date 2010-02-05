@@ -69,13 +69,14 @@ module RestfulX::AMF
             result = record.send(name)
             if result.respond_to?(:to_amf)
               result_id = result.respond_to?(:unique_id) ? result.unique_id : result.object_id
-              puts "#{result_id} : #{@object_cache[result_id]}"
-              puts @object_cache.inspect
               if @object_cache[result_id] != nil
                 @stream << AMF3_OBJECT_MARKER
                 write_reference(@object_cache[result_id])
               else
-                write_null
+                serialize_record(result, ['id']) do |serializer|
+                  serializer.write_utf8_vr("partial")
+                  serializer.serialize_property(true)
+                end
               end
             else
               serialize_property(result)
