@@ -70,10 +70,10 @@ module RestfulX::AMF
             if result.respond_to?(:to_amf)
               result_id = result.respond_to?(:unique_id) ? result.unique_id : result.object_id
               puts "#{result_id} : #{@object_cache[result_id]}"
+              puts @object_cache.inspect
               if @object_cache[result_id] != nil
-                write_reference(7)
-                # result.to_amf(options)
-                # write_null
+                @stream << AMF3_OBJECT_MARKER
+                write_reference(@object_cache[result_id])
               else
                 write_null
               end
@@ -92,11 +92,13 @@ module RestfulX::AMF
       
       def serialize_records(records, options = {}, &block)
         @stream << AMF3_ARRAY_MARKER
-        @object_cache.cache_index += 1
 
         header = records.length << 1 # make room for a low bit of 1
         header = header | 1 # set the low bit to 1
         @stream << pack_integer(header)
+        
+        # @object_cache.cache_index += 1
+        
         @stream << AMF3_CLOSE_DYNAMIC_ARRAY
         records.each do |elem|
           if elem.respond_to?(:to_amf)
@@ -105,12 +107,13 @@ module RestfulX::AMF
             serialize_property(elem)
           end
         end
-
+        
         block.call(self) if block_given?
+                
         self
       end
 
-      def write_reference index
+      def write_reference(index)
         header = index << 1 # shift value left to leave a low bit of 0
         @stream << pack_integer(header)
       end
