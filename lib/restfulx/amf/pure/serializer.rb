@@ -47,6 +47,8 @@ module RestfulX::AMF
         @stream << AMF3_OBJECT_MARKER
         record_id = record.respond_to?(:unique_id) ? record.unique_id : record.object_id
         
+        partials = {}
+        
         if @object_cache[record_id] != nil
           write_reference(@object_cache[record_id])
         else
@@ -73,16 +75,17 @@ module RestfulX::AMF
                 @stream << AMF3_OBJECT_MARKER
                 write_reference(@object_cache[result_id])
               else
-                serialize_record(result, ['id']) do |serializer|
-                  serializer.write_utf8_vr("partial")
-                  serializer.serialize_property(true)
-                end
+                partials[name.to_s] = result.class.class_name
+                serialize_record(result, ['id'])
               end
             else
               serialize_property(result)
             end
           end
-
+          
+          write_utf8_vr("partials")
+          serialize_property(partials)
+          
           block.call(self) if block_given?
 
           # Write close
@@ -97,9 +100,7 @@ module RestfulX::AMF
         header = records.length << 1 # make room for a low bit of 1
         header = header | 1 # set the low bit to 1
         @stream << pack_integer(header)
-        
-        # @object_cache.cache_index += 1
-        
+                
         @stream << AMF3_CLOSE_DYNAMIC_ARRAY
         records.each do |elem|
           if elem.respond_to?(:to_amf)
@@ -186,7 +187,7 @@ module RestfulX::AMF
           
           hash.keys.sort.each do |name|
             write_utf8_vr(name.to_s.camelize(:lower))
-            serialize_property(hash[name.to_sym])
+            serialize_property(hash[name])
           end
 
           block.call(self) if block_given?
