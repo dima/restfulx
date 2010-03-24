@@ -111,7 +111,13 @@ module ActiveRecord
     end
     
     def to_amf(options = {})
-      #TODO
+      options[:amf_version] = 3
+      options[:serializer] ||= RestfulX::AMF::AMF3Serializer.new
+      options[:serializer].stream << RestfulX::AMF::AMF3_OBJECT_MARKER << RestfulX::AMF::AMF3_XML_DOC_MARKER
+      options[:serializer].write_utf8_vr('org.restfulx.messaging.io.ServiceErrors')
+      options[:serializer].serialize_property(Hash[*@errors.to_a.flatten])
+      options[:serializer].stream << RestfulX::AMF::AMF3_CLOSE_DYNAMIC_OBJECT
+      options[:serializer].to_s
     end
   end
 end

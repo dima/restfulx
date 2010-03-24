@@ -184,7 +184,7 @@ module RestfulX::AMF
 
           # Always serialize things as dynamic objects
           @stream << AMF3_DYNAMIC_OBJECT << AMF3_ANONYMOUS_OBJECT
-          
+                    
           hash.keys.sort.each do |name|
             write_utf8_vr(name.to_s.camelize(:lower))
             serialize_property(hash[name])
