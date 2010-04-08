@@ -11,6 +11,7 @@ module RestfulX
       end
 
       def serialize
+        
         @options[:serializer].serialize_record(@record, serializable_attributes, @options) do |serializer|
           add_includes do |association, records, opts|
             add_associations(association, records, opts, serializer)
@@ -20,8 +21,8 @@ module RestfulX
       end
       
       def serializable_attributes
-        associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect { |assoc| [assoc.primary_key_name, assoc.name] }.flatten]
-        serializable_names.map { |name| associations.has_key?(name) ? associations[name] : name.to_sym }
+        associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect { |assoc| [assoc.primary_key_name, {:name => assoc.name, :klass => assoc.klass}] }.flatten]
+        serializable_names.map { |name| associations.has_key?(name) ? {:assoc => {:name => name, :reflected => associations[name]}} : name.to_sym }
       end
 
       def add_associations(association, records, opts, serializer)        

@@ -66,20 +66,24 @@ module RestfulX::AMF
             @stream << AMF3_ANONYMOUS_OBJECT
           end
                     
-          serializable_names.each do |name|
-            write_utf8_vr(name.to_s.camelize(:lower))
-            result = record.send(name)
-            if result.respond_to?(:to_amf)
-              result_id = result.respond_to?(:unique_id) ? result.unique_id : result.object_id
+          serializable_names.each do |prop|
+            if prop.is_a?(Hash)
+              record_name = prop[:assoc][:name]
+              name = prop[:assoc][:reflected][:name].to_s.camelize(:lower)
+              record_klass = prop[:assoc][:reflected][:klass].class_name
+              result_id = "#{record_klass}_#{record[record_name]}"
+ 
+              write_utf8_vr(name)
               if @object_cache[result_id] != nil
                 @stream << AMF3_OBJECT_MARKER
                 write_reference(@object_cache[result_id])
               else
-                partials[name.to_s] = result.class.class_name
-                serialize_record(result, ['id'])
-              end
+                partials[name.to_s] = record_klass
+                serialize_property(record[prop])
+              end              
             else
-              serialize_property(result)
+              write_utf8_vr(prop.to_s.camelize(:lower))
+              serialize_property(record[prop])
             end
           end
           
