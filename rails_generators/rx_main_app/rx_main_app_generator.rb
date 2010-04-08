@@ -4,7 +4,7 @@ module Rails
   module Generator
     module Commands
       class Create
-        include SchemaToYaml
+        include SchemaToRxYaml
       end
     end
   end

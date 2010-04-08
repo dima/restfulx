@@ -63,7 +63,7 @@ module Rails
     end
     module Commands
       class Create
-        include SchemaToYaml
+        include SchemaToRxYaml
       end
     end
   end
@@ -71,7 +71,7 @@ end
 
 class RxScaffoldGenerator < Rails::Generator::NamedBase
   include RestfulX::Configuration
-  include SchemaToYaml
+  include SchemaToRxYaml
   
   attr_reader   :project_name, 
                 :flex_project_name, 
