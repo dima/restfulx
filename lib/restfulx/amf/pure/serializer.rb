@@ -80,7 +80,7 @@ module RestfulX::AMF
               else
                 partials[name.to_s] = record_klass
                 partial = prop[:assoc][:reflected][:klass].new
-                partial.id = record[prop]
+                partial.id = record[record_name]
                 serialize_record(partial, ['id'])
               end              
             else
