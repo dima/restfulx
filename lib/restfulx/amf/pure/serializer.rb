@@ -79,7 +79,9 @@ module RestfulX::AMF
                 write_reference(@object_cache[result_id])
               else
                 partials[name.to_s] = record_klass
-                serialize_property(record[prop])
+                partial = prop[:assoc][:reflected][:klass].new
+                partial.id = record[prop]
+                serialize_record(partial, ['id'])
               end              
             else
               write_utf8_vr(prop.to_s.camelize(:lower))
