@@ -120,15 +120,9 @@ module ActiveSupport::CoreExtensions
         raise "Not all elements respond to to_amf" unless all? { |e| e.respond_to? :to_amf }
         
         options[:attributes] ||= {}
-        options[:serializer] ||= RestfulX::AMF::AMF3Serializer.new
-        options[:serializer].stream << RestfulX::AMF::AMF3_OBJECT_MARKER << RestfulX::AMF::AMF3_XML_DOC_MARKER
-        options[:serializer].write_utf8_vr('org.restfulx.messaging.io.TypedArray')
-        options[:serializer].object_cache.cache_index += 1
-        options[:serializer].serialize_property(options[:attributes])
-        options[:serializer].object_cache.cache_index += 1
-                
-        block_given? ? options[:serializer].serialize_records(self, options, &block).to_s : options[:serializer].serialize_records(self, options).to_s      
-      end
+        options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
+        options[:serializer].serialize_typed_array(self, options).to_s
+     end
     end
   end
 end

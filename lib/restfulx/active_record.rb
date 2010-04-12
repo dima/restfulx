@@ -7,11 +7,10 @@ module RestfulX
       def initialize(record, options = {})
         super(record, options)
         @options[:amf_version] = 3
-        @options[:serializer] ||= RestfulX::AMF::AMF3Serializer.new
+        @options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
       end
 
       def serialize
-        
         @options[:serializer].serialize_record(@record, serializable_attributes, @options) do |serializer|
           add_includes do |association, records, opts|
             add_associations(association, records, opts, serializer)
@@ -21,17 +20,18 @@ module RestfulX
       end
       
       def serializable_attributes
-        associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect { |assoc| [assoc.primary_key_name, {:name => assoc.name, :klass => assoc.klass}] }.flatten]
-        serializable_names.map { |name| associations.has_key?(name) ? {:assoc => {:name => name, :reflected => associations[name]}} : name.to_sym }
+        associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect do |assoc| 
+          [assoc.primary_key_name, {:name => assoc.name, :klass => assoc.klass}]
+        end.flatten]
+        serializable_names.map do |name| 
+          associations.has_key?(name) ? {:assoc => {:name => name, :reflected => associations[name]}} : name.to_sym
+        end
       end
 
       def add_associations(association, records, opts, serializer)        
         serializer.write_utf8_vr(association.to_s.camelcase(:lower))
         if records.is_a?(Enumerable)
-          serializer.stream << RestfulX::AMF::AMF3_OBJECT_MARKER << RestfulX::AMF::AMF3_XML_DOC_MARKER
-          serializer.write_utf8_vr('org.restfulx.messaging.io.ModelsCollection')
-          serializer.object_cache.cache_index += 2        
-          serializer.serialize_records(records, opts)
+          serializer.serialize_models_array(records, opts)
         else
           if record = @record.send(association)
             record.to_amf(opts)
@@ -113,12 +113,8 @@ module ActiveRecord
     
     def to_amf(options = {})
       options[:amf_version] = 3
-      options[:serializer] ||= RestfulX::AMF::AMF3Serializer.new
-      options[:serializer].stream << RestfulX::AMF::AMF3_OBJECT_MARKER << RestfulX::AMF::AMF3_XML_DOC_MARKER
-      options[:serializer].write_utf8_vr('org.restfulx.messaging.io.ServiceErrors')
-      options[:serializer].serialize_property(Hash[*@errors.to_a.flatten])
-      options[:serializer].stream << RestfulX::AMF::AMF3_CLOSE_DYNAMIC_OBJECT
-      options[:serializer].to_s
+      options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
+      options[:serializer].serialize_errors(Hash[*@errors.to_a.flatten]).to_s
     end
   end
 end
