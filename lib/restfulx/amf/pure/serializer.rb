@@ -163,8 +163,9 @@ module RestfulX::AMF
       def serialize_models_array(records, options = {}, &block)
         @stream << AMF3_OBJECT_MARKER << AMF3_XML_DOC_MARKER
         write_utf8_vr('org.restfulx.messaging.io.ModelsCollection')
-        @object_cache.cache_index += 2        
-        serialize_records(records, opts)
+        @object_cache.cache_index += 2
+             
+        block_given? ? serialize_records(records, options, &block) : serialize_records(records, options)      
       end
 
       def serialize_typed_array(records, options = {}, &block)
