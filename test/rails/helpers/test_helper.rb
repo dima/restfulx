@@ -3,15 +3,21 @@ RAILS_ROOT = File.join(File.dirname(__FILE__), '..') unless defined? RAILS_ROOT
 require 'rubygems'
 require 'test/unit'
 
-require 'active_support'
+gem 'activesupport', '= 2.3.2'
+gem 'activerecord', '= 2.3.2'
+gem 'actionpack', '= 2.3.2'
+
+require 'activesupport'
 require 'active_support/test_case'
 require 'active_record'
 require 'active_record/fixtures'
 require 'action_controller'
+require 'action_controller/assertions/selector_assertions'
 require 'action_controller/test_case'
 require 'action_controller/test_process'
 require 'action_controller/integration'
 require 'sqlite3'
+
 require File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'restfulx')
 require File.join(File.dirname(__FILE__), '..',  'models', 'note')
 require File.join(File.dirname(__FILE__), '..', 'models', 'user')
@@ -30,7 +36,21 @@ class MockResponse
 
 end
 
+class ActiveSupport::TestCase
+  include ActiveRecord::TestFixtures
+
+  self.fixture_path = File.join(File.dirname(__FILE__), "../fixtures")
+
+  self.use_transactional_fixtures = false
+  self.use_instantiated_fixtures = false
+
+  # load up fixtures
+  # fixtures :all
+end
+
 class ActiveRecord::TestCase #:nodoc:
+  include ActionController::TestProcess
+  include ActionController::Assertions::SelectorAssertions
   # Add more helper methods to be used by all tests here...
 
   # Use this to test xml or fxml responses in unit tests.  For example,
@@ -54,5 +74,4 @@ class ActiveRecord::TestCase #:nodoc:
   def assert_invalid(record)
     assert !record.valid?
   end
-
 end

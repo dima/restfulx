@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dima Berastau"]
-  s.date = %q{2010-02-03}
+  s.date = %q{2010-04-13}
   s.default_executable = %q{rx-gen}
   s.description = %q{RestfulX: The RESTful Way to develop Adobe Flex and AIR applications}
   s.email = %q{dima.berastau@gmail.com}
@@ -57,6 +57,7 @@ Gem::Specification.new do |s|
      "lib/restfulx/amf.rb",
      "lib/restfulx/amf/class_mapping.rb",
      "lib/restfulx/amf/constants.rb",
+     "lib/restfulx/amf/ext/extconf.rb",
      "lib/restfulx/amf/pure.rb",
      "lib/restfulx/amf/pure/io_helpers.rb",
      "lib/restfulx/amf/pure/serializer.rb",
@@ -173,7 +174,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{restfulx}
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{RestfulX Framework Code Generation Engine / Rails 2.1+ Integration Support}
   s.test_files = [
     "spec/restfulx_spec.rb",
@@ -205,14 +206,14 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rubigen>, [">= 1.5.0"])
+      s.add_runtime_dependency(%q<rubigen>, [">= 1.5.4"])
       s.add_runtime_dependency(%q<activesupport>, [">= 2.0.0"])
     else
-      s.add_dependency(%q<rubigen>, [">= 1.5.0"])
+      s.add_dependency(%q<rubigen>, [">= 1.5.4"])
       s.add_dependency(%q<activesupport>, [">= 2.0.0"])
     end
   else
-    s.add_dependency(%q<rubigen>, [">= 1.5.0"])
+    s.add_dependency(%q<rubigen>, [">= 1.5.4"])
     s.add_dependency(%q<activesupport>, [">= 2.0.0"])
   end
 end
