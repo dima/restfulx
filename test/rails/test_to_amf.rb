@@ -8,10 +8,10 @@ require 'models/task'
 require 'models/user'
 require 'models/simple_property'
 
-class ToJsonTest < ActiveRecord::TestCase
+class ToAMFTest < ActiveRecord::TestCase
   fixtures :locations, :notes, :projects, :tasks, :users, :simple_properties
   
-  def test_to_json_sanity
-    assert_nothing_raised {users(:ludwig).to_json}
+  def test_to_amf_sanity
+    assert_nothing_raised {users(:ludwig).to_amf}
   end
 end

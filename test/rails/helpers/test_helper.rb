@@ -6,16 +6,19 @@ require 'test/unit'
 gem 'activesupport', '= 2.3.2'
 gem 'activerecord', '= 2.3.2'
 gem 'actionpack', '= 2.3.2'
+gem 'rails', '= 2.3.2'
 
 require 'activesupport'
+require 'active_support/core_ext'
 require 'active_support/test_case'
 require 'active_record'
 require 'active_record/fixtures'
 require 'action_controller'
-require 'action_controller/assertions/selector_assertions'
 require 'action_controller/test_case'
 require 'action_controller/test_process'
 require 'action_controller/integration'
+require 'action_controller/assertions/selector_assertions'
+require 'action_controller/assertions/response_assertions'
 require 'sqlite3'
 
 require File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'restfulx')
@@ -38,6 +41,9 @@ end
 
 class ActiveSupport::TestCase
   include ActiveRecord::TestFixtures
+  include ActionController::TestProcess
+  include ActionController::Assertions::SelectorAssertions
+  include ActionController::Assertions::ResponseAssertions
 
   self.fixture_path = File.join(File.dirname(__FILE__), "../fixtures")
 
@@ -49,8 +55,6 @@ class ActiveSupport::TestCase
 end
 
 class ActiveRecord::TestCase #:nodoc:
-  include ActionController::TestProcess
-  include ActionController::Assertions::SelectorAssertions
   # Add more helper methods to be used by all tests here...
 
   # Use this to test xml or fxml responses in unit tests.  For example,

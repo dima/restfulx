@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
 end
 
-class RailsIntegrationFunctionalTest < ActiveRecord::TestCase
+class NotesControllerFunctionalTest < ActionController::TestCase
   fixtures :all
   
   def setup    
@@ -14,9 +14,10 @@ class RailsIntegrationFunctionalTest < ActiveRecord::TestCase
     @response = ActionController::TestResponse.new    
   end
 
-  # def test_render_with_an_empty_params_hash_should_not_blow_up
-  #   get :empty_params_action
-  #   assert_response :success
-  # end
+  def test_render_with_an_empty_params_hash_should_not_blow_up
+    puts "testing notes controller"
+    get :index
+    assert_response :success
+  end
 
 end
