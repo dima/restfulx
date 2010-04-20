@@ -6,12 +6,19 @@ module RestfulX
     class AMFSerializer < ActiveRecord::Serialization::Serializer
       def initialize(record, options = {})
         super(record, options)
+        @options[:methods] ||= []
         @options[:amf_version] = 3
         @options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
       end
 
       def serialize
         @options[:serializer].serialize_record(@record, serializable_attributes, @options) do |serializer|
+          ([].concat(@options[:methods])).each do |method|
+            if @record.respond_to?(method)
+              serializer.write_utf8_vr(method.to_s.camelcase(:lower))
+              serializer.serialize_property(@record.send(method))
+            end
+          end
           add_includes do |association, records, opts|
             add_associations(association, records, opts, serializer)
           end
@@ -21,17 +28,18 @@ module RestfulX
       
       def serializable_attributes
         includes = @options[:include] ||= {}
+        
         associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect do |assoc| 
           [assoc.primary_key_name, {:name => assoc.name, :klass => assoc.klass}]
         end.flatten]
-                        
+                                
         serializable_names.select do |name| 
           !includes.include?(associations[name][:name]) rescue true
         end.map do |name| 
           associations.has_key?(name) ? {:assoc => {:name => name, :reflected => associations[name]}} : name.to_sym
         end
       end
-
+      
       def add_associations(association, records, opts, serializer)        
         serializer.write_utf8_vr(association.to_s.camelcase(:lower))
         if records.is_a?(Enumerable)
