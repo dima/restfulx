@@ -214,18 +214,22 @@ module RestfulX::AMF
               record_name = prop[:assoc][:name]
               name = prop[:assoc][:reflected][:name].to_s.camelize(:lower)
               record_klass = prop[:assoc][:reflected][:klass].class_name
-              result_id = "#{record_klass}_#{record[record_name]}"
+              result_id = "#{record_klass}_#{record[record_name]}" if record[record_name]
 
               write_utf8_vr(name)
-              if @object_cache[result_id] != nil
-                @stream << AMF3_OBJECT_MARKER
-                write_reference(@object_cache[result_id])
+              if result_id               
+                if @object_cache[result_id]
+                  @stream << AMF3_OBJECT_MARKER
+                  write_reference(@object_cache[result_id])
+                else
+                  partials[name.to_s] = record_klass
+                  partial = prop[:assoc][:reflected][:klass].new
+                  partial.id = record[record_name]
+                  serialize_record(partial, ['id'])
+                end
               else
-                partials[name.to_s] = record_klass
-                partial = prop[:assoc][:reflected][:klass].new
-                partial.id = record[record_name]
-                serialize_record(partial, ['id'])
-              end              
+                write_null
+              end
             else
               write_utf8_vr(prop.to_s.camelize(:lower))
               serialize_property(record[prop])
