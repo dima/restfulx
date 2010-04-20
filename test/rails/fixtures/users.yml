@@ -1,19 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-ludwig:
-  login: ludwig
-  first_name: Ludwig
-  last_name: van Beethoven
-  email: ludwig@vienna.de
-  
-shakespeare:
-  login: william
-  first_name: William
-  last_name: Shakespeare
-  email: will@theglobetheater.com
-  
-vincent:
-  login: vincentsloginistoolong
-  first_name: Vincent
-  last_name: van Gogh
-  email: vince@invalid.com
+<% for i in 1..1000 %>
+  user_<%= i %>:
+    login: user<%= i %>
+    first_name: Foo<%= i %>
+    last_name: Bar<%= i %>
+    email: foo@bar.com
+<% end %>

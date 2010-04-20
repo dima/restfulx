@@ -1,46 +1,20 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-haydn:
-  name: Get piano lessons from Haydn
-  location: vienna
-  user: ludwig
-  project: music
-  start_time: <%= 30.days.ago %>
-  end_time: <%= 100.days.from_now %>
-  
-salieri:
-  name: Arrange lessions with Antonio Salieri
-  location: vienna
-  user: ludwig
-  project: music
-  start_time: <%= 30.days.ago %>  
-  
-hearing:
-  name: See doctor about hearing again
-  location: vienna
-  user: ludwig
-  project: health
-  start_time: <%= 30.days.ago %>  
-  
-sound_board:
-  name: Get a new sound board made
-  location: vienna
-  user: ludwig
-  project: health
-  start_time: <%= 30.days.ago %>  
-  
-hamlet_soliloquy:
-  name: "Edit Hamlet's soliloquy"
-  notes: "'That is the question' or 'is that the question?'"
-  location: stratford
-  user: shakespeare
-  project: hamlet
-  start_time: <%= 30.days.ago %>  
-  
-othello_outline:
-  name: Outline Othello
-  location: stratford
-  user: shakespeare
-  project: othello
-  start_time: <%= 30.days.ago %>  
+<% for i in 1..1000 %>
+  task_one_<%= i %>:
+    name: TaskOne<%= i %>
+    location_id: <%= i %>
+    user_id: <%= i %>
+    project_id: <%= i %>
+    start_time: <%= 30.days.ago %>
+    end_time: <%= 100.days.from_now %>
+    
+  task_two_<%= i %>:
+    name: TaskTwo<%= i %>
+    location_id: <%= i %>
+    user_id: <%= i %>
+    project_id: <%= i %>
+    start_time: <%= 30.days.ago %>
+    end_time: <%= 100.days.from_now %>
+<% end %>
   

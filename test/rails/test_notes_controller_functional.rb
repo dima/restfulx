@@ -15,7 +15,6 @@ class NotesControllerFunctionalTest < ActionController::TestCase
   end
 
   def test_render_with_an_empty_params_hash_should_not_blow_up
-    puts "testing notes controller"
     get :index
     assert_response :success
   end

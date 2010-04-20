@@ -1,25 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-health:
-  name: Health
-  start_date: <%= 20.days.ago %>
-  completed: false
-  user: ludwig
-
-music:
-  name: Music
-  start_date: <%= 20.days.ago %>
-  completed: false
-  user: ludwig
-
-hamlet:
-  name: Hamlet
-  start_date: <%= 2.years.ago %>
-  completed: false
-  user: shakespeare
-
-othello:
-  name: Othello
-  start_date: <%= 20.days.ago %>
-  completed: false
-  user: shakespeare
+<% for i in 1..1000 %>
+  project_<%= i %>:
+    name: Project<%= i %>
+    start_date: <%= 20.days.ago %>
+    completed: false
+    user_id: <%= i %>
+<% end %>

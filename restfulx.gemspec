@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dima Berastau"]
-  s.date = %q{2010-04-13}
+  s.date = %q{2010-04-20}
   s.default_executable = %q{rx-gen}
   s.description = %q{RestfulX: The RESTful Way to develop Adobe Flex and AIR applications}
   s.email = %q{dima.berastau@gmail.com}
@@ -152,6 +152,7 @@ Gem::Specification.new do |s|
      "test/rails/fixtures/tasks.yml",
      "test/rails/fixtures/users.yml",
      "test/rails/helpers/functional_test_helper.rb",
+     "test/rails/helpers/performance_test_helper.rb",
      "test/rails/helpers/test_helper.rb",
      "test/rails/helpers/unit_test_helper.rb",
      "test/rails/model.yml",
@@ -164,7 +165,9 @@ Gem::Specification.new do |s|
      "test/rails/schema.rb",
      "test/rails/test.swf",
      "test/rails/test_active_foo.rb",
-     "test/rails/test_rails_integration_functional.rb",
+     "test/rails/test_notes_controller_functional.rb",
+     "test/rails/test_serialiazation_performance.rb",
+     "test/rails/test_to_amf.rb",
      "test/rails/test_to_fxml.rb",
      "test/rails/test_to_json.rb",
      "test/rails/views/notes/empty_params_action.html.erb",
@@ -186,6 +189,7 @@ Gem::Specification.new do |s|
      "test/rails/controllers/tasks_controller.rb",
      "test/rails/controllers/users_controller.rb",
      "test/rails/helpers/functional_test_helper.rb",
+     "test/rails/helpers/performance_test_helper.rb",
      "test/rails/helpers/test_helper.rb",
      "test/rails/helpers/unit_test_helper.rb",
      "test/rails/models/location.rb",
@@ -196,7 +200,9 @@ Gem::Specification.new do |s|
      "test/rails/models/user.rb",
      "test/rails/schema.rb",
      "test/rails/test_active_foo.rb",
-     "test/rails/test_rails_integration_functional.rb",
+     "test/rails/test_notes_controller_functional.rb",
+     "test/rails/test_serialiazation_performance.rb",
+     "test/rails/test_to_amf.rb",
      "test/rails/test_to_fxml.rb",
      "test/rails/test_to_json.rb"
   ]
@@ -206,14 +212,14 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rubigen>, [">= 1.5.4"])
+      s.add_runtime_dependency(%q<rubigen>, [">= 1.5.2"])
       s.add_runtime_dependency(%q<activesupport>, [">= 2.0.0"])
     else
-      s.add_dependency(%q<rubigen>, [">= 1.5.4"])
+      s.add_dependency(%q<rubigen>, [">= 1.5.2"])
       s.add_dependency(%q<activesupport>, [">= 2.0.0"])
     end
   else
-    s.add_dependency(%q<rubigen>, [">= 1.5.4"])
+    s.add_dependency(%q<rubigen>, [">= 1.5.2"])
     s.add_dependency(%q<activesupport>, [">= 2.0.0"])
   end
 end

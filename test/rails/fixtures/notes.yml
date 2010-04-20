@@ -1,17 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-note_one:
-  content: Note1ContentText
-  user: user_one
-
-note_two:
-  content: Note2ContentText
-  user: user_two
-
-note_three:
-  content: Note3ContentText
-  user: user_three
-
-note_four:
-  content: Note4ContentText
-  user: user_four
+<% for i in 1..1000 %>
+  note_<%= i %>:
+    content: SomeNote<%= i %>
+    user_id: <%= i %>
+<% end %>
