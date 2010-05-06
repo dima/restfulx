@@ -130,3 +130,16 @@ module ActiveRecord
     end
   end
 end
+
+module ActiveRecord
+  # ActiveRecord named scopes are computed *before* restfulx gem gets loaded
+  # this patch addresses that and makes sure +to_fxml+ calls are properly
+  # delegated
+  module NamedScope
+    # make sure we properly delegate +to_fxml+ calls to the proxy
+    class Scope
+      delegate :to_fxml, :to => :proxy_found
+      delegate :to_amf,  :to => :proxy_found
+    end
+  end
+end
