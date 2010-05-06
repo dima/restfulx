@@ -3,7 +3,7 @@
 # name for this stuff +to_fxml+.
 module RestfulX
   module Serialization
-    class AMFSerializer < ActiveRecord::Serialization::Serializer
+    class AMFSerializer < ::ActiveRecord::Serialization::Serializer
       def initialize(record, options = {})
         super(record, options)
         @options[:methods] ||= []
