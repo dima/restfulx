@@ -98,7 +98,7 @@ namespace :rx do
   
   namespace :air do
     desc "Build project swf file as an AIR application and move it into bin-debug folder"
-    task :build do   
+    task :build do
       compile_application(:destination => 'bin-debug', :opts => '+configname=air')
     end
     

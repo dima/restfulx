@@ -29,8 +29,9 @@ module RestfulX
       def serializable_attributes
         includes = @options[:include] ||= {}
         
-        associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect do |assoc| 
-          [assoc.primary_key_name, {:name => assoc.name, :klass => assoc.klass}]
+        associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect do |assoc|
+          class_name = assoc.options.has_key?(:polymorphic) && assoc.options[:polymorphic] ? @record[assoc.options[:foreign_type]].constantize : assoc.klass
+          [assoc.primary_key_name, {:name => assoc.name, :klass => class_name}]
         end.flatten]
                                 
         serializable_names.select do |name| 
@@ -81,6 +82,17 @@ module RestfulX
 end
 
 module ActiveRecord
+  # ActiveRecord named scopes are computed *before* restfulx gem gets loaded
+  # this patch addresses that and makes sure +to_fxml+ calls are properly
+  # delegated
+  module NamedScope
+    # make sure we properly delegate +to_fxml+ calls to the proxy
+    class Scope
+      delegate :to_fxml, :to => :proxy_found
+      delegate :to_amf,  :to => :proxy_found
+    end
+  end
+  
   # Change the xml serializer so that '?'s are stripped from attribute names.
   # This makes it possible to serialize methods that end in a question mark, like 'valid?' or 'is_true?'
   class XmlSerializer
@@ -127,19 +139,6 @@ module ActiveRecord
       options[:amf_version] = 3
       options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
       options[:serializer].serialize_errors(Hash[*@errors.to_a.flatten]).to_s
-    end
-  end
-end
-
-module ActiveRecord
-  # ActiveRecord named scopes are computed *before* restfulx gem gets loaded
-  # this patch addresses that and makes sure +to_fxml+ calls are properly
-  # delegated
-  module NamedScope
-    # make sure we properly delegate +to_fxml+ calls to the proxy
-    class Scope
-      delegate :to_fxml, :to => :proxy_found
-      delegate :to_amf,  :to => :proxy_found
     end
   end
 end
