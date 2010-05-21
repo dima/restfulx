@@ -30,7 +30,12 @@ module RestfulX
         includes = @options[:include] ||= {}
         
         associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect do |assoc|
-          class_name = assoc.options.has_key?(:polymorphic) && assoc.options[:polymorphic] ? @record[assoc.options[:foreign_type]].constantize : assoc.klass
+          if assoc.options.has_key?(:polymorphic) && assoc.options[:polymorphic]
+            @options[:except] = ([] << @options[:except] << "#{assoc.name}_type".to_sym).flatten
+            class_name = @record[assoc.options[:foreign_type]].constantize
+          else
+            class_name = assoc.klass
+          end
           [assoc.primary_key_name, {:name => assoc.name, :klass => class_name}]
         end.flatten]
                                 
