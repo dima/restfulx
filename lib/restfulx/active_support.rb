@@ -77,7 +77,6 @@ module ActiveSupport::CoreExtensions
     end
   end
   
-  # Add Flex friendly to_fxml to array conversions
   module Array
     # refer to: http://api.rubyonrails.org/ for more details
     module Conversions
@@ -124,5 +123,14 @@ module ActiveSupport::CoreExtensions
         options[:serializer].serialize_typed_array(self, options).to_s
      end
     end
+  end
+end
+
+class Array
+  alias_method :to_json_original, :to_json
+  
+  def to_json(options = {})
+    attributes = options.delete(:attributes)
+    return (attributes.nil?) ? to_json_original(options) : "[{#{'metadata'.inspect}: #{attributes.to_json}},#{to_json_original(options)[1..-1]}]"
   end
 end
