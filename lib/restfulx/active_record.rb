@@ -121,6 +121,8 @@ module ActiveRecord
   # Add more extensive reporting on errors including field name along with a message
   # when errors are serialized to XML
   class Errors
+    alias_method :to_json_original, :to_json
+    
     # Flex friendly errors
     def to_fxml(options = {})
       options[:root] ||= "errors"
@@ -138,6 +140,10 @@ module ActiveRecord
           end
         end
       end
+    end
+    
+    def to_json(options = {})
+      "{#{'errors'.inspect}:#{to_json_original(options)}}"
     end
     
     def to_amf(options = {})
