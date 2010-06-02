@@ -12,6 +12,8 @@ module RestfulX
   LIB_DIR = File.join(File.dirname(__FILE__), 'restfulx/')
 end
 
+require 'libxml'
+
 ['configuration', 'amf'].each { |lib| require RestfulX::LIB_DIR + lib }
 
 # make sure we're running inside Merb

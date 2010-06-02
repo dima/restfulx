@@ -1,4 +1,3 @@
-require 'amf/constants'
 require 'amf/pure/serializer'
 
 module RestfulX::AMF

@@ -9,11 +9,12 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dima Berastau"]
-  s.date = %q{2010-04-20}
+  s.date = %q{2010-06-02}
   s.default_executable = %q{rx-gen}
   s.description = %q{RestfulX: The RESTful Way to develop Adobe Flex and AIR applications}
   s.email = %q{dima.berastau@gmail.com}
   s.executables = ["rx-gen"]
+  s.extensions = ["ext/restfulx/ext/amf/serializer/extconf.rb"]
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
@@ -56,8 +57,10 @@ Gem::Specification.new do |s|
      "lib/restfulx/active_support.rb",
      "lib/restfulx/amf.rb",
      "lib/restfulx/amf/class_mapping.rb",
+     "lib/restfulx/amf/common.rb",
      "lib/restfulx/amf/constants.rb",
-     "lib/restfulx/amf/ext/extconf.rb",
+     "lib/restfulx/amf/ext.rb",
+     "lib/restfulx/amf/ext/serializer.bundle",
      "lib/restfulx/amf/pure.rb",
      "lib/restfulx/amf/pure/io_helpers.rb",
      "lib/restfulx/amf/pure/serializer.rb",
