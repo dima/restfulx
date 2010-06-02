@@ -31,6 +31,15 @@ VALUE rb_mRestfulX_AMF = Qnil;
 VALUE rb_mRestfulX_AMF_Ext = Qnil;
 VALUE rb_cRestfulX_AMF_Ext_AMF3Serializer = Qnil;
 
+static VALUE t_init(VALUE self);
+static VALUE t_version(VALUE self);
+static VALUE t_stream(VALUE self);
+static VALUE t_object_cache(VALUE self);
+static VALUE t_string_cache(VALUE self);
+static VALUE t_to_s(VALUE self);
+static VALUE t_serialize_property(VALUE self, VALUE prop);
+static VALUE t_foobar(VALUE self);
+
 void Init_serializer() {
   rb_mRestfulX = rb_define_module("RestfulX");
   rb_mRestfulX_AMF = rb_define_module_under(rb_mRestfulX, "AMF");
@@ -38,15 +47,30 @@ void Init_serializer() {
   rb_cRestfulX_AMF_Ext_AMF3Serializer = rb_define_class_under(rb_mRestfulX_AMF_Ext, "AMF3Serializer", rb_cObject);
   rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "initialize", t_init, 0);
   rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "version", t_version, 0);
+  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "stream", t_stream, 0);
+  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "object_cache", t_object_cache, 0);
+  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "string_cache", t_string_cache, 0);
   rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "to_s", t_to_s, 0);
+  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "serialize_property", t_serialize_property, 1);
   rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "foobar", t_foobar, 0);
 }
-
 
 static VALUE t_init(VALUE self) {
   rb_iv_set(self, "@stream", rb_str_new2(""));
   rb_iv_set(self, "@object_cache", rb_funcall3(rb_const_get(rb_mRestfulX_AMF, rb_intern("SerializerCache")), rb_intern("new"), 0, 0));
   rb_iv_set(self, "@string_cache", rb_funcall3(rb_const_get(rb_mRestfulX_AMF, rb_intern("SerializerCache")), rb_intern("new"), 0, 0));
+}
+
+static VALUE t_stream(VALUE self) {
+  return rb_iv_get(self, "@stream");
+}
+
+static VALUE t_object_cache(VALUE self) {
+  return rb_iv_get(self, "@object_cache");
+}
+
+static VALUE t_string_cache(VALUE self) {
+  return rb_iv_get(self, "@string_cache");
 }
 
 static VALUE t_version(VALUE self) {
@@ -55,6 +79,24 @@ static VALUE t_version(VALUE self) {
 
 static VALUE t_to_s(VALUE self) {
   return rb_iv_get(self, "@stream");
+}
+
+static VALUE t_serialize_property(VALUE self, VALUE prop) {
+  VALUE stream = rb_iv_get(self, "@stream");
+  char c;
+  
+  if (TYPE(prop) == T_NIL) {
+    c = AMF3_NULL_MARKER;
+    stream = rb_str_cat(stream, &c, 1);
+  } else if (TYPE(prop) == T_TRUE) {
+    c = AMF3_TRUE_MARKER;
+    stream = rb_str_cat(stream, &c, 1);
+  } else if (TYPE(prop) == T_FALSE) {
+    c = AMF3_FALSE_MARKER;
+    stream = rb_str_cat(stream, &c, 1);
+  }
+  
+  return stream;
 }
 
 static VALUE t_foobar(VALUE self) {

@@ -1,44 +1,4 @@
 module RestfulX::AMF::Pure
-  module ReadIOHelpers #:nodoc:
-    def read_int8(source)
-      source.read(1).unpack('c').first
-    end
-
-    def read_word8(source)
-      source.read(1).unpack('C').first
-    end
-
-    def read_double(source)
-      source.read(8).unpack('G').first
-    end
-
-    def read_word16_network(source)
-      source.read(2).unpack('n').first
-    end
-
-    def read_int16_network(source)
-      str = source.read(2)
-      str.reverse! if byte_order_little? # swap bytes as native=little (and we want network)
-      str.unpack('s').first
-    end
-
-    def read_word32_network(source)
-      source.read(4).unpack('N').first
-    end
-
-    def byte_order
-      if [0x12345678].pack("L") == "\x12\x34\x56\x78"
-        :BigEndian
-      else
-        :LittleEndian
-      end
-    end
-
-    def byte_order_little?
-      (byte_order == :LittleEndian) ? true : false;
-    end
-  end
-
   module WriteIOHelpers #:nodoc:
     def pack_integer(integer)
       integer = integer & 0x1fffffff
