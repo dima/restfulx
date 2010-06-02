@@ -83,17 +83,25 @@ static VALUE t_to_s(VALUE self) {
 
 static VALUE t_serialize_property(VALUE self, VALUE prop) {
   VALUE stream = rb_iv_get(self, "@stream");
-  char c;
+  char type;
   
   if (TYPE(prop) == T_NIL) {
-    c = AMF3_NULL_MARKER;
-    stream = rb_str_cat(stream, &c, 1);
+    type = AMF3_NULL_MARKER;
+    stream = rb_str_cat(stream, &type, 1);
   } else if (TYPE(prop) == T_TRUE) {
-    c = AMF3_TRUE_MARKER;
-    stream = rb_str_cat(stream, &c, 1);
+    type = AMF3_TRUE_MARKER;
+    stream = rb_str_cat(stream, &type, 1);
   } else if (TYPE(prop) == T_FALSE) {
-    c = AMF3_FALSE_MARKER;
-    stream = rb_str_cat(stream, &c, 1);
+    type = AMF3_FALSE_MARKER;
+    stream = rb_str_cat(stream, &type, 1);
+  } else if (TYPE(prop) == T_FLOAT) {
+    type = AMF3_DOUBLE_MARKER;
+    stream = rb_str_cat(stream, &type, 1);
+    stream = rb_str_append(stream, rb_pack_c_double(NUM2DOUBLE(prop)));
+  } else if (TYPE(prop) == T_FIXNUM) {
+    type = AMF3_INTEGER_MARKER;
+    stream = rb_str_cat(stream, &type, 1);
+    stream = rb_str_append(stream, rb_pack_c_integer(NUM2INT(prop)));
   }
   
   return stream;
