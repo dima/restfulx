@@ -38,12 +38,12 @@ module RestfulX
       end
 
       def serializable_attributes
-        serializable_attribute_names.collect { |name| ::ActiveRecord::Serialization::Attribute.new(name, @record) }
+        serializable_attribute_names.collect { |name| Attribute.new(name, @record) }
       end
 
       def serializable_method_attributes
         Array(options[:methods]).inject([]) do |method_attributes, name|
-          method_attributes << ::ActiveRecord::Serialization::MethodAttribute.new(name.to_s, @record) if @record.respond_to?(name.to_s)
+          method_attributes << MethodAttribute.new(name.to_s, @record) if @record.respond_to?(name.to_s)
           method_attributes
         end
       end
@@ -117,6 +117,79 @@ module RestfulX
           add_procs
           yield builder if block_given?
         end
+      end
+      
+      class Attribute #:nodoc:
+        attr_reader :name, :value, :type
+
+        def initialize(name, record)
+          @name, @record = name, record
+
+          @type  = compute_type
+          @value = compute_value
+        end
+
+        # There is a significant speed improvement if the value
+        # does not need to be escaped, as <tt>tag!</tt> escapes all values
+        # to ensure that valid XML is generated. For known binary
+        # values, it is at least an order of magnitude faster to
+        # Base64 encode binary values and directly put them in the
+        # output XML than to pass the original value or the Base64
+        # encoded value to the <tt>tag!</tt> method. It definitely makes
+        # no sense to Base64 encode the value and then give it to
+        # <tt>tag!</tt>, since that just adds additional overhead.
+        def needs_encoding?
+          ![ :binary, :date, :datetime, :boolean, :float, :integer ].include?(type)
+        end
+
+        def decorations(include_types = true)
+          decorations = {}
+
+          if type == :binary
+            decorations[:encoding] = 'base64'
+          end
+
+          if include_types && type != :string
+            decorations[:type] = type
+          end
+
+          if value.nil?
+            decorations[:nil] = true
+          end
+
+          decorations
+        end
+
+        protected
+          def compute_type
+            type = @record.class.serialized_attributes.has_key?(name) ? :yaml : @record.class.columns_hash[name].type
+
+            case type
+              when :text
+                :string
+              when :time
+                :datetime
+              else
+                type
+            end
+          end
+
+          def compute_value
+            value = @record.send(name)
+
+            if formatter = Hash::XML_FORMATTING[type.to_s]
+              value ? formatter.call(value) : nil
+            else
+              value
+            end
+          end
+      end
+
+      class MethodAttribute < Attribute #:nodoc:
+        protected
+          def compute_type
+            Hash::XML_TYPE_NAMES[@record.send(name).class.name] || :string
+          end
       end
     end
     
