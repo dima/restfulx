@@ -43,7 +43,7 @@ module RestfulX
 
       def serializable_method_attributes
         Array(options[:methods]).inject([]) do |method_attributes, name|
-          method_attributes << MethodAttribute.new(name.to_s, @record) if @record.respond_to?(name.to_s)
+          method_attributes << ::ActiveRecord::Serialization::MethodAttribute.new(name.to_s, @record) if @record.respond_to?(name.to_s)
           method_attributes
         end
       end
@@ -88,13 +88,13 @@ module RestfulX
                   record_type = {:type => record_class}
                 end
 
-                record.to_xml opts.merge(:root => association_name).merge(record_type)
+                record.to_fxml opts.merge(:root => association_name).merge(record_type)
               end
             end
           end
         else
           if record = @record.send(association)
-            record.to_xml(opts.merge(:root => association))
+            record.to_fxml(opts.merge(:root => association))
           end
         end
       end
@@ -189,6 +189,7 @@ module RestfulX
       def to_amf(options = {}, &block)
         default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at, :created_at, :updated_at]
         options[:except] = (options[:except] ? options[:except] + default_except : default_except)
+        
         serializer = RestfulX::Serialization::AMFSerializer.new(self, options)
         block_given? ? serializer.to_s(&block) : serializer.to_s
       end
