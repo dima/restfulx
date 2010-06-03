@@ -18,13 +18,16 @@ module RestfulX::AMF
     end
   end
   
-  begin
-    require 'amf/ext'
-    puts "using native C AMF serializer"
-  rescue LoadError
-    require 'amf/pure'
-    puts "using pure AMF serializer"
-  end
+  # begin
+  #   require 'amf/ext'
+  #   puts "using native C AMF serializer"
+  # rescue LoadError
+  #   require 'amf/pure'
+  #   puts "using pure AMF serializer"
+  # end
+  
+  require 'amf/pure'
+  puts "using pure AMF serializer"
   
   require 'amf/common'
   
