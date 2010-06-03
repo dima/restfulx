@@ -38,7 +38,7 @@ module RestfulX
       end
 
       def serializable_attributes
-        serializable_attribute_names.collect { |name| Attribute.new(name, @record) }
+        serializable_attribute_names.collect { |name| ::ActiveRecord::Serialization::Attribute.new(name, @record) }
       end
 
       def serializable_method_attributes
