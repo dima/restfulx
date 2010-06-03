@@ -113,9 +113,9 @@ module RestfulX::AMF
           # Always serialize things as dynamic objects
           @stream << AMF3_DYNAMIC_OBJECT << AMF3_ANONYMOUS_OBJECT
                     
-          hash.keys.each do |name|
-            write_utf8_vr(name.to_s.camelize(:lower))
-            serialize_property(hash[name])
+          hash.each do |key, value|
+            write_utf8_vr(key.to_s.camelize(:lower))
+            serialize_property(value)
           end
 
           block.call(self) if block_given?
@@ -140,6 +140,8 @@ module RestfulX::AMF
           @stream << pack_integer(header)
           @stream << str
         end
+        
+        return nil
       end
 
       private
