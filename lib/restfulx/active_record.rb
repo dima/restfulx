@@ -205,7 +205,7 @@ module RestfulX
         @options[:serializer].serialize_record(@record, serializable_attributes, @options) do |serializer|
           ([].concat(@options[:methods])).each do |method|
             if @record.respond_to?(method)
-              serializer.write_utf8_vr(method.to_s.camelcase(:lower))
+              serializer.write_vr(method.to_s.camelcase(:lower))
               serializer.serialize_property(@record.send(method))
             end
           end
@@ -237,7 +237,7 @@ module RestfulX
       end
       
       def add_associations(association, records, opts, serializer)        
-        serializer.write_utf8_vr(association.to_s.camelcase(:lower))
+        serializer.write_vr(association.to_s.camelcase(:lower))
         if records.is_a?(Enumerable)
           serializer.serialize_models_array(records, opts)
         else

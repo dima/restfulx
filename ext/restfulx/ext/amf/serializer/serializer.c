@@ -29,7 +29,7 @@
 VALUE rb_mRestfulX = Qnil;
 VALUE rb_mRestfulX_AMF = Qnil;
 VALUE rb_mRestfulX_AMF_Ext = Qnil;
-VALUE rb_cRestfulX_AMF_Ext_AMF3Serializer = Qnil;
+VALUE rb_cRestfulX_AMF_Ext_RxAMFSerializer = Qnil;
 
 static VALUE t_init(VALUE self);
 static VALUE t_version(VALUE self);
@@ -48,19 +48,19 @@ void Init_serializer() {
   rb_mRestfulX = rb_define_module("RestfulX");
   rb_mRestfulX_AMF = rb_define_module_under(rb_mRestfulX, "AMF");
   rb_mRestfulX_AMF_Ext = rb_define_module_under(rb_mRestfulX_AMF, "Ext");
-  rb_cRestfulX_AMF_Ext_AMF3Serializer = rb_define_class_under(rb_mRestfulX_AMF_Ext, "AMF3Serializer", rb_cObject);
-  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "initialize", t_init, 0);
-  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "version", t_version, 0);
-  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "stream", t_stream, 0);
-  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "object_cache", t_object_cache, 0);
-  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "string_cache", t_string_cache, 0);
-  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "to_s", t_to_s, 0);
-  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "serialize_property", t_serialize_property, 1);
-  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "write_reference", t_write_reference, 1);
-  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "write_utf8_vr", t_write_utf8_vr, 1);
-  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "write_hash", t_write_hash, 1);
-  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "pack_integer", t_pack_integer, 1);
-  rb_define_method(rb_cRestfulX_AMF_Ext_AMF3Serializer, "foobar", t_foobar, 0);
+  rb_cRestfulX_AMF_Ext_RxAMFSerializer = rb_define_class_under(rb_mRestfulX_AMF_Ext, "RxAMFSerializer", rb_cObject);
+  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "initialize", t_init, 0);
+  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "version", t_version, 0);
+  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "stream", t_stream, 0);
+  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "object_cache", t_object_cache, 0);
+  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "string_cache", t_string_cache, 0);
+  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "to_s", t_to_s, 0);
+  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "serialize_property", t_serialize_property, 1);
+  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "write_reference", t_write_reference, 1);
+  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "write_utf8_vr", t_write_utf8_vr, 1);
+  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "write_hash", t_write_hash, 1);
+  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "pack_integer", t_pack_integer, 1);
+  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "foobar", t_foobar, 0);
 }
 
 static inline VALUE t_write_hash_attrs(VALUE pair, VALUE self) {
