@@ -26,76 +26,136 @@
 #define MAX_AMF3_INTEGER  268435455
 #define MIN_AMF3_INTEGER -268435456
 
-VALUE rb_mRestfulX = Qnil;
-VALUE rb_mRestfulX_AMF = Qnil;
-VALUE rb_mRestfulX_AMF_Ext = Qnil;
-VALUE rb_cRestfulX_AMF_Ext_RxAMFSerializer = Qnil;
+static VALUE mRestfulX, mRestfulX_AMF, mRestfulX_AMF_Ext, cRxAMFSerializer, cState;
 
-static VALUE t_init(VALUE self);
-static VALUE t_version(VALUE self);
-static VALUE t_stream(VALUE self);
-static VALUE t_object_cache(VALUE self);
-static VALUE t_string_cache(VALUE self);
-static VALUE t_to_s(VALUE self);
-static VALUE t_serialize_property(VALUE self, VALUE prop);
-static VALUE t_write_reference(VALUE self, VALUE index);
-static VALUE t_write_utf8_vr(VALUE self, VALUE prop);
-static VALUE t_write_hash(VALUE self, VALUE prop);
-static VALUE t_foobar(VALUE self);
-static VALUE t_pack_integer(VALUE self, VALUE val);
-
-void Init_serializer() {
-  rb_mRestfulX = rb_define_module("RestfulX");
-  rb_mRestfulX_AMF = rb_define_module_under(rb_mRestfulX, "AMF");
-  rb_mRestfulX_AMF_Ext = rb_define_module_under(rb_mRestfulX_AMF, "Ext");
-  rb_cRestfulX_AMF_Ext_RxAMFSerializer = rb_define_class_under(rb_mRestfulX_AMF_Ext, "RxAMFSerializer", rb_cObject);
-  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "initialize", t_init, 0);
-  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "version", t_version, 0);
-  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "stream", t_stream, 0);
-  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "object_cache", t_object_cache, 0);
-  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "string_cache", t_string_cache, 0);
-  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "to_s", t_to_s, 0);
-  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "serialize_property", t_serialize_property, 1);
-  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "write_reference", t_write_reference, 1);
-  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "write_utf8_vr", t_write_utf8_vr, 1);
-  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "write_hash", t_write_hash, 1);
-  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "pack_integer", t_pack_integer, 1);
-  rb_define_method(rb_cRestfulX_AMF_Ext_RxAMFSerializer, "foobar", t_foobar, 0);
-}
-
-static inline VALUE t_write_hash_attrs(VALUE pair, VALUE self) {
-  VALUE key = rb_ary_entry(pair, 0);
-  VALUE value = rb_ary_entry(pair, 1);
-
-  t_write_utf8_vr(self, rb_funcall3(key, rb_intern("to_s"), 0, 0));
-  t_serialize_property(self, value);
+typedef struct AMF_Serializer_StateStruct {
+  char *buffer;
+  int length;
+  int position;
   
-  return Qnil;
+  u_int  string_cache_count;
+  u_int  object_cache_count;
+  
+  VALUE stream;
+  VALUE string_cache;
+  VALUE object_cache;
+} AMF_Serializer_State;
+
+#define GET_STATE(self)                       \
+    AMF_Serializer_State *state;              \
+    Data_Get_Struct(self, AMF_Serializer_State, state);
+
+static void State_mark(AMF_Serializer_State *state) {
+  rb_gc_mark_maybe(state->stream);
+  rb_gc_mark_maybe(state->string_cache);
+  rb_gc_mark_maybe(state->object_cache);
 }
 
 static VALUE t_init(VALUE self) {
-  rb_iv_set(self, "@stream", rb_str_new2(""));
-  rb_iv_set(self, "@object_cache", rb_funcall3(rb_const_get(rb_mRestfulX_AMF, rb_intern("SerializerCache")), rb_intern("new"), 0, 0));
-  rb_iv_set(self, "@string_cache", rb_funcall3(rb_const_get(rb_mRestfulX_AMF, rb_intern("SerializerCache")), rb_intern("new"), 0, 0));
+  AMF_Serializer_State *state = ALLOC(AMF_Serializer_State);
+  Data_Wrap_Struct(self, State_mark, -1, state);
+  state->stream = rb_str_new2("");
+  state->string_cache = rb_hash_new();
+  state->object_cache = rb_hash_new();
+  state->buffer = (u_char *)RSTRING(state->stream)->ptr;
+  
+  return self;
 }
 
 static VALUE t_pack_integer(VALUE self, VALUE val) {
   return rb_pack_c_integer(NUM2INT(val));
 }
 
-static VALUE t_stream(VALUE self) {
-  return rb_iv_get(self, "@stream");
+static VALUE t_write_reference(VALUE self, VALUE index) {
+  GET_STATE(self);
+  // char header = NUM2INT(index) << 1;
+  // 
+  // self->stream = rb_str_cat(self->stream, &header, 1);
+  
+  return self;
 }
 
-static VALUE t_object_cache(VALUE self) {
-  return rb_iv_get(self, "@object_cache");
+static inline VALUE t_write_hash_attrs(VALUE pair, VALUE self) {
+  VALUE key = rb_ary_entry(pair, 0);
+  VALUE value = rb_ary_entry(pair, 1);
+
+  // t_write_utf8_vr(self, rb_funcall3(key, rb_intern("to_s"), 0, 0));
+  // t_serialize_property(self, value);
+  
+  return Qnil;
 }
 
-static VALUE t_string_cache(VALUE self) {
-  return rb_iv_get(self, "@string_cache");
+static VALUE t_write_hash(VALUE self, VALUE prop) {
+  char object_type = AMF3_OBJECT_MARKER;
+  char dyn_object_type = AMF3_DYNAMIC_OBJECT;
+  char anon_object_type = AMF3_ANONYMOUS_OBJECT;
+  char close_dynobject_type = AMF3_CLOSE_DYNAMIC_OBJECT;
+  
+  VALUE stream = rb_iv_get(self, "@stream");
+  VALUE object_cache = rb_iv_get(self, "@object_cache");
+  VALUE object_key;
+  VALUE *pargs;
+  VALUE args[2];
+    
+  args[0] = prop;
+  args[1] = Qnil;
+  
+  pargs = args;
+  
+  stream = rb_str_cat(stream, &object_type, 1);
+  object_key = rb_funcall3(object_cache, rb_intern("fetch"), 2, pargs);
+  if (object_key != Qnil) {
+    t_write_reference(self, object_key);
+  } else {
+    rb_funcall3(object_cache, rb_intern("cache"), 1, &prop);
+    stream = rb_str_cat(stream, &dyn_object_type, 1);
+    stream = rb_str_cat(stream, &anon_object_type, 1);
+    
+    rb_iterate(rb_each, prop, t_write_hash_attrs, self);
+    
+    stream = rb_str_cat(stream, &close_dynobject_type, 1);
+  }
+  
+  return Qnil;
+}
+
+static VALUE t_write_vr(VALUE self, VALUE prop) {
+  size_t length;
+  int header;
+  char empty_string = AMF3_EMPTY_STRING;
+  char *value = rb_str2cstr(prop, &length);
+  VALUE stream = rb_iv_get(self, "@stream");
+  VALUE string_cache = rb_iv_get(self, "@string_cache");
+  VALUE string_key;
+  VALUE *pargs;
+  VALUE args[2];
+  
+  args[0] = prop;
+  args[1] = Qnil;
+  pargs = args;
+  
+  if (length == 0) {
+    stream = rb_str_cat(stream, &empty_string, 1);
+  } else {
+    string_key = rb_funcall3(string_cache, rb_intern("fetch"), 2, pargs);
+    if (string_key != Qnil) {
+      t_write_reference(self, string_key);
+    } else {
+      rb_funcall3(string_cache, rb_intern("cache"), 1, &prop);
+      header = (unsigned int)length << 1;
+      header = header | 1;
+      stream = rb_str_append(stream, rb_pack_c_integer(header));
+      stream = rb_str_append(stream, prop);
+    }
+  }
+
+  return Qnil;
 }
 
 static VALUE t_version(VALUE self) {
+  GET_STATE(self);
+  state->buffer = "foobar foobar";
+  printf("what: %s", state->buffer);
 	return INT2NUM(3);
 }
 
@@ -135,82 +195,34 @@ static VALUE t_serialize_property(VALUE self, VALUE prop) {
   return self;
 }
 
-static VALUE t_write_reference(VALUE self, VALUE index) {
-  VALUE stream = rb_iv_get(self, "@stream");
-  char header = NUM2INT(index) << 1;
-  
-  stream = rb_str_cat(stream, &header, 1);
-  
+static VALUE t_serialize_typed_array(VALUE self, VALUE prop) {
   return self;
 }
 
-static VALUE t_write_hash(VALUE self, VALUE prop) {
-  char object_type = AMF3_OBJECT_MARKER;
-  char dyn_object_type = AMF3_DYNAMIC_OBJECT;
-  char anon_object_type = AMF3_ANONYMOUS_OBJECT;
-  char close_dynobject_type = AMF3_CLOSE_DYNAMIC_OBJECT;
-  
-  VALUE stream = rb_iv_get(self, "@stream");
-  VALUE object_cache = rb_iv_get(self, "@object_cache");
-  VALUE object_key;
-  VALUE *pargs;
-  VALUE args[2];
-    
-  args[0] = prop;
-  args[1] = Qnil;
-  
-  pargs = args;
-  
-  stream = rb_str_cat(stream, &object_type, 1);
-  object_key = rb_funcall3(object_cache, rb_intern("fetch"), 2, pargs);
-  if (object_key != Qnil) {
-    t_write_reference(self, object_key);
-  } else {
-    rb_funcall3(object_cache, rb_intern("cache"), 1, &prop);
-    stream = rb_str_cat(stream, &dyn_object_type, 1);
-    stream = rb_str_cat(stream, &anon_object_type, 1);
-    
-    rb_iterate(rb_each, prop, t_write_hash_attrs, self);
-    
-    stream = rb_str_cat(stream, &close_dynobject_type, 1);
-  }
-  
-  return Qnil;
+static VALUE t_serialize_models_array(VALUE self, VALUE prop) {
+  return self;
 }
 
-static VALUE t_write_utf8_vr(VALUE self, VALUE prop) {
-  size_t length;
-  int header;
-  char empty_string = AMF3_EMPTY_STRING;
-  char *value = rb_str2cstr(prop, &length);
-  VALUE stream = rb_iv_get(self, "@stream");
-  VALUE string_cache = rb_iv_get(self, "@string_cache");
-  VALUE string_key;
-  VALUE *pargs;
-  VALUE args[2];
-  
-  args[0] = prop;
-  args[1] = Qnil;
-  pargs = args;
-  
-  if (length == 0) {
-    stream = rb_str_cat(stream, &empty_string, 1);
-  } else {
-    string_key = rb_funcall3(string_cache, rb_intern("fetch"), 2, pargs);
-    if (string_key != Qnil) {
-      t_write_reference(self, string_key);
-    } else {
-      rb_funcall3(string_cache, rb_intern("cache"), 1, &prop);
-      header = (unsigned int)length << 1;
-      header = header | 1;
-      stream = rb_str_append(stream, rb_pack_c_integer(header));
-      stream = rb_str_append(stream, prop);
-    }
-  }
-
-  return Qnil;
+static VALUE t_serialize_record(VALUE self, VALUE prop) {
+  return self;
 }
 
-static VALUE t_foobar(VALUE self) {
-  return rb_str_new2("foobar");
+static VALUE t_serialize_errors(VALUE self, VALUE prop) {
+  return self;
+}
+
+void Init_serializer() {
+  mRestfulX = rb_define_module("RestfulX");
+  mRestfulX_AMF = rb_define_module_under(mRestfulX, "AMF");
+  mRestfulX_AMF_Ext = rb_define_module_under(mRestfulX_AMF, "Ext");
+  cRxAMFSerializer = rb_define_class_under(mRestfulX_AMF_Ext, "RxAMFSerializer", rb_cObject);
+  rb_define_method(cRxAMFSerializer, "initialize", t_init, 0);
+  rb_define_method(cRxAMFSerializer, "version", t_version, 0);
+  rb_define_method(cRxAMFSerializer, "to_s", t_to_s, 0);
+  rb_define_method(cRxAMFSerializer, "write_vr", t_write_vr, 1);
+  rb_define_method(cRxAMFSerializer, "serialize_property", t_serialize_property, 1);
+  rb_define_method(cRxAMFSerializer, "serialize_typed_array", t_serialize_typed_array, 1);
+  rb_define_method(cRxAMFSerializer, "serialize_models_array", t_serialize_models_array, 1);
+  rb_define_method(cRxAMFSerializer, "serialize_record", t_serialize_record, 1);
+  rb_define_method(cRxAMFSerializer, "serialize_errors", t_serialize_errors, 1);
 }

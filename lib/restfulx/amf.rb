@@ -5,13 +5,13 @@ require 'amf/class_mapping'
 
 module RestfulX::AMF
   
-  # begin
-  #   require 'amf/ext'
-  #   puts "using native C AMF serializer"
-  # rescue LoadError
+  begin
+    require 'amf/ext'
+    puts "using native C AMF serializer"
+  rescue LoadError
     require 'amf/pure'
     puts "using pure AMF serializer"
-  # end
+  end
     
   ClassMapper = RestfulX::AMF::ClassMapping.new
   

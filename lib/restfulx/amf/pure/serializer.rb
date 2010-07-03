@@ -72,7 +72,31 @@ module RestfulX::AMF
           @stream << name
         end
         
-        return nil
+        nil
+      end
+      
+      def serialize_property(prop)
+        if prop.is_a?(NilClass)
+          write_null
+        elsif prop.is_a?(TrueClass)
+          write_true
+        elsif prop.is_a?(FalseClass)
+          write_false
+        elsif prop.is_a?(Float)
+          write_float(prop)
+        elsif prop.is_a?(Integer)
+          write_integer(prop)
+        elsif prop.is_a?(Symbol) || prop.is_a?(String)
+          write_string(prop.to_s)
+        elsif prop.is_a?(Time) || prop.is_a?(DateTime)
+          write_time(prop)
+        elsif prop.is_a?(Date)
+          write_date(prop)
+        elsif prop.is_a?(Hash)
+          write_hash(prop)
+        end
+        
+        self
       end
       
       def serialize_models_array(records, options = {}, &block)
@@ -180,30 +204,6 @@ module RestfulX::AMF
 
         block.call(self) if block_given?
 
-        self
-      end
-
-      def serialize_property(prop)
-        if prop.is_a?(NilClass)
-          write_null
-        elsif prop.is_a?(TrueClass)
-          write_true
-        elsif prop.is_a?(FalseClass)
-          write_false
-        elsif prop.is_a?(Float)
-          write_float(prop)
-        elsif prop.is_a?(Integer)
-          write_integer(prop)
-        elsif prop.is_a?(Symbol) || prop.is_a?(String)
-          write_string(prop.to_s)
-        elsif prop.is_a?(Time) || prop.is_a?(DateTime)
-          write_time(prop)
-        elsif prop.is_a?(Date)
-          write_date(prop)
-        elsif prop.is_a?(Hash)
-          write_hash(prop)
-        end
-        
         self
       end
 
