@@ -157,22 +157,19 @@ module ActiveRecord
   # when errors are serialized to XML
   class Errors
     # Flex friendly errors
-    def to_fxml(options={})
+    def to_fxml(options = {})
       options[:root] ||= "errors"
       options[:indent] ||= 2
       options[:builder] ||= Builder::XmlMarkup.new(:indent => options[:indent])
       options[:builder].instruct! unless options.delete(:skip_instruct)
       options[:builder].errors do |e|
         # The @errors instance variable is a Hash inside the Errors class
-        @errors.each_key do |attr|
-          @errors[attr].each do |msg|
-            next if msg.nil?
-            if attr == "base"
-              options[:builder].error("message" => msg)
-            else
-              fullmsg = @base.class.human_attribute_name(attr) + ' ' + msg
-              options[:builder].error("field" => attr.camelcase(:lower), "message" => fullmsg)
-            end
+        @errors.each do |attr, msg|
+          next if msg.nil?
+          if attr == "base"
+            options[:builder].error("message", msg.to_s)
+          else
+            options[:builder].error("field" => attr.camelcase(:lower), "message" => msg.to_s)
           end
         end
       end
