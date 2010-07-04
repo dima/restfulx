@@ -26,7 +26,8 @@
 #define MAX_AMF3_INTEGER  268435455
 #define MIN_AMF3_INTEGER -268435456
 
-#define CUSTOM_TYPE(self, type) GET_STATE(self); emitter_write_byte(&state->emitter, AMF3_OBJECT_MARKER); emitter_write_byte(&state->emitter, AMF3_XML_DOC_MARKER); t_write_vr(self, rb_str_new2(type));
+#define CUSTOM_TYPE(self, type) GET_STATE(self); emitter_write_byte(&state->emitter, AMF3_OBJECT_MARKER); \
+    emitter_write_byte(&state->emitter, AMF3_XML_DOC_MARKER); t_write_vr(self, rb_str_new2(type));
 
 static VALUE mRestfulX, mRestfulX_AMF, mRestfulX_AMF_Ext, cRxAMFSerializer, cState;
 
@@ -38,7 +39,8 @@ static VALUE t_write_array_elm(VALUE elm, VALUE options, VALUE self);
 static VALUE t_serialize_records(VALUE records, VALUE options, VALUE block, VALUE self);
 static VALUE t_serialize_property(VALUE self, VALUE prop);
 
-static ID i_to_s, i_attributes, i_to_amf;
+static ID i_to_s, i_attributes, i_to_amf, i_call, i_unique_id, i_object_id, i_get_as_class_name, i_assoc, i_name,
+  i_reflected, i_klass, i_lower, i_class_name;
 
 typedef struct {
   emitter_t emitter;
@@ -145,7 +147,7 @@ static VALUE t_write_hash_attrs(VALUE pair, VALUE self) {
   VALUE key = rb_ary_entry(pair, 0);
   VALUE value = rb_ary_entry(pair, 1);
 
-  t_write_vr(self, rb_funcall3(key, i_to_s, 0, 0));
+  t_write_vr(self, rb_funcall(key, i_to_s, 0));
   t_serialize_property(self, value);
   
   return Qnil;
@@ -176,7 +178,7 @@ static VALUE t_serialize_property(VALUE self, VALUE prop) {
     case T_STRING:
     case T_SYMBOL:
       emitter_write_byte(&state->emitter, AMF3_STRING_MARKER);
-      t_write_vr(self, rb_funcall3(prop, i_to_s, 0, 0));
+      t_write_vr(self, rb_funcall(prop, i_to_s, 0));
       break;
     case T_HASH:
       t_write_hash(self, prop);
@@ -233,8 +235,12 @@ static VALUE t_serialize_records(VALUE records, VALUE options, VALUE block, VALU
   
   emitter_write_byte(&state->emitter, AMF3_CLOSE_DYNAMIC_ARRAY);
   for (i = 0; i < RARRAY(records)->len; i++) {
-    elm = RARRAY(records)->ptr[i];
+    elm = rb_ary_entry(records, i);
     t_write_array_elm(elm, options, self);
+  }
+  
+  if (block) {
+    rb_funcall(block, i_call, 1, self);
   }
 
   return self;
@@ -242,7 +248,7 @@ static VALUE t_serialize_records(VALUE records, VALUE options, VALUE block, VALU
 
 static VALUE t_write_array_elm(VALUE elm, VALUE options, VALUE self) {
   if (rb_respond_to(elm, i_to_amf)) {
-    // call to_amf?
+    rb_funcall(elm, i_to_amf, 1, options);
   } else {
     t_serialize_property(self, elm);
   }
@@ -252,12 +258,80 @@ static VALUE t_write_array_elm(VALUE elm, VALUE options, VALUE self) {
 
 // FINISH UP
 static VALUE t_serialize_record(int argc, VALUE *argv, VALUE self) {
-  VALUE record_id, partials;
+  VALUE record, record_name, record_value, name, record_klass, serializable_names, serializable_name, association, options, block, 
+    record_id, result_id, partials, partial, record_key, result_key, class_name;
+  int i;
   GET_STATE(self);
+  rb_scan_args(argc, argv, "13", &record, &serializable_names, &options, &block);
   
   partials = rb_hash_new();
   
   emitter_write_byte(&state->emitter, AMF3_OBJECT_MARKER);
+  
+  if (rb_respond_to(record, i_unique_id)) {
+    record_id = rb_funcall(record, i_unique_id, 0);
+  } else {
+    record_id = rb_funcall(record, i_object_id, 0);
+  }
+  record_key = rb_hash_aref(state->object_cache, record_id);
+  if (record_key != Qnil) {
+    t_write_reference(self, record_key);
+  } else {
+    rb_hash_aset(state->object_cache, record_id, INT2FIX(state->object_cache_count));
+    state->object_cache_count += 1;
+    
+    emitter_write_byte(&state->emitter, AMF3_DYNAMIC_OBJECT);
+    
+    class_name = rb_funcall(rb_cvar_get(rb_path2class("RestfulX::AMF"), rb_intern("ClassMapper")), i_get_as_class_name, 1, record);
+    if (class_name) {
+      t_write_vr(self, class_name);
+    } else {
+      emitter_write_byte(&state->emitter, AMF3_ANONYMOUS_OBJECT);
+    }
+    
+    for (i = 0; i < RARRAY(serializable_names)->len; i++) {
+      serializable_name = rb_ary_entry(serializable_names, i);
+      if (rb_obj_is_kind_of(serializable_name, rb_cHash)) {
+        printf("we have a hash\n");
+        association = rb_hash_aref(serializable_name, i_assoc);
+        record_name = rb_hash_aref(association, i_name);
+        name = rb_funcall(rb_hash_aref(rb_hash_aref(association, i_reflected), i_name), i_to_s, 0);
+        record_klass = rb_funcall(rb_hash_aref(rb_hash_aref(association, i_reflected), i_klass), i_class_name, 0);
+        record_value = rb_hash_aref(record, record_name);
+        
+        result_id = rb_str_concat(rb_str_cat(rb_str_concat(rb_str_new2(""), record_klass), "_", 1), record_value);
+
+        printf("result_id is: %s\n", STR2CSTR(result_id));        
+        printf("writing vr for: %s\n", STR2CSTR(name));
+        t_write_vr(self, name);
+        if (result_id) {
+          printf("result_id is not null: %s\n", STR2CSTR(result_id));
+          result_key = rb_hash_aref(state->object_cache, result_id);
+          if (result_key) {
+            emitter_write_byte(&state->emitter, AMF3_OBJECT_MARKER);
+            t_write_reference(self, result_key);
+          } else {
+            // rb_hash_aset(partials, rb_funcall(name, i_to_s, 0), record_klass);
+            // partial = rb_funcall(rb_hash_aref(rb_hash_aref(association, i_reflected), i_klass), rb_intern("new"), 0);
+            // finish up with partials
+            emitter_write_byte(&state->emitter, AMF3_NULL_MARKER);
+          }
+        }
+      } else {
+        t_write_vr(self, rb_funcall(serializable_name, i_to_s, 0));
+        printf("wrote vr for :%s\n", STR2CSTR(rb_funcall(serializable_name, i_to_s, 0)));
+        t_serialize_property(self, rb_funcall(record, serializable_name, 0));
+        printf("serialized property\n");
+      }
+    }
+    
+    if (block) {
+      rb_funcall(block, i_call, 1, self); 
+    }
+    
+    // more stuff here
+    emitter_write_byte(&state->emitter, AMF3_CLOSE_DYNAMIC_OBJECT);
+  }
   
   return self;
 }
@@ -293,5 +367,15 @@ void Init_serializer() {
   
   i_to_s = rb_intern("to_s");
   i_to_amf = rb_intern("to_amf");
+  i_call = rb_intern("call");
+  i_unique_id = rb_intern("unique_id");
+  i_object_id = rb_intern("object_id");
   i_attributes = rb_intern("attributes");
+  i_get_as_class_name = rb_intern("get_as_class_name");
+  i_assoc = rb_intern("assoc");
+  i_name = rb_intern("name");
+  i_reflected = rb_intern("reflected");
+  i_klass = rb_intern("klass");
+  i_lower = rb_intern("lower");
+  i_class_name = rb_intern("class_name");
 }

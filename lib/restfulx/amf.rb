@@ -5,6 +5,8 @@ require 'amf/class_mapping'
 
 module RestfulX::AMF
   
+  ClassMapper = RestfulX::AMF::ClassMapping.new
+  
   begin
     require 'amf/ext'
     puts "using native C AMF serializer"
@@ -12,9 +14,7 @@ module RestfulX::AMF
     require 'amf/pure'
     puts "using pure AMF serializer"
   end
-    
-  ClassMapper = RestfulX::AMF::ClassMapping.new
-  
+      
   # The base exception for AMF errors.
   class AMFError < StandardError; end
 end
