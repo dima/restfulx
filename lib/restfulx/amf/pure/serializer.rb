@@ -186,6 +186,7 @@ module RestfulX::AMF
         self
       end
 
+      private
       def serialize_records(records, options = {}, &block)
         @stream << AMF3_ARRAY_MARKER
 
@@ -207,7 +208,6 @@ module RestfulX::AMF
         self
       end
 
-      private
       def write_reference(index)
         header = index << 1 # shift value left to leave a low bit of 0
         @stream << pack_integer(header)

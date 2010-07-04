@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include "writer.h"
 
-static inline void emmit_c_integer(emitter_t * emitter, int32_t integer) {
+static inline void emit_c_integer(emitter_t *emitter, int32_t integer) {
   integer = integer & 0x1fffffff;
   if (integer < 0x80) {
     emitter_write_byte(emitter, integer);
@@ -24,13 +24,13 @@ static inline void emmit_c_integer(emitter_t * emitter, int32_t integer) {
   }
 }
 
-static inline void emmit_c_double(emitter_t * emitter, double num) {
+static inline void emit_c_double(emitter_t *emitter, double num) {
   union aligned {
     double dval;
     char cval[8];
   } d;
   
-  const char * number = d.cval;
+  const char *number = d.cval;
   d.dval = num;
   u_char buffer[8];
   
@@ -57,11 +57,11 @@ static inline void emmit_c_double(emitter_t * emitter, double num) {
   emitter_write_bytes(emitter, buffer, 8);
 }
 
-static inline void emmit_c_int8(emitter_t * emitter, int8_t object) {
+static inline void emit_c_int8(emitter_t *emitter, int8_t object) {
   emitter_write_byte(emitter, object);
 }
 
-static inline void emmit_c_int16_network(emitter_t * emitter, int16_t object) {
+static inline void emit_c_int16_network(emitter_t *emitter, int16_t object) {
   union aligned {
     uint16_t ival;
     u_char cval[2];
@@ -82,13 +82,13 @@ static inline void emmit_c_int16_network(emitter_t * emitter, int16_t object) {
   emitter_write_bytes(emitter, buffer, 2);
 }
 
-static inline void emmit_c_word32_network(emitter_t * emitter, uint32_t object) {
+static inline void emit_c_word32_network(emitter_t *emitter, uint32_t object) {
   union aligned {
     uint32_t ival;
     u_char cval[4];
   } d;
   
-  const char * number = d.cval;
+  const char *number = d.cval;
   d.ival = object;
   u_char buffer[4];
   
@@ -107,38 +107,8 @@ static inline void emmit_c_word32_network(emitter_t * emitter, uint32_t object) 
   emitter_write_bytes(emitter, buffer, 4);
 }
 
-#define EMITTER_START(n) emitter_t n; emitter_initialize(& n );
-#define EMITTER_STOP(n) VALUE string = emitter_to_rstring(& n ); emitter_finalize(& n ); return string;
-#define PACK(n, a ...) EMITTER_START(n) { a } EMITTER_STOP(n)
-
-static inline VALUE rb_pack_c_integer(int32_t object) {
-  PACK(e,
-    emmit_c_integer(&e, object);
-  )
-}
-
-static inline VALUE rb_pack_c_double(double object) {
-  PACK(e,
-    emmit_c_double(&e, object);
-  )
-}
-
-static inline VALUE rb_pack_c_int8(int8_t object) {
-  PACK(e,
-    emmit_c_int8(&e, object);
-  )
-}
-
-static inline VALUE rb_pack_c_int16_network(int16_t object) {
-  PACK(e,
-    emmit_c_int16_network(&e, object);
-  )
-}
-
-static inline VALUE rb_pack_c_word32_network(uint32_t object) {
-  PACK(e,
-    emmit_c_word32_network(&e, object);
-  )
-}
+#define EMITTER_START(n) emitter_initialize(n);
+#define EMITTER_RSTRING(n) return emitter_to_rstring(n);
+#define EMITTER_STOP(n) emitter_finalize(n);
 
 #endif
