@@ -34,7 +34,7 @@ static VALUE t_write_reference(VALUE self, VALUE index);
 static VALUE t_write_vr(VALUE self, VALUE prop);
 static VALUE t_write_hash(VALUE self, VALUE prop);
 static VALUE t_write_hash_attrs(VALUE pair, VALUE self);
-static VALUE t_write_array_elm(VALUE elm, VALUE self);
+static VALUE t_write_array_elm(VALUE elm, VALUE options, VALUE self);
 static VALUE t_serialize_records(VALUE records, VALUE options, VALUE block, VALUE self);
 static VALUE t_serialize_property(VALUE self, VALUE prop);
 
@@ -222,7 +222,8 @@ static VALUE t_serialize_models_array(int argc, VALUE *argv, VALUE self) {
 }
 
 static VALUE t_serialize_records(VALUE records, VALUE options, VALUE block, VALUE self) {
-  int header;
+  int header, i;
+  VALUE elm;
   GET_STATE(self);
   emitter_write_byte(&state->emitter, AMF3_ARRAY_MARKER);
   
@@ -231,14 +232,17 @@ static VALUE t_serialize_records(VALUE records, VALUE options, VALUE block, VALU
   emit_c_integer(&state->emitter, header);
   
   emitter_write_byte(&state->emitter, AMF3_CLOSE_DYNAMIC_ARRAY);
-  rb_iterate(rb_each, records, t_write_array_elm, self);
+  for (i = 0; i < RARRAY(records)->len; i++) {
+    elm = RARRAY(records)->ptr[i];
+    t_write_array_elm(elm, options, self);
+  }
 
   return self;
 }
 
-static VALUE t_write_array_elm(VALUE elm, VALUE self) {
+static VALUE t_write_array_elm(VALUE elm, VALUE options, VALUE self) {
   if (rb_respond_to(elm, i_to_amf)) {
-    // call to_amf? if so, how to get to options here?
+    // call to_amf?
   } else {
     t_serialize_property(self, elm);
   }
