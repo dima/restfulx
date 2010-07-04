@@ -191,41 +191,32 @@ static VALUE t_serialize_property(VALUE self, VALUE prop) {
 
 static VALUE t_serialize_typed_array(int argc, VALUE *argv, VALUE self) {
   VALUE records, options, block;
+  rb_scan_args(argc, argv, "12", &records, &options, &block);
   
   if (options == Qnil) {
     options = rb_hash_new();
   }
   
   CUSTOM_TYPE(self, "org.restfulx.messaging.io.TypedArray");
-  // 
-  // GET_STATE(self);
-  // emitter_write_byte(&state->emitter, AMF3_OBJECT_MARKER);
-  // emitter_write_byte(&state->emitter, AMF3_XML_DOC_MARKER);
-  // t_write_vr(self, rb_str_new2());
   state->object_cache_count += 1;
   t_serialize_property(self, rb_hash_aref(options, i_attributes));
-  
-  rb_scan_args(argc, argv, "12", &records, &options, &block);
-  rb_funcall(block, rb_intern("call"),0);
+  state->object_cache_count += 1;
+  t_serialize_records(records, options, block, self);
   
   return self;
 }
 
 static VALUE t_serialize_models_array(int argc, VALUE *argv, VALUE self) {
   VALUE records, options, block;
-  CUSTOM_TYPE(self, "org.restfulx.messaging.io.ModelsCollection");
-  // GET_STATE(self);
-  // emitter_write_byte(&state->emitter, AMF3_OBJECT_MARKER);
-  // emitter_write_byte(&state->emitter, AMF3_XML_DOC_MARKER);
-  // t_write_vr(self, rb_str_new2("org.restfulx.messaging.io.ModelsCollection"));
-  state->object_cache_count += 2;
-  
   rb_scan_args(argc, argv, "12", &records, &options, &block);
-  if (block) {
-    t_serialize_records(records, options, block, self);
-  } else {
-    
+  
+  if (options == Qnil) {
+    options = rb_hash_new();
   }
+
+  CUSTOM_TYPE(self, "org.restfulx.messaging.io.ModelsCollection");
+  state->object_cache_count += 2;
+  t_serialize_records(records, options, block, self);
   
   return self;
 }
@@ -247,7 +238,7 @@ static VALUE t_serialize_records(VALUE records, VALUE options, VALUE block, VALU
 
 static VALUE t_write_array_elm(VALUE elm, VALUE self) {
   if (rb_respond_to(elm, i_to_amf)) {
-    // call to_amf?
+    // call to_amf? if so, how to get to options here?
   } else {
     t_serialize_property(self, elm);
   }
@@ -255,8 +246,15 @@ static VALUE t_write_array_elm(VALUE elm, VALUE self) {
   return Qnil;
 }
 
+// FINISH UP
 static VALUE t_serialize_record(int argc, VALUE *argv, VALUE self) {
-  // TODO
+  VALUE record_id, partials;
+  GET_STATE(self);
+  
+  partials = rb_hash_new();
+  
+  emitter_write_byte(&state->emitter, AMF3_OBJECT_MARKER);
+  
   return self;
 }
 
