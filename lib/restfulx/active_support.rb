@@ -72,7 +72,6 @@ module ActiveSupport::CoreExtensions
       end
       
       def to_amf(options = {})
-        # TODO: fix me, this will not work right now
         RestfulX::AMF.serialize_property(self, {:serializable_names => self.keys, :options => options})
       end
     end

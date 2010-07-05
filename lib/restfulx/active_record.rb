@@ -198,7 +198,11 @@ module RestfulX
         super(record, options)
         @options[:methods] ||= []
         @options[:amf_version] = 3
-        @options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
+        if @options[:serializer]
+          puts "reusing serializer" 
+        else
+          @options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
+        end
       end
 
       def serialize
@@ -212,7 +216,6 @@ module RestfulX
           add_includes do |association, records, opts|
             add_associations(association, records, opts, serializer)
           end
-          yield serializer if block_given?
         end.to_s
       end
       
@@ -232,8 +235,12 @@ module RestfulX
         serializable_names.select do |name| 
           !includes.include?(associations[name][:name]) rescue true
         end.map do |name| 
-          associations.has_key?(name) ? {:assoc => {:name => name, :reflected => associations[name]}} : name.to_sym
+          associations.has_key?(name) ? {:name => name, :ref_name => associations[name][:name].to_s.camelize(:lower), 
+            :ref_class => associations[name][:klass] } : name.to_sym
         end
+        
+        puts "attrs: #{serializable_names.inspect}"
+        serializable_names
       end
       
       def add_associations(association, records, opts, serializer)        
@@ -259,21 +266,19 @@ module RestfulX
         "#{self.class.to_s}_#{self.attributes()['id']}"
       end
       
-      def to_amf(options = {}, &block)
+      def to_amf(options = {})
         default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at, :created_at, :updated_at]
         options[:except] = (options[:except] ? options[:except] + default_except : default_except)
         
-        serializer = RestfulX::Serialization::AMFSerializer.new(self, options)
-        block_given? ? serializer.to_s(&block) : serializer.to_s
+        RestfulX::Serialization::AMFSerializer.new(self, options).to_s
       end
     
-      def to_fxml(options = {}, &block)
+      def to_fxml(options = {})
         options.merge!(:dasherize => false)
         default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at, :created_at, :updated_at]
         options[:except] = (options[:except] ? options[:except] + default_except : default_except)
         
-        serializer = RestfulX::Serialization::FXMLSerializer.new(self, options)
-        block_given? ? serializer.to_s(&block) : serializer.to_s
+        RestfulX::Serialization::FXMLSerializer.new(self, options).to_s
       end
     end
   end

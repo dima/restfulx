@@ -52,7 +52,8 @@ module RestfulX::AMF
         3
       end
       
-      def to_s
+      def to_s(&block)
+        block_given? block.call(@stream)
         @stream
       end
       
@@ -99,22 +100,22 @@ module RestfulX::AMF
         self
       end
       
-      def serialize_models_array(records, options = {}, &block)
+      def serialize_models_array(records, options = {})
         @stream << AMF3_OBJECT_MARKER << AMF3_XML_DOC_MARKER
         write_vr('org.restfulx.messaging.io.ModelsCollection')
         @object_cache.cache_index += 2
 
-        block_given? ? serialize_records(records, options, &block) : serialize_records(records, options)      
+        serialize_records(records, options)      
       end
 
-      def serialize_typed_array(records, options = {}, &block)
+      def serialize_typed_array(records, options = {})
         @stream << AMF3_OBJECT_MARKER << AMF3_XML_DOC_MARKER
         write_vr('org.restfulx.messaging.io.TypedArray')
         @object_cache.cache_index += 1
         serialize_property(options[:attributes])
         @object_cache.cache_index += 1
 
-        block_given? ? serialize_records(records, options, &block) : serialize_records(records, options)      
+        serialize_records(records, options)      
       end
 
       def serialize_errors(errors)
@@ -150,19 +151,19 @@ module RestfulX::AMF
 
           serializable_names.each do |prop|
             if prop.is_a?(Hash)
-              record_name = prop[:assoc][:name]
-              name = prop[:assoc][:reflected][:name].to_s.camelize(:lower)
-              record_klass = prop[:assoc][:reflected][:klass].class_name
-              result_id = "#{record_klass}_#{record[record_name]}" if record[record_name]
+              record_name = prop[:name]
+              ref_name = prop[:ref_name]
+              ref_class = prop[:ref_class]
+              result_id = "#{ref_class.class_name}_#{record[record_name]}" if record[record_name]
 
-              write_vr(name)
+              write_vr(ref_name)
               if result_id               
                 if @object_cache[result_id]
                   @stream << AMF3_OBJECT_MARKER
                   write_reference(@object_cache[result_id])
                 else
-                  partials[name.to_s] = record_klass
-                  partial = prop[:assoc][:reflected][:klass].new
+                  partials[ref_name.to_s] = ref_class.class_name
+                  partial = ref_class.new
                   partial.id = record[record_name]
                   serialize_record(partial, ['id'])
                 end
@@ -187,7 +188,7 @@ module RestfulX::AMF
       end
 
       private
-      def serialize_records(records, options = {}, &block)
+      def serialize_records(records, options = {})
         @stream << AMF3_ARRAY_MARKER
 
         header = records.length << 1 # make room for a low bit of 1
@@ -202,8 +203,6 @@ module RestfulX::AMF
             serialize_property(elem)
           end
         end
-
-        block.call(self) if block_given?
 
         self
       end
@@ -267,7 +266,7 @@ module RestfulX::AMF
         @stream << pack_double(seconds)
       end
       
-      def write_hash(hash, &block)
+      def write_hash(hash)
         @stream << AMF3_OBJECT_MARKER
         if @object_cache[hash] != nil
           write_reference(@object_cache[hash])
@@ -282,8 +281,6 @@ module RestfulX::AMF
             write_vr(key.to_s.camelize(:lower))
             serialize_property(value)
           end
-
-          block.call(self) if block_given?
 
           # Write close
           @stream << AMF3_CLOSE_DYNAMIC_OBJECT
