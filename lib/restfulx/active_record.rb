@@ -198,11 +198,7 @@ module RestfulX
         super(record, options)
         @options[:methods] ||= []
         @options[:amf_version] = 3
-        if @options[:serializer]
-          puts "reusing serializer" 
-        else
-          @options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
-        end
+        @options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
       end
 
       def serialize
@@ -238,9 +234,6 @@ module RestfulX
           associations.has_key?(name) ? {:name => name, :ref_name => associations[name][:name].to_s.camelize(:lower), 
             :ref_class => associations[name][:klass] } : name.to_sym
         end
-        
-        puts "attrs: #{serializable_names.inspect}"
-        serializable_names
       end
       
       def add_associations(association, records, opts, serializer)        

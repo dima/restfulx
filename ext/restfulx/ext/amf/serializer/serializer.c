@@ -37,7 +37,7 @@ static VALUE t_serialize_records(VALUE self, VALUE records, VALUE options);
 static VALUE t_serialize_property(VALUE self, VALUE prop);
 
 static ID i_to_s, i_attributes, i_to_amf, i_call, i_unique_id, i_object_id, i_get_as_class_name, i_name, i_ref_name, i_ref_class,
-  i_lower, i_class_name, i_attr_get, i_camelize;
+  i_lower, i_class_name, i_attr_get, i_camelize, i_class_mapper;
 
 typedef struct {
   emitter_t emitter;
@@ -56,16 +56,18 @@ typedef struct {
 #define CUSTOM_TYPE(self, type) GET_STATE(self); emitter_write_byte(&state->emitter, AMF3_OBJECT_MARKER); \
     emitter_write_byte(&state->emitter, AMF3_XML_DOC_MARKER); t_write_vr(self, rb_str_new2(type));
 
-static void state_gc(amf_state_t *state) {
+static void state_mark(amf_state_t *state) {
   rb_gc_mark_maybe(state->string_cache);
   rb_gc_mark_maybe(state->object_cache);
+}
+
+static void state_free(amf_state_t *state) {
   EMITTER_STOP(&state->emitter);
-  free(&state->emitter);
 }
 
 static VALUE t_allocate(VALUE klass) {
   amf_state_t *state = ALLOC(amf_state_t);
-  return Data_Wrap_Struct(klass, state_gc, -1, state);
+  return Data_Wrap_Struct(klass, state_mark, state_free, state);
 }
 
 static VALUE t_initialize(int argc, VALUE *argv, VALUE self) {
@@ -115,6 +117,7 @@ static VALUE t_write_vr(VALUE self, VALUE prop) {
       header = header | 1;
       emit_c_integer(&state->emitter, header);
       emitter_write_bytes(&state->emitter, RSTRING(prop)->ptr, RSTRING(prop)->len);
+      OBJ_TAINT(prop);
     }
   }
 
@@ -231,7 +234,6 @@ static VALUE t_serialize_records(VALUE self, VALUE records, VALUE options) {
     
   emitter_write_byte(&state->emitter, AMF3_CLOSE_DYNAMIC_ARRAY);
   
-  printf("iterating through array with length: %i\n", length);
   for (i = 0; i < length; i++) {
     element = rb_ary_entry(records, i);
     if (rb_respond_to(element, i_to_amf)) {
@@ -241,8 +243,6 @@ static VALUE t_serialize_records(VALUE self, VALUE records, VALUE options) {
     }
   }
   
-  printf("returning self\n");
-
   return self;
 }
 
@@ -252,9 +252,7 @@ static VALUE t_serialize_record(int argc, VALUE *argv, VALUE self) {
     record_id, result_id, partials, partial, record_key, result_key, result_value, class_name, block;
   
   int i;
-  
-  printf("in t_serialize_record\n");
-  
+    
   GET_STATE(self);
   rb_scan_args(argc, argv, "12", &record, &serializable_names, &options);
   
@@ -276,7 +274,7 @@ static VALUE t_serialize_record(int argc, VALUE *argv, VALUE self) {
     
     emitter_write_byte(&state->emitter, AMF3_DYNAMIC_OBJECT);
     
-    class_name = rb_funcall(rb_cvar_get(rb_path2class("RestfulX::AMF"), rb_intern("ClassMapper")), i_get_as_class_name, 1, record);
+    class_name = rb_funcall(rb_cvar_get(rb_path2class("RestfulX::AMF"), i_class_mapper), i_get_as_class_name, 1, record);
     if (class_name) {
       t_write_vr(self, class_name);
     } else {
@@ -314,27 +312,22 @@ static VALUE t_serialize_record(int argc, VALUE *argv, VALUE self) {
           emitter_write_byte(&state->emitter, AMF3_NULL_MARKER);
         }
       } else {
-        printf("serializing simple prop: %s\n", STR2CSTR(rb_funcall(serializable_name, i_to_s, 0)));
         t_write_vr(self, rb_funcall(rb_funcall(serializable_name, i_to_s, 0), i_camelize, 1, ID2SYM(i_lower)));
         result_value = rb_funcall(record, i_attr_get, 1, serializable_name);
         t_serialize_property(self, result_value); 
-        printf("done\n");
       }
     }
     
     t_write_vr(self, rb_str_new2("partials"));
     t_serialize_property(self, partials);
     
-    printf("evaluating blocks\n");
     if (rb_block_given_p()) {
       rb_yield(self);
     }
     
     emitter_write_byte(&state->emitter, AMF3_CLOSE_DYNAMIC_OBJECT);
   }
-  
-  printf("returning record\n");
-  
+    
   return self;
 }
 
@@ -381,4 +374,5 @@ void Init_serializer() {
   i_attr_get = rb_intern("[]");
   i_lower = rb_intern("lower");
   i_camelize = rb_intern("camelize");
+  i_class_mapper = rb_intern("ClassMapper");
 }
