@@ -9,10 +9,8 @@ module RestfulX::AMF
   
   begin
     require 'amf/ext'
-    puts "using native C AMF serializer"
   rescue LoadError
     require 'amf/pure'
-    puts "using pure AMF serializer"
   end
       
   # The base exception for AMF errors.

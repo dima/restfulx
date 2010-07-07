@@ -52,8 +52,7 @@ module RestfulX::AMF
         3
       end
       
-      def to_s(&block)
-        block_given? block.call(@stream)
+      def to_s
         @stream
       end
       

@@ -199,6 +199,10 @@ module RestfulX
         @options[:methods] ||= []
         @options[:amf_version] = 3
         @options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
+        
+        # options are duplicated by default so we need a copy for caching attributes
+        @original_options = options
+        @original_options[:cached_attributes] ||= {}
       end
 
       def serialize
@@ -218,21 +222,28 @@ module RestfulX
       def serializable_attributes
         includes = @options[:include] ||= {}
         
-        associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect do |assoc|
-          if assoc.options.has_key?(:polymorphic) && assoc.options[:polymorphic]
-            @options[:except] = ([] << @options[:except] << "#{assoc.name}_type".to_sym).flatten
-            class_name = @record[assoc.options[:foreign_type]].constantize
-          else
-            class_name = assoc.klass
-          end
-          [assoc.primary_key_name, {:name => assoc.name, :klass => class_name}]
-        end.flatten]
+        # if we are serializing an array we only need to compute serializable_attributes for the
+        # objects of the same type at the same level once
+        if @original_options[:cached_attributes].has_key?(@record.class.name)
+          @original_options[:cached_attributes][@record.class.name]
+        else
+          associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect do |assoc|
+            if assoc.options.has_key?(:polymorphic) && assoc.options[:polymorphic]
+              @options[:except] = ([] << @options[:except] << "#{assoc.name}_type".to_sym).flatten
+              class_name = @record[assoc.options[:foreign_type]].constantize
+            else
+              class_name = assoc.klass
+            end
+            [assoc.primary_key_name, {:name => assoc.name, :klass => class_name}]
+          end.flatten]
                                 
-        serializable_names.select do |name| 
-          !includes.include?(associations[name][:name]) rescue true
-        end.map do |name| 
-          associations.has_key?(name) ? {:name => name, :ref_name => associations[name][:name].to_s.camelize(:lower), 
-            :ref_class => associations[name][:klass] } : name.to_sym
+          serializable_names.select do |name| 
+            !includes.include?(associations[name][:name]) rescue true
+          end.map do |name| 
+            associations.has_key?(name) ? {:name => name, :ref_name => associations[name][:name].to_s.camelize(:lower), 
+              :ref_class => associations[name][:klass] } : name.to_sym
+          end
+          @original_options[:cached_attributes][@record.class.name] = serializable_names
         end
       end
       
