@@ -1,7 +1,3 @@
-# Flex friendly ActiveRecord patches. More specifically XML serialization improvements.
-# These won't override whatever you may normally do with XML, hence there's Flex specific
-# name for this stuff +to_fxml+.
-
 module RestfulX
   module Serialization
     class FXMLSerializer < ::ActiveRecord::Serialization::Serializer
@@ -290,7 +286,7 @@ end
 
 module ActiveRecord
   # ActiveRecord named scopes are computed *before* restfulx gem gets loaded
-  # this patch addresses that and makes sure +to_fxml+ calls are properly
+  # this patch addresses that and makes sure +to_fxml/to_amf+ calls are properly
   # delegated
   module NamedScope
     # make sure we properly delegate +to_fxml+ calls to the proxy
@@ -321,7 +317,7 @@ module ActiveRecord
   end
 
   # Add more extensive reporting on errors including field name along with a message
-  # when errors are serialized to XML
+  # when errors are serialized to XML and JSON
   class Errors
     alias_method :to_json_original, :to_json
     

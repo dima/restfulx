@@ -1,53 +1,40 @@
-# Sets up all the relevant configuration options and brings together 
-# patches for Rails, Merb, ActiveRecord and Data Mapper.
-#
-# Loads RestfulX specific rake tasks if appropriate.
+require 'yaml'
+
+# Settings
 module RestfulX
   module Types
-    APPLICATION_AMF = 'application/x-amf'.freeze
     APPLICATION_FXML = 'application/xml'.freeze
+    APPLICATION_AMF = 'application/x-amf'.freeze
   end
-  
-  FRAMEWORK_VERSION = '1.3.0'
+
+  VERSION_SOURCE = YAML.load(File.read(File.join(File.dirname(__FILE__), '..', 'VERSION.yml')))
+  VERSION = "#{VERSION_SOURCE[:major]}.#{VERSION_SOURCE[:minor]}.#{VERSION_SOURCE[:patch]}"
   LIB_DIR = File.join(File.dirname(__FILE__), 'restfulx/')
 end
 
 ['configuration', 'amf'].each { |lib| require RestfulX::LIB_DIR + lib }
 
-# make sure we're running inside Merb
-if defined?(Merb::Plugins)
-  Merb::Plugins.add_rakefiles RestfulX::LIB_DIR + 'tasks'
+# ActiveRecord extensions
+if defined?(ActiveRecord::Base)
+  ['active_support', 'active_record'].each { |lib| require RestfulX::LIB_DIR + lib }
+  ActiveRecord::Base.send :include, 
+    RestfulX::ActiveRecord unless ActiveRecord::Base.included_modules.include?(RestfulX::ActiveRecord)
+end
 
-  Merb::BootLoader.before_app_loads do
-    Merb.add_mime_type(:amf,  :to_amf, RestfulX::APPLICATION_AMF, :charset => "utf-8")
-
-    if defined?(ActiveRecord::Base)
-      ['active_support', 'active_record'].each { |lib| require RestfulX::LIB_DIR + lib }
-      ActiveRecord::Base.send :include, RestfulX::ActiveRecord
-      
-      Merb.add_mime_type(:fxml,  :to_fxml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
-      
-      Merb::Plugins.add_rakefiles RestfulX::LIB_DIR + 'active_record_tasks'
-    else
-      Merb.add_mime_type(:fxml,  :to_xml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
-      if defined?(Merb::Orms::DataMapper)
-        require RestfulX::LIB_DIR + 'datamapper'
-      end
-    end
-  end    
-elsif defined?(ActionController::Base)
-  # if we are not running in Merb, try to hook up Rails
+# ActionController/ActionView extensions
+if defined?(ActionController::Base)
   Mime::Type.register_alias RestfulX::Types::APPLICATION_FXML, :fxml
   Mime::Type.register RestfulX::Types::APPLICATION_AMF, :amf
   
-  ['active_support', 'active_record', 'action_controller', 'swf_helper'].each { |lib| require RestfulX::LIB_DIR + lib }
+  ['action_controller', 'swf_helper'].each { |lib| require RestfulX::LIB_DIR + lib }
 
-  ActionController::Base.send :include, RestfulX::ActionController
-  ActiveRecord::Base.send :include, RestfulX::ActiveRecord
-  ActionView::Base.send :include, SWFHelper unless ActionView::Base.included_modules.include?(SWFHelper)
-elsif defined?(DataMapper)
+  ActionController::Base.send :include, 
+    RestfulX::ActionController unless ActionController::Base.included_modules.include?(RestfulX::ActionController)
+  ActionView::Base.send :include, 
+    RestfulX::SWFHelper unless ActionView::Base.included_modules.include?(RestfulX::SWFHelper)
+end
+
+# DataMapper extensions
+if defined?(DataMapper)
   require RestfulX::LIB_DIR + 'datamapper'
-elsif defined?(ActiveRecord::Base)
-  ['active_support', 'active_record'].each { |lib| require RestfulX::LIB_DIR + lib }
-  ActiveRecord::Base.send :include, RestfulX::ActiveRecord
 end

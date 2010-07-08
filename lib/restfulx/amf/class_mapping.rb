@@ -53,7 +53,7 @@ module RestfulX::AMF
     #
     # Example:
     #
-    #   AMF::ClassMapper.define do |m|
+    #   RestfulX::AMF::ClassMapper.define do |m|
     #     m.map :as => 'AsClass', :ruby => 'RubyClass'
     #   end
     def define #:yields: mapping_set

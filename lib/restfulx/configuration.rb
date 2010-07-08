@@ -1,12 +1,18 @@
+require 'erb'
+require File.join(File.dirname(__FILE__), 'schema_to_rx_yaml') if !defined?(SchemaToRxYaml)
+
+# Enumerable extensions
+module Enumerable
+  # Helps you find duplicates
+  # used in schema_to_yaml.rb for cleanup
+  def dups
+    inject({}) {|h,v| h[v]=h[v].to_i+1; h}.reject{|k,v| v==1}.keys
+  end
+end
+
 # Interestingly enough there's no way to *just* upper-case or down-case first letter of a given
 # string. Ruby's own +capitalize+ actually downcases all the rest of the characters in the string
 # We patch the class to add our own implementation.
-require "yaml" 
-require "erb"
-Dir[File.dirname(__FILE__) + "/schema_to_rx_yaml/*.rb"].each do |f|
-  require f
-end
-
 class String
   # Upper-case first character of a string leave the rest of the string intact
   def ucfirst
@@ -21,11 +27,11 @@ end
 
 # Primary RestfulX configuration options
 module RestfulX
-  # Computes necessary configuration options from the environment. This can be used in Rails, Merb
+  # Computes necessary configuration options from the environment. This can be used in Rails
   # or standalone from the command line.
   module Configuration
     # We try to figure out the application root using a number of possible options
-    APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : defined?(Merb) ? Merb.root : File.expand_path(".")
+    APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : File.expand_path(".")
     
     RxSettings = SchemaToRxYaml::Settings::Core
 

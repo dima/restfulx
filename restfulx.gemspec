@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dima Berastau"]
-  s.date = %q{2010-07-07}
+  s.date = %q{2010-07-08}
   s.default_executable = %q{rx-gen}
   s.description = %q{RestfulX: The RESTful Way to develop Adobe Flex and AIR applications}
   s.email = %q{dima.berastau@gmail.com}
@@ -66,9 +66,6 @@ Gem::Specification.new do |s|
      "lib/restfulx/datamapper.rb",
      "lib/restfulx/recipes.rb",
      "lib/restfulx/schema_to_rx_yaml.rb",
-     "lib/restfulx/schema_to_rx_yaml/config.rb",
-     "lib/restfulx/schema_to_rx_yaml/core.rb",
-     "lib/restfulx/schema_to_rx_yaml/enumerable.rb",
      "lib/restfulx/swf_helper.rb",
      "lib/restfulx/tasks.rb",
      "rails_generators/rx_config/USAGE",

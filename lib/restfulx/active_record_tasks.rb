@@ -6,7 +6,7 @@ require File.join(File.dirname(__FILE__), 'schema_to_rx_yaml')
 
 # stores local copy of the application environment ('production', 'test', etc)
 # so that appropriate values in config/database.yml are used
-APP_ENV = defined?(ENV['RAILS_ENV']) ? ENV['RAILS_ENV'] : ENV['MERB_ENV']
+APP_ENV = ENV['RAILS_ENV']
 
 namespace :db do
   namespace :mysql do

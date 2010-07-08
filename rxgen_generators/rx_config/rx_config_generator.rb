@@ -5,7 +5,7 @@ class RxConfigGenerator < RubiGen::Base
 
   def manifest
     record do |m|        
-      framework_release = RestfulX::FRAMEWORK_VERSION
+      framework_release = RestfulX::VERSION
       framework_distribution_url = "http://restfulx.github.com/releases/restfulx-#{framework_release}.swc"
       framework_destination_file = "lib/restfulx-#{framework_release}.swc"
       

@@ -4,7 +4,6 @@ $:.unshift "#{File.expand_path(File.dirname(__FILE__))}/amf/"
 require 'amf/class_mapping'
 
 module RestfulX::AMF
-  
   ClassMapper = RestfulX::AMF::ClassMapping.new
   
   begin

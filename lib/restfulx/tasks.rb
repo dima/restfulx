@@ -33,7 +33,8 @@ namespace :rx do
       
     libs = Dir.glob(File.join(APP_ROOT, 'lib', '*.swc')).map {|lib| lib.gsub(' ', '\ ')}
       
-    additional_compiler_args = get_app_properties().elements["actionScriptProperties"].elements["compiler"].attributes["additionalCompilerArguments"]
+    additional_compiler_args = 
+      get_app_properties().elements["actionScriptProperties"].elements["compiler"].attributes["additionalCompilerArguments"]
     additional_compiler_args.gsub!("../locale/", "#{APP_ROOT}/app/locale/")
     
     cmd = "#{executable} #{opts} -library-path+=#{libs.join(',')} " << additional_compiler_args << " #{project_path.gsub(' ', '\ ')}"
