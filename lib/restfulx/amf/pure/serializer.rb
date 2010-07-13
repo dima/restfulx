@@ -154,7 +154,7 @@ module RestfulX::AMF
               record_value = record[record_name]
               ref_name = prop[:ref_name]
               ref_class = prop[:ref_class]
-              ref_class_name = ref_class.class.name
+              ref_class_name = ref_class.class_name
               result_id = "#{ref_class_name}_#{record_value}" if record_value
 
               write_vr(ref_name)
@@ -164,11 +164,9 @@ module RestfulX::AMF
                   write_reference(@object_cache[result_id])
                 else
                   partials[ref_name.to_s] = ref_class_name
-                  partial = options[:cached_instances][ref_class_name]
-                  unless partial
+                  unless partial = options[:cached_instances][ref_class_name]
                     options[:cached_instances][ref_class_name] = ref_class.new
                     partial = options[:cached_instances][ref_class_name]
-                    puts "caching instance"
                   end
                   partial.id = record_value
                   serialize_record(partial, ['id'])
@@ -177,6 +175,7 @@ module RestfulX::AMF
                 write_null
               end
             else
+              " "
               write_vr(prop.to_s.camelize(:lower))
               serialize_property(record[prop])
             end

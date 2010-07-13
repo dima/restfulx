@@ -199,7 +199,7 @@ module RestfulX
         # options are duplicated by default so we need a copy for caching attributes
         @original_options = options
         @original_options[:cached_attributes] ||= {}
-        @original_options[:cached_instances] ||= {}
+        @options[:cached_instances] = @original_options[:cached_instances] ||= {}
       end
 
       def serialize
@@ -234,13 +234,14 @@ module RestfulX
             [assoc.primary_key_name, {:name => assoc.name, :klass => class_name}]
           end.flatten]
                                 
-          serializable_names.select do |name| 
+          attributes = serializable_names.select do |name| 
             !includes.include?(associations[name][:name]) rescue true
           end.map do |name| 
             associations.has_key?(name) ? {:name => name, :ref_name => associations[name][:name].to_s.camelize(:lower), 
               :ref_class => associations[name][:klass] } : name.to_sym
           end
-          @original_options[:cached_attributes][@record.class.name] = serializable_names
+          @original_options[:cached_attributes][@record.class.name] = attributes
+          attributes
         end
       end
       
