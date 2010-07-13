@@ -175,7 +175,6 @@ module RestfulX::AMF
                 write_null
               end
             else
-              " "
               write_vr(prop.to_s.camelize(:lower))
               serialize_property(record[prop])
             end
