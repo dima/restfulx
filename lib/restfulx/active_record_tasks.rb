@@ -1,8 +1,10 @@
+$:.unshift(File.dirname(__FILE__)) unless $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
+
 # ActiveRecord specific Rake tasks. Namely, nice little extras such as:
 # - db:mysql:stage
 # - db:refresh
-require File.join(File.dirname(__FILE__), 'tasks')
-require File.join(File.dirname(__FILE__), 'schema_to_rx_yaml')
+require 'tasks'
+require 'schema_to_rx_yaml'
 
 # stores local copy of the application environment ('production', 'test', etc)
 # so that appropriate values in config/database.yml are used

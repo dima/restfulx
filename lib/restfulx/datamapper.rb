@@ -2,7 +2,6 @@
 # ValidationErrors class
 require 'dm-serializer/common'
 require 'dm-serializer/xml_serializers'
-require File.join(File.dirname(__FILE__), '..', 'lib', 'restfulx') if !defined?(RestfulX)
 
 # RestfulX datamapper patches
 module DataMapper

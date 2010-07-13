@@ -1,8 +1,9 @@
 # Rake tasks for building RestfulX-based Flex and AIR applications
+$:.unshift(File.dirname(__FILE__)) unless $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 require 'rake'
 require 'rexml/document'
 require 'activesupport'
-require File.join(File.dirname(__FILE__), 'configuration')
+require 'configuration'
 
 include RestfulX::Configuration
 
