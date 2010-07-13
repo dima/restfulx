@@ -4,10 +4,15 @@ $:.unshift "#{File.expand_path(File.dirname(__FILE__))}/amf/"
 require 'amf/class_mapping'
 
 module RestfulX::AMF
+  attr :serializer, true
   ClassMapper = RestfulX::AMF::ClassMapping.new
   
   begin
-    require 'amf/ext'
+    if @serializer == :native
+      require 'amf/ext'
+    else
+      require 'amf/pure'
+    end
   rescue LoadError
     require 'amf/pure'
   end
