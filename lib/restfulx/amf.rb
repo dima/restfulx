@@ -5,7 +5,16 @@ require 'amf/class_mapping'
 
 module RestfulX::AMF
   attr :serializer, true
+  
   ClassMapper = RestfulX::AMF::ClassMapping.new
+  
+  def self.serializer
+    return @serializer
+  end
+  
+  def self.serializer=(value)
+    @serializer = value
+  end
   
   begin
     if @serializer == :native
