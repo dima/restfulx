@@ -199,6 +199,7 @@ module RestfulX
         # options are duplicated by default so we need a copy for caching attributes
         @original_options = options
         @original_options[:cached_attributes] ||= {}
+        @original_options[:cached_instances] ||= {}
       end
 
       def serialize

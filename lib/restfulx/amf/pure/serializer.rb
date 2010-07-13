@@ -151,9 +151,11 @@ module RestfulX::AMF
           serializable_names.each do |prop|
             if prop.is_a?(Hash)
               record_name = prop[:name]
+              record_value = record[record_name]
               ref_name = prop[:ref_name]
               ref_class = prop[:ref_class]
-              result_id = "#{ref_class.class_name}_#{record[record_name]}" if record[record_name]
+              ref_class_name = ref_class.class.name
+              result_id = "#{ref_class_name}_#{record_value}" if record_value
 
               write_vr(ref_name)
               if result_id               
@@ -161,9 +163,14 @@ module RestfulX::AMF
                   @stream << AMF3_OBJECT_MARKER
                   write_reference(@object_cache[result_id])
                 else
-                  partials[ref_name.to_s] = ref_class.class_name
-                  partial = ref_class.new
-                  partial.id = record[record_name]
+                  partials[ref_name.to_s] = ref_class_name
+                  partial = options[:cached_instances][ref_class_name]
+                  unless partial
+                    options[:cached_instances][ref_class_name] = ref_class.new
+                    partial = options[:cached_instances][ref_class_name]
+                    puts "caching instance"
+                  end
+                  partial.id = record_value
                   serialize_record(partial, ['id'])
                 end
               else

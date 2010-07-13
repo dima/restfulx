@@ -34,6 +34,8 @@ module RestfulX::AMF
       def get_as_class_name(class_name) #:nodoc:
         unless as_class_name = @ruby_mappings[class_name.to_s]
           as_class_name = "#{@default_as_prefix}.#{class_name}"
+          @as_mappings[as_class_name] = class_name.to_s
+          @ruby_mappings[class_name.to_s] = as_class_name
         end
         as_class_name
       end
@@ -43,6 +45,8 @@ module RestfulX::AMF
       def get_ruby_class_name(class_name) #:nodoc:
         unless ruby_class_name = @as_mappings[class_name.to_s]
           ruby_class_name = class_name.sub("#{default_as_prefix}.", "")
+          @ruby_mappings[ruby_class_name] = class_name.to_s
+          @as_mappings[class_name.to_s] = ruby_class_name
         end
         ruby_class_name
       end
