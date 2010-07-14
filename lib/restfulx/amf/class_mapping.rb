@@ -82,7 +82,7 @@ module RestfulX::AMF
         ruby_class_name = obj.class.name
       end
       
-      if obj.is_a?(ActiveRecord::Base)
+      if obj.respond_to?(:unique_id)
         mappings.get_as_class_name(ruby_class_name)
       else
         nil
