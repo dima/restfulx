@@ -8,7 +8,7 @@ gem 'activerecord', '= 2.3.2'
 gem 'actionpack', '= 2.3.2'
 gem 'rails', '= 2.3.2'
 
-require 'activesupport'
+require 'active_support'
 require 'active_support/core_ext'
 require 'active_support/test_case'
 require 'active_record'

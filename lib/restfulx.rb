@@ -23,7 +23,7 @@ end
 
 # ActiveRecord extensions
 if defined?(ActiveRecord::Base)
-  ['active_support', 'active_record'].each { |lib| require "restfulx/#{lib}" }
+  ['rx_active_support', 'rx_active_record'].each { |lib| require "restfulx/#{lib}" }
   ActiveRecord::Base.send :include, 
     RestfulX::ActiveRecord unless ActiveRecord::Base.included_modules.include?(RestfulX::ActiveRecord)
 end
@@ -33,7 +33,7 @@ if defined?(ActionController::Base)
   Mime::Type.register_alias RestfulX::Types::APPLICATION_FXML, :fxml
   Mime::Type.register RestfulX::Types::APPLICATION_AMF, :amf
   
-  ['action_controller', 'swf_helper'].each { |lib| require "restfulx/#{lib}" }
+  ['rx_action_controller', 'swf_helper'].each { |lib| require "restfulx/#{lib}" }
 
   ActionController::Base.send :include, 
     RestfulX::ActionController unless ActionController::Base.included_modules.include?(RestfulX::ActionController)
@@ -43,5 +43,5 @@ end
 
 # DataMapper extensions
 if defined?(DataMapper)
-  require 'restfulx/datamapper'
+  require 'restfulx/rx_datamapper'
 end

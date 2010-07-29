@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dima Berastau"]
-  s.date = %q{2010-07-13}
+  s.date = %q{2010-07-16}
   s.default_executable = %q{rx-gen}
   s.description = %q{RestfulX: The RESTful Way to develop Adobe Flex and AIR applications}
   s.email = %q{dima.berastau@gmail.com}
@@ -50,11 +50,8 @@ Gem::Specification.new do |s|
      "app_generators/rx_app/templates/swfobject.js",
      "bin/rx-gen",
      "lib/restfulx.rb",
-     "lib/restfulx/action_controller.rb",
-     "lib/restfulx/active_record.rb",
      "lib/restfulx/active_record_tasks.rb",
      "lib/restfulx/active_record_uuid_helper.rb",
-     "lib/restfulx/active_support.rb",
      "lib/restfulx/amf.rb",
      "lib/restfulx/amf/class_mapping.rb",
      "lib/restfulx/amf/ext.rb",
@@ -63,8 +60,11 @@ Gem::Specification.new do |s|
      "lib/restfulx/amf/pure/io_helpers.rb",
      "lib/restfulx/amf/pure/serializer.rb",
      "lib/restfulx/configuration.rb",
-     "lib/restfulx/datamapper.rb",
      "lib/restfulx/recipes.rb",
+     "lib/restfulx/rx_action_controller.rb",
+     "lib/restfulx/rx_active_record.rb",
+     "lib/restfulx/rx_active_support.rb",
+     "lib/restfulx/rx_datamapper.rb",
      "lib/restfulx/schema_to_rx_yaml.rb",
      "lib/restfulx/swf_helper.rb",
      "lib/restfulx/tasks.rb",

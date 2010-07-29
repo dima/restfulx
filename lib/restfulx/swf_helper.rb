@@ -31,7 +31,7 @@ module RestfulX
       # </script>
       params[:flash_vars] ||= {}
       if params[:flash_vars].is_a?(Hash)
-        if params[:include_authenticity_token] && ActionController::Base.allow_forgery_protection
+        if params[:include_authenticity_token] && ::ActionController::Base.allow_forgery_protection
           params[:flash_vars].reverse_merge!(:authenticity_token => form_authenticity_token)
         end
         if params[:include_session_token]
