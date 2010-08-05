@@ -82,7 +82,7 @@ module RestfulX::AMF
           write_true
         elsif prop.is_a?(FalseClass)
           write_false
-        elsif prop.is_a?(Float)
+        elsif prop.is_a?(Float) || prop.is_a?(Bignum) || prop.is_a?(BigDecimal)
           write_float(prop)
         elsif prop.is_a?(Integer)
           write_integer(prop)
