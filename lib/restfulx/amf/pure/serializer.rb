@@ -154,7 +154,14 @@ module RestfulX::AMF
               record_value = record[record_name]
               ref_name = prop[:ref_name]
               ref_class = prop[:ref_class]
-              ref_class_name = ref_class.class_name
+              
+              if ref_class == "polymorphic"
+                ref_class_name = record["#{prop[:orig_ref_name]}_type"]
+                ref_class = ref_class_name.constantize
+              else
+                ref_class_name = ref_class.class_name
+              end
+              
               result_id = "#{ref_class_name}_#{record_value}" if record_value
 
               write_vr(ref_name)

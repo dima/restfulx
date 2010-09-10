@@ -227,7 +227,8 @@ module RestfulX
           associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect do |assoc|
             if assoc.options.has_key?(:polymorphic) && assoc.options[:polymorphic]
               @options[:except] = ([] << @options[:except] << "#{assoc.name}_type".to_sym).flatten
-              class_name = @record[assoc.options[:foreign_type]].constantize
+              # class_name = @record[assoc.options[:foreign_type]].constantize
+              class_name = "polymorphic"
             else
               class_name = assoc.klass
             end
@@ -238,7 +239,7 @@ module RestfulX
             !includes.include?(associations[name][:name]) rescue true
           end.map do |name| 
             associations.has_key?(name) ? {:name => name, :ref_name => associations[name][:name].to_s.camelize(:lower), 
-              :ref_class => associations[name][:klass] } : name.to_sym
+              :ref_class => associations[name][:klass], :orig_ref_name => associations[name][:name].to_s } : name.to_sym
           end
           @original_options[:cached_attributes][@record.class.name] = attributes
           attributes
