@@ -1,6 +1,6 @@
 module RestfulX
-  module Serialization
-    class FXMLSerializer < ::ActiveRecord::Serialization::Serializer
+  module Serialization #:nodoc:
+    class FXMLSerializer < ::ActiveRecord::Serialization::Serializer #:nodoc:
       def builder
         @builder ||= begin
           options[:indent] ||= 2
@@ -189,7 +189,7 @@ module RestfulX
       end
     end
     
-    class AMFSerializer < ::ActiveRecord::Serialization::Serializer
+    class AMFSerializer < ::ActiveRecord::Serialization::Serializer #:nodoc:
       def initialize(record, options = {})
         super(record, options)
         @options[:methods] ||= []
@@ -268,6 +268,7 @@ module RestfulX
         "#{self.class.to_s}_#{self.attributes()['id']}"
       end
       
+      # serialize this model as AMF
       def to_amf(options = {})
         default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at, :created_at, :updated_at]
         options[:except] = (options[:except] ? options[:except] + default_except : default_except)
@@ -275,6 +276,7 @@ module RestfulX
         RestfulX::Serialization::AMFSerializer.new(self, options).to_s
       end
     
+      # serialize this model as fXML
       def to_fxml(options = {})
         options.merge!(:dasherize => false)
         default_except = [:crypted_password, :salt, :remember_token, :remember_token_expires_at, :created_at, :updated_at]
@@ -323,7 +325,7 @@ module ActiveRecord
   class Errors
     alias_method :to_json_original, :to_json
     
-    # Flex friendly errors
+    # serializer errors to fXML
     def to_fxml(options = {})
       options[:root] ||= "errors"
       options[:indent] ||= 2
@@ -342,10 +344,12 @@ module ActiveRecord
       end
     end
     
+    # serialize errors to JSON
     def to_json(options = {})
       "{#{'errors'.inspect}:#{to_json_original(options)}}"
     end
     
+    # serialize errors to AMF
     def to_amf(options = {})
       options[:amf_version] = 3
       options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new

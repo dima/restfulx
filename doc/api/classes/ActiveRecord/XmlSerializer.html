@@ -57,7 +57,7 @@
       <tr valign="top">
         <td>In:</td>
         <td>
-<a href="../../files/lib/restfulx/active_foo_rb.html">lib/restfulx/active_foo.rb</a>
+<a href="../../files/lib/restfulx/rx_active_record_rb.html">lib/restfulx/rx_active_record.rb</a>
         </td>
       </tr>
     <tr>
@@ -86,7 +86,7 @@ question mark, like &#8216;valid?&#8217; or &#8216;is_true?&#8216;
  
   <div class="sectiontitle">Methods</div>
   <ul>
-  <li><a href="#M000024">add_tag</a></li>
+  <li><a href="#M000020">add_tag</a></li>
   </ul>
  
  
@@ -100,7 +100,7 @@ question mark, like &#8216;valid?&#8217; or &#8216;is_true?&#8216;
 <div class="sectiontitle">Public Instance methods</div>
 <div class="method">
   <div class="title">
-    <a name="M000024"></a><b>add_tag</b>(attribute)
+    <a name="M000020"></a><b>add_tag</b>(attribute)
   </div>
   <div class="description">
   <p>
@@ -108,17 +108,17 @@ Strips &#8217;?&#8217; from serialized method names
 </p>
   </div>
 <div class="sourcecode">
-  <p class="source-link">[ <a href="javascript:toggleSource('M000024_source')" id="l_M000024_source">show source</a> ]</p>
-  <div id="M000024_source" class="dyn-source">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000020_source')" id="l_M000020_source">show source</a> ]</p>
+  <div id="M000020_source" class="dyn-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/restfulx/active_foo.rb, line 140</span>
-140:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_tag</span>(<span class="ruby-identifier">attribute</span>)
-141:       <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">tag!</span>(
-142:         <span class="ruby-identifier">dasherize?</span> <span class="ruby-value">? </span><span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">display_name</span>.<span class="ruby-identifier">dasherize</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">display_name</span>,
-143:         <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>,
-144:         <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">decorations</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">options</span>[<span class="ruby-identifier">:skip_types</span>])
-145:       )
-146:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 307</span>
+307:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_tag</span>(<span class="ruby-identifier">attribute</span>)
+308:       <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">tag!</span>(
+309:         <span class="ruby-identifier">dasherize?</span> <span class="ruby-value">? </span><span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">display_name</span>.<span class="ruby-identifier">dasherize</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">display_name</span>,
+310:         <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>,
+311:         <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">decorations</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">options</span>[<span class="ruby-identifier">:skip_types</span>])
+312:       )
+313:     <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>

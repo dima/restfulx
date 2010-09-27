@@ -9,6 +9,7 @@ module RestfulX::UUIDHelper
     end
   end
 
+  # generates new UUID for the record
   def generate_uuid
     self.id = UUIDTools::UUID.random_create.to_s.gsub("-", "") unless self.id
   end

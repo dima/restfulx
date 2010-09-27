@@ -1,7 +1,7 @@
 require 'amf/pure/io_helpers'
 
 module RestfulX::AMF
-  module Pure
+  module Pure #:nodoc: all
     # AMF3 Type Markers
     AMF3_UNDEFINED_MARKER    =  0x00 #"\000"
     AMF3_NULL_MARKER         =  0x01 #"\001"

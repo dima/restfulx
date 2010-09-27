@@ -10,10 +10,10 @@
 # Some of the things that are done can be called _monkey_ _patching_ while others can
 # be called extensions. Caveat emptor.
 
-# ActiveSupport specific patches. More specifically we add +to_fxml+ methods to Array and
+# ActiveSupport specific patches. More specifically we add +to_fxml+ and +to_amf+ methods to Array and
 # Hash conversion modules
 module ActiveSupport::CoreExtensions
-  # Add Flex friendly +to_fxml+ to Hash conversions
+  # Add Flex friendly +to_fxml+ and +to_amf+ to Hash conversions
   module Hash
     # refer to: http://api.rubyonrails.org/ for more details
     module Conversions
@@ -71,6 +71,7 @@ module ActiveSupport::CoreExtensions
         end
       end
       
+      # serialize as AMF
       def to_amf(options = {})
         RestfulX::AMF.serialize_property(self, {:serializable_names => self.keys, :options => options})
       end
@@ -115,6 +116,7 @@ module ActiveSupport::CoreExtensions
         end
       end
     
+      # Serialize as AMF
       def to_amf(options = {})
         raise "Not all elements respond to to_amf" unless all? { |e| e.respond_to? :to_amf }
         
@@ -129,6 +131,7 @@ end
 class Array
   alias_method :to_json_original, :to_json
   
+  # Serialize array as RestfulX friendly JSON (with metadata)
   def to_json(options = {})
     attributes = options.delete(:attributes)
     return (attributes.nil?) ? to_json_original(options) : "[{#{'metadata'.inspect}: #{attributes.to_json}},#{to_json_original(options)[1..-1]}]"

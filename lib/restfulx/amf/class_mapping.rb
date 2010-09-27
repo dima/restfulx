@@ -64,10 +64,14 @@ module RestfulX::AMF
       yield mappings
     end
     
+    # Return default ActionScript prefix to use. This is recommended compared to
+    # defining mappings manually
     def default_as_prefix
       mappings.default_as_prefix
     end
     
+    # Set the default ActionScript prefix (typically a package e.g. com.foobar) to 
+    # use for all models
     def default_as_prefix=(value)
       mappings.default_as_prefix = value
     end
@@ -89,6 +93,7 @@ module RestfulX::AMF
       end
     end
     
+    # Return ruby model class name for a given ActionScript model class name
     def get_ruby_class_name(as_class_name)
       mappings.get_ruby_class_name(as_class_name.to_s)
     end

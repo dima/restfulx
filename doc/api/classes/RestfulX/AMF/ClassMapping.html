@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: RestfulX::AMF::ClassMapping</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+ 
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+ 
+        function toggleSource( id )
+        {
+          var elem
+          var link
+ 
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+ 
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+ 
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+ 
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />RestfulX::AMF::ClassMapping</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/lib/restfulx/amf/class_mapping_rb.html">lib/restfulx/amf/class_mapping.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+Object
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+ 
+  <div id="bodyContent">
+      <div id="content">
+ 
+ 
+ 
+ 
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000035">default_as_prefix</a></li>
+  <li><a href="#M000036">default_as_prefix=</a></li>
+  <li><a href="#M000034">define</a></li>
+  <li><a href="#M000037">get_as_class_name</a></li>
+  <li><a href="#M000038">get_ruby_class_name</a></li>
+  </ul>
+ 
+ 
+ 
+  <div class="sectiontitle">Classes and Modules</div>
+  Class <a href="ClassMapping/MappingSet.html" class="link">RestfulX::AMF::ClassMapping::MappingSet</a><br />
+
+ 
+ 
+ 
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000035"></a><b>default_as_prefix</b>()
+  </div>
+  <div class="description">
+  <p>
+Return default ActionScript prefix to use. This is recommended compared to
+defining mappings manually
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000035_source')" id="l_M000035_source">show source</a> ]</p>
+  <div id="M000035_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/amf/class_mapping.rb, line 69</span>
+69:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default_as_prefix</span>
+70:       <span class="ruby-identifier">mappings</span>.<span class="ruby-identifier">default_as_prefix</span>
+71:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000036"></a><b>default_as_prefix=</b>(value)
+  </div>
+  <div class="description">
+  <p>
+Set the default ActionScript prefix (typically a package e.g. com.foobar)
+to use for all models
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000036_source')" id="l_M000036_source">show source</a> ]</p>
+  <div id="M000036_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/amf/class_mapping.rb, line 75</span>
+75:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default_as_prefix=</span>(<span class="ruby-identifier">value</span>)
+76:       <span class="ruby-identifier">mappings</span>.<span class="ruby-identifier">default_as_prefix</span> = <span class="ruby-identifier">value</span>
+77:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000034"></a><b>define</b>( {|mapping_set| ...}
+  </div>
+  <div class="description">
+  <p>
+Define class mappings in the block. Block is passed a <a
+href="ClassMapping/MappingSet.html">MappingSet</a> object as the first
+parameter.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  RestfulX::AMF::ClassMapper.define do |m|
+    m.map :as =&gt; 'AsClass', :ruby =&gt; 'RubyClass'
+  end
+</pre>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000034_source')" id="l_M000034_source">show source</a> ]</p>
+  <div id="M000034_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/amf/class_mapping.rb, line 63</span>
+63:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">define</span> <span class="ruby-comment cmt">#:yields: mapping_set</span>
+64:       <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">mappings</span>
+65:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000037"></a><b>get_as_class_name</b>(obj)
+  </div>
+  <div class="description">
+  <p>
+Returns the AS class name for the given ruby object. Will also take a
+string containing the ruby class name
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000037_source')" id="l_M000037_source">show source</a> ]</p>
+  <div id="M000037_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/amf/class_mapping.rb, line 81</span>
+81:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_as_class_name</span>(<span class="ruby-identifier">obj</span>)
+82:       <span class="ruby-comment cmt"># Get class name</span>
+83:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+84:         <span class="ruby-identifier">ruby_class_name</span> = <span class="ruby-identifier">obj</span>
+85:       <span class="ruby-keyword kw">else</span>
+86:         <span class="ruby-identifier">ruby_class_name</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>
+87:       <span class="ruby-keyword kw">end</span>
+88:       
+89:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:unique_id</span>)
+90:         <span class="ruby-identifier">mappings</span>.<span class="ruby-identifier">get_as_class_name</span>(<span class="ruby-identifier">ruby_class_name</span>)
+91:       <span class="ruby-keyword kw">else</span>
+92:         <span class="ruby-keyword kw">nil</span>
+93:       <span class="ruby-keyword kw">end</span>
+94:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000038"></a><b>get_ruby_class_name</b>(as_class_name)
+  </div>
+  <div class="description">
+  <p>
+Return ruby model class name for a given ActionScript model class name
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000038_source')" id="l_M000038_source">show source</a> ]</p>
+  <div id="M000038_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/restfulx/amf/class_mapping.rb, line 97</span>
+97:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_ruby_class_name</span>(<span class="ruby-identifier">as_class_name</span>)
+98:       <span class="ruby-identifier">mappings</span>.<span class="ruby-identifier">get_ruby_class_name</span>(<span class="ruby-identifier">as_class_name</span>.<span class="ruby-identifier">to_s</span>)
+99:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+ 
+    </body>
+</html>

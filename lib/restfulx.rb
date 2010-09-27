@@ -3,16 +3,21 @@ require 'yaml'
 require 'restfulx/configuration'
 
 # Settings
-module RestfulX  
+module RestfulX
+  # Valid types supported internally on top of standard Rails types  
   module Types
     APPLICATION_FXML = 'application/xml'.freeze
     APPLICATION_AMF = 'application/x-amf'.freeze
   end
   
+  # get the currently defined AMF serializer
   def self.amf_serializer
     @amf_serializer
   end
   
+  # set the amf serializer to use
+  # valid options are :native and :pure, using :pure is recommended as it is as fast
+  # as native but currently better tested/supported
   def self.amf_serializer=(value)
     @amf_serializer = value
   end

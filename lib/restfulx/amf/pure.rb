@@ -1,6 +1,6 @@
 require 'amf/pure/serializer'
 
-module RestfulX::AMF
+module RestfulX::AMF #:nodoc:
   # This module holds all the modules/classes that implement AMF's
   # functionality in pure ruby.
   module Pure

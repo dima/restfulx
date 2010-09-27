@@ -6,6 +6,7 @@ module RestfulX::ActionController
     end
   end
   
+  # Defines support for rendering :amf blocks from within Rails constrollers
   def render_with_amf(options=nil, extra_options={}, &block)
     if Hash === options and options.key?(:amf)
       object = options.delete(:amf)
@@ -18,6 +19,7 @@ module RestfulX::ActionController
     end
   end
   
+  # Defines support for rendering :fxml blocks from within Rails controllers
   def render_with_fxml(options=nil, extra_options={}, &block)
     if Hash === options and options.key?(:fxml)
       object = options.delete(:fxml)
