@@ -57,7 +57,7 @@
       <tr valign="top">
         <td>In:</td>
         <td>
-<a href="../files/lib/restfulx/rails/schema_to_yaml/extensions/enumerable_rb.html">lib/restfulx/rails/schema_to_yaml/extensions/enumerable.rb</a>
+<a href="../files/lib/restfulx/configuration_rb.html">lib/restfulx/configuration.rb</a>
         </td>
       </tr>
          </table>
@@ -78,7 +78,7 @@
  
   <div class="sectiontitle">Methods</div>
   <ul>
-  <li><a href="#M000032">dups</a></li>
+  <li><a href="#M000043">dups</a></li>
   </ul>
  
  
@@ -89,7 +89,7 @@
 <div class="sectiontitle">Public Instance methods</div>
 <div class="method">
   <div class="title">
-    <a name="M000032"></a><b>dups</b>()
+    <a name="M000043"></a><b>dups</b>()
   </div>
   <div class="description">
   <p>
@@ -97,13 +97,13 @@ Helps you find duplicates used in schema_to_yaml.rb for cleanup
 </p>
   </div>
 <div class="sourcecode">
-  <p class="source-link">[ <a href="javascript:toggleSource('M000032_source')" id="l_M000032_source">show source</a> ]</p>
-  <div id="M000032_source" class="dyn-source">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000043_source')" id="l_M000043_source">show source</a> ]</p>
+  <div id="M000043_source" class="dyn-source">
 <pre>
-   <span class="ruby-comment cmt"># File lib/restfulx/rails/schema_to_yaml/extensions/enumerable.rb, line 5</span>
-5:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dups</span>
-6:     <span class="ruby-identifier">inject</span>({}) {<span class="ruby-operator">|</span><span class="ruby-identifier">h</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">h</span>[<span class="ruby-identifier">v</span>]=<span class="ruby-identifier">h</span>[<span class="ruby-identifier">v</span>].<span class="ruby-identifier">to_i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>; <span class="ruby-identifier">h</span>}.<span class="ruby-identifier">reject</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>}.<span class="ruby-identifier">keys</span>
-7:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/restfulx/configuration.rb, line 9</span>
+ 9:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dups</span>
+10:     <span class="ruby-identifier">inject</span>({}) { <span class="ruby-operator">|</span><span class="ruby-identifier">h</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">h</span>[<span class="ruby-identifier">v</span>] = <span class="ruby-identifier">h</span>[<span class="ruby-identifier">v</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>; <span class="ruby-identifier">h</span> }.<span class="ruby-identifier">reject</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> }.<span class="ruby-identifier">keys</span>
+11:   <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>

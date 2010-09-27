@@ -69,13 +69,18 @@
   <div id="bodyContent">
       <div id="content">
  
+  <div class="description"><p>
+Extends <a href="ActiveRecord.html">ActiveRecord</a> models with UUID based
+IDs
+</p>
+</div>
  
  
  
   <div class="sectiontitle">Methods</div>
   <ul>
-  <li><a href="#M000020">generate_uuid</a></li>
-  <li><a href="#M000019">included</a></li>
+  <li><a href="#M000042">generate_uuid</a></li>
+  <li><a href="#M000041">included</a></li>
   </ul>
  
  
@@ -86,18 +91,18 @@
 <div class="sectiontitle">Public Class methods</div>
 <div class="method">
   <div class="title">
-    <a name="M000019"></a><b>included</b>(base)
+    <a name="M000041"></a><b>included</b>(base)
   </div>
 <div class="sourcecode">
-  <p class="source-link">[ <a href="javascript:toggleSource('M000019_source')" id="l_M000019_source">show source</a> ]</p>
-  <div id="M000019_source" class="dyn-source">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000041_source')" id="l_M000041_source">show source</a> ]</p>
+  <div id="M000041_source" class="dyn-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/restfulx/active_record_uuid_helper.rb, line 7</span>
- 7:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
- 8:       <span class="ruby-identifier">base</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword kw">do</span> 
- 9:         <span class="ruby-identifier">before_create</span> <span class="ruby-identifier">:generate_uuid</span>
-10:       <span class="ruby-keyword kw">end</span>
-11:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/restfulx/active_record_uuid_helper.rb, line 6</span>
+ 6:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
+ 7:     <span class="ruby-identifier">base</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword kw">do</span> 
+ 8:       <span class="ruby-identifier">before_create</span> <span class="ruby-identifier">:generate_uuid</span>
+ 9:     <span class="ruby-keyword kw">end</span>
+10:   <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>
@@ -105,16 +110,21 @@
 <div class="sectiontitle">Public Instance methods</div>
 <div class="method">
   <div class="title">
-    <a name="M000020"></a><b>generate_uuid</b>()
+    <a name="M000042"></a><b>generate_uuid</b>()
+  </div>
+  <div class="description">
+  <p>
+generates new UUID for the record
+</p>
   </div>
 <div class="sourcecode">
-  <p class="source-link">[ <a href="javascript:toggleSource('M000020_source')" id="l_M000020_source">show source</a> ]</p>
-  <div id="M000020_source" class="dyn-source">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000042_source')" id="l_M000042_source">show source</a> ]</p>
+  <div id="M000042_source" class="dyn-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/restfulx/active_record_uuid_helper.rb, line 13</span>
-13:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_uuid</span>
-14:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span> = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">random_create</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;-&quot;</span>, <span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>
-15:     <span class="ruby-keyword kw">end</span>
+13:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_uuid</span>
+14:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span> = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">random_create</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;-&quot;</span>, <span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>
+15:   <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>

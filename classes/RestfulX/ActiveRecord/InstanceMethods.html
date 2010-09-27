@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: RestfulX::ActiveRecord::InstanceMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+ 
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+ 
+        function toggleSource( id )
+        {
+          var elem
+          var link
+ 
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+ 
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+ 
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+ 
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />RestfulX::ActiveRecord::InstanceMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/lib/restfulx/rx_active_record_rb.html">lib/restfulx/rx_active_record.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+ 
+  <div id="bodyContent">
+      <div id="content">
+ 
+ 
+ 
+ 
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000029">to_amf</a></li>
+  <li><a href="#M000030">to_fxml</a></li>
+  <li><a href="#M000028">unique_id</a></li>
+  </ul>
+ 
+ 
+ 
+ 
+ 
+ 
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000029"></a><b>to_amf</b>(options = {})
+  </div>
+  <div class="description">
+  <p>
+serialize this model as AMF
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000029_source')" id="l_M000029_source">show source</a> ]</p>
+  <div id="M000029_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 272</span>
+272:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_amf</span>(<span class="ruby-identifier">options</span> = {})
+273:         <span class="ruby-identifier">default_except</span> = [<span class="ruby-identifier">:crypted_password</span>, <span class="ruby-identifier">:salt</span>, <span class="ruby-identifier">:remember_token</span>, <span class="ruby-identifier">:remember_token_expires_at</span>, <span class="ruby-identifier">:created_at</span>, <span class="ruby-identifier">:updated_at</span>]
+274:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] = (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">default_except</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">default_except</span>)
+275:         
+276:         <span class="ruby-constant">RestfulX</span><span class="ruby-operator">::</span><span class="ruby-constant">Serialization</span><span class="ruby-operator">::</span><span class="ruby-constant">AMFSerializer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">options</span>).<span class="ruby-identifier">to_s</span>
+277:       <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000030"></a><b>to_fxml</b>(options = {})
+  </div>
+  <div class="description">
+  <p>
+serialize this model as fXML
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000030_source')" id="l_M000030_source">show source</a> ]</p>
+  <div id="M000030_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 280</span>
+280:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_fxml</span>(<span class="ruby-identifier">options</span> = {})
+281:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">:dasherize</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>)
+282:         <span class="ruby-identifier">default_except</span> = [<span class="ruby-identifier">:crypted_password</span>, <span class="ruby-identifier">:salt</span>, <span class="ruby-identifier">:remember_token</span>, <span class="ruby-identifier">:remember_token_expires_at</span>, <span class="ruby-identifier">:created_at</span>, <span class="ruby-identifier">:updated_at</span>]
+283:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] = (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">default_except</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">default_except</span>)
+284:         
+285:         <span class="ruby-constant">RestfulX</span><span class="ruby-operator">::</span><span class="ruby-constant">Serialization</span><span class="ruby-operator">::</span><span class="ruby-constant">FXMLSerializer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">options</span>).<span class="ruby-identifier">to_s</span>
+286:       <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000028"></a><b>unique_id</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000028_source')" id="l_M000028_source">show source</a> ]</p>
+  <div id="M000028_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 267</span>
+267:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unique_id</span>
+268:         <span class="ruby-node">&quot;#{self.class.to_s}_#{self.attributes()['id']}&quot;</span>
+269:       <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+ 
+    </body>
+</html>
