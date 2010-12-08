@@ -22,8 +22,10 @@ if defined?(Merb::Plugins)
     Merb.add_mime_type(:amf,  :to_amf, RestfulX::APPLICATION_AMF, :charset => "utf-8")
 
     if defined?(ActiveRecord::Base)
-      ['active_support', 'active_record'].each { |lib| require RestfulX::LIB_DIR + lib }
-      ActiveRecord::Base.send :include, RestfulX::ActiveRecord
+      ['active_support', 'active_model', 'active_record'].each { |lib| require RestfulX::LIB_DIR + lib }
+      ActiveRecord::Base.send :include, RestfulX::ActiveRecord::Serialization
+      ActiveModel::Errors.send :include, RestfulX::ActiveModel::Errors
+      ActiveModel.send :include, RestfulX::ActiveModel::Serializers
       
       Merb.add_mime_type(:fxml,  :to_fxml,  %w[application/xml text/xml application/x-xml], :charset => "utf-8")
       
@@ -40,14 +42,20 @@ elsif defined?(ActionController::Base)
   Mime::Type.register_alias RestfulX::Types::APPLICATION_FXML, :fxml
   Mime::Type.register RestfulX::Types::APPLICATION_AMF, :amf
   
-  ['active_support', 'active_record', 'action_controller', 'swf_helper'].each { |lib| require RestfulX::LIB_DIR + lib }
+  ['active_support', 'active_model', 'active_record', 'action_controller', 'swf_helper'].each { |lib| require RestfulX::LIB_DIR + lib }
 
   ActionController::Base.send :include, RestfulX::ActionController
-  ActiveRecord::Base.send :include, RestfulX::ActiveRecord
+  
+  ActiveRecord::Base.send :include, RestfulX::ActiveRecord::Serialization
+  ActiveModel::Errors.send :include, RestfulX::ActiveModel::Errors
+  ActiveModel.send :include, RestfulX::ActiveModel::Serializers
+  
   ActionView::Base.send :include, SWFHelper unless ActionView::Base.included_modules.include?(SWFHelper)
 elsif defined?(DataMapper)
   require RestfulX::LIB_DIR + 'datamapper'
 elsif defined?(ActiveRecord::Base)
-  ['active_support', 'active_record'].each { |lib| require RestfulX::LIB_DIR + lib }
-  ActiveRecord::Base.send :include, RestfulX::ActiveRecord
+  ['active_support', 'active_model', 'active_record'].each { |lib| require RestfulX::LIB_DIR + lib }
+  ActiveRecord::Base.send :include, RestfulX::ActiveRecord::Serialization
+  ActiveModel::Errors.send :include, RestfulX::ActiveModel::Errors
+  ActiveModel.send :include, RestfulX::ActiveModel::Serializers
 end

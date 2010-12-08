@@ -52,6 +52,7 @@ Gem::Specification.new do |s|
      "lib/restfulx.rb",
      "lib/restfulx/action_controller.rb",
      "lib/restfulx/active_record.rb",
+     "lib/restfulx/active_model.rb",
      "lib/restfulx/active_record_tasks.rb",
      "lib/restfulx/active_record_uuid_helper.rb",
      "lib/restfulx/active_support.rb",
