@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:<%= application_tag %> xmlns:mx="http://www.adobe.com/2006/mxml"
+<s:<%= application_tag %>  xmlns:fx="http://ns.adobe.com/mxml/2009" 
+  xmlns:s="library://ns.adobe.com/flex/spark" 
+  xmlns:mx="library://ns.adobe.com/flex/mx"
   xmlns:generated="<%= base_package %>.views.generated.*"
-  paddingBottom="8" paddingLeft="8" paddingRight="8" paddingTop="8"
-  layout="horizontal" styleName="plain" initialize="init()">
-  <mx:Script>
+  preloaderChromeColor="#EBF4FF" 
+  initialize="init()">
+	<s:layout>
+		<s:HorizontalLayout paddingTop="6" paddingLeft="6" paddingRight="6" paddingBottom="6"/>
+	</s:layout>
+
+  <fx:Script>
     <![CDATA[
 <% if use_air -%>
 <% if distributed -%>
@@ -28,17 +34,17 @@
 <% if distributed -%>
 
       [Bindable]
-      private var socketMonitor:SocketMonitor;
+      protected var socketMonitor:SocketMonitor;
 
       [Bindable]
-      private var online:Boolean;
+      protected var online:Boolean;
 
       [Bindable]
-      private var syncStatus:String;
+      protected var syncStatus:String;
 <% end -%>
 <% end -%>
 
-      private function init():void {
+      protected function init():void {
 <% if use_air -%>
 <% if distributed -%>
         Rx.httpRootUrl = "http://localhost:3000/";
@@ -80,23 +86,23 @@
 <% if use_air -%>
 <% if distributed -%>
 
-      private function onPushStart(event:Event):void {
+      protected function onPushStart(event:Event):void {
         syncStatus = "Pushing changes ...";
       }
       
-      private function onPushEnd(event:Event):void {
+      protected function onPushEnd(event:Event):void {
         syncStatus = "Push complete.";
       }
       
-      private function onPullStart(event:Event):void {
+      protected function onPullStart(event:Event):void {
         syncStatus = "Pulling data...";
       }
       
-      private function onPullEnd(event:Event):void {
+      protected function onPullEnd(event:Event):void {
         syncStatus = "Pull complete.";
       }
       
-      private function onNetworkStatusChange(event:StatusEvent):void {
+      protected function onNetworkStatusChange(event:StatusEvent):void {
         online = (socketMonitor.available) ? true : false;
   
         if (online) {
@@ -110,7 +116,7 @@
         }
       }
 
-      private function getCurrentProviderName(id:int):String {
+      protected function getCurrentProviderName(id:int):String {
         switch (id) {
 <% if use_gae -%>
           case GAEHTTPServiceProvider.ID:
@@ -128,18 +134,18 @@
 <% end -%>
 <% end -%>
     ]]>
-  </mx:Script>
+  </fx:Script>
 <% if use_air -%>
 <% if distributed -%>
-  <mx:VBox height="100%">
-    <mx:Label text="Current Provider: {getCurrentProviderName(Rx.defaultServiceId)}"/>
-    <mx:Label text="Status: {online ? 'Online' : 'Offline' }"/>
-    <mx:HBox>
-      <mx:Button label="Push" click="{Rx.changes.push()}" enabled="{online}"/>
-      <mx:Button label="Pull" click="{Rx.changes.pull()}" enabled="{online}"/>
-    </mx:HBox>
-    <mx:Label text="{syncStatus}"/>
-  </mx:VBox>
+  <s:VGroup height="100%">
+    <s:Label text="Current Provider: {getCurrentProviderName(Rx.defaultServiceId)}"/>
+    <s:Label text="Status: {online ? 'Online' : 'Offline' }"/>
+    <s:HGroup>
+      <s:Button label="Push" click="{Rx.changes.push()}" enabled="{online}"/>
+      <s:Button label="Pull" click="{Rx.changes.pull()}" enabled="{online}"/>
+    </s:HGroup>>
+    <s:Label text="{syncStatus}"/>
+  </s:VGroup>
 <% end -%>
 <% end -%>
   <mx:LinkBar dataProvider="{mainViewStack}" direction="vertical" borderStyle="solid" backgroundColor="#EEEEEE"/>
@@ -149,4 +155,4 @@
     <generated:<%= component %>/>
 <% end -%>
   </mx:ViewStack>
-</mx:<%= application_tag %>>
+</s:<%= application_tag %>>
