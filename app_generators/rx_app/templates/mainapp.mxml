@@ -152,7 +152,9 @@
   <mx:ViewStack id="mainViewStack" width="100%" height="100%">
     <!-- For a simple demo, put all the components here. -->
 <% for component in component_names -%>
-    <generated:<%= component %>/>
+	<s:NavigatorContent label="<%= component %>" width="100%" height="100%">
+    	<generated:<%= component %>/>
+	</s:NavigatorContent>
 <% end -%>
   </mx:ViewStack>
 </s:<%= application_tag %>>
