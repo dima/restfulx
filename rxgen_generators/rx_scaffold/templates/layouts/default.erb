@@ -138,9 +138,9 @@
    <s:layout>
      <s:VerticalLayout/>
    </s:layout>
-    <mx:Form width="100%" height="100%">
+    <mx:Form width="100%"  height="{<%= class_name.dcfirst.pluralize %>List.height}" verticalScrollPolicy="auto">
 <% for attribute in attributes -%>
-      <mx:FormItem label="<%= attribute.flex_name.ucfirst %>" width="100%" height="{<%= class_name.dcfirst.pluralize %>Panel.height-74}">
+      <mx:FormItem label="<%= attribute.flex_name.ucfirst %>" width="100%">
 <% if attribute.type == :boolean -%>
         <mx:CheckBox id="<%= attribute.flex_name %>CheckBox" selected="{<%= class_name.dcfirst %>.<%= attribute.flex_name %>}"/>
 <% elsif attribute.type == :string -%>
