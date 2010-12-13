@@ -1,6 +1,7 @@
 $:.unshift(File.dirname(__FILE__)) unless $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 require 'yaml'
 require 'restfulx/configuration'
+require 'restfulx/amf'
 
 # Settings
 module RestfulX
@@ -8,18 +9,6 @@ module RestfulX
   module Types
     APPLICATION_FXML = 'application/xml'.freeze
     APPLICATION_AMF = 'application/x-amf'.freeze
-  end
-  
-  # get the currently defined AMF serializer
-  def self.amf_serializer
-    @amf_serializer
-  end
-  
-  # set the amf serializer to use
-  # valid options are :native and :pure, using :pure is recommended as it is as fast
-  # as native but currently better tested/supported
-  def self.amf_serializer=(value)
-    @amf_serializer = value
   end
 
   VERSION_SOURCE = YAML.load(File.read(File.join(File.dirname(__FILE__), '..', 'VERSION.yml')))

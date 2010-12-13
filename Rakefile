@@ -24,16 +24,6 @@ rescue LoadError
   puts "jeweler not available. Install it with: sudo gem install jeweler"
 end
 
-require 'rake/extensiontask'
-Rake::ExtensionTask.new do |ext|
-  ext.name            = 'serializer'
-  ext.gem_spec        = Rake.application.jeweler_tasks.gemspec
-  # ext.cross_compile   = true
-  # ext.cross_platform  = %w[i386-mswin32 i386-mingw32]
-  ext.ext_dir         = 'ext/restfulx/ext/amf/serializer'
-  ext.lib_dir         = 'lib/restfulx/amf/ext'
-end
-
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
   config = YAML.load(File.read('VERSION.yml'))
