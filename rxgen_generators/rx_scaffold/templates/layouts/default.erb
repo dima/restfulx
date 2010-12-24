@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" label="<%= class_name %>"
-  xmlns:rx="org.restfulx.components.rx.*">
-  <mx:Script><![CDATA[
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+  xmlns:s="library://ns.adobe.com/flex/spark" 
+  xmlns:mx="library://ns.adobe.com/flex/mx" 
+  xmlns:rx="org.restfulx.components.rx.*"  
+  width="100%" height="100%"
+  paddingTop="3" paddingBottom="3" paddingLeft="3" paddingRight="3" gap="3">
+  <fx:Script><![CDATA[
     import org.restfulx.Rx;
     import org.restfulx.utils.RxUtils;
     import <%= base_package %>.models.<%= class_name %>;
@@ -14,21 +18,21 @@
 <% end -%>
 
     [Bindable]
-    private var <%= class_name.dcfirst %>:<%= class_name %> = new <%= class_name %>();
+    protected var <%= class_name.dcfirst %>:<%= class_name %> = new <%= class_name %>();
 <% if attachment_field.size > 0 -%>
 
     [Bindable]
-    private var fileName:String = "None selected";
+    protected var fileName:String = "None selected";
     
-    private var file:RxFileReference;
+    protected var file:RxFileReference;
 <% end -%>
 
-    private function new<%= class_name %>():void {
+    protected function new<%= class_name %>():void {
       <%= class_name.dcfirst %> = new <%= class_name %>();
       <%= class_name.dcfirst.pluralize %>List.selectedIndex = -1;
     }
 
-    private function save<%= class_name %>():void {
+    protected function save<%= class_name %>():void {
       updateModelProperties();
       if (<%= class_name.dcfirst %>.id) {
         <%= class_name.dcfirst %>.update({onSuccess: on<%= class_name %>Update});
@@ -37,7 +41,7 @@
       }
     }
   
-    private function updateModelProperties():void {
+    protected function updateModelProperties():void {
 <% for attribute in attributes -%>
 <% if attribute.type == :boolean -%>
       <%= class_name.dcfirst %>.<%= attribute.flex_name %> = <%= attribute.flex_name %>CheckBox.selected;
@@ -61,29 +65,29 @@
 <% end -%>
     }
    
-    private function destroy<%= class_name %>():void {
+    protected function destroy<%= class_name %>():void {
       <%= class_name.dcfirst %>.destroy({onSuccess: on<%= class_name %>Destroy});
     }
     
-    private function on<%= class_name %>Select():void {
+    protected function on<%= class_name %>Select():void {
       <%= class_name.dcfirst %> = RxUtils.clone(<%= class_name.dcfirst.pluralize %>List.selectedItem) as <%= class_name %>;
     }
     
-    private function on<%= class_name %>Create(result:<%= class_name %>):void {
+    protected function on<%= class_name %>Create(result:<%= class_name %>):void {
       <%= class_name.dcfirst %> = new <%= class_name %>;
     }
     
-    private function on<%= class_name %>Update(result:<%= class_name %>):void {
+    protected function on<%= class_name %>Update(result:<%= class_name %>):void {
       <%= class_name.dcfirst.pluralize %>List.selectedItem = result;
       on<%= class_name %>Select();
     }
     
-    private function on<%= class_name %>Destroy(result:<%= class_name %>):void {
+    protected function on<%= class_name %>Destroy(result:<%= class_name %>):void {
       on<%= class_name %>Create(result);
     }    
 <% if attachment_field.size > 0 -%>
 
-    private function chooseFile():void {
+    protected function chooseFile():void {
       file = new RxFileReference("<%= attachment_field[0].camelcase(:lower) %>");
       file.reference.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler, false, 0, true);
       file.reference.addEventListener(Event.SELECT, selectFile, false, 0, true);
@@ -91,38 +95,50 @@
       file.reference.browse();
     }
     
-    private function selectFile(event:Event):void { 
+    protected function selectFile(event:Event):void { 
       fileSelected(event)
     }
     
-    private function cancelBrowse(event:Event):void {
+    protected function cancelBrowse(event:Event):void {
       file = null;
     }
     
-    private function fileSelected(event:Event):void {
+    protected function fileSelected(event:Event):void {
       fileName = FileReference(event.target).name;
     }
     
-    private function ioErrorHandler(event:Event):void {
+    protected function ioErrorHandler(event:Event):void {
       fileChooser.errorString = "Failed to selected a file. Please try again.";
     }
 <% end -%>
-  ]]></mx:Script>
-  <mx:Panel id="<%= class_name.dcfirst.pluralize %>Panel"
-    title="<%= class_name.pluralize %>" cornerRadius="0" dropShadowEnabled="false" borderStyle="solid"
-    borderThickness="1" backgroundColor="#EEEEEE" width="25%" height="100%">
+  ]]></fx:Script>
+  <s:Panel id="<%= class_name.dcfirst.pluralize %>Panel"
+    title="<%= class_name.pluralize %>" cornerRadius="0" dropShadowVisible="false"  borderVisible="true"
+    backgroundColor="#EEEEEE" width="25%" height="100%">
+    <s:layout>
+      <s:VerticalLayout/>
+    </s:layout>
     <mx:List id="<%= class_name.dcfirst.pluralize %>List"
       width="100%" height="100%"
       dataProvider="{Rx.models.index(<%= class_name %>)}"
-      change="on<%= class_name %>Select()"/>
-    <mx:ControlBar width="100%">
+      change="on<%= class_name %>Select()"
+	  borderVisible="false"/>
+	<s:Line  width="100%">
+		<s:stroke>
+			<s:SolidColorStroke weight="1" color="black" caps="square" alpha="0.4" />
+		</s:stroke>
+	</s:Line>	
+    <mx:ControlBar width="100%" height="40" paddingTop="5" paddingBottom="5" paddingRight="5" paddingLeft="5" verticalGap="5">
       <mx:Button label="New <%= class_name %>" width="100%" height="30"
         click="new<%= class_name %>()"/>
     </mx:ControlBar>
-  </mx:Panel>
-  <mx:Panel title="Edit <%= class_name %>" cornerRadius="0" dropShadowEnabled="false" borderStyle="solid"
-    borderThickness="1" backgroundColor="#EEEEEE" width="75%" height="100%">
-    <mx:Form width="100%" height="100%">
+  </s:Panel>
+  <s:Panel title="Edit <%= class_name %>" cornerRadius="0" dropShadowVisible="false" borderVisible="true"
+   backgroundColor="#EEEEEE" width="75%" height="100%">
+   <s:layout>
+     <s:VerticalLayout/>
+   </s:layout>
+    <mx:Form width="100%"  height="{<%= class_name.dcfirst.pluralize %>List.height}" verticalScrollPolicy="auto">
 <% for attribute in attributes -%>
       <mx:FormItem label="<%= attribute.flex_name.ucfirst %>" width="100%">
 <% if attribute.type == :boolean -%>
@@ -130,7 +146,7 @@
 <% elsif attribute.type == :string -%>
         <mx:TextInput id="<%= attribute.flex_name %>TextInput" width="100%" text="{<%= class_name.dcfirst %>.<%= attribute.flex_name %>}"/>
 <% elsif attribute.type == :text -%>
-        <mx:TextArea id="<%= attribute.flex_name %>TextArea" width="100%" height="200" text="{<%= class_name.dcfirst %>.<%= attribute.flex_name %>}"/>
+        <mx:TextArea id="<%= attribute.flex_name %>TextArea" width="100%" height="60" text="{<%= class_name.dcfirst %>.<%= attribute.flex_name %>}"/>
 <% elsif attribute.type == :datetime || attribute.type == :time -%>
         <rx:DateTimeTextInput id="<%= attribute.flex_name %>DateTimeTextInput" width="200" date="{<%= class_name.dcfirst %>.<%= attribute.flex_name %>}"/>
 <% elsif attribute.type == :date -%>
@@ -156,12 +172,17 @@
       </mx:FormItem>
 <% end -%>
     </mx:Form>
-    <mx:ControlBar width="100%">
+	<s:Line  width="100%">
+		<s:stroke>
+			<s:SolidColorStroke weight="1" color="black" caps="square" alpha="0.4" />
+		</s:stroke>
+	</s:Line>	
+    <mx:ControlBar width="100%" height="40" paddingTop="5" paddingBottom="5" paddingRight="5" paddingLeft="5" verticalGap="5">
       <mx:Button label="Save <%= class_name %>" width="50%" height="30"
         click="save<%= class_name %>()"/>
       <mx:Button label="Delete <%= class_name %>" width="50%" height="30"
         enabled="{RxUtils.canDeleteModel(<%= class_name.dcfirst %>)}"
         click="destroy<%= class_name %>()"/>
     </mx:ControlBar>
-  </mx:Panel>
-</mx:HBox>
+  </s:Panel>
+</s:HGroup>
