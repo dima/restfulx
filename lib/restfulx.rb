@@ -17,9 +17,13 @@ end
 
 # ActiveRecord extensions
 if defined?(ActiveRecord::Base)
-  ['rx_active_support', 'rx_active_record'].each { |lib| require "restfulx/#{lib}" }
+  ['rx_active_support', 'rx_active_model', 'rx_active_record'].each { |lib| require "restfulx/#{lib}" }
   ActiveRecord::Base.send :include, 
-    RestfulX::ActiveRecord unless ActiveRecord::Base.included_modules.include?(RestfulX::ActiveRecord)
+    RestfulX::ActiveRecord::Serialization unless ActiveRecord::Base.included_modules.include?(RestfulX::ActiveRecord::Serialization)
+  ActiveModel::Errors.send :include, 
+    RestfulX::ActiveModel::Errors unless ActiveModel::Errors.included_modules.include?(RestfulX::ActiveModel::Errors)
+  ActiveModel.send :include, 
+    RestfulX::ActiveModel::Serializers unless ActiveModel::Serializers.included_modules.include?(RestfulX::ActiveModel::Serializers)
 end
 
 # ActionController/ActionView extensions
