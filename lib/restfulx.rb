@@ -33,8 +33,8 @@ if defined?(ActionController::Base)
   
   ['rx_action_controller', 'swf_helper'].each { |lib| require "restfulx/#{lib}" }
 
-  ActionController::Base.send :include, 
-    RestfulX::ActionController unless ActionController::Base.included_modules.include?(RestfulX::ActionController)
+  ActionController::Renderers.send :include, 
+    RestfulX::ActionController::Renderers unless ActionController::Base.included_modules.include?(RestfulX::ActionController::Renderers)
   ActionView::Base.send :include, 
     RestfulX::SWFHelper unless ActionView::Base.included_modules.include?(RestfulX::SWFHelper)
 end
