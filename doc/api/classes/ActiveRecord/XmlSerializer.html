@@ -111,14 +111,14 @@ Strips &#8217;?&#8217; from serialized method names
   <p class="source-link">[ <a href="javascript:toggleSource('M000020_source')" id="l_M000020_source">show source</a> ]</p>
   <div id="M000020_source" class="dyn-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 307</span>
-307:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_tag</span>(<span class="ruby-identifier">attribute</span>)
-308:       <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">tag!</span>(
-309:         <span class="ruby-identifier">dasherize?</span> <span class="ruby-value">? </span><span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">display_name</span>.<span class="ruby-identifier">dasherize</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">display_name</span>,
-310:         <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>,
-311:         <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">decorations</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">options</span>[<span class="ruby-identifier">:skip_types</span>])
-312:       )
-313:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 308</span>
+308:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_tag</span>(<span class="ruby-identifier">attribute</span>)
+309:       <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">tag!</span>(
+310:         <span class="ruby-identifier">dasherize?</span> <span class="ruby-value">? </span><span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">display_name</span>.<span class="ruby-identifier">dasherize</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">display_name</span>,
+311:         <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>,
+312:         <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">decorations</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">options</span>[<span class="ruby-identifier">:skip_types</span>])
+313:       )
+314:     <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>

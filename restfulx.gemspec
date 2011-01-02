@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dima Berastau"]
-  s.date = %q{2010-12-13}
+  s.date = %q{2011-01-01}
   s.default_executable = %q{rx-gen}
   s.description = %q{RestfulX: The RESTful Way to develop Adobe Flex and AIR applications}
   s.email = %q{dima.berastau@gmail.com}

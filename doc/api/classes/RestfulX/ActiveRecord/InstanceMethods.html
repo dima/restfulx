@@ -74,9 +74,9 @@
  
   <div class="sectiontitle">Methods</div>
   <ul>
-  <li><a href="#M000029">to_amf</a></li>
-  <li><a href="#M000030">to_fxml</a></li>
-  <li><a href="#M000028">unique_id</a></li>
+  <li><a href="#M000027">to_amf</a></li>
+  <li><a href="#M000028">to_fxml</a></li>
+  <li><a href="#M000026">unique_id</a></li>
   </ul>
  
  
@@ -87,7 +87,7 @@
 <div class="sectiontitle">Public Instance methods</div>
 <div class="method">
   <div class="title">
-    <a name="M000029"></a><b>to_amf</b>(options = {})
+    <a name="M000027"></a><b>to_amf</b>(options = {})
   </div>
   <div class="description">
   <p>
@@ -95,23 +95,23 @@ serialize this model as AMF
 </p>
   </div>
 <div class="sourcecode">
-  <p class="source-link">[ <a href="javascript:toggleSource('M000029_source')" id="l_M000029_source">show source</a> ]</p>
-  <div id="M000029_source" class="dyn-source">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000027_source')" id="l_M000027_source">show source</a> ]</p>
+  <div id="M000027_source" class="dyn-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 272</span>
-272:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_amf</span>(<span class="ruby-identifier">options</span> = {})
-273:         <span class="ruby-identifier">default_except</span> = [<span class="ruby-identifier">:crypted_password</span>, <span class="ruby-identifier">:salt</span>, <span class="ruby-identifier">:remember_token</span>, <span class="ruby-identifier">:remember_token_expires_at</span>, <span class="ruby-identifier">:created_at</span>, <span class="ruby-identifier">:updated_at</span>]
-274:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] = (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">default_except</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">default_except</span>)
-275:         
-276:         <span class="ruby-constant">RestfulX</span><span class="ruby-operator">::</span><span class="ruby-constant">Serialization</span><span class="ruby-operator">::</span><span class="ruby-constant">AMFSerializer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">options</span>).<span class="ruby-identifier">to_s</span>
-277:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 273</span>
+273:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_amf</span>(<span class="ruby-identifier">options</span> = {})
+274:         <span class="ruby-identifier">default_except</span> = [<span class="ruby-identifier">:crypted_password</span>, <span class="ruby-identifier">:salt</span>, <span class="ruby-identifier">:remember_token</span>, <span class="ruby-identifier">:remember_token_expires_at</span>, <span class="ruby-identifier">:created_at</span>, <span class="ruby-identifier">:updated_at</span>]
+275:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] = (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">default_except</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">default_except</span>)
+276:         
+277:         <span class="ruby-constant">RestfulX</span><span class="ruby-operator">::</span><span class="ruby-constant">Serialization</span><span class="ruby-operator">::</span><span class="ruby-constant">AMFSerializer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">options</span>).<span class="ruby-identifier">to_s</span>
+278:       <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>
 </div>
 <div class="method">
   <div class="title">
-    <a name="M000030"></a><b>to_fxml</b>(options = {})
+    <a name="M000028"></a><b>to_fxml</b>(options = {})
   </div>
   <div class="description">
   <p>
@@ -119,33 +119,33 @@ serialize this model as fXML
 </p>
   </div>
 <div class="sourcecode">
-  <p class="source-link">[ <a href="javascript:toggleSource('M000030_source')" id="l_M000030_source">show source</a> ]</p>
-  <div id="M000030_source" class="dyn-source">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000028_source')" id="l_M000028_source">show source</a> ]</p>
+  <div id="M000028_source" class="dyn-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 280</span>
-280:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_fxml</span>(<span class="ruby-identifier">options</span> = {})
-281:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">:dasherize</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>)
-282:         <span class="ruby-identifier">default_except</span> = [<span class="ruby-identifier">:crypted_password</span>, <span class="ruby-identifier">:salt</span>, <span class="ruby-identifier">:remember_token</span>, <span class="ruby-identifier">:remember_token_expires_at</span>, <span class="ruby-identifier">:created_at</span>, <span class="ruby-identifier">:updated_at</span>]
-283:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] = (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">default_except</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">default_except</span>)
-284:         
-285:         <span class="ruby-constant">RestfulX</span><span class="ruby-operator">::</span><span class="ruby-constant">Serialization</span><span class="ruby-operator">::</span><span class="ruby-constant">FXMLSerializer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">options</span>).<span class="ruby-identifier">to_s</span>
-286:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 281</span>
+281:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_fxml</span>(<span class="ruby-identifier">options</span> = {})
+282:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">:dasherize</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>)
+283:         <span class="ruby-identifier">default_except</span> = [<span class="ruby-identifier">:crypted_password</span>, <span class="ruby-identifier">:salt</span>, <span class="ruby-identifier">:remember_token</span>, <span class="ruby-identifier">:remember_token_expires_at</span>, <span class="ruby-identifier">:created_at</span>, <span class="ruby-identifier">:updated_at</span>]
+284:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] = (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">default_except</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">default_except</span>)
+285:         
+286:         <span class="ruby-constant">RestfulX</span><span class="ruby-operator">::</span><span class="ruby-constant">Serialization</span><span class="ruby-operator">::</span><span class="ruby-constant">FXMLSerializer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">options</span>).<span class="ruby-identifier">to_s</span>
+287:       <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>
 </div>
 <div class="method">
   <div class="title">
-    <a name="M000028"></a><b>unique_id</b>()
+    <a name="M000026"></a><b>unique_id</b>()
   </div>
 <div class="sourcecode">
-  <p class="source-link">[ <a href="javascript:toggleSource('M000028_source')" id="l_M000028_source">show source</a> ]</p>
-  <div id="M000028_source" class="dyn-source">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000026_source')" id="l_M000026_source">show source</a> ]</p>
+  <div id="M000026_source" class="dyn-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 267</span>
-267:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unique_id</span>
-268:         <span class="ruby-node">&quot;#{self.class.to_s}_#{self.attributes()['id']}&quot;</span>
-269:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 268</span>
+268:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unique_id</span>
+269:         <span class="ruby-node">&quot;#{self.class.to_s}_#{self.attributes()['id']}&quot;</span>
+270:       <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>

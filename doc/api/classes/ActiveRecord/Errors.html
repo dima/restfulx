@@ -109,12 +109,12 @@ serialize errors to AMF
   <p class="source-link">[ <a href="javascript:toggleSource('M000019_source')" id="l_M000019_source">show source</a> ]</p>
   <div id="M000019_source" class="dyn-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 353</span>
-353:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_amf</span>(<span class="ruby-identifier">options</span> = {})
-354:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:amf_version</span>] = <span class="ruby-value">3</span>
-355:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:serializer</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">RestfulX</span><span class="ruby-operator">::</span><span class="ruby-constant">AMF</span><span class="ruby-operator">::</span><span class="ruby-constant">RxAMFSerializer</span>.<span class="ruby-identifier">new</span>
-356:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:serializer</span>].<span class="ruby-identifier">serialize_errors</span>(<span class="ruby-constant">Hash</span>[<span class="ruby-operator">*</span><span class="ruby-ivar">@errors</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">flatten</span>]).<span class="ruby-identifier">to_s</span>
-357:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 354</span>
+354:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_amf</span>(<span class="ruby-identifier">options</span> = {})
+355:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:amf_version</span>] = <span class="ruby-value">3</span>
+356:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:serializer</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">RestfulX</span><span class="ruby-operator">::</span><span class="ruby-constant">AMF</span><span class="ruby-operator">::</span><span class="ruby-constant">RxAMFSerializer</span>.<span class="ruby-identifier">new</span>
+357:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:serializer</span>].<span class="ruby-identifier">serialize_errors</span>(<span class="ruby-constant">Hash</span>[<span class="ruby-operator">*</span><span class="ruby-ivar">@errors</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">flatten</span>]).<span class="ruby-identifier">to_s</span>
+358:     <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>
@@ -132,24 +132,24 @@ serializer errors to fXML
   <p class="source-link">[ <a href="javascript:toggleSource('M000017_source')" id="l_M000017_source">show source</a> ]</p>
   <div id="M000017_source" class="dyn-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 329</span>
-329:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_fxml</span>(<span class="ruby-identifier">options</span> = {})
-330:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:root</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">&quot;errors&quot;</span>
-331:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:indent</span>] <span class="ruby-operator">||=</span> <span class="ruby-value">2</span>
-332:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">Builder</span><span class="ruby-operator">::</span><span class="ruby-constant">XmlMarkup</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:indent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:indent</span>])
-333:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>].<span class="ruby-identifier">instruct!</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:skip_instruct</span>)
-334:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>].<span class="ruby-identifier">errors</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
-335:         <span class="ruby-comment cmt"># The @errors instance variable is a Hash inside the Errors class</span>
-336:         <span class="ruby-ivar">@errors</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">attr</span>, <span class="ruby-identifier">msg</span><span class="ruby-operator">|</span>
-337:           <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">nil?</span>
-338:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attr</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;base&quot;</span>
-339:             <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>].<span class="ruby-identifier">error</span>(<span class="ruby-value str">&quot;message&quot;</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">to_s</span>)
-340:           <span class="ruby-keyword kw">else</span>
-341:             <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>].<span class="ruby-identifier">error</span>(<span class="ruby-value str">&quot;field&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">attr</span>.<span class="ruby-identifier">camelcase</span>(<span class="ruby-identifier">:lower</span>), <span class="ruby-value str">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">to_s</span>)
-342:           <span class="ruby-keyword kw">end</span>
-343:         <span class="ruby-keyword kw">end</span>
-344:       <span class="ruby-keyword kw">end</span>
-345:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 330</span>
+330:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_fxml</span>(<span class="ruby-identifier">options</span> = {})
+331:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:root</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">&quot;errors&quot;</span>
+332:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:indent</span>] <span class="ruby-operator">||=</span> <span class="ruby-value">2</span>
+333:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">Builder</span><span class="ruby-operator">::</span><span class="ruby-constant">XmlMarkup</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:indent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:indent</span>])
+334:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>].<span class="ruby-identifier">instruct!</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:skip_instruct</span>)
+335:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>].<span class="ruby-identifier">errors</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+336:         <span class="ruby-comment cmt"># The @errors instance variable is a Hash inside the Errors class</span>
+337:         <span class="ruby-ivar">@errors</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">attr</span>, <span class="ruby-identifier">msg</span><span class="ruby-operator">|</span>
+338:           <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">nil?</span>
+339:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attr</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;base&quot;</span>
+340:             <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>].<span class="ruby-identifier">error</span>(<span class="ruby-value str">&quot;message&quot;</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">to_s</span>)
+341:           <span class="ruby-keyword kw">else</span>
+342:             <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:builder</span>].<span class="ruby-identifier">error</span>(<span class="ruby-value str">&quot;field&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">attr</span>.<span class="ruby-identifier">camelcase</span>(<span class="ruby-identifier">:lower</span>), <span class="ruby-value str">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">to_s</span>)
+343:           <span class="ruby-keyword kw">end</span>
+344:         <span class="ruby-keyword kw">end</span>
+345:       <span class="ruby-keyword kw">end</span>
+346:     <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>
@@ -167,10 +167,10 @@ serialize errors to JSON
   <p class="source-link">[ <a href="javascript:toggleSource('M000018_source')" id="l_M000018_source">show source</a> ]</p>
   <div id="M000018_source" class="dyn-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 348</span>
-348:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_json</span>(<span class="ruby-identifier">options</span> = {})
-349:       <span class="ruby-node">&quot;{#{'errors'.inspect}:#{to_json_original(options)}}&quot;</span>
-350:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/restfulx/rx_active_record.rb, line 349</span>
+349:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_json</span>(<span class="ruby-identifier">options</span> = {})
+350:       <span class="ruby-node">&quot;{#{'errors'.inspect}:#{to_json_original(options)}}&quot;</span>
+351:     <span class="ruby-keyword kw">end</span>
 </pre>
   </div>
 </div>
