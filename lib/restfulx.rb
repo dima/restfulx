@@ -10,9 +10,6 @@ module RestfulX
     APPLICATION_FXML = 'application/xml'.freeze
     APPLICATION_AMF = 'application/x-amf'.freeze
   end
-
-  VERSION_SOURCE = YAML.load(File.read(File.join(File.dirname(__FILE__), '..', 'VERSION.yml')))
-  VERSION = "#{VERSION_SOURCE[:major]}.#{VERSION_SOURCE[:minor]}.#{VERSION_SOURCE[:patch]}"
 end
 
 require 'restfulx/railtie' if defined?(Rails)
