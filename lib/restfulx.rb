@@ -15,6 +15,8 @@ module RestfulX
   VERSION = "#{VERSION_SOURCE[:major]}.#{VERSION_SOURCE[:minor]}.#{VERSION_SOURCE[:patch]}"
 end
 
+require 'restfulx/railtie' if defined?(Rails)
+
 # ActiveRecord extensions
 if defined?(ActiveRecord::Base)
   ['rx_active_support', 'rx_active_model', 'rx_active_record'].each { |lib| require "restfulx/#{lib}" }

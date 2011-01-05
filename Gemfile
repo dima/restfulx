@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source :gemcutter
 
-gem 'rubigen', '>= 1.5.2'
-gem 'activesupport', '>= 2.0.0'
+# Specify your gem's dependencies in restfulx.gemspec
+gemspec

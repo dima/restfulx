@@ -8,11 +8,10 @@ require 'active_support/core_ext/object/blank'
 require 'active_support/ordered_hash'
 
 module RestfulX
-  
   module ActiveRecord #:nodoc:
     module Serialization
       include RestfulX::ActiveModel::Serializers::Fxml
-      include RestfulX::ActiveModel::Serializers::Amf
+      # include RestfulX::ActiveModel::Serializers::Amf
   
       def to_fxml(options = {}, &block)
         options.merge!(:dasherize => false)
