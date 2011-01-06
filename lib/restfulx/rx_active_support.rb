@@ -2,8 +2,17 @@ require 'active_support/xml_mini'
 require 'active_support/core_ext/hash/keys'
 require 'active_support/core_ext/hash/reverse_merge'
 require 'active_support/core_ext/string/inflections'
+require 'active_support/json'
 
 class Array
+  alias_method :as_json_original, :as_json
+  
+  # Serialize array as RestfulX friendly JSON (with metadata)
+  def as_json(options = {})
+    attributes = options.delete(:attributes)
+    return (attributes.nil?) ? as_json_original(options) : "[{#{'metadata'.inspect}: #{attributes.as_json}},#{as_json_original(options)[1..-1]}]"
+  end
+  
   def to_fxml(options = {})
     require 'active_support/builder' unless defined?(Builder)
 
@@ -33,5 +42,12 @@ class Array
       each { |value| ActiveSupport::XmlMini.to_tag(children, value, options) }
       yield builder if block_given?
     end
+  end
+  
+  # Serialize as AMF
+  def to_amf(options = {})    
+    options[:attributes] ||= {}
+    options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
+    options[:serializer].serialize_typed_array(self, options).to_s
   end
 end

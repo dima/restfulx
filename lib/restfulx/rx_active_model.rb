@@ -101,7 +101,6 @@ module RestfulX
           end
   
         private
-  
           def add_extra_behavior
           end
   
@@ -140,9 +139,97 @@ module RestfulX
           self
         end
       end
+      
+      module Amf
+        class Serializer #:nodoc:
+          extend ::ActiveSupport::Concern
+          include ::ActiveModel::Serialization
+          
+          def initialize(record, options = {})
+            super(record, options)
+            @options[:methods] ||= []
+            @options[:amf_version] = 3
+            @options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
+
+            # options are duplicated by default so we need a copy for caching attributes
+            @original_options = options
+            @original_options[:cached_attributes] ||= {}
+            @options[:cached_instances] = @original_options[:cached_instances] ||= {}
+          end
+
+          def serialize
+            @options[:serializer].serialize_record(@record, serializable_attributes, @options) do |serializer|
+              ([].concat(@options[:methods])).each do |method|
+                if @record.respond_to?(method)
+                  serializer.write_vr(method.to_s.camelcase(:lower))
+                  serializer.serialize_property(@record.send(method))
+                end
+              end
+              add_includes do |association, records, opts|
+                add_associations(association, records, opts, serializer)
+              end
+            end.to_s
+          end
+
+          def serializable_attributes
+            includes = @options[:include] ||= {}
+
+            # if we are serializing an array we only need to compute serializable_attributes for the
+            # objects of the same type at the same level once
+            if @original_options[:cached_attributes].has_key?(@record.class.name)
+              @original_options[:cached_attributes][@record.class.name]
+            else
+              associations = Hash[*@record.class.reflect_on_all_associations(:belongs_to).collect do |assoc|
+                if assoc.options.has_key?(:polymorphic) && assoc.options[:polymorphic]
+                  @options[:except] = ([] << @options[:except] << "#{assoc.name}_type".to_sym).flatten
+                  # class_name = @record[assoc.options[:foreign_type]].constantize
+                  class_name = "polymorphic"
+                else
+                  class_name = assoc.klass
+                end
+                [assoc.primary_key_name, {:name => assoc.name, :klass => class_name}]
+              end.flatten]
+
+              attributes = serializable_names.select do |name| 
+                !includes.include?(associations[name][:name]) rescue true
+              end.map do |name| 
+                associations.has_key?(name) ? {:name => name, :ref_name => associations[name][:name].to_s.camelize(:lower), 
+                  :ref_class => associations[name][:klass], :orig_ref_name => associations[name][:name].to_s } : name.to_sym
+              end
+              @original_options[:cached_attributes][@record.class.name] = attributes
+              attributes
+            end
+          end
+
+          def add_associations(association, records, opts, serializer)        
+            serializer.write_vr(association.to_s.camelcase(:lower))
+            if records.is_a?(Enumerable)
+              serializer.serialize_models_array(records, opts)
+            else
+              if record = @record.send(association)
+                record.to_amf(opts)
+              end
+            end
+          end
+        end
+      end
     end
 
     module Errors
+      alias_method :as_json_original, :as_json
+      
+      # serialize errors to JSON
+      def as_json(options = {})
+        "{#{'errors'.inspect}:#{as_json_original(options)}}"
+      end
+
+      # serialize errors to AMF
+      def to_amf(options = {})
+        options[:amf_version] = 3
+        options[:serializer] ||= RestfulX::AMF::RxAMFSerializer.new
+        options[:serializer].serialize_errors(Hash[*@errors.to_a.flatten]).to_s
+      end
+      
       def to_fxml(options = {})
         require 'active_support/builder' unless defined?(Builder)
         options[:root] ||= "errors"

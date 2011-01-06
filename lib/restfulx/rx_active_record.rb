@@ -11,13 +11,31 @@ module RestfulX
   module ActiveRecord #:nodoc:
     module Serialization
       include RestfulX::ActiveModel::Serializers::Fxml
-      # include RestfulX::ActiveModel::Serializers::Amf
+      include RestfulX::ActiveModel::Serializers::Amf
+      
+      def unique_id
+        "#{self.class.to_s}_#{self.attributes()['id']}"
+      end
   
       def to_fxml(options = {}, &block)
         options.merge!(:dasherize => false)
         default_except = [:encrypted_password, :password_salt, :remember_token, :remember_token_expires_at, :created_at, :updated_at]
         options[:except] = (options[:except] ? options[:except] + default_except : default_except)
         FxmlSerializer.new(self, options).serialize(&block)
+      end
+      
+      # serialize this model as AMF
+      def to_amf(options = {})
+        default_except = [:encrypted_password, :password_salt, :remember_token, :remember_token_expires_at, :created_at, :updated_at]
+        options[:except] = (options[:except] ? options[:except] + default_except : default_except)
+        
+        AMFSerializer.new(self, options).serialize(&block)
+      end
+    end
+    
+    class AmfSerializer < RestfulX::ActiveModel::Serializers::Amf::Serializer #:nodoc
+      def initialize(*args)
+        super
       end
     end
   

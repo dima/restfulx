@@ -32,7 +32,7 @@ module RestfulX
   # or standalone from the command line.
   module Configuration
     # We try to figure out the application root using a number of possible options
-    APP_ROOT = defined?(RAILS_ROOT) ? RAILS_ROOT : File.expand_path(".")
+    APP_ROOT = defined?(Rails.root) ? Rails.root : File.expand_path(".")
     
     RxSettings = SchemaToRxYaml::Settings::Core
 
